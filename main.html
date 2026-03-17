@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mihai</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/start_logo.png" />
+</head>
+
+<body>
+    <div class="startup-popup movable" id="startTab">
+        <div class="popup-title no-select">
+            <div class="left-title">
+                <img src="images/start_logo.png" alt="start logo" />
+                <span>Welcome to my website!</span>
+            </div>
+            <button id="exitbtnStart">
+                <img src="images/close.svg" alt="close icon" />
+            </button>
+        </div>
+
+        <div class="startup-content">
+            <h1>Welcome!</h1>
+            <p>As you can see this website is inspired by Windows 95/98 and it is meant as my profile/portfolio. <b>Please
+                    feel free to explore it!</b></p>
+            <p>Also feel free to contact me anytime about anything you want!</b></p>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="left-tabs">
+            <button id="menu">
+                &nbsp;<img src="images/start_logo.png" alt="windows icon" />Start&nbsp;
+            </button>
+
+            <div class="taskbar-divider"></div>
+        </div>
+
+        <div class="taskbar-tabs" id="taskbarTabs"></div>
+
+        <div class="right-tabs">
+            <div class="taskbar-divider"></div>
+            <div class="taskbar-utils">
+                <button class="utils-welcome" id="utilsVolume">V</button>
+                <button class="utils-welcome" id="utilsChangeLog">C</button>
+                <button class="utils-welcome" id="utilsWelcomeBtn">?</button>
+            </div>
+            <div class="taskbar-divider"></div>
+            <div id="time" class="time"></div>
+        </div>
+    </div>
+
+    <div id="menu-content" class="menu">
+        <div class="menu-logo" id="menu_img">
+            <img src="images/Sprite-0002.png" alt="menu icon" />
+        </div>
+
+        <div class="menu-content">
+            <div class="menu-link">
+                <img src="images/projects_logo.png" alt="about icon" />
+                WIP
+            </div>
+            <div class="menu-link">
+                <img src="images/projects_logo.png" alt="projects icon" />
+                WIP
+            </div>
+            <div class="menu-link">
+                <img src="images/projects_logo.png" alt="contact icon" />
+                WIP
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop-icons no-select">
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>About me</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Projects</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Music</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Contact</span>
+        </div>
+    </div>
+
+    <div class="about-tab movable" id="aboutTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>About me</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnAbout"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button><img src="images/maximize.svg" alt="maximize icon"></button>
+                <button id="exitbtnAbout"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="projects-tab movable" id="projectsTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>My projects</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnProjects"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button><img src="images/maximize.svg" alt="maximize icon"></button>
+                <button id="exitbtnProjects"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-tab movable" id="musicTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>Music</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnMusic"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button><img src="images/maximize.svg" alt="maximize icon"></button>
+                <button id="exitbtnMusic"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="songs-container">
+                <div class="audio-player">
+                    <audio id="audio" class="audio-controls" preload="metadata"></audio>
+                    <div class="player-ui" id="playerUi">
+                        <div class="player-controls no-select">
+                            <button type="button" id="backBtn" class="player-btn">Back</button>
+                            <button type="button" id="playPauseBtn" class="player-btn">Play</button>
+                            <button type="button" id="nextBtn" class="player-btn">Next</button>
+                            <button type="button" id="shuffleBtn" class="player-btn">Shuffle Off</button>
+                            <button type="button" id="downloadBtn" class="player-btn">Download</button>
+                        </div>
+
+                        <div id="nowPlaying" class="now-playing">
+                            <span id="nowPlayingText" class="now-playing-text">No song selected</span>
+                            <div class="playlist-info-container no-select">
+                                <span id="playlistInfo" class="playlist-info">0 / 0</span>
+                            </div>
+                        </div>
+
+                        <div class="player-timeline">
+                            <span id="currentTime" class="time-label no-select">0:00</span>
+                            <input type="range" id="seekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" />
+                            <span id="duration" class="time-label no-select">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="songs-lib no-select">
+                    <!--FIND BETTER WAY TO STORE SONG DATA AND CULL IT VIA JS LATER CUZ LAZYYY -->
+                    <h2>MY TOP 5 SONGS ATM</h2>
+                    <button class="song-btn" data-song="music/Secret Garden.mp3">Secret Garden - Shakatak</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">Ænema - TOOL</button>
+                    <button class="song-btn" data-song="music/Where Owls Know My Name.mp3">Where Owls Know My Name - Rivers of Nihil</button>
+                    <button class="song-btn" data-song="music/Everything Is Going to Be OK.mp3">Everything Is Going to Be OK - GoGo Penguin</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <h2>BANGERS</h2>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <h2>COOL SONGS</h2>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                    <button class="song-btn" data-song="music/Ænema.mp3">-</button>
+                </div>
+            </div>
+
+            <div class="divider-songs">
+
+            </div>
+
+            <div class="sound-viz" id="soundVizContainer">
+                <canvas id="visualizer" class="viz"></canvas>
+
+                <div class='viz-settings'>
+                    <label for="colorPicker1" class="no-select">Colors:</label>
+                    <input type="color" id="colorPicker1" name="colorPicker1" value="#00ff00" />
+                    <input type="color" id="colorPicker2" name="colorPicker2" value="#00ff00" />
+                    <input type="color" id="colorPicker3" name="colorPicker3" value="#00ff00" />
+                    <input type="color" id="colorPicker4" name="colorPicker4" value="#00ff00" />
+                    <input type="color" id="colorPicker5" name="colorPicker5" value="#00ff00" />
+
+                    <label for="typeViz" class="no-select">Type:</label>
+                    <select name="typeViz" id="typeViz">
+                        <option value="v1">v1</option>
+                        <option value="v2">v2</option>
+                        <option value="v3">v3</option>
+                    </select>
+
+                    <label for="rotationViz" class="no-select">Rotation:</label>
+                    <input type="range" id="rotationViz" name="rotationViz" class="rotation-bar" min="-5" max="5" value="0" step="1" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-tab movable" id="contactTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>Contact me</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnContact"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button><img src="images/maximize.svg" alt="maximize icon"></button>
+                <button id="exitbtnContact"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="contact-form">
+                <form>
+                    <label for="name">Name</label>
+                    <input type="text" id="nameContact" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="emailContact" name="email" required>
+
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="messageContact" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
