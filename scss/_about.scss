@@ -1,0 +1,391 @@
+@use "palette" as p;
+@use "mixins";
+
+.about-tab {
+    width: 560px !important;
+    height: 300px !important;
+    flex-direction: column;
+}
+
+.tab-content-about {
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: calc(100% - 8px);
+    margin: 0 4px 4px;
+    margin-top: 0px !important;
+    height: calc(100% - 34px);
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}
+
+.about-pic {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    overflow: hidden;
+    padding: 5px;
+    margin: 3px;
+    margin-right: 1px;
+    margin-bottom: 0;
+    background-color: p.$color10;
+    @include mixins.win95-raised;
+}
+
+.about-desc {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    margin: 1px 1px 3px 3px;
+    padding: 0;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}
+
+.about-desc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    padding: 4px;
+    min-width: 0;
+
+    & + .about-desc-section {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 2px;
+            right: 2px;
+            height: 1px;
+            background: linear-gradient(90deg, p.$window-shadow-soft, p.$border-grey-legacy-2);
+        }
+    }
+}
+
+.about-desc-section--identity {
+    align-items: center;
+    text-align: center;
+}
+
+.about-desc-section--centered {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-desc-mood-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.about-desc-mood-mark {
+    color: p.$text-muted;
+    line-height: 1;
+}
+
+.about-desc-section--inline {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    text-align: center;
+}
+
+.about-desc-section--inline.about-desc-section--song {
+    margin-top: auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4px;
+}
+
+.about-desc-section--inline.about-desc-section--song .about-desc-label {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.about-desc-section--inline.about-desc-section--song .about-desc-value {
+    display: block;
+    align-self: stretch;
+    width: calc(100% + 4px);
+    margin: 0 -2px;
+    padding: 2px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    background-color: p.$color6;
+    color: p.$window-shadow-light;
+}
+
+.about-desc-song-link {
+    width: 100%;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+    appearance: none;
+    text-align: left;
+}
+
+.about-desc-song-title {
+    display: block;
+    position: relative;
+    line-height: 1;
+    white-space: nowrap;
+    max-width: var(--now-playing-max-width, 100%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 p.$overlay-black-35;
+}
+
+.about-desc-song-title.marquee {
+    text-overflow: clip;
+}
+
+.about-desc-song-title.marquee .marquee-track {
+    animation: now-playing-marquee var(--marquee-duration, 10s) linear infinite;
+}
+
+.about-desc-label {
+    color: p.$text-muted;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.about-desc-value {
+    display: block;
+    font-size: 13px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.about-desc-section--inline .about-desc-value {
+    display: inline;
+}
+
+.about-desc-section--identity .about-desc-value {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.about-desc .about-desc-feeling {
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+    min-height: 16px;
+    padding: 1px 6px;
+    line-height: 1;
+}
+
+.about-desc-flag {
+    margin-left: 4px;
+}
+
+.about-main-panel {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin: 2px 2px 2px -1px;
+    background-color: p.$color2;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.about-subtabs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 1px;
+    order: 2;
+    margin-top: auto;
+    background-color: p.$window-surface;
+    border-top: 1px solid p.$border-grey-legacy-1;
+}
+
+.about-subtab {
+    flex: 1 1 72px;
+    min-width: 56px;
+    padding: 2px 6px;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include mixins.win95-raised;
+}
+
+.about-main-panel-body {
+    position: relative;
+    flex: 1;
+    order: 1;
+    min-height: 0;
+    padding: 0px;
+    background-color: p.$color2;
+}
+
+.about-panel {
+    position: absolute;
+    inset: 2px;
+    overflow-y: auto;
+    padding: 1px;
+    display: none;
+    background-color: p.$color2;
+
+    p {
+        margin: 0;
+        text-shadow: 0 1px 0 p.$overlay-white-35;
+    }
+}
+
+.about-list {
+    margin: 0;
+    padding: 0 0 0 20px;
+    text-shadow: 0 1px 0 p.$overlay-white-35;
+
+    li + li {
+        margin-top: 2px;
+    }
+}
+
+#aboutSubAbout:checked ~ .about-subtabs label[for="aboutSubAbout"],
+#aboutSubInterests:checked ~ .about-subtabs label[for="aboutSubInterests"],
+#aboutSubLove:checked ~ .about-subtabs label[for="aboutSubLove"],
+#aboutSubDislike:checked ~ .about-subtabs label[for="aboutSubDislike"],
+#aboutSubSkills:checked ~ .about-subtabs label[for="aboutSubSkills"] {
+    @include mixins.win95-pressed;
+    background-color: p.$color5;
+}
+
+#aboutSubAbout:checked ~ .about-main-panel-body .about-panel--about,
+#aboutSubInterests:checked ~ .about-main-panel-body .about-panel--interests,
+#aboutSubLove:checked ~ .about-main-panel-body .about-panel--love,
+#aboutSubDislike:checked ~ .about-main-panel-body .about-panel--dislike {
+    display: block;
+}
+
+#aboutSubSkills:checked ~ .about-main-panel-body .about-panel--skills {
+    display: flex;
+}
+
+.about-content1,
+.about-content2,
+.about-content3,
+.about-content4 {
+    padding-top: 2px;
+    padding-right: 3px;
+
+    p {
+        padding-left: 2px;
+    }
+
+    .about-list {
+        padding-left: 20px;
+    }
+}
+
+.about-content0,
+.about-content1 {
+    p + p {
+        margin-top: 9px;
+    }
+}
+
+.about-panel--love .about-list,
+.about-panel--dislike .about-list {
+    columns: 2;
+    column-gap: 24px;
+    padding-left: 18px;
+
+    li {
+        break-inside: avoid;
+    }
+}
+
+.about-content4 {
+    flex-direction: column;
+    gap: 4px !important;
+
+    .about-list li {
+        padding-right: 2px;
+    }
+
+    h3 {
+        margin: 0;
+        padding-left: 2px;
+        padding-bottom: 4px;
+    }
+}
+
+.about-skill-group {
+    display: block;
+}
+
+.about-skill-highlight {
+    color: p.$color6;
+}
+
+.about-skill-rating {
+    --skill-pad-y: 1px;
+    --skill-pad-x: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    float: right;
+    position: relative;
+    margin-left: 12px;
+    padding: var(--skill-pad-y) var(--skill-pad-x);
+    background-color: p.$color6;
+    border-radius: 3px;
+    text-shadow: none;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.about-skill-rating-track {
+    display: inline-flex;
+    justify-content: flex-end;
+    flex: 0 0 10ch;
+    width: 10ch;
+    overflow: hidden;
+    white-space: pre;
+    transform: translateY(-0.5px);
+}
+
+.about-skill-rating-track-inactive,
+.about-skill-rating-track-active {
+    display: block;
+    flex: 0 0 auto;
+    line-height: 1;
+}
+
+.about-skill-rating-track-inactive {
+    color: p.$window-shadow-light;
+    opacity: 0.3;
+}
+
+.about-skill-rating-track-active {
+    color: p.$window-shadow-light;
+}
+
+.about-skill-rating-value {
+    display: block;
+    min-width: 5ch;
+    color: p.$window-shadow-light;
+    text-align: right;
+}

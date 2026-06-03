@@ -1,0 +1,166 @@
+{
+	"albums": [
+		{
+			"id": "post12",
+			"title": "Post 12",
+			"description": "",
+			"images": [
+				"photography/post12/1.jpg",
+				"photography/post12/2.jpg",
+				"photography/post12/3.jpg",
+				"photography/post12/4.jpg",
+				"photography/post12/5.jpg"
+			]
+		},
+		{
+			"id": "post11",
+			"title": "Seagull",
+			"description": "",
+			"images": [
+				"photography/post11/seagull (1 of 5).jpg",
+				"photography/post11/seagull (2 of 5).jpg",
+				"photography/post11/seagull (3 of 5).jpg",
+				"photography/post11/seagull (4 of 5).jpg",
+				"photography/post11/seagull (5 of 5).jpg"
+			]
+		},
+		{
+			"id": "post10",
+			"title": "Post 10",
+			"description": "",
+			"images": [
+				"photography/post10/1 ponegliph stone pattern.jpg",
+				"photography/post10/10 think differently.jpg",
+				"photography/post10/2 bird enjoying the sun.jpg",
+				"photography/post10/3 keep going.jpg",
+				"photography/post10/4 tree enjoying the suns rays.jpg",
+				"photography/post10/5 mountain of clouds.jpg",
+				"photography/post10/6 duck during a snowy day.jpg",
+				"photography/post10/7 pride and prejudice.jpg",
+				"photography/post10/8 micro potato jungle.jpg",
+				"photography/post10/9 funky bird.jpg"
+			]
+		},
+		{
+			"id": "post9",
+			"title": "European Robin",
+			"description": "I was walking in a park looking for subjects to photograph when suddenly i spot a bird watching me. First I got stressed that I might miss the shot. But when i started taking pictures this little bird just became a perfect model. The bird was very curious, approaching very close and looking directly at the camera. I was lucky enough to get A LOT of shots, but these one are my favorite. The photos were taken during winter in Belgium so the weather was really cloudy and dark",
+			"images": [
+				"photography/post9/EuropeanRobin (1 of 8).jpg",
+				"photography/post9/EuropeanRobin (2 of 8).jpg",
+				"photography/post9/EuropeanRobin (3 of 8).jpg",
+				"photography/post9/EuropeanRobin (4 of 8).jpg",
+				"photography/post9/EuropeanRobin (5 of 8).jpg",
+				"photography/post9/EuropeanRobin (6 of 8).jpg",
+				"photography/post9/EuropeanRobin (7 of 8).jpg",
+				"photography/post9/EuropeanRobin (8 of 8).jpg"
+			]
+		},
+		{
+			"id": "post8",
+			"title": "Post 8",
+			"description": "",
+			"images": [
+				"photography/post8/IMG_8090.JPG",
+				"photography/post8/IMG_8091.JPG",
+				"photography/post8/IMG_8092.JPG"
+			]
+		},
+		{
+			"id": "post7",
+			"title": "Post 7",
+			"description": "",
+			"images": [
+				"photography/post7/bird.jpg",
+				"photography/post7/birds.jpg",
+				"photography/post7/butterfly.jpg",
+				"photography/post7/creepy.jpg",
+				"photography/post7/crow.jpg",
+				"photography/post7/firefly.jpg",
+				"photography/post7/frog.jpg",
+				"photography/post7/moon.jpg",
+				"photography/post7/sheep.jpg",
+				"photography/post7/spider.jpg"
+			]
+		},
+		{
+			"id": "post6",
+			"title": "Post 6",
+			"description": "",
+			"images": [
+				"photography/post6/IMG_7962.JPG",
+				"photography/post6/IMG_7963.JPG",
+				"photography/post6/IMG_7964.JPG",
+				"photography/post6/IMG_7965.JPG",
+				"photography/post6/IMG_7966.JPG",
+				"photography/post6/IMG_7967.JPG"
+			]
+		},
+		{
+			"id": "post5",
+			"title": "Post 5",
+			"description": "",
+			"images": [
+				"photography/post5/IMG_7920.JPG",
+				"photography/post5/IMG_7921.JPG",
+				"photography/post5/IMG_7924.JPG",
+				"photography/post5/IMG_7925.JPG",
+				"photography/post5/IMG_7927.JPG",
+				"photography/post5/IMG_7928.JPG",
+				"photography/post5/IMG_7931.JPG"
+			]
+		},
+		{
+			"id": "post4",
+			"title": "Post 4",
+			"description": "",
+			"images": [
+				"photography/post4/IMG_7907.JPG",
+				"photography/post4/IMG_7908.JPG",
+				"photography/post4/IMG_7909.JPG"
+			]
+		},
+		{
+			"id": "post3",
+			"title": "Post 3",
+			"description": "",
+			"images": [
+				"photography/post3/IMG_7764.JPG",
+				"photography/post3/IMG_7765.JPG",
+				"photography/post3/IMG_7766.JPG",
+				"photography/post3/IMG_7767.JPG",
+				"photography/post3/IMG_7768.JPG",
+				"photography/post3/IMG_7769.JPG",
+				"photography/post3/IMG_7770.JPG",
+				"photography/post3/IMG_7771.JPG"
+			]
+		},
+		{
+			"id": "post2",
+			"title": "Post 2",
+			"description": "",
+			"images": [
+				"photography/post2/IMG_7272.JPG",
+				"photography/post2/IMG_7275.JPG",
+				"photography/post2/IMG_7276.JPG",
+				"photography/post2/IMG_7277.JPG",
+				"photography/post2/IMG_7278.JPG",
+				"photography/post2/IMG_7279.JPG"
+			]
+		},
+		{
+			"id": "post1",
+			"title": "Post 1",
+			"description": "",
+			"images": [
+				"photography/post1/IMG_7177.JPG",
+				"photography/post1/IMG_7178.JPG",
+				"photography/post1/IMG_7179.JPG",
+				"photography/post1/IMG_7180.JPG",
+				"photography/post1/IMG_7181.JPG",
+				"photography/post1/IMG_7182.JPG"
+			]
+		}
+	]
+}
+

@@ -1,0 +1,16 @@
+{
+  "name": "profile",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "sass scss/style.scss style.css --no-source-map",
+    "watch": "sass --watch scss/style.scss:style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
+  },
+  "dependencies": {
+    "three": "^0.184.0"
+  }
+}

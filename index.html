@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mihai</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/start_logo.png" />
+</head>
+
+<body>
+    <div class="changelog-tab movable" id="changelogTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/start_logo.png" alt="changelog icon" />
+                <span>Changelog</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="exitbtnChangelog">
+                    <img src="images/close.svg" alt="close icon" />
+                </button>
+            </div>
+        </div>
+
+        <div class="startup-content changelog-content">
+            <div id="changelogContent" class="changelog-list">
+                <p class="changelog-loading">Loading changelog...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="todo-tab movable" id="todoTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/start_logo.png" alt="to do icon" />
+                <span>To Do</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="exitbtnTodo">
+                    <img src="images/close.svg" alt="close icon" />
+                </button>
+            </div>
+        </div>
+
+        <div class="startup-content todo-content">
+            <div id="todoContent" class="todo-list">
+                <p class="todo-loading">Loading to do...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="left-tabs">
+            <button id="optionsBtn" type="button">
+                <img src="images/start_logo.png" alt="Options icon" />
+                <span>Options</span>
+            </button>
+
+            <div class="taskbar-divider"></div>
+        </div>
+
+        <div class="taskbar-tabs" id="taskbarTabs"></div>
+
+        <div class="right-tabs">
+            <div id="volumePopup" class="volume-popup no-select" aria-hidden="true">
+                <div class="volume-popup-content">
+                    <input type="range" id="globalVolumeSlider" min="0" max="100" value="10" step="1" />
+                    <span id="globalVolumeLabel">10%</span>
+                </div>
+            </div>
+            <div class="taskbar-divider"></div>
+            <div class="taskbar-utils">
+                <button class="utils-welcome" id="utilsVolume" aria-label="Volume">
+                    V
+                </button>
+                <button class="utils-welcome" id="utilsToDo">T</button>
+                <button class="utils-welcome" id="utilsChangeLog">C</button>
+            </div>
+            <div class="taskbar-divider"></div>
+            <div id="time" class="time"></div>
+        </div>
+    </div>
+
+    <div id="optionsPanel" class="options-panel">
+        <div class="options-panel__accent" aria-hidden="true"></div>
+        <div class="options-panel__content">
+            <section class="options-setting-section" aria-labelledby="optionsProfileTitle">
+                <label class="options-field" for="optionsNameInput">
+                    <span>Name</span>
+                    <input type="text" id="optionsNameInput" name="optionsNameInput" autocomplete="name" />
+                </label>
+            </section>
+
+            <section class="options-setting-section" aria-labelledby="optionsPaletteTitle">
+                <h2 class="options-cursor-title" id="optionsPaletteTitle">Customize color palette</h2>
+                <div class="options-color-grid" aria-label="Site color palette">
+                    <label class="options-color" for="optionsColor1">
+                        <input type="color" id="optionsColor1" name="optionsColor1" value="#bbbfbe" data-palette-key="color1" />
+                    </label>
+                    <label class="options-color" for="optionsColor2">
+                        <input type="color" id="optionsColor2" name="optionsColor2" value="#a9b9b8" data-palette-key="color2" />
+                    </label>
+                    <label class="options-color" for="optionsColor3">
+                        <input type="color" id="optionsColor3" name="optionsColor3" value="#91b1b0" data-palette-key="color3" />
+                    </label>
+                    <label class="options-color" for="optionsColor4">
+                        <input type="color" id="optionsColor4" name="optionsColor4" value="#61a1a0" data-palette-key="color4" />
+                    </label>
+                    <label class="options-color" for="optionsColor5">
+                        <input type="color" id="optionsColor5" name="optionsColor5" value="#018180" data-palette-key="color5" />
+                    </label>
+                    <label class="options-color" for="optionsColor6">
+                        <input type="color" id="optionsColor6" name="optionsColor6" value="#016565" data-palette-key="color6" />
+                    </label>
+                    <label class="options-color" for="optionsColor7">
+                        <input type="color" id="optionsColor7" name="optionsColor7" value="#064c4c" data-palette-key="color7" />
+                    </label>
+                    <label class="options-color" for="optionsColor8">
+                        <input type="color" id="optionsColor8" name="optionsColor8" value="#0a3333" data-palette-key="color8" />
+                    </label>
+                    <label class="options-color" for="optionsColor9">
+                        <input type="color" id="optionsColor9" name="optionsColor9" value="#0d1c1c" data-palette-key="color9" />
+                    </label>
+                    <label class="options-color" for="optionsColor10">
+                        <input type="color" id="optionsColor10" name="optionsColor10" value="#233131" data-palette-key="color10" />
+                    </label>
+                </div>
+
+                <button type="button" class="options-reset" id="optionsResetBtn">Reset colors</button>
+            </section>
+
+            <section class="options-setting-section options-cursor-section" aria-labelledby="optionsCursorTitle">
+                <h2 class="options-cursor-title" id="optionsCursorTitle">Customize mouse icon</h2>
+                <div class="options-cursor-row" id="optionsCursorMenu" aria-label="Mouse icon choices"></div>
+            </section>
+        </div>
+    </div>
+
+    <div class="desktop-icons no-select">
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>About me</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Projects</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Music</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="about icon" />
+            <span>Contact</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="chatbox icon" />
+            <span>Chatbox</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="photography icon" />
+            <span>Photography</span>
+        </div>
+
+        <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="blog icon" />
+            <span>Blog</span>
+        </div>
+    </div>
+
+    <div class="about-tab movable" id="aboutTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>About me</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnAbout"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <!-- <button><img src="images/maximize.svg" alt="maximize icon"></button> not implemented yet -->
+                <button id="exitbtnAbout"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+            <div class="tab-content-about">
+                <div class="about-pic"></div>
+
+            <div class="about-desc" id="aboutDesc">
+                <div class="about-desc-section about-desc-section--identity">
+                    <span class="about-desc-value">Loading about...</span>
+                </div>
+            </div>
+
+            <div class="about-main-panel">
+                <input type="radio" name="aboutSubTab" id="aboutSubAbout" checked>
+                <input type="radio" name="aboutSubTab" id="aboutSubInterests">
+                <input type="radio" name="aboutSubTab" id="aboutSubLove">
+                <input type="radio" name="aboutSubTab" id="aboutSubDislike">
+                <input type="radio" name="aboutSubTab" id="aboutSubSkills">
+
+                <div class="about-subtabs no-select">
+                    <label for="aboutSubAbout" class="about-subtab">About</label>
+                    <label for="aboutSubInterests" class="about-subtab">Interests</label>
+                    <label for="aboutSubLove" class="about-subtab">I love</label>
+                    <label for="aboutSubDislike" class="about-subtab">I dislike</label>
+                    <label for="aboutSubSkills" class="about-subtab">Skills</label>
+                </div>
+
+                <div class="about-main-panel-body">
+                    <div class="about-content0 about-panel about-panel--about" id="aboutPanelAbout">
+                        <p>Loading about...</p>
+                    </div>
+
+                    <div class="about-content1 about-panel about-panel--interests" id="aboutPanelInterests"></div>
+
+                    <div class="about-content2 about-panel about-panel--love" id="aboutPanelLove"></div>
+
+                    <div class="about-content3 about-panel about-panel--dislike" id="aboutPanelDislike"></div>
+
+                    <div class="about-content4 about-panel about-panel--skills" id="aboutPanelSkills"></div>
+                </div>
+            </div>
+         </div>
+    </div>
+
+    <div class="projects-tab movable" id="projectsTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>My projects</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnProjects"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <!-- <button><img src="images/maximize.svg" alt="maximize icon"></button> not implemented yet -->
+                <button id="exitbtnProjects"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="projects-content">
+            <div class="projects-grid-wrap">
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+
+            <div class="project-detail" id="projectDetail">
+                <div class="project-detail-empty" id="projectDetailEmpty">
+                    <h2>Select a Project</h2>
+                    <p>Check out some of my work.</p>
+                </div>
+
+                <div class="project-detail-card" id="projectDetailCard" aria-hidden="true">
+                    <div class="project-detail-text">
+                        <h2 id="projectDetailTitle">Project title</h2>
+                        <p id="projectDetailDescription">Project description</p>
+                        <a id="projectDetailLink" href="#" target="_blank" rel="noopener noreferrer">github repo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-tab movable" id="musicTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>Music</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnMusic"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <!-- <button><img src="images/maximize.svg" alt="maximize icon"></button> not implemented yet -->
+                <button id="exitbtnMusic"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="songs-container">
+                <div class="audio-player">
+                    <audio id="audio" class="audio-controls" preload="metadata"></audio>
+                    <div class="player-ui" id="playerUi">
+                        <div class="player-controls no-select">
+                            <button type="button" id="backBtn" class="player-btn">Back</button>
+                            <button type="button" id="playPauseBtn" class="player-btn">Play</button>
+                            <button type="button" id="nextBtn" class="player-btn">Next</button>
+                            <button type="button" id="shuffleBtn" class="player-btn">Shuffle</button>
+                            <button type="button" id="youtubeBtn" class="player-btn">YouTube</button>
+                        </div>
+
+                        <div id="nowPlaying" class="now-playing">
+                            <span id="nowPlayingText" class="now-playing-text">nothing</span>
+                            <div class="playlist-info-container no-select">
+                                <span id="playlistInfo" class="playlist-info">0 / 0</span>
+                            </div>
+                        </div>
+
+                        <div class="player-timeline">
+                            <span id="currentTime" class="time-label no-select">0:00</span>
+                            <input type="range" id="seekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" />
+                            <span id="duration" class="time-label no-select">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="genre-filter-row no-select" id="genreFilterRow">
+                    <button class="genre-btn active-genre" data-genre="all">All</button>
+                </div>
+                <div class="songs-lib no-select" id="songsLibrary">
+                    <h2>Loading library...</h2>
+                </div>
+            </div>
+
+            <div class="divider-songs">
+
+            </div>
+
+            <div class="sound-viz" id="soundVizContainer">
+                <div class="viz-stage">
+                    <canvas id="visualizer" class="viz"></canvas>
+                    <div id="vizEmptyState" class="viz-empty-state no-select" aria-hidden="true">nothing is playing</div>
+                </div>
+
+                <div class='viz-settings'>
+                    <div class="viz-settings-row viz-settings-row--top">
+                        <div class="viz-setting-group viz-setting-group--colors">
+                            <div class="viz-color-row">
+                                <input type="color" id="colorPicker1" name="colorPicker1" value="#8fe8ff" />
+                                <input type="color" id="colorPicker2" name="colorPicker2" value="#2bd9ff" />
+                                <input type="color" id="colorPicker3" name="colorPicker3" value="#5a86ff" />
+                                <input type="color" id="colorPicker4" name="colorPicker4" value="#9ad8ff" />
+                                <input type="color" id="colorPicker5" name="colorPicker5" value="#05070d" />
+                            </div>
+                        </div>
+
+                        <div class="viz-setting-group viz-setting-group--rainbow no-select">
+                            <label class="viz-check" for="rainbowViz">
+                                <input type="checkbox" id="rainbowViz" name="rainbowViz" />
+                                <span>cycle colors</span>
+                            </label>
+                        </div>
+
+                        <div class="viz-setting-group viz-setting-group--random">
+                            <button type="button" id="randomVizBtn">random</button>
+                        </div>
+
+                        <div class="viz-setting-group viz-setting-group--type">
+                            <select name="typeViz" id="typeViz">
+                                <option value="v1">v1</option>
+                                <option value="v2">WIP</option>
+                            </select>
+                        </div>
+
+                        <div class="viz-setting-group viz-setting-group--volume no-select">
+                            <span class="viz-volume-label">volume:</span>
+                            <span id="vizVolumeInfo" class="viz-volume-value">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mini-player-tab movable" id="miniPlayerTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="mini player icon" />
+                <span>Now Playing</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="exitbtnMiniPlayer"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="mini-player-content">
+            <div class="mini-now-playing" id="miniNowPlaying">
+                <span id="miniNowPlayingText" class="mini-now-playing-text">nothing</span>
+                <span id="miniPlaylistInfo" class="mini-playlist-info">0 / 0</span>
+            </div>
+
+            <div class="mini-player-controls no-select">
+                <button type="button" id="miniBackBtn" class="player-btn">Back</button>
+                <button type="button" id="miniPlayPauseBtn" class="player-btn">Play</button>
+                <button type="button" id="miniNextBtn" class="player-btn">Next</button>
+                <button type="button" id="miniShuffleBtn" class="player-btn">Shuffle Off</button>
+            </div>
+
+            <div class="mini-player-timeline">
+                <span id="miniCurrentTime" class="time-label no-select">0:00</span>
+                <input type="range" id="miniSeekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" />
+                <span id="miniDuration" class="time-label no-select">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="entity-tab movable" id="entityTab" aria-label="Entity (Three.js)">
+        <div class="tab-content entity-content">
+            <canvas id="entityCanvas" class="entity-canvas" aria-label="3D entity canvas"></canvas>
+        </div>
+    </div>
+
+    <div class="contact-tab movable" id="contactTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="about icon" />
+                <span>Contact me</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnContact"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <!-- <button><img src="images/maximize.svg" alt="maximize icon"></button> not implemented yet -->
+                <button id="exitbtnContact"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="contact-header-top no-select">
+                <div class="contact-header-kicker">contact me by email</div>
+                <div class="contact-header-title">send me a message, pitch an idea, offer me an opportunity or just open up a subject :P</div>
+                <div class="contact-header-hint">best way to reach me</div>
+            </div>
+
+            <div class="contact-email-panel" aria-label="email">
+                <a
+                    id="contactEmailLink"
+                    class="contact-email-value"
+                    href="mailto:href@gmail.com"
+                >mihai@truthmonad.com</a>
+                <button type="button" class="contact-copy-btn" id="contactCopyBtn" aria-label="Copy email">copy</button>
+            </div>
+        </div>
+
+        <div class="contact-copy-note" id="contactCopyNote" aria-hidden="true">
+            <p id="contactCopyNoteText">email copied</p>
+        </div>
+    </div>
+
+    <div class="chat-tab movable" id="chatTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="chat icon" />
+                <span>Chatbox</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnChat"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button id="exitbtnChat"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="chat-content">
+            <div class="chat-panel">
+                <div class="chat-messages" id="chatMessages">
+                    <p class="chat-loading">Loading chat...</p>
+                </div>
+
+                <div class="chat-status-row">
+                    <p class="chat-status" id="chatStatus">name required</p>
+                    <div class="chat-color-controls" aria-label="Current message colors">
+                        <label class="chat-color-control" for="chatNameColorInput" title="Name color">
+                            <span>name</span>
+                            <input type="color" class="chat-color-input" id="chatNameColorInput" name="chatNameColorInput" value="#0a3333" />
+                        </label>
+                        <label class="chat-color-control" for="chatTextColorInput" title="Text color">
+                            <span>text</span>
+                            <input type="color" class="chat-color-input" id="chatTextColorInput" name="chatTextColorInput" value="#233131" />
+                        </label>
+                    </div>
+                    <button type="button" class="chat-edit-btn" id="chatEditNameBtn">edit</button>
+                </div>
+
+                <form class="chat-form" id="chatForm">
+                    <label class="chat-field" for="chatMessageInput">
+                        <textarea id="chatMessageInput" name="chatMessageInput" rows="3" maxlength="280" placeholder="leave your trace..." aria-label="Chat message"></textarea>
+                    </label>
+                    <div class="chat-actions">
+                        <div class="chat-emoji" id="chatEmojiMenuWrap">
+                            <button type="button" class="chat-emoji-btn" id="chatEmojiToggleBtn" aria-label="Open emoji menu" aria-expanded="false">:)</button>
+                            <button type="submit" class="chat-send-btn" id="chatSendBtn">send</button>
+                            <div class="chat-emoji-menu" id="chatEmojiMenu" aria-hidden="true">
+                                <div class="chat-emoji-grid">
+                                    <button type="button" class="chat-emoji-option" data-emoji=":)" aria-label="Smile">:)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":]" aria-label="Bigger smile">:]</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=";)" aria-label="Wink">;)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="xD" aria-label="Laughing">xD</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":D" aria-label="Big smile">:D</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":P" aria-label="Tongue out">:P</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":3" aria-label="Cute">:3</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="<3" aria-label="Heart"><3</button>
+
+                                    <button type="button" class="chat-emoji-option" data-emoji=":o" aria-label="Surprised">:o</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":|" aria-label="Neutral">:|</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=">:)" aria-label="Evil">>:)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=">:(" aria-label="Angry">>:(</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":(" aria-label="Sad">:(</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji=":[" aria-label="Disappointed">:[</button>
+
+                                    <button type="button" class="chat-emoji-option" data-emoji="o/" aria-label="wave right">o/</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="\o" aria-label="wave left">\o</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="\o/" aria-label="cheer">\o/</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="o7" aria-label="salute">o7</button>
+
+                                    <button type="button" class="chat-emoji-option" data-emoji="(o_o)" aria-label="surprised">(o_o)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(>_<)" aria-label="frustrated">(>_<)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(^_^)" aria-label="happy">(^_^)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(+_+)" aria-label="puzzled">(+_+)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(°o°)" aria-label="shocked">(°o°)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(-_-)" aria-label="suspicious">(-_-)</button>
+
+                                    <button type="button" class="chat-emoji-option" data-emoji="( ͡° ͜ʖ ͡°)" aria-label="lenny face">( ͡° ͜ʖ ͡°)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(ಠ_ಠ)" aria-label="disapproval">(ಠ_ಠ)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="ʕ •ᴥ•ʔ" aria-label="bear">ʕ •ᴥ•ʔ</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(－‸ლ)" aria-label="disapproval">(－‸ლ)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(๑ˇεˇ๑)" aria-label="kiss">(๑ˇεˇ๑)</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="(-_-)zzz" aria-label="sleepy">(-_-)zzz</button>
+
+                                    <button style="font-size: 9px !important;" type="button" class="chat-emoji-option" data-emoji="(凸ಠ益ಠ)凸" aria-label="middle finger">(凸ಠ益ಠ)凸</button>
+                                    <button style="font-size: 9px !important;" type="button" class="chat-emoji-option" data-emoji="(╬ ಠ益ಠ)" aria-label="angry">(╬ ಠ益ಠ)</button>
+
+                                    <button style="font-size: 9px !important;" type="button" class="chat-emoji-option" data-emoji="(ノಠ益ಠ)ノ" aria-label="chaos">(ノಠ益ಠ)ノ</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="¯\_(ツ)_/¯" aria-label="shrug">¯\_(ツ)_/¯</button>
+
+                                    <button type="button" class="chat-emoji-option" data-emoji="꩜" aria-label="swirl">꩜</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="❀" aria-label="flower">❀</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="✮" aria-label="star">★</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="✦" aria-label="sparkle">✦</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="☮" aria-label="peace">☮</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="⚛" aria-label="atom">⚛</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="☾" aria-label="moon">☾</button>
+                                    <button type="button" class="chat-emoji-option" data-emoji="✴︎" aria-label="spike">✴︎</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="pictures-tab movable" id="picturesTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="photography icon" />
+                <span>Photography</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnPictures"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button id="exitbtnPictures"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="pictures-content">
+            <div class="pictures-grid-wrap">
+                <div class="pictures-grid" id="picturesGrid"></div>
+            </div>
+
+            <div class="pictures-detail" id="picturesDetail">
+                <div class="pictures-detail-card" id="picturesDetailCard" aria-hidden="true">
+                    <div class="pictures-viewer">
+                        <div class="pictures-stage no-select" id="picturesStage">
+                            <img id="picturesDetailImage" src="images/empty.png" alt="selected picture" />
+                            <button type="button" class="pictures-fullscreen-btn" id="picturesFullscreenBtn">grow</button>
+                            <button type="button" class="pictures-nav pictures-nav--back" id="picturesBackBtn">←</button>
+                            <button type="button" class="pictures-nav pictures-nav--next" id="picturesNextBtn">→</button>
+                            <button type="button" class="pictures-close-btn" id="picturesCloseBtn">close</button>
+                            <button type="button" class="pictures-fullscreen-close-btn" id="picturesFullscreenCloseBtn">close</button>
+                            <span class="pictures-info" id="picturesInfo">i</span>
+                            <span class="pictures-counter" id="picturesCounter">1 / 1</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="pictures-hover-note" id="picturesHoverNote" aria-hidden="true">
+                <p id="picturesHoverNoteText"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-tab movable" id="blogTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="blog icon" />
+                <span>Blog</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnBlog"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button id="exitbtnBlog"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="blog-content">
+            <div class="blog-list-wrap">
+                <div id="blogList" class="blog-list">
+                    <p class="blog-loading">Loading posts...</p>
+                </div>
+            </div>
+
+            <div class="blog-detail" id="blogDetail">
+                <div class="blog-detail-empty" id="blogDetailEmpty">
+                    <h2>SELECT A POST</h2>
+                    <p>Check out some of my thoughts and experiences.</p>
+                </div>
+
+                <article class="blog-article" id="blogArticle" aria-hidden="true">
+                    <header class="blog-article-header">
+                        <h2 id="blogTitle">Post title</h2>
+                        <div class="blog-meta-row">
+                            <div class="blog-meta-left">
+                                <span id="blogDate" class="blog-date"></span>
+                                <span id="blogFeeling" class="blog-feeling" aria-label="post feeling"></span>
+                            </div>
+                            <div id="blogTags" class="blog-tags"></div>
+                        </div>
+                    </header>
+
+                    <p id="blogSummary" class="blog-summary"></p>
+                    <div id="blogBody" class="blog-body"></div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./vendor/three/three.module.js"
+            }
+        }
+    </script>
+    <script type="module" src="js/music-visualizer-three.js?v=visualizer-reset-1"></script>
+    <script src="js/music-visualizer-controller.js?v=visualizer-reset-1"></script>
+    <script src="js/music-player.js"></script>
+    <script src="js/tabs-functionality.js"></script>
+    <script src="js/music-volume.js"></script>
+    <script src="js/custom-color-picker.js"></script>
+    <script src="js/tab-about.js"></script>
+    <script src="js/tab-options.js"></script>
+    <script src="js/tab-projects.js"></script>
+    <script src="js/tab-photography.js"></script>
+    <script src="js/tab-blog.js"></script>
+    <script src="js/tab-contact.js"></script>
+    <script src="js/tab-chat.js"></script>
+    <script src="js/entity.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

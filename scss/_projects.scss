@@ -1,0 +1,171 @@
+@use "palette" as p;
+@use "mixins";
+
+.projects-tab {
+    width: 420px !important;
+    height: 202px !important;
+}
+
+.projects-content {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    width: calc(100% - 8px);
+    height: calc(100% - 34px);
+    margin: 0 4px 4px;
+    margin-top: 0 !important;
+    margin-bottom: 4px !important;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+    box-sizing: border-box;
+    padding: 3px;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 45.1%;
+        top: 1px;
+        bottom: 1px;
+        width: 2px;
+        background: linear-gradient(180deg, p.$window-shadow-soft, p.$window-shadow-soft, p.$window-shadow-mid, p.$window-shadow-mid, p.$window-shadow-mid);
+        pointer-events: none;
+    }
+}
+
+.projects-grid-wrap,
+.project-detail {
+    overflow: hidden;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 80px;
+    margin-right: 1px;
+    gap: 2px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.project-tile {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background-color: p.$color10;
+    @include mixins.win95-raised;
+    border: none;
+    width: 100%;
+    height: 100%;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 0;
+        transition: opacity 120ms ease;
+        background: linear-gradient(
+            to top,
+            p.$overlay-black-55 0%,
+            p.$overlay-black-35 35%,
+            p.$overlay-black-22 55%,
+            p.$overlay-black-08 75%,
+            transparent 100%
+        );
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+}
+
+.project-tile-title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    color: p.$window-shadow-light;
+    font-size: 18px;
+    z-index: 1;
+    text-shadow: 0 1px 0 p.$overlay-black-55;
+    text-align: center;
+    text-transform: lowercase;
+    z-index: 1;
+}
+
+.project-detail {
+    position: relative;
+    box-sizing: border-box;
+    transition: transform 130ms ease;
+    padding-left: 3px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+}
+
+.project-detail-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+
+    h2,
+    p {
+        margin: 0;
+    }
+}
+
+.project-detail-card {
+    height: 100%;
+    min-height: 0;
+
+    &[aria-hidden='true'] {
+        display: none;
+    }
+}
+
+.project-detail-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    min-height: 0;
+
+    h2 {
+        font-size: 26px;
+    }
+
+    h2,
+    p {
+        margin: 0;
+        padding: 0px 2px;
+    }
+
+    a {
+        margin-top: auto;
+        width: fit-content;
+        padding: 2px 8px;
+        min-width: 56px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        margin-bottom: 3px;
+        margin-right: 3px;
+
+        color: p.$window-shadow-light;
+        text-decoration: none;
+        text-align: center;
+        background-color: p.$color6;
+        @include mixins.win95-raised;
+    }
+}

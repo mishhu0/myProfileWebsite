@@ -1,0 +1,125 @@
+@use "palette" as p;
+@use "mixins";
+
+.tab-left img {
+    width: 20px;
+}
+
+.tab-right {
+    button {
+        text-decoration: none;
+        border: none;
+        background-color: p.$window-surface;
+        cursor: pointer;
+        margin-right: 2px;
+        @include mixins.win95-raised;
+
+        img {
+            width: 10px;
+        }
+    }
+}
+
+.desktop-icons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: fit-content;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 56px);
+    padding-top: 10px;
+    padding-left: 10px;
+    gap: 7px;
+    column-gap: 10px;
+}
+
+.dsk-icon {
+    display: flex;
+    flex-direction: column;
+    width: 62px;
+    text-align: center;
+    font-size: 12px;
+    color: p.$window-shadow-light;
+    gap: 5px;
+    padding: 5px;
+
+    &.selected {
+        background-color: p.$accent-cyan-overlay;
+        border: 1px p.$window-shadow-light;
+    }
+}
+
+.about-tab,
+.projects-tab,
+.music-tab,
+.contact-tab,
+.pictures-tab,
+.blog-tab,
+.entity-tab {
+    position: fixed;
+    background-color: p.$window-surface;
+    width: 800px;
+    height: 560px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include mixins.win95-raised;
+}
+
+.about-tab,
+.projects-tab,
+.contact-tab,
+.pictures-tab,
+.blog-tab,
+.changelog-tab {
+    display: none;
+}
+
+.music-tab {
+    display: none;
+    width: 600px !important;
+    height: 400px !important;
+}
+
+.tab-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: p.$color6;
+    margin: 4px;
+    margin-bottom: 2px !important;
+    padding: 2px;
+    padding-left: 3px;
+    color: p.$window-shadow-light;
+}
+
+.tab-left,
+.tab-right {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.tab-content {
+    display: flex;
+    width: calc(100% - 8px);
+    margin: 0 4px 4px;
+    margin-top: 0 !important;
+    height: calc(100% - 34px);
+    box-sizing: border-box;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}
+
+.placeholder-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    h2,
+    p {
+        margin: 0;
+    }
+}

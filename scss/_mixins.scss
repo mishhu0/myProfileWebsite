@@ -1,0 +1,21 @@
+@use "sass:list";
+@use "sass:meta";
+@use "palette" as p;
+
+@mixin win95-raised {
+    box-shadow: inset -1px -1px p.$window-shadow-dark,
+        inset 1px 1px p.$window-shadow-light,
+        inset -2px -2px p.$window-shadow-mid,
+        inset 2px 2px p.$window-shadow-soft;
+}
+
+@mixin win95-pressed {
+    box-shadow: inset 1px 1px p.$window-shadow-dark,
+        inset -1px -1px p.$window-shadow-light,
+        inset 2px 2px p.$window-shadow-mid,
+        inset -2px -2px p.$window-shadow-soft;
+}
+
+@mixin bg-stripes($a: p.$overlay-white-10, $b: transparent, $angle: 45deg, $size: 12px) {
+    background-image: repeating-linear-gradient($angle, $a 0, $a 2px, $b 2px, $b $size);
+}

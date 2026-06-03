@@ -1,0 +1,201 @@
+@use "palette" as p;
+@use "mixins";
+
+.options-panel {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    background-color: p.$window-surface;
+    width: 201px;
+    box-sizing: border-box;
+    align-items: stretch;
+    @include mixins.win95-raised;
+}
+
+.options-panel__accent {
+    width: 24px;
+    flex: 0 0 24px;
+    align-self: stretch;
+    margin: 2px;
+    margin-right: 0;
+    background-color: p.$color6;
+}
+
+.options-panel__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+    min-width: 0;
+    padding: 4px;
+}
+
+.options-setting-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    min-width: 0;
+}
+
+.options-field {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    color: p.$window-shadow-dark;
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1px 6px;
+        border: 1px solid p.$window-shadow-mid;
+        background-color: p.$window-shadow-light;
+        color: p.$window-shadow-dark;
+        font-size: 16px;
+    }
+}
+
+.options-color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+}
+
+.options-color {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: p.$window-shadow-dark;
+    font-size: 14px;
+
+    input[type=color] {
+        width: 100%;
+        min-width: 0;
+        height: 32px;
+        padding: 0;
+        border: 1px solid p.$window-shadow-mid;
+        background: p.$color4;
+        cursor: pointer;
+        border-radius: 0;
+        overflow: hidden;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    input[type=color]::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+
+    input[type=color]::-webkit-color-swatch,
+    input[type=color]::-moz-color-swatch {
+        border: none;
+    }
+}
+
+.options-reset {
+    align-self: flex-start;
+    padding: 2px 6px;
+    border: none;
+    background-color: p.$color6;
+    color: p.$window-shadow-light;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    @include mixins.win95-raised;
+    margin-top: 4px;
+}
+
+.options-cursor-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.options-cursor-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: p.$window-shadow-dark;
+}
+
+.options-cursor-row {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 2px;
+    min-width: 0;
+}
+
+.options-cursor-row::-webkit-scrollbar {
+    height: 8px;
+}
+
+.options-cursor-row::-webkit-scrollbar-track {
+    background-color: p.$color2;
+}
+
+.options-cursor-row::-webkit-scrollbar-thumb {
+    background-color: p.$color6;
+}
+
+.options-cursor-option {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 64px;
+    padding: 6px;
+    border: none;
+    background-color: p.$window-surface;
+    color: p.$window-shadow-dark;
+    cursor: pointer;
+    @include mixins.win95-raised;
+
+    &.is-active {
+        background-color: p.$panel-grey-3;
+        @include mixins.win95-pressed;
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        left: 12px;
+        top: 12px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        transform: scale(3);
+        transform-origin: center;
+    }
+
+    span {
+        white-space: nowrap;
+        font-size: 14px;
+    }
+}
+
+.options-cursor-row .options-cursor-option:nth-child(2) img {
+    left: 2px;
+    top: 5px;
+    transform: scale(2) !important;
+}
+.options-cursor-row .options-cursor-option:nth-child(3) img {
+    left: 3px;
+    top: 7px;
+    transform: scale(2.2) !important;
+}
+
+.options-cursor-default-preview {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    color: p.$window-shadow-dark;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}

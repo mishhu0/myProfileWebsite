@@ -1,0 +1,318 @@
+@use "palette" as p;
+@use "mixins";
+
+.chat-tab {
+    position: fixed;
+    display: none;
+    width: 300px !important;
+    height: 400px !important;
+    right: 220px;
+    bottom: 95px;
+    background-color: p.$window-surface;
+    @include mixins.win95-raised;
+}
+
+// perfect position width, padding, margin to perfectly fit inside the tab perfectly aligning with the title bar
+.chat-content {
+    width: 100%;
+    height: calc(100% - 42px);
+    margin: 0px;
+    box-sizing: border-box;
+    padding: 4px;
+    padding-top: 0;
+}
+
+.chat-panel {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    gap: 4px;
+    height: 100%;
+    min-height: 0;
+    padding: 6px;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0px;
+}
+
+.chat-loading,
+.chat-empty {
+    margin: 0;
+    padding: 8px;
+    color: p.$text-dark;
+    background-color: p.$window-surface;
+    @include mixins.win95-pressed;
+}
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: linear-gradient(180deg, p.$overlay-white-18, p.$color3);
+    @include mixins.win95-raised;
+}
+
+.chat-message-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.chat-message-author {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 15px;
+    color: p.$color8;
+    text-transform: lowercase;
+}
+
+.chat-identity-prefix,
+.chat-identity-name,
+.chat-identity-tag {
+    display: inline-block;
+}
+
+.chat-identity-name {
+    font-size: inherit;
+    color: var(--chat-compose-name-color, #{p.$color8});
+}
+
+.chat-identity-tag {
+    font-size: 0.8em;
+    color: p.$text-muted;
+    letter-spacing: 0.04em;
+}
+
+.chat-message-time {
+    font-size: 12px;
+    color: p.$text-muted;
+    text-align: right;
+}
+
+.chat-message-body {
+    margin: 0;
+    color: p.$text-dark;
+    line-height: 1.2;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.chat-status-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: -2px;
+}
+
+.chat-status {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 0;
+    padding: 2px 1px 4px;
+    color: p.$text-muted;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.chat-color-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+.chat-color-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: p.$text-muted;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.chat-edit-btn {
+    border: none;
+    padding: 2px 1px 4px;
+    background: transparent;
+    color: p.$text-muted;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.chat-send-btn {
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    text-transform: lowercase;
+    @include mixins.win95-raised;
+    margin-top: 0;
+    font-size: 16px;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}
+
+.chat-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px;
+    min-height: 0;
+    margin-top: -4px;
+}
+
+.chat-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-emoji {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.chat-emoji-btn,
+.chat-emoji-option {
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}
+
+.chat-emoji-btn {
+    min-width: 44px;
+    height: 40px;
+    padding: 4px 6px;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.chat-emoji-menu {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: calc(100% + 12px);
+    width: 130px;
+    max-height: 360px;
+    padding: 6px;
+    box-sizing: border-box;
+    background-color: p.$color10;
+    @include mixins.win95-raised;
+    z-index: 20;
+}
+
+.chat-emoji.is-open .chat-emoji-menu {
+    display: block;
+}
+
+.chat-emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px;
+    max-height: calc(360px - 12px);
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+.chat-emoji-title {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 1px 2px 3px;
+    color: p.$text-muted;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.chat-emoji-option {
+    min-width: 0;
+    min-height: 32px;
+    height: auto;
+    padding: 5px 4px;
+    font-size: 12px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+@media (max-width: 680px) {
+    .chat-emoji-menu {
+        left: auto;
+        right: calc(100% + 6px);
+    }
+}
+
+.chat-color-control .custom-color-control {
+    flex: 0 0 auto;
+}
+
+.chat-color-control .custom-color-trigger {
+    width: 36px;
+    min-width: 36px;
+    height: 14px;
+    background-color: p.$window-surface;
+    box-shadow: none;
+}
+
+.chat-color-control .custom-color-trigger:focus-visible {
+    outline: 1px dotted p.$window-shadow-dark;
+    outline-offset: 1px;
+}
+
+.chat-field textarea {
+    width: 100%;
+    height: 40px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 6px;
+    color: var(--chat-compose-text-color, #{p.$text-dark});
+    background-color: p.$window-surface;
+    border: none;
+    @include mixins.win95-pressed;
+}
+
+.chat-send-btn {
+    align-self: end;
+    min-width: 74px;
+    height: 40px;
+    padding: 4px 10px;
+}
+
+.chat-tab.is-name-missing {
+    .chat-field textarea,
+    .chat-send-btn {
+        opacity: 0.7;
+    }
+}

@@ -1,0 +1,20 @@
+/*
+	edit SCSS files only for more a more maintainable workflow
+	this compiles to style.css
+*/
+@use "global";
+@use "startup-window";
+@use "taskbar";
+@use "shell";
+@use "options-panel";
+@use "custom-color-picker";
+@use "music-player";
+@use "chat";
+@use "contact";
+@use "about";
+@use "projects";
+@use "photography";
+@use "blog";
+@use "entity";
+@use "changelog";
+@use "todo";

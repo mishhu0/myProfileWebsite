@@ -1,0 +1,284 @@
+@use "palette" as p;
+@use "mixins";
+
+.startup-popup {
+    position: fixed;
+    background-color: p.$window-surface;
+    width: 400px;
+    height: 142px;
+    top: 50px;
+    right: 50px;
+    @include mixins.win95-raised;
+}
+
+.popup-title {
+    background-color: p.$color6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    margin: 4px;
+    margin-bottom: 2px !important;
+    padding-left: 3px;
+    color: p.$window-shadow-light;
+
+    img {
+        width: 20px;
+    }
+
+    button {
+        text-decoration: none;
+        border: none;
+        background-color: p.$color6;
+        cursor: pointer;
+        margin-right: 2px;
+        @include mixins.win95-raised;
+
+        img {
+            width: 10px;
+        }
+    }
+}
+
+.startup-popup .startup-content {
+    display: block;
+    width: calc(100% - 8px);
+    margin: 2px 4px 4px;
+    margin-top: 2px !important;
+    height: calc(100% - 34px);
+    box-sizing: border-box;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+    padding: 5px;
+    overflow: auto;
+
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    p:nth-child(3) {
+        margin-top: 6px;
+        margin-bottom: 0;
+    }
+}
+
+.left-title {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+html[data-skip-boot='true'] .boot-screen {
+    display: none;
+}
+
+.boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background:
+        linear-gradient(180deg, rgba(10, 51, 51, 0.7), rgba(13, 28, 28, 0.82)),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 4px);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.boot-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.boot-screen__window {
+    width: min(100%, 440px);
+    background-color: p.$window-surface;
+    padding: 4px;
+    box-sizing: border-box;
+    @include mixins.win95-raised;
+}
+
+.boot-screen__titlebar {
+    display: flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 2px 6px;
+    margin-bottom: 4px;
+    color: p.$window-shadow-light;
+    background: linear-gradient(90deg, p.$color6, p.$color5);
+}
+
+.boot-screen__title-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+
+    img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+        flex: 0 0 auto;
+    }
+
+    span {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.boot-screen__content {
+    display: grid;
+    gap: 8px;
+    padding: 10px;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+}
+
+.boot-screen__intro,
+.boot-screen__note {
+    margin: 0;
+}
+
+.boot-screen__intro {
+    color: p.$color9;
+}
+
+.boot-screen__note {
+    font-size: 11px;
+    color: p.$color7;
+}
+
+.boot-screen__actions[hidden] {
+    display: none !important;
+}
+
+.boot-screen__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.boot-screen__action {
+    flex: 0 1 140px;
+    min-width: 56px;
+    padding: 2px 6px;
+    border: none;
+    font: inherit;
+    appearance: none;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+
+    &:focus-visible {
+        outline: none;
+
+    }
+
+    &:disabled {
+        cursor: default;
+        color: p.$overlay-white-35;
+    }
+}
+
+.boot-screen__meter {
+    position: relative;
+    height: 16px;
+    overflow: hidden;
+    background-color: p.$color1;
+    @include mixins.win95-pressed;
+}
+
+.boot-screen__meter-fill {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, p.$color5, p.$color6);
+    transition: width 140ms ease;
+}
+
+.boot-screen__steps {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.boot-screen__step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 18px;
+    color: p.$color8;
+    
+}
+
+.boot-screen__step::before {
+    content: '...';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 14px;
+    flex: 0 0 auto;
+    color: p.$color7;
+    background-color: p.$window-surface;
+    @include mixins.win95-pressed;
+}
+
+.boot-screen__step.is-active {
+    color: p.$color9;
+}
+
+.boot-screen__step.is-active::before {
+    content: '>>';
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+}
+
+.boot-screen__step.is-done::before {
+    content: 'ok';
+    color: p.$window-shadow-light;
+    background-color: p.$color5;
+}
+
+.boot-screen__step.is-error::before {
+    content: '!!';
+    color: p.$window-shadow-light;
+    background-color: #8b3c3c;
+}
+
+@media (max-width: 520px) {
+    .boot-screen {
+        padding: 12px;
+    }
+
+    .boot-screen__content {
+        padding: 9px;
+    }
+
+    .boot-screen__steps {
+        gap: 3px;
+    }
+}

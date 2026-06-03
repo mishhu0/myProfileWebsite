@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "items": [
+        {
+          "text": "currently studying",
+          "highlight": "software development"
+        }
+      ]
+    },
+    {
+      "title": "Programming Skills",
+      "items": [
+        { "name": "JavaScript", "score": 8 },
+        { "name": "SQL", "score": 6 },
+        { "name": "Python", "score": 5 },
+        { "name": "Java", "score": 4 },
+        { "name": "C++", "score": 3 },
+        { "name": "Docker", "score": 6 },
+        { "name": "Git", "score": 6 },
+        { "name": "Linux", "score": 6 },
+        { "name": "Bash scripting", "score": 3 }
+      ]
+    },
+    {
+      "title": "Creative Skills",
+      "items": [
+        { "name": "Lightroom", "score": 8 },
+        { "name": "Photoshop", "score": 6 },
+        { "name": "TouchDesigner", "score": 4 },
+        { "name": "Davinci Resolve", "score": 5 },
+        { "name": "Aseprite", "score": 5 },
+        { "name": "FL Studio", "score": 5 }
+      ]
+    },
+    {
+      "title": "Other Skills",
+      "items": [
+        { "name": "Microsoft Office", "score": 8 }
+      ]
+    }
+  ]
+}

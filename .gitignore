@@ -1,0 +1,20 @@
+node_modules/
+.sass-cache/
+style.css.map
+
+# local editor / OS noise
+.vscode/
+Thumbs.db
+.DS_Store
+
+# local release artifacts
+deploy/
+dist/
+*.zip
+
+# helper project stays local; website runtime should not deploy it
+playlistFetch - different project/
+
+# local-only music payload; keep metadata in git, keep binaries outside git
+music/songs/
+music/**/*.mp3

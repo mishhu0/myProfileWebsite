@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+        "id": "post1",
+        "title": "The meaning of this website",
+      "mainSubject": "website",
+        "date": "2026-04-18",
+        "summary": "",
+        "tags": ["first post!"],
+        "file": "blogs/posts/why-i-built-this-site.json",
+        "feeling": "excited",
+        "primary": "#4cc9f0",
+	    "secondary": "#4361ee",
+		"accent": "#f72585",
+	    "text": "#ffffff"
+    }
+  ]
+}

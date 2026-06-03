@@ -1,0 +1,61 @@
+@use "palette" as p;
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
+
+* {
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --cursor-default: auto;
+    --cursor-pointer: pointer;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+body {
+    margin: 0;
+    background-color: p.$color5;
+    overflow: hidden;
+}
+
+html,
+body {
+    cursor: var(--cursor-default);
+}
+
+button,
+a[href],
+label,
+summary,
+[role="button"],
+.dsk-icon,
+input[type="color"],
+input[type="range"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+.blog-post-btn,
+.project-card,
+.pictures-grid-item,
+.pictures-info {
+    cursor: var(--cursor-pointer) !important;
+}
+
+button img {
+    max-width: 16px;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.movable {
+    position: absolute;
+}

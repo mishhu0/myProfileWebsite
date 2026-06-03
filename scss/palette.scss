@@ -1,0 +1,79 @@
+/* palette for the ui */
+
+$window-surface: #c1c1c0;
+$window-shadow-dark: #0a0a0a;
+$window-shadow-mid: #808080;
+$window-shadow-light: #ffffff;
+$window-shadow-soft: #dfdfdf;
+
+$text-dark: #1f1f1f;
+$text-muted: #303030;
+
+$panel-grey-1: #888;
+$panel-grey-2: #a8a8a8;
+$panel-grey-3: #b5b5b5;
+
+/* centralized raw color tokens */
+$neutral-900: #222;
+$border-grey-legacy-1: #dededf;
+$border-grey-legacy-2: #818081;
+$genre-text-fallback: #d9f2f1;
+
+$overlay-white-05: rgba(255, 255, 255, 0.05);
+$overlay-white-06: rgba(255, 255, 255, 0.06);
+$overlay-white-10: rgba(255, 255, 255, 0.1);
+$overlay-white-12: rgba(255, 255, 255, 0.12);
+$overlay-white-14: rgba(255, 255, 255, 0.14);
+$overlay-white-15: rgba(255, 255, 255, 0.15);
+$overlay-white-18: rgba(255, 255, 255, 0.18);
+$overlay-white-25: rgba(255, 255, 255, 0.25);
+$overlay-white-35: rgba(255, 255, 255, 0.35);
+$overlay-white-06: rgba(255, 255, 255, 0.06);
+$overlay-white-22: rgba(255, 255, 255, 0.22);
+
+$overlay-black-06: rgba(0, 0, 0, 0.06);
+$overlay-black-08: rgba(0, 0, 0, 0.08);
+$overlay-black-20: rgba(0, 0, 0, 0.2);
+$overlay-black-22: rgba(0, 0, 0, 0.22);
+$overlay-black-30: rgba(0, 0, 0, 0.3);
+$overlay-black-35: rgba(0, 0, 0, 0.35);
+$overlay-black-55: rgba(0, 0, 0, 0.55);
+
+$accent-cyan-overlay: rgba(39, 219, 219, 0.5);
+$teal-ink-overlay: rgba(6, 76, 76, 0.25);
+
+/* SCSS HEX */
+$color1-default: #bbbfbe;
+$color2-default: #a9b9b8;
+$color3-default: #91b1b0;
+$color4-default: #61a1a0;
+$color5-default: #018180;
+$color6-default: #016565;
+$color7-default: #064c4c;
+$color8-default: #0a3333;
+$color9-default: #0d1c1c;
+$color10-default: #233131;
+
+$color1: var(--color1, #{$color1-default});
+$color2: var(--color2, #{$color2-default});
+$color3: var(--color3, #{$color3-default});
+$color4: var(--color4, #{$color4-default});
+$color5: var(--color5, #{$color5-default});
+$color6: var(--color6, #{$color6-default});
+$color7: var(--color7, #{$color7-default});
+$color8: var(--color8, #{$color8-default});
+$color9: var(--color9, #{$color9-default});
+$color10: var(--color10, #{$color10-default});
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-right: linear-gradient(90deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-bottom: linear-gradient(180deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-left: linear-gradient(270deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+
+$gradient-top-right: linear-gradient(45deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-bottom-right: linear-gradient(135deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-top-left: linear-gradient(225deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+$gradient-bottom-left: linear-gradient(315deg, $color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);
+
+$gradient-radial: radial-gradient($color1, $color2, $color3, $color4, $color5, $color6, $color7, $color8, $color9, $color10);

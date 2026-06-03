@@ -1,0 +1,86 @@
+@use "palette" as p;
+@use "mixins";
+
+.todo-tab {
+    position: fixed;
+    display: none;
+    background-color: p.$window-surface;
+    width: 260px;
+    height: 150px;
+    bottom: 75px;
+    right: 285px;
+    @include mixins.win95-raised;
+
+    .todo-content {
+        padding: 4px;
+        box-sizing: border-box;
+        padding-top: 0 !important;
+    }
+
+    .todo-list {
+        display: flex;
+        flex-direction: column;
+        max-height: 116px;
+        overflow-y: auto;
+        padding-right: 2px;
+    }
+
+    .todo-loading,
+    .todo-empty {
+        margin: 0;
+        padding: 8px;
+        background-color: p.$panel-grey-1;
+        color: p.$text-dark;
+        text-align: center;
+    }
+
+    .todo-card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        background-color: p.$color2;
+        @include mixins.win95-raised;
+    }
+
+    .todo-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .todo-title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .todo-status {
+        padding: 1px 5px;
+        border-radius: 3px;
+        background-color: p.$color6;
+        color: p.$window-shadow-light;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        line-height: 1;
+        font-size: 12px;
+    }
+
+    .todo-notes {
+        margin: 0;
+        padding-left: 18px;
+        color: p.$text-dark;
+    }
+
+    .todo-note {
+        margin: 0;
+        color: p.$text-dark;
+        line-height: 1.2;
+        font-size: 14px;
+
+        & + .todo-note {
+            margin-top: 4px;
+        }
+    }
+}

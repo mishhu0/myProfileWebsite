@@ -1,0 +1,149 @@
+@use "palette" as p;
+@use "mixins";
+
+.contact-tab {
+    width: 260px !important;
+    height: 150.5px !important;
+}
+
+.contact-tab .tab-content {
+    width: auto;
+    margin: 0 4px 4px;
+    height: calc(100% - 34px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: p.$color2;
+    overflow: hidden;
+
+    @include mixins.win95-raised;
+}
+
+.contact-header-top {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    background-color: p.$color2;
+    @include mixins.win95-raised;
+    margin: 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: linear-gradient(180deg, p.$color10, p.$color9);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+    }
+}
+
+.contact-header-kicker {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: p.$window-shadow-light;
+    font-weight: 600;
+}
+
+.contact-header-title {
+    font-size: 13px;
+    line-height: 1.08;
+    text-transform: lowercase;
+    color: p.$window-shadow-light;
+    text-shadow: 0 1px 0 p.$overlay-black-35;
+}
+
+.contact-header-hint {
+    font-size: 11px;
+    color: p.$overlay-white-35;
+    text-transform: lowercase;
+}
+
+.contact-email-panel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 8px;
+    padding: 6px 10px;
+    margin: 0;
+    background: linear-gradient(180deg, p.$overlay-white-18, p.$overlay-white-06);
+    @include mixins.win95-pressed;
+}
+
+.contact-email-value {
+    font-size: 14px;
+    color: p.$text-dark;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.contact-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    padding: 2px 6px;
+    min-width: 46px;
+    line-height: 1;
+
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    text-decoration: none;
+    text-align: center;
+    background-color: p.$color6;
+    @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}
+
+.contact-copy-note {
+    display: none;
+    position: absolute;
+    left: calc(100% + 6px);
+    top: 34px;
+    min-width: 80px;
+    padding: 6px;
+    background-color: p.$color10;
+    color: p.$window-shadow-light;
+    @include mixins.win95-raised;
+    z-index: 9101;
+    pointer-events: none;
+
+    p {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.2;
+        text-shadow: 0 1px 0 p.$window-shadow-dark;
+        text-align: center;
+    }
+}
+
+.contact-tab.is-copy-note-open {
+    .contact-copy-note {
+        display: block;
+    }
+}

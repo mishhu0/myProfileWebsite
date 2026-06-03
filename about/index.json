@@ -1,0 +1,17 @@
+{
+  "tabLabels": {
+    "about": "About",
+    "interests": "Interests",
+    "love": "I love",
+    "dislike": "I dislike",
+    "skills": "Skills"
+  },
+  "profileFile": "about/profile.json",
+  "panelFiles": {
+    "about": "about/about.json",
+    "interests": "about/interests.json",
+    "love": "about/love.json",
+    "dislike": "about/dislike.json",
+    "skills": "about/skills.json"
+  }
+}

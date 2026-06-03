@@ -1,0 +1,29 @@
+{
+  "githubAccount": "https://github.com/mishhu0",
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "My website",
+      "description": "This website you are currently on! It was built using vanilla JavaScript, HTML and SCSS. The code is open source and available on GitHub.",
+      "github": "https://github.com/mishhu0/myProfileWebsite"
+    },
+    {
+      "id": "project-2",
+      "title": "Playlist fetcher",
+      "description": "A Node.js script that fetches songs from a YouTube playlist and outputs a JSON file. It uses the YouTube Data API to fetch video/song details. Currently in development. Soon to be released.",
+      "github": "WIP"
+    },
+    {
+      "id": "project-3",
+      "title": "BIND DNS",
+      "description": "BIND DNS server config with proxmox and ansible. I made this for my college IT server management team to use in their working server environment.",
+      "github": "WIP"
+    },
+    {
+      "id": "project-4",
+      "title": "Language learning app",
+      "description": "Card based language learning helper application/website. Currently in early development.",
+      "github": "WIP"
+    }
+  ]
+}

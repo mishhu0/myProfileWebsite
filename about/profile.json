@@ -1,0 +1,33 @@
+{
+  "sections": [
+    {
+      "variant": "identity",
+      "value": "Mihai — 22y — male"
+    },
+    {
+      "variant": "inline",
+      "label": "living in",
+      "value": "Belgium",
+      "flag": "🇧🇪",
+      "flagLabel": "Belgium flag"
+    },
+    {
+      "variant": "centered",
+      "label": ".────˚⊱ feeling ⊰˚────.",
+      "mood": {
+        "leftMark": ".✦",
+        "value": "conscious",
+        "rightMark": "✦.",
+        "primary": "#018180",
+        "secondary": "#b5fb04",
+        "accent": "#526e17",
+        "text": "#ffffff"
+      }
+    },
+    {
+      "variant": "song",
+      "label": "song of the moment",
+      "trackId": "swaying-in-the-morning"
+    }
+  ]
+}

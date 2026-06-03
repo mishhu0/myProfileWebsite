@@ -1,0 +1,150 @@
+@use "palette" as p;
+@use "mixins";
+
+input[type='color'].custom-color-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.custom-color-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.custom-color-trigger {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0;
+    border: 1px solid p.$window-shadow-mid;
+    background-color: p.$color4;
+    cursor: pointer;
+    border-radius: 0;
+    overflow: hidden;
+    @include mixins.win95-raised;
+}
+
+.custom-color-dialog {
+    position: fixed;
+    display: none;
+    width: 220px;
+    padding: 6px;
+    background-color: p.$window-surface;
+    z-index: 2147483647;
+    @include mixins.win95-raised;
+
+    &.is-open {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+.custom-color-preview {
+    width: 100%;
+    height: 28px;
+    border: 1px solid p.$window-shadow-mid;
+    @include mixins.win95-raised;
+}
+
+.custom-color-hex {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    border: 1px solid p.$window-shadow-mid;
+    background-color: p.$window-shadow-light;
+    color: p.$window-shadow-dark;
+    font-size: 16px;
+}
+
+.custom-color-sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 2px 0;
+}
+
+.custom-color-slider-row {
+    display: grid;
+    grid-template-columns: 18px 1fr 34px;
+    gap: 6px;
+    align-items: center;
+    color: p.$window-shadow-dark;
+    font-size: 14px;
+}
+
+.custom-color-slider-row input[type='range'] {
+    width: 100%;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+    accent-color: p.$color6;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background: p.$color4;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.custom-color-slider-row input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    background-color: p.$color4;
+    border-radius: 0;
+}
+
+.custom-color-slider-row input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1px;
+    height: 12px;
+    border: none;
+    background-color: p.$color6;
+    box-shadow: -1000px 0 0 1000px p.$color6;
+    border-radius: 0;
+}
+
+.custom-color-slider-row input[type='range']::-moz-range-track {
+    height: 10px;
+    background-color: p.$color4;
+    border: none;
+    border-radius: 0;
+}
+
+.custom-color-slider-row input[type='range']::-moz-range-thumb {
+    width: 1px;
+    height: 12px;
+    border: none;
+    background-color: p.$color6;
+    box-shadow: -1000px 0 0 1000px p.$color6;
+    border-radius: 0;
+}
+
+.custom-color-value {
+    text-align: right;
+    color: p.$text-muted;
+}
+
+.custom-color-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding-top: 2px;
+}
+
+.custom-color-btn {
+    border: none;
+    padding: 3px 10px;
+    background-color: p.$window-surface;
+    color: p.$window-shadow-dark;
+    cursor: pointer;
+    @include mixins.win95-raised;
+}

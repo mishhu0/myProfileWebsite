@@ -1,13 +1,6 @@
-# to do recent and ideas
+# 🐫 **my personal project** 🐘
+## 👹 **don't forget (for me)** 😡
 
-- start implementing things
-- improve visualizer
-- fix taskbar (buttons)
-
-# todo last worries
-
-- more creative style - own pixelart
-- use scss pallete for more balanced color style
-- implement scaling/phone integration - last thing
-
-# OPTIMIZE CODE IT'S A MESS!!!
+- 'npm run watch' - watch css while developing
+- 'npm run build' - build css
+- music library fetching lives in the separate playlist tool project, not this website project

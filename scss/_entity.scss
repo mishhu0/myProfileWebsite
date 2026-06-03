@@ -1,0 +1,119 @@
+@use "palette" as p;
+@use "mixins";
+
+.entity-tab {
+    --entity-render-width: 160px;
+    --entity-render-height: 120px;
+    background-color: transparent;
+    width: 115px;
+    height: 115px;
+    top: 20px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    z-index: 2147483647 !important;
+    box-shadow: none;
+    transform: none;
+    transition: left 420ms ease-in-out, top 420ms ease-in-out, width 420ms ease-in-out, height 420ms ease-in-out;
+    will-change: left, top, width, height;
+}
+
+.entity-tab.no-select {
+    transition: none;
+}
+
+.entity-tab.entity-tab--no-transition {
+    transition: none;
+}
+
+.entity-tab .entity-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.entity-canvas {
+    display: block;
+    width: var(--entity-render-width);
+    height: var(--entity-render-height);
+    flex: 0 0 auto;
+    background: transparent;
+}
+
+.entity-chat {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    width: min(280px, calc(100vw - 24px));
+    max-height: min(220px, calc(100vh - 24px));
+    display: flex;
+    flex-direction: column;
+    background-color: p.$window-surface;
+    color: p.$text-dark;
+    padding: 4px;
+    box-sizing: border-box;
+    z-index: 2147483647 !important;
+    transition: opacity 180ms ease, transform 180ms ease;
+    @include mixins.win95-raised;
+}
+
+.entity-chat--hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+}
+
+.entity-chat__body {
+    position: relative;
+    overflow: auto;
+    padding: 6px;
+    background-color: p.$color2;
+    @include mixins.win95-pressed;
+}
+
+.entity-chat__actions {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    gap: 0;
+}
+
+.entity-chat__messages {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 24px;
+}
+
+body.pictures-expanded {
+    .entity-tab,
+    .entity-chat {
+        z-index: 8997 !important;
+    }
+}
+
+.entity-chat__line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.entity-chat__author {
+    font-weight: 700;
+    color: p.$color8;
+}
+
+.entity-chat__text {
+    flex: 1;
+    min-width: 0;
+}

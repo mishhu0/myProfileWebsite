@@ -1,0 +1,221 @@
+@use "palette" as p;
+@use "mixins";
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: p.$window-surface;
+    padding: 2px;
+    padding-left: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid p.$window-shadow-light;
+    box-shadow: 0 0 0 1px p.$border-grey-legacy-1;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 16px;
+    z-index: 10000;
+
+    button {
+        text-decoration: none;
+        border: none;
+        background-color: transparent;
+        color: p.$window-shadow-dark;
+        padding: 2px;
+        margin-right: 3px;
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        font-size: 16px;
+        cursor: pointer;
+        @include mixins.win95-raised;
+    }
+}
+
+.taskbar-divider {
+    border-left: 1px solid p.$border-grey-legacy-2;
+    border-right: 1px solid p.$window-shadow-light;
+    margin-right: 3px;
+    width: 2px;
+}
+
+.time {
+    color: p.$window-shadow-dark;
+    padding: 3px;
+    border-bottom: 1px solid p.$window-shadow-light;
+    border-right: 1px solid p.$window-shadow-light;
+    border-top: 1px solid p.$border-grey-legacy-2;
+    border-left: 1px solid p.$border-grey-legacy-2;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-tabs,
+.right-tabs {
+    display: flex;
+    height: 24px;
+}
+
+.taskbar-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex: 1;
+    gap: 0px;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+}
+
+.taskbar-tabs::-webkit-scrollbar {
+    height: 0;
+}
+
+.taskbar-tabs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.taskbar-tabs::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.taskbar-tabs::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+
+.taskbar-tab {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.taskbar-window-btn {
+    min-width: 120px !important;
+    max-width: 200px;
+    padding: 3px !important;
+    justify-content: flex-start;
+    gap: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.is-active {
+        background-color: p.$panel-grey-3;
+        @include mixins.win95-pressed;
+    }
+
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+#optionsBtn {
+    justify-content: flex-start;
+    padding: 2px 4px !important;
+
+    img {
+        margin-right: 2px;
+    }
+
+    span {
+        white-space: nowrap;
+    }
+}
+
+.taskbar-utils {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.utils-welcome {
+    width: 16px !important;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volume-popup {
+    display: none;
+    position: fixed;
+    width: 190px;
+    height: 25px;
+    background-color: p.$window-surface;
+    z-index: 2147483647 !important;
+    padding: 4px;
+    box-sizing: border-box;
+    @include mixins.win95-raised;
+
+    &.is-open {
+        display: block;
+    }
+}
+
+.volume-popup-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 100%;
+}
+
+#globalVolumeSlider {
+    width: 140px;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    accent-color: p.$color6;
+    cursor: pointer;
+    background: linear-gradient(to right, p.$color6 0, p.$color6 var(--volume-fill, 25%), p.$color4 var(--volume-fill, 25%), p.$color4 100%);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+#globalVolumeSlider::-webkit-slider-runnable-track {
+    height: 10px;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+#globalVolumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border: none;
+    background-color: p.$color6;
+    border-radius: 0;
+}
+
+#globalVolumeSlider::-moz-range-track {
+    height: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+#globalVolumeSlider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border: none;
+    background-color: p.$color6;
+    border-radius: 0;
+}
+
+#globalVolumeLabel {
+    min-width: 34px;
+    text-align: center;
+    color: p.$text-dark;
+}

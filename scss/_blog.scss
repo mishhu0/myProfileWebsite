@@ -1,0 +1,236 @@
+@use "palette" as p;
+@use "mixins";
+
+.blog-tab {
+	width: 720px !important;
+	height: 420px !important;
+}
+
+.blog-content {
+	display: grid;
+	grid-template-columns: 30% 70%;
+	width: calc(100% - 8px);
+	height: calc(100% - 34px);
+	margin: 0 4px 4px;
+	margin-top: 0 !important;
+	margin-bottom: 4px !important;
+	background-color: p.$color2;
+	@include mixins.win95-raised;
+	box-sizing: border-box;
+	padding: 3px;
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 30.2%;
+		top: 1px;
+		bottom: 1px;
+		width: 2px;
+		background: linear-gradient(180deg, p.$window-shadow-soft, p.$window-shadow-soft, p.$window-shadow-mid, p.$window-shadow-mid, p.$window-shadow-mid);
+		pointer-events: none;
+	}
+}
+
+.blog-list-wrap,
+.blog-detail {
+	min-height: 0;
+	overflow: hidden;
+}
+
+.blog-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	height: 100%;
+	overflow-y: auto;
+	padding-right: 2px;
+}
+
+.blog-list-item {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	cursor: pointer;
+	padding: 5px;
+	color: p.$window-shadow-dark;
+	background: linear-gradient(180deg, p.$overlay-white-18, p.$color3);
+	@include mixins.win95-raised;
+
+	&:hover,
+	&.is-active {
+		@include mixins.win95-pressed;
+		background: linear-gradient(180deg, p.$color3, p.$overlay-white-18);
+	}
+}
+
+.blog-list-item-heading {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+}
+
+.blog-list-item-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px;
+	min-width: 0;
+}
+
+.blog-list-item-title {
+	min-width: 0;
+	flex: 1 1 auto;
+	font-size: 18px;
+	line-height: 1;
+}
+
+.blog-list-item-subject {
+	flex: 0 0 auto;
+	padding: 1px 5px;
+	border-radius: 3px;
+	background-color: p.$color6;
+	color: p.$window-shadow-light;
+	font-size: 12px;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	text-transform: lowercase;
+}
+
+.blog-list-item-date {
+	flex: 1 1 auto;
+	font-size: 14px;
+	color: p.$text-muted;
+	line-height: 1;
+}
+
+.blog-loading,
+.blog-empty {
+	margin: 0;
+	padding: 8px;
+	color: p.$text-dark;
+}
+
+.blog-detail {
+	padding-left: 3px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.blog-detail-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	text-align: center;
+
+	h2,
+	p {
+		margin: 0;
+	}
+}
+
+.blog-article {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	min-height: 0;
+	height: 100%;
+
+	&[aria-hidden='true'] {
+		display: none;
+	}
+}
+
+.blog-article-header > *,
+.blog-summary,
+.blog-body > * {
+	box-sizing: border-box;
+	padding: 2px;
+	padding-bottom: 0 !important;
+	padding-top: 0 !important;
+}
+
+.blog-article-header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+    background-color: p.$color3;
+
+	h2 {
+		margin: 0;
+	}
+}
+
+.blog-meta-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 2px !important;
+}
+
+.blog-meta-left {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-width: 0;
+}
+
+.blog-date {
+	color: p.$text-muted;
+	font-size: 15px;
+}
+
+.blog-feeling {
+	display: none;
+	align-items: center;
+	height: 16px;
+	padding: 1px 6px;
+	font-size: 13px;
+	line-height: 1;
+	color: p.$window-shadow-light;
+	background-color: p.$color6;
+    border-radius: 3px;
+}
+
+.blog-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.blog-tag {
+	background-color: p.$color6;
+	color: p.$window-shadow-light;
+	font-size: 14px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.4px;
+}
+
+.blog-summary {
+	margin: 0;
+    background-color: p.$color3;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, p.$window-shadow-soft, p.$window-shadow-soft, p.$window-shadow-mid, p.$window-shadow-mid, p.$window-shadow-mid) 2;
+}
+
+.blog-body {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	min-height: 0;
+	padding-right: 2px;
+
+	h3,
+	p {
+		margin: 0;
+	}
+}

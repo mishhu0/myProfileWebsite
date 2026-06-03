@@ -1,0 +1,324 @@
+{
+	"title": "Changelog",
+	"updatedAt": "2026-06-02",
+	"entries": [
+		{
+			"version": "29.",
+			"date": "2026-06-02",
+			"tag": "improvement",
+			"summary": "preparations for the first release!",
+			"highlights": [
+				"fixed some minor visual bugs",
+				"setup mail on the server",
+				"tweaked a few design elements overall",
+				"cleaned a bit the music tab"
+			]
+		},
+		{
+			"version": "28.",
+			"date": "2026-05-29",
+			"tag": "improvement",
+			"summary": "major improvements overall",
+			"highlights": [
+				"updated projects tab",
+				"fixed a lot of bugs with the music settings and visualiser",
+				"remade the song visualiser",
+				"bought a cool domain!",
+				"configured the vps, now being ready for the first release of this website"
+			]
+		},
+		{
+			"version": "27.",
+			"date": "2026-05-25",
+			"tag": "improvement",
+			"summary": "bought a host! setup vps environment, revamp visualiser in music tab",
+			"highlights": [
+				"removed the code for the visualiser in music tab for a new start cuz of laggy geometry",
+				"configured the vps",
+				"bought a host"
+			]
+		},
+		{
+			"version": "26.",
+			"date": "2026-05-22",
+			"tag": "improvement",
+			"summary": "fixed bug",
+			"highlights": [
+				"fixed animation bug in the about tab"
+			]
+		},
+		{
+			"version": "25.",
+			"date": "2026-05-18",
+			"tag": "improvement",
+			"summary": "design updates overall",
+			"highlights": [
+				"finished about tab",
+				"big content and design update into about tab",
+				"3 new emojis added to the chatbox",
+				"improved blog tab design",
+				"small design updates all around the site"
+			]
+		},
+		{
+			"version": "24.",
+			"date": "2026-05-15",
+			"tag": "improvement",
+			"summary": "design updates overall",
+			"highlights": [
+				"updated chat tab design",
+				"improved vizualizer by a lot"
+			]
+		},
+		{
+			"version": "23.",
+			"date": "2026-05-13",
+			"tag": "improvement",
+			"summary": "design updates overall",
+			"highlights": [
+				"updated genres in music tab",
+				"improved music tab design",
+				"added a settings button for the responsiveness of music visualizer",
+				"design updates all around the site"
+			]
+		},
+		{
+			"version": "22.",
+			"date": "2026-05-12",
+			"tag": "improvement",
+			"summary": "bought a host, new mouse icons",
+			"highlights": [
+				"added 2 new mouse icons and improved an existing one",
+				"started creating the environment for the server",
+				"bought a VPS host for the website and future projects"
+			]
+		},
+		{
+			"version": "21.",
+			"date": "2026-05-11",
+			"tag": "feature",
+			"summary": "new tab chatbox",
+			"highlights": [
+				"small changes here and there",
+				"implemented lots of functionality for chatbox",
+				"added a new chatbox tab where visitors can leave messages"
+			]
+		},
+		{
+			"version": "20.",
+			"date": "2026-05-10",
+			"tag": "feature",
+			"summary": "entity chat",
+			"highlights": [
+				"changed download button to youtube button",
+				"updated comment position in photography",
+				"removed welcome tab and replaced it with a welcome chat.",
+				"added entity chat feature"
+			]
+		},
+		{
+			"version": "19.",
+			"date": "2026-05-08",
+			"tag": "improvement",
+			"summary": "first custom asset, design updates",
+			"highlights": [
+				"added second mouse icon shark ;p",
+				"updated option menu design",
+				"made a first custom mouse icon using Aseprite"
+			]
+		},
+		{
+			"version": "18.",
+			"date": "2026-05-08",
+			"tag": "feature",
+			"summary": "my own color picker",
+			"highlights": [
+				"got rid of the built-in color picker and made my own custom one"
+			]
+		},
+		{
+			"version": "17.",
+			"date": "2026-05-07",
+			"tag": "feature",
+			"summary": "start menu became an option menu",
+			"highlights": [
+				"added cursor icons menu in the options menu",
+				"added color variables for easy theme changing",
+				"added name var, so you can set your name and use it throughout the site",
+				"implemented options menu"
+			]
+		},
+		{
+			"version": "16.",
+			"date": "2026-05-07",
+			"tag": "improvement",
+			"summary": "fixed scroll when taskbar is full, design updates",
+			"highlights": [
+				"small design updates",
+				"fixed being unable to scroll when taskbar is full of tabs"
+			]
+		},
+		{
+			"version": "15.",
+			"date": "2026-05-06",
+			"tag": "improvement",
+			"summary": "design updates, fixed stuff",
+			"highlights": [
+				"imported newly added playlist songs",
+				"fixed some bugs in the playlist fetcher for music tab",
+				"small design updates overall"
+			]
+		},
+		{
+			"version": "14.",
+			"date": "2026-05-04",
+			"tag": "improvement",
+			"summary": "design updates",
+			"highlights": [
+				"updated contact tab design",
+				"updated hover on grid item animation",
+				"updated projects tab design"
+			]
+		},
+		{
+			"version": "13.",
+			"date": "2026-05-03",
+			"tag": "feature",
+			"summary": "entity companion",
+			"highlights": [
+				"finished positioning functionality for entity",
+				"added 3D entity companion"
+			]
+		},
+		{
+			"version": "12.",
+			"date": "2026-05-03",
+			"tag": "improvement",
+			"summary": "design updates",
+			"highlights": [
+				"improved welcome message design",
+				"added info comment for photos in photography tab",
+				"improved photography tab design"
+			]
+		},
+		{
+			"version": "11.",
+			"date": "2026-04-28",
+			"tag": "improvement",
+			"summary": "design updates, deleted some placeholders",
+			"highlights": [
+				"started updating contact tab wip",
+				"updated about tab design",
+				"deleted blog placeholders",
+				"updated music tab color pallete"
+			]
+		},
+		{
+			"version": "10.",
+			"date": "2026-04-27",
+			"tag": "improvement",
+			"summary": "small fixes, design progress and major improvements to the playlist functionality",
+			"highlights": [
+				"made some custom node modules for the playlist downloader for easy fetching, downloading and updating songs for music tab",
+				"made a PLAYLIST DOWNLOADER using Youtube Data API and yt-dlp",
+				"started testing with Youtube Data API",
+				"designed on paper some ui improvements waiting to be implemented",
+				"small position fixes",
+				"updated workspace files"
+			]
+		},
+		{
+			"version": "9.",
+			"date": "2026-04-22",
+			"tag": "improvement",
+			"summary": "added photography posts and pictures + changes design",
+			"highlights": [
+				"added older photography posts and pictures to photography tab",
+				"removed pixelart overlay for now and will think of something better"
+			]
+		},
+		{
+			"version": "8.",
+			"date": "2026-04-21",
+			"tag": "improvement",
+			"summary": "improved design pixelart in to do tab",
+			"highlights": [
+				"pixelart ovoverlay improved in to do tab"
+			]
+		},
+		{
+			"version": "7.",
+			"date": "2026-04-20",
+			"tag": "improvement",
+			"summary": "added some pixelart and recovered files",
+			"highlights": [
+				"pixelart overlay test in to do tab",
+				"started experimenting with pixelart",
+				"3 pixelart icons added",
+				"recovered the whole project after a git mistake that made me lose everything..."
+			]
+		},
+		{
+			"version": "6.",
+			"date": "2026-04-19",
+			"tag": "improvement",
+			"summary": "changed so when the taskbar is full, you can scroll through it with the mouse wheel",
+			"highlights": [
+				"added scroll functionality to taskbar when taskbar is full"
+			]
+		},
+		{
+			"version": "5.",
+			"date": "2026-04-19",
+			"tag": "feature",
+			"summary": "implemented to do tab and its functionality",
+			"highlights": [
+				"created todo tab design",
+				"implemented todo tab functionality"
+			]
+		},
+		{
+			"version": "4.",
+			"date": "2026-04-18",
+			"tag": "feature",
+			"summary": "implemented photography tab/blog tab and their functionality",
+			"highlights": [
+				"created blog tab design",
+				"implemented blog tab and functionality",
+				"implemented fullscreen mode for photography",
+				"created photography tab design",
+				"implemented photography tab and functionality"
+			]
+		},
+		{
+			"version": "3.",
+			"date": "2026-04-17",
+			"tag": "improvement",
+			"summary": "improved the overall design",
+			"highlights": [
+				"updated mini player design"
+			]
+		},
+        {
+			"version": "2.",
+			"date": "2026-04-16",
+			"tag": "improvement",
+			"summary": "improved the overall design",
+			"highlights": [
+				"kinda finished projects tab design",
+				"update design about, projects, music"
+			]
+		},
+		{
+			"version": "1.",
+			"date": "2026-04-16",
+			"tag": "initial",
+			"summary": "created changelog tab and started tracking progress here",
+			"highlights": [
+                "improved changelog tab design",
+				"implemented card-based rendering for each changelog entry",
+                "created changelog tab and functionality"
+			]
+		}
+	]
+}

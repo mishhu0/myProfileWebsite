@@ -1,0 +1,126 @@
+@use "palette" as p;
+@use "mixins";
+
+.changelog-tab {
+    position: fixed;
+    background-color: p.$window-surface;
+    width: 260px;
+    height: 300px;
+    bottom: 75px;
+    right: 15px;
+    @include mixins.win95-raised;
+
+    .changelog-content {
+        padding: 4px;
+        box-sizing: border-box;
+        padding-top: 0 !important;
+    }
+
+    .changelog-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-height: 266px;
+        overflow-y: auto;
+        padding-right: 2px;
+    }
+
+    .changelog-loading,
+    .changelog-empty {
+        margin: 0;
+        padding: 8px;
+        background-color: p.$panel-grey-1;
+        color: p.$text-dark;
+        text-align: center;
+    }
+
+    .changelog-card {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        background-color: p.$color2;
+        @include mixins.win95-raised;
+    }
+
+    .changelog-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .changelog-version {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .changelog-meta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 3px;
+        font-size: 12px;
+        color: p.$text-muted;
+        white-space: nowrap;
+    }
+
+    .changelog-date,
+    .changelog-tag {
+        line-height: 1;
+    }
+
+    .changelog-tag {
+        padding: 1px 5px;
+        border-radius: 3px;
+        background-color: p.$window-shadow-dark;
+        color: p.$window-shadow-light;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .changelog-summary {
+        margin: 0;
+        color: p.$text-dark;
+        line-height: 1.2;
+        padding-bottom: 4px;
+    }
+
+    .changelog-highlights {
+        margin: 0;
+        padding-left: 18px;
+        color: p.$text-dark;
+
+        li + li {
+            margin-top: 4px;
+        }
+    }
+
+    .changelog-card--feature .changelog-tag {
+        background-color: p.$color6;
+    }
+
+    .changelog-card--improvement .changelog-tag {
+        background-color: p.$color7;
+    }
+
+    .changelog-card--initial .changelog-tag {
+        background-color: p.$window-shadow-dark;
+    }
+
+    .changelog-card--fallback .changelog-tag {
+        background-color: p.$color5;
+    }
+
+    h1 {
+        font-size: 28px;
+        text-align: center;
+        padding-bottom: 6px;
+    }
+
+    p {
+        margin: 0px !important;
+        color: p.$text-dark;
+        font-size: 14px;
+    }
+}
