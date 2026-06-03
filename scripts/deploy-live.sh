@@ -15,9 +15,10 @@ mkdir -p "$TARGET_DIR"
 
 rsync -av --delete \
     "$SOURCE_DIR/index.html" \
-    "$SOURCE_DIR/main.html" \
     "$SOURCE_DIR/style.css" \
     "$TARGET_DIR/"
+
+rm -f "$TARGET_DIR/main.html"
 
 for dir in about blogs images js misc photography vendor; do
     mkdir -p "$TARGET_DIR/$dir"
