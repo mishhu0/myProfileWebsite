@@ -1,6 +1,7 @@
 node_modules/
 .sass-cache/
 style.css.map
+.github/
 
 # local editor / OS noise
 .vscode/
@@ -10,6 +11,7 @@ Thumbs.db
 # local release artifacts
 deploy/
 dist/
+ops/
 *.zip
 
 # helper project stays local; website runtime should not deploy it

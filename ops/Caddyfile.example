@@ -1,9 +1,0 @@
-yourdomain.com {
-    root * /var/www/mihai-live
-    encode zstd gzip
-
-    @json path *.json
-    header @json Cache-Control "no-cache"
-
-    file_server
-}
