@@ -8,40 +8,35 @@
           "title": "Where Owls Know My Name",
           "artist": "Rivers of Nihil",
           "genre": "Prog Death Metal",
-          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3",
-          "downloadable": true
+          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3"
         },
         {
           "id": "y",
           "title": "Y",
           "artist": "HYUKOH",
           "genre": "Experimental Rock",
-          "file": "music/songs/HYUKOH - Topic - Y.mp3",
-          "downloadable": true
+          "file": "music/songs/HYUKOH - Topic - Y.mp3"
         },
         {
           "id": "opeth-benighted-remastered",
           "title": "Benighted (Remastered)",
           "artist": "Opeth",
           "genre": "Progressive Metal",
-          "file": "music/songs/Opeth - Topic - Benighted (Remastered).mp3",
-          "downloadable": true
+          "file": "music/songs/Opeth - Topic - Benighted (Remastered).mp3"
         },
         {
           "id": "be-quiet-and-drive",
           "title": "Be Quiet and Drive (Far Away)",
           "artist": "Deftones",
           "genre": "Alternative Metal",
-          "file": "music/songs/Deftones - Topic - Be Quiet and Drive (Far Away).mp3",
-          "downloadable": true
+          "file": "music/songs/Deftones - Topic - Be Quiet and Drive (Far Away).mp3"
         },
         {
           "id": "seven-names",
           "title": "Seven Names (P O R T A L S)",
           "artist": "TesseracT",
           "genre": "Experimental Rock",
-          "file": "music/songs/TesseracT - Topic - Seven Names (P O R T A L S).mp3",
-          "downloadable": true
+          "file": "music/songs/TesseracT - Topic - Seven Names (P O R T A L S).mp3"
         }
       ]
     },
@@ -53,88 +48,77 @@
           "title": "All Seeds",
           "artist": "Don Glori",
           "genre": "Experimental Rock",
-          "file": "music/songs/Don Glori - Topic - All Seeds.mp3",
-          "downloadable": true
+          "file": "music/songs/Don Glori - Topic - All Seeds.mp3"
         },
         {
           "id": "when-the-levee-breaks",
           "title": "When The Levee Breaks",
           "artist": "A Perfect Circle",
           "genre": "Blues Rock",
-          "file": "music/songs/A Perfect Circle - Topic - When The Levee Breaks.mp3",
-          "downloadable": true
+          "file": "music/songs/A Perfect Circle - Topic - When The Levee Breaks.mp3"
         },
         {
           "id": "the-winged-ones",
           "title": "The Winged Ones",
           "artist": "Cynic",
           "genre": "Metal",
-          "file": "music/songs/Cynic - Topic - The Winged Ones.mp3",
-          "downloadable": true
+          "file": "music/songs/Cynic - Topic - The Winged Ones.mp3"
         },
         {
           "id": "the-sum-of-all-the-parts",
           "title": "The Sum Of All The Parts",
           "artist": "Kessoncoda",
           "genre": "Progressive Rock",
-          "file": "music/songs/Kessoncoda - Topic - The Sum Of All The Parts.mp3",
-          "downloadable": true
+          "file": "music/songs/Kessoncoda - Topic - The Sum Of All The Parts.mp3"
         },
         {
           "id": "lemon-meringue-tie",
           "title": "Lemon Meringue Tie",
           "artist": "Dance Gavin Dance",
           "genre": "Post-Hardcore",
-          "file": "music/songs/Dance Gavin Dance - Topic - Lemon Meringue Tie.mp3",
-          "downloadable": true
+          "file": "music/songs/Dance Gavin Dance - Topic - Lemon Meringue Tie.mp3"
         },
         {
           "id": "judith",
           "title": "Judith",
           "artist": "A Perfect Circle",
           "genre": "Alternative Rock",
-          "file": "music/songs/A Perfect Circle - Topic - Judith.mp3",
-          "downloadable": true
+          "file": "music/songs/A Perfect Circle - Topic - Judith.mp3"
         },
         {
           "id": "heaven-up-there",
           "title": "Heaven Up There",
           "artist": "Palace",
           "genre": "Alternative Rock",
-          "file": "music/songs/Palace - Topic - Heaven Up There.mp3",
-          "downloadable": true
+          "file": "music/songs/Palace - Topic - Heaven Up There.mp3"
         },
         {
           "id": "desire",
           "title": "Desire",
           "artist": "Puma Blue",
           "genre": "Indie Rock",
-          "file": "music/songs/Puma Blue - Topic - Desire.mp3",
-          "downloadable": true
+          "file": "music/songs/Puma Blue - Topic - Desire.mp3"
         },
         {
           "id": "bloom",
           "title": "Bloom",
           "artist": "Caligula's Horse",
           "genre": "Alternative Metal",
-          "file": "music/songs/Caligula's Horse - Topic - Bloom.mp3",
-          "downloadable": true
+          "file": "music/songs/Caligula's Horse - Topic - Bloom.mp3"
         },
         {
           "id": "at-ease",
           "title": "AT EASE",
           "artist": "Moses Yoofee Trio",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Moses Yoofee Trio - Topic - AT EASE.mp3",
-          "downloadable": true
+          "file": "music/songs/Moses Yoofee Trio - Topic - AT EASE.mp3"
         },
         {
           "id": "spy-dolphin",
           "title": "Spy Dolphin",
           "artist": "Delta Sleep",
           "genre": "Math Rock",
-          "file": "music/songs/Delta Sleep - Topic - Spy Dolphin.mp3",
-          "downloadable": true
+          "file": "music/songs/Delta Sleep - Topic - Spy Dolphin.mp3"
         }
       ]
     },
@@ -146,3376 +130,2954 @@
           "title": "The Good Ones",
           "artist": "Widowspeak",
           "genre": "Indie Rock",
-          "file": "music/songs/Widowspeak - Topic - The Good Ones.mp3",
-          "downloadable": true
+          "file": "music/songs/Widowspeak - Topic - The Good Ones.mp3"
         },
         {
           "id": "swaying-in-the-morning",
           "title": "Swaying in the Morning",
           "artist": "Uncle Chris",
           "genre": "Indie Pop",
-          "file": "music/songs/Uncle Chris - Topic - Swaying in the Morning.mp3",
-          "downloadable": true
+          "file": "music/songs/Uncle Chris - Topic - Swaying in the Morning.mp3"
         },
         {
           "id": "some-feeling",
           "title": "Some Feeling",
           "artist": "Mild Orange",
           "genre": "Indie Rock",
-          "file": "music/songs/Mild Orange - Topic - Some Feeling.mp3",
-          "downloadable": true
+          "file": "music/songs/Mild Orange - Topic - Some Feeling.mp3"
         },
         {
           "id": "numero-uno",
           "title": "Numero Uno",
           "artist": "Venna",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Venna - Topic - Numero Uno.mp3",
-          "downloadable": true
+          "file": "music/songs/Venna - Topic - Numero Uno.mp3"
         },
         {
           "id": "the-tinker",
           "title": "The Tinker",
           "artist": "Maruja",
           "genre": "Jazz Punk",
-          "file": "music/songs/Maruja - Topic - The Tinker.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - The Tinker.mp3"
         },
         {
           "id": "home",
           "title": "Home",
           "artist": "Iam6teen",
           "genre": "Indie Pop",
-          "file": "music/songs/Iam6teen - Topic - Home.mp3",
-          "downloadable": true
+          "file": "music/songs/Iam6teen - Topic - Home.mp3"
         },
         {
           "id": "control",
           "title": "Control",
           "artist": "Yellow House",
           "genre": "Dream Pop",
-          "file": "music/songs/Yellow House - Topic - Control.mp3",
-          "downloadable": true
+          "file": "music/songs/Yellow House - Topic - Control.mp3"
         },
         {
           "id": "flamme-jumelle",
           "title": "Flamme Jumelle",
           "artist": "Alcest",
           "genre": "Blackgaze",
-          "file": "music/songs/Alcest - Topic - Flamme Jumelle.mp3",
-          "downloadable": true
+          "file": "music/songs/Alcest - Topic - Flamme Jumelle.mp3"
         },
         {
           "id": "spare-me-the-decision",
           "title": "Spare Me the Decision",
           "artist": "Nation of Language",
           "genre": "Synth Pop",
-          "file": "music/songs/Nation of Language - Topic - Spare Me the Decision.mp3",
-          "downloadable": true
+          "file": "music/songs/Nation of Language - Topic - Spare Me the Decision.mp3"
         },
         {
           "id": "of-reality-calabi-yau",
           "title": "Of Reality - Calabi-Yau",
           "artist": "TesseracT",
           "genre": "Djent",
-          "file": "music/songs/TesseracT - Topic - Of Reality - Calabi-Yau.mp3",
-          "downloadable": true
+          "file": "music/songs/TesseracT - Topic - Of Reality - Calabi-Yau.mp3"
         },
         {
           "id": "sirens",
           "title": "Sirens",
           "artist": "TesseracT",
           "genre": "Djent",
-          "file": "music/songs/TesseracT - Topic - Sirens.mp3",
-          "downloadable": true
+          "file": "music/songs/TesseracT - Topic - Sirens.mp3"
         },
         {
           "id": "of-mind-nocturne",
           "title": "Of Mind - Nocturne",
           "artist": "TesseracT",
           "genre": "Djent",
-          "file": "music/songs/TesseracT - Topic - Of Mind - Nocturne.mp3",
-          "downloadable": true
+          "file": "music/songs/TesseracT - Topic - Of Mind - Nocturne.mp3"
         },
         {
           "id": "waves-robin-schulz-radio-edit",
           "title": "Waves (Robin Schulz Radio Edit)",
           "artist": "Mr. Probz",
           "genre": "Tropical House",
-          "file": "music/songs/Mr. Probz - Topic - Waves (Robin Schulz Radio Edit).mp3",
-          "downloadable": true
+          "file": "music/songs/Mr. Probz - Topic - Waves (Robin Schulz Radio Edit).mp3"
         },
         {
           "id": "judgement-day-mixed",
           "title": "Judgement Day (Mixed)",
           "artist": "Ryme Tyme",
           "genre": "Drum and Bass",
-          "file": "music/songs/Ryme Tyme - Topic - Judgement Day (Mixed).mp3",
-          "downloadable": true
+          "file": "music/songs/Ryme Tyme - Topic - Judgement Day (Mixed).mp3"
         },
         {
           "id": "suzanne",
           "title": "Suzanne",
           "artist": "Mark Ronson",
           "genre": "Nu Disco",
-          "file": "music/songs/Mark Ronson - Topic - Suzanne.mp3",
-          "downloadable": true
+          "file": "music/songs/Mark Ronson - Topic - Suzanne.mp3"
         },
         {
           "id": "ventura-highway",
           "title": "Ventura Highway",
           "artist": "America",
           "genre": "Folk Rock",
-          "file": "music/songs/America - Topic - Ventura Highway.mp3",
-          "downloadable": true
+          "file": "music/songs/America - Topic - Ventura Highway.mp3"
         },
         {
           "id": "never-lost",
           "title": "Never Lost",
           "artist": "Kokoroko",
           "genre": "Afrobeat",
-          "file": "music/songs/Kokoroko - Topic - Never Lost.mp3",
-          "downloadable": true
+          "file": "music/songs/Kokoroko - Topic - Never Lost.mp3"
         },
         {
           "id": "1-2-3-4",
           "title": "1,2,3,4",
           "artist": "toe",
           "genre": "Math Rock",
-          "file": "music/songs/toe - Topic - 1,2,3,4.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - 1,2,3,4.mp3"
         },
         {
           "id": "glue",
           "title": "Glue",
           "artist": "Bicep",
           "genre": "Electronic",
-          "file": "music/songs/Bicep - Topic - Glue.mp3",
-          "downloadable": true
+          "file": "music/songs/Bicep - Topic - Glue.mp3"
         },
         {
           "id": "its-a-jazz-thing",
           "title": "It's a Jazz Thing",
           "artist": "Roni Size",
           "genre": "Drum and Bass",
-          "file": "music/songs/Roni Size - Topic - It's a Jazz Thing.mp3",
-          "downloadable": true
+          "file": "music/songs/Roni Size - Topic - It's a Jazz Thing.mp3"
         },
         {
           "id": "first-contact",
           "title": "First Contact",
           "artist": "Omni Trio",
           "genre": "Drum and Bass",
-          "file": "music/songs/Omni Trio - Topic - First Contact.mp3",
-          "downloadable": true
+          "file": "music/songs/Omni Trio - Topic - First Contact.mp3"
         },
         {
           "id": "deception",
           "title": "Deception",
           "artist": "Dance Gavin Dance",
           "genre": "Post-Hardcore",
-          "file": "music/songs/Dance Gavin Dance - Topic - Deception.mp3",
-          "downloadable": true
+          "file": "music/songs/Dance Gavin Dance - Topic - Deception.mp3"
         },
         {
           "id": "gordon-doesnt-like-the-name-of-this-song",
           "title": "Gordon Doesn't Like the Name of This Song",
           "artist": "Via Luna",
           "genre": "Math Rock",
-          "file": "music/songs/Via Luna - Topic - Gordon Doesn't Like the Name of This Song.mp3",
-          "downloadable": true
+          "file": "music/songs/Via Luna - Topic - Gordon Doesn't Like the Name of This Song.mp3"
         },
         {
           "id": "strongthany",
           "title": "Strongthany",
           "artist": "Delta Sleep",
           "genre": "Math Rock",
-          "file": "music/songs/Delta Sleep - Topic - Strongthany.mp3",
-          "downloadable": true
+          "file": "music/songs/Delta Sleep - Topic - Strongthany.mp3"
         },
         {
           "id": "a-picture-of-her-history-repeats-itself",
           "title": "History repeats itself",
           "artist": "a picture of her",
           "genre": "Math Rock",
-          "file": "music/songs/a picture of her - Topic - History repeats itself.mp3",
-          "downloadable": true
+          "file": "music/songs/a picture of her - Topic - History repeats itself.mp3"
         },
         {
           "id": "cam-rellim-your-shoes-are-untied-mac-miller",
           "title": "your Shoes Are Untied - Mac Miller",
           "artist": "cam rellim",
           "genre": "Electronic",
-          "file": "music/songs/cam rellim - your Shoes Are Untied - Mac Miller.mp3",
-          "downloadable": true
+          "file": "music/songs/cam rellim - your Shoes Are Untied - Mac Miller.mp3"
         },
         {
           "id": "gogo-penguin-the-antidote-is-in-the-poison",
           "title": "The Antidote Is in the Poison",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - The Antidote Is in the Poison.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - The Antidote Is in the Poison.mp3"
         },
         {
           "id": "gogo-penguin-window",
           "title": "Window",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - Window.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - Window.mp3"
         },
         {
           "id": "how-to-count-one-to-ten-concrete-foundation",
           "title": "concrete foundation",
           "artist": "How to count one to ten",
           "genre": "Electronic",
-          "file": "music/songs/How to count one to ten - Topic - concrete foundation.mp3",
-          "downloadable": true
+          "file": "music/songs/How to count one to ten - Topic - concrete foundation.mp3"
         },
         {
           "id": "is-it-sunday-a-gentle-distance",
           "title": "a gentle distance",
           "artist": "is it sunday?",
           "genre": "Jazz",
-          "file": "music/songs/is it sunday_ - Topic - a gentle distance.mp3",
-          "downloadable": true
+          "file": "music/songs/is it sunday_ - Topic - a gentle distance.mp3"
         },
         {
           "id": "jasmine-myra-knowingness",
           "title": "Knowingness",
           "artist": "Jasmine Myra",
           "genre": "Jazz",
-          "file": "music/songs/Jasmine Myra - Topic - Knowingness.mp3",
-          "downloadable": true
+          "file": "music/songs/Jasmine Myra - Topic - Knowingness.mp3"
         },
         {
           "id": "kokoroko-da-du-dah",
           "title": "Da Du Dah",
           "artist": "Kokoroko",
           "genre": "Afrobeat",
-          "file": "music/songs/Kokoroko - Topic - Da Du Dah.mp3",
-          "downloadable": true
+          "file": "music/songs/Kokoroko - Topic - Da Du Dah.mp3"
         },
         {
           "id": "nature-tv-get-high-get-down",
           "title": "Get High / Get Down",
           "artist": "Nature TV",
           "genre": "Electronic",
-          "file": "music/songs/Nature TV - Topic - Get High _ Get Down.mp3",
-          "downloadable": true
+          "file": "music/songs/Nature TV - Topic - Get High _ Get Down.mp3"
         },
         {
           "id": "phi-psonics-new-pyramid",
           "title": "New Pyramid",
           "artist": "Phi-Psonics",
           "genre": "Jazz",
-          "file": "music/songs/Phi-Psonics - Topic - New Pyramid.mp3",
-          "downloadable": true
+          "file": "music/songs/Phi-Psonics - Topic - New Pyramid.mp3"
         },
         {
           "id": "toe-our-next-movement",
           "title": "our next movement",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - our next movement.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - our next movement.mp3"
         },
         {
           "id": "unknown-where-owls-know-my-name",
           "title": "Where Owls Know My Name",
           "artist": "Rivers of Nihil",
           "genre": "Progressive Metal",
-          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3",
-          "downloadable": true
+          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3"
         },
         {
           "id": "venna-sun-moon-herbs",
           "title": "Sun, Moon & Herbs",
           "artist": "Venna",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Venna - Topic - Sun, Moon & Herbs.mp3",
-          "downloadable": true
+          "file": "music/songs/Venna - Topic - Sun, Moon & Herbs.mp3"
         },
         {
           "id": "yussef-dayes-rust-feat-tom-misch",
           "title": "Rust (feat. Tom Misch)",
           "artist": "Yussef Dayes",
           "genre": "Jazz",
-          "file": "music/songs/Yussef Dayes - Topic - Rust (feat. Tom Misch).mp3",
-          "downloadable": true
+          "file": "music/songs/Yussef Dayes - Topic - Rust (feat. Tom Misch).mp3"
         },
         {
           "id": "44th-move-anthem",
           "title": "Anthem",
           "artist": "44th Move",
           "genre": "Electronic",
-          "file": "music/songs/44th Move - Topic - Anthem.mp3",
-          "downloadable": true
+          "file": "music/songs/44th Move - Topic - Anthem.mp3"
         },
         {
           "id": "aukai-zenith",
           "title": "Zenith",
           "artist": "Aukai",
           "genre": "Electronic",
-          "file": "music/songs/Aukai - Topic - Zenith.mp3",
-          "downloadable": true
+          "file": "music/songs/Aukai - Topic - Zenith.mp3"
         },
         {
           "id": "barry-can-t-swim-always-get-through-to-you",
           "title": "Always Get Through To You",
           "artist": "Barry Can’t Swim",
           "genre": "Electronic",
-          "file": "music/songs/Barry Can’t Swim - Topic - Always Get Through To You.mp3",
-          "downloadable": true
+          "file": "music/songs/Barry Can’t Swim - Topic - Always Get Through To You.mp3"
         },
         {
           "id": "barry-can-t-swim-childhood",
           "title": "Childhood",
           "artist": "Barry Can’t Swim",
           "genre": "Electronic",
-          "file": "music/songs/Barry Can’t Swim - Topic - Childhood.mp3",
-          "downloadable": true
+          "file": "music/songs/Barry Can’t Swim - Topic - Childhood.mp3"
         },
         {
           "id": "barry-can-t-swim-how-it-feels",
           "title": "How It Feels",
           "artist": "Barry Can’t Swim",
           "genre": "Electronic",
-          "file": "music/songs/Barry Can’t Swim - Topic - How It Feels.mp3",
-          "downloadable": true
+          "file": "music/songs/Barry Can’t Swim - Topic - How It Feels.mp3"
         },
         {
           "id": "bob-marley-running-away-kaya-40-mix",
           "title": "Running Away (Kaya 40 Mix)",
           "artist": "Bob Marley",
           "genre": "Afrobeat",
-          "file": "music/songs/Bob Marley - Topic - Running Away (Kaya 40 Mix).mp3",
-          "downloadable": true
+          "file": "music/songs/Bob Marley - Topic - Running Away (Kaya 40 Mix).mp3"
         },
         {
           "id": "bob-marley-sun-is-shining",
           "title": "Sun Is Shining",
           "artist": "Bob Marley",
           "genre": "Afrobeat",
-          "file": "music/songs/Bob Marley - Topic - Sun Is Shining.mp3",
-          "downloadable": true
+          "file": "music/songs/Bob Marley - Topic - Sun Is Shining.mp3"
         },
         {
           "id": "bonobo-rosewood",
           "title": "Rosewood",
           "artist": "Bonobo",
           "genre": "Electronic",
-          "file": "music/songs/Bonobo - Topic - Rosewood.mp3",
-          "downloadable": true
+          "file": "music/songs/Bonobo - Topic - Rosewood.mp3"
         },
         {
           "id": "covet-lovespell",
           "title": "lovespell",
           "artist": "Covet",
           "genre": "Math Rock",
-          "file": "music/songs/Covet - Topic - lovespell.mp3",
-          "downloadable": true
+          "file": "music/songs/Covet - Topic - lovespell.mp3"
         },
         {
           "id": "delta-sleep-el-pastor",
           "title": "El Pastor",
           "artist": "Delta Sleep",
           "genre": "Math Rock",
-          "file": "music/songs/Delta Sleep - Topic - El Pastor.mp3",
-          "downloadable": true
+          "file": "music/songs/Delta Sleep - Topic - El Pastor.mp3"
         },
         {
           "id": "ebi-soda-libre",
           "title": "Libre",
           "artist": "Ebi Soda",
           "genre": "Jazz",
-          "file": "music/songs/Ebi Soda - Topic - Libre.mp3",
-          "downloadable": true
+          "file": "music/songs/Ebi Soda - Topic - Libre.mp3"
         },
         {
           "id": "elephant-gym-gaze-at-blue-version-windie-out",
           "title": "凝視 Gaze at Blue (聖德宮 Version) - WINDIE 收OUT！",
           "artist": "Elephant Gym",
           "genre": "Indie Rock",
-          "file": "music/songs/Elephant Gym - Topic - 凝視 Gaze at Blue (聖德宮 Version) - WINDIE 收OUT！.mp3",
-          "downloadable": true
+          "file": "music/songs/Elephant Gym - Topic - 凝視 Gaze at Blue (聖德宮 Version) - WINDIE 收OUT！.mp3"
         },
         {
           "id": "foals-birch-tree",
           "title": "Birch Tree",
           "artist": "Foals",
           "genre": "Indie Rock",
-          "file": "music/songs/Foals - Topic - Birch Tree.mp3",
-          "downloadable": true
+          "file": "music/songs/Foals - Topic - Birch Tree.mp3"
         },
         {
           "id": "gogo-penguin-naga-ghost",
           "title": "Naga Ghost",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - Naga Ghost.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - Naga Ghost.mp3"
         },
         {
           "id": "gogo-penguin-wave-decay",
           "title": "Wave Decay",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - Wave Decay.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - Wave Decay.mp3"
         },
         {
           "id": "goreshit-o-er-the-flood",
           "title": "O'er the Flood",
           "artist": "Goreshit",
           "genre": "Electronic",
-          "file": "music/songs/Goreshit - Topic - O'er the Flood.mp3",
-          "downloadable": true
+          "file": "music/songs/Goreshit - Topic - O'er the Flood.mp3"
         },
         {
           "id": "grasu-xxl-puterea",
           "title": "Puterea",
           "artist": "Grasu XXL",
           "genre": "Hip-Hop",
-          "file": "music/songs/Grasu XXL - Topic - Puterea.mp3",
-          "downloadable": true
+          "file": "music/songs/Grasu XXL - Topic - Puterea.mp3"
         },
         {
           "id": "guess-who-liber",
           "title": "Liber",
           "artist": "Guess Who",
           "genre": "Blues Rock",
-          "file": "music/songs/Guess Who - Topic - Liber.mp3",
-          "downloadable": true
+          "file": "music/songs/Guess Who - Topic - Liber.mp3"
         },
         {
           "id": "hiatus-kaiyote-breathing-underwater",
           "title": "Breathing Underwater",
           "artist": "Hiatus Kaiyote",
           "genre": "Electronic",
-          "file": "music/songs/Hiatus Kaiyote - Topic - Breathing Underwater.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - Breathing Underwater.mp3"
         },
         {
           "id": "hiatus-kaiyote-fingerprints",
           "title": "Fingerprints",
           "artist": "Hiatus Kaiyote",
           "genre": "Electronic",
-          "file": "music/songs/Hiatus Kaiyote - Topic - Fingerprints.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - Fingerprints.mp3"
         },
         {
           "id": "hiatus-kaiyote-the-lung",
           "title": "The Lung",
           "artist": "Hiatus Kaiyote",
           "genre": "Electronic",
-          "file": "music/songs/Hiatus Kaiyote - Topic - The Lung.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - The Lung.mp3"
         },
         {
           "id": "hyukoh-antenna",
           "title": "Antenna",
           "artist": "HYUKOH",
           "genre": "Experimental Rock",
-          "file": "music/songs/HYUKOH - Topic - Antenna.mp3",
-          "downloadable": true
+          "file": "music/songs/HYUKOH - Topic - Antenna.mp3"
         },
         {
           "id": "ibrahim-maalouf-au-revoir",
           "title": "Au Revoir",
           "artist": "Ibrahim Maalouf",
           "genre": "Jazz",
-          "file": "music/songs/Ibrahim Maalouf - Topic - Au Revoir.mp3",
-          "downloadable": true
+          "file": "music/songs/Ibrahim Maalouf - Topic - Au Revoir.mp3"
         },
         {
           "id": "ibrahim-maalouf-overture-ii",
           "title": "Overture II",
           "artist": "Ibrahim Maalouf",
           "genre": "Jazz",
-          "file": "music/songs/Ibrahim Maalouf - Topic - Overture II.mp3",
-          "downloadable": true
+          "file": "music/songs/Ibrahim Maalouf - Topic - Overture II.mp3"
         },
         {
           "id": "if-these-trees-could-talk-they-speak-with-knives",
           "title": "They Speak With Knives",
           "artist": "If These Trees Could Talk",
           "genre": "Alternative Rock",
-          "file": "music/songs/If These Trees Could Talk - Topic - They Speak With Knives.mp3",
-          "downloadable": true
+          "file": "music/songs/If These Trees Could Talk - Topic - They Speak With Knives.mp3"
         },
         {
           "id": "kanye-west-diamonds-from-sierra-leone-remix",
           "title": "Diamonds From Sierra Leone (Remix)",
           "artist": "Kanye West",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kanye West - Topic - Diamonds From Sierra Leone (Remix).mp3",
-          "downloadable": true
+          "file": "music/songs/Kanye West - Topic - Diamonds From Sierra Leone (Remix).mp3"
         },
         {
           "id": "katie-tupper-honey",
           "title": "Honey",
           "artist": "Katie Tupper",
           "genre": "Indie Pop",
-          "file": "music/songs/Katie Tupper - Topic - Honey.mp3",
-          "downloadable": true
+          "file": "music/songs/Katie Tupper - Topic - Honey.mp3"
         },
         {
           "id": "l-antidote-pomegranate-feat-bijan-chemirani-redi-hasa-rami-khalife",
           "title": "Pomegranate (feat. Bijan Chemirani, Redi Hasa, Rami Khalife)",
           "artist": "L'Antidote",
           "genre": "Hip-Hop",
-          "file": "music/songs/L'Antidote - Topic - Pomegranate (feat. Bijan Chemirani, Redi Hasa, Rami Khalife).mp3",
-          "downloadable": true
+          "file": "music/songs/L'Antidote - Topic - Pomegranate (feat. Bijan Chemirani, Redi Hasa, Rami Khalife).mp3"
         },
         {
           "id": "l-imperatrice-any-way-feat-maggie-rogers",
           "title": "Any Way (feat. Maggie Rogers)",
           "artist": "L'Impératrice",
           "genre": "Nu Disco",
-          "file": "music/songs/L'Impératrice - Topic - Any Way (feat. Maggie Rogers).mp3",
-          "downloadable": true
+          "file": "music/songs/L'Impératrice - Topic - Any Way (feat. Maggie Rogers).mp3"
         },
         {
           "id": "maribou-state-ii-remember",
           "title": "II Remember",
           "artist": "Maribou State",
           "genre": "Electronic",
-          "file": "music/songs/Maribou State - Topic - II Remember.mp3",
-          "downloadable": true
+          "file": "music/songs/Maribou State - Topic - II Remember.mp3"
         },
         {
           "id": "mass-of-the-fermenting-dregs-delusionalism",
           "title": "Delusionalism",
           "artist": "Mass of the Fermenting Dregs",
           "genre": "Indie Rock",
-          "file": "music/songs/Mass of the Fermenting Dregs - Topic - Delusionalism.mp3",
-          "downloadable": true
+          "file": "music/songs/Mass of the Fermenting Dregs - Topic - Delusionalism.mp3"
         },
         {
           "id": "metronomy-right-on-time",
           "title": "Right on time",
           "artist": "Metronomy",
           "genre": "Synth Pop",
-          "file": "music/songs/Metronomy - Topic - Right on time.mp3",
-          "downloadable": true
+          "file": "music/songs/Metronomy - Topic - Right on time.mp3"
         },
         {
           "id": "moses-yoofee-trio-ocean",
           "title": "OCEAN",
           "artist": "Moses Yoofee Trio",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Moses Yoofee Trio - Topic - OCEAN.mp3",
-          "downloadable": true
+          "file": "music/songs/Moses Yoofee Trio - Topic - OCEAN.mp3"
         },
         {
           "id": "ms-lauryn-hill-ex-factor",
           "title": "Ex-Factor",
           "artist": "Ms. Lauryn Hill",
           "genre": "Indie Pop",
-          "file": "music/songs/Ms. Lauryn Hill - Topic - Ex-Factor.mp3",
-          "downloadable": true
+          "file": "music/songs/Ms. Lauryn Hill - Topic - Ex-Factor.mp3"
         },
         {
           "id": "night-verses-arrival",
           "title": "Arrival",
           "artist": "Night Verses",
           "genre": "Alternative Rock",
-          "file": "music/songs/Night Verses - Topic - Arrival.mp3",
-          "downloadable": true
+          "file": "music/songs/Night Verses - Topic - Arrival.mp3"
         },
         {
           "id": "nyu-coast",
           "title": "Coast",
           "artist": "Nyu.",
           "genre": "Electronic",
-          "file": "music/songs/Nyu. - Topic - Coast.mp3",
-          "downloadable": true
+          "file": "music/songs/Nyu. - Topic - Coast.mp3"
         },
         {
           "id": "phantogram-when-i-m-small",
           "title": "When I'm Small",
           "artist": "Phantogram",
           "genre": "Electronic",
-          "file": "music/songs/Phantogram - Topic - When I'm Small.mp3",
-          "downloadable": true
+          "file": "music/songs/Phantogram - Topic - When I'm Small.mp3"
         },
         {
           "id": "pola-bryson-find-your-way-feat-charlotte-haining",
           "title": "Find Your Way (feat. Charlotte Haining)",
           "artist": "Pola & Bryson",
           "genre": "Drum and Bass",
-          "file": "music/songs/Pola & Bryson - Topic - Find Your Way (feat. Charlotte Haining).mp3",
-          "downloadable": true
+          "file": "music/songs/Pola & Bryson - Topic - Find Your Way (feat. Charlotte Haining).mp3"
         },
         {
           "id": "portugal-the-man-the-sun",
           "title": "The Sun",
           "artist": "Portugal. The Man",
           "genre": "Indie Rock",
-          "file": "music/songs/Portugal. The Man - Topic - The Sun.mp3",
-          "downloadable": true
+          "file": "music/songs/Portugal. The Man - Topic - The Sun.mp3"
         },
         {
           "id": "rio-kosta-higher",
           "title": "Higher",
           "artist": "RIO KOSTA",
           "genre": "Alternative Rock",
-          "file": "music/songs/RIO KOSTA - Topic - Higher.mp3",
-          "downloadable": true
+          "file": "music/songs/RIO KOSTA - Topic - Higher.mp3"
         },
         {
           "id": "spoon-inside-out",
           "title": "Inside Out",
           "artist": "Spoon",
           "genre": "Indie Rock",
-          "file": "music/songs/Spoon - Topic - Inside Out.mp3",
-          "downloadable": true
+          "file": "music/songs/Spoon - Topic - Inside Out.mp3"
         },
         {
           "id": "sub-focus-i-found-you",
           "title": "I Found You",
           "artist": "Sub Focus",
           "genre": "Drum and Bass",
-          "file": "music/songs/Sub Focus - Topic - I Found You.mp3",
-          "downloadable": true
+          "file": "music/songs/Sub Focus - Topic - I Found You.mp3"
         },
         {
           "id": "sungazer-against-the-fall-of-night",
           "title": "Against the Fall of Night",
           "artist": "Sungazer",
           "genre": "Electronic",
-          "file": "music/songs/Sungazer - Topic - Against the Fall of Night.mp3",
-          "downloadable": true
+          "file": "music/songs/Sungazer - Topic - Against the Fall of Night.mp3"
         },
         {
           "id": "sunset-rollercoaster-let-there-be-light-again",
           "title": "Let There Be Light Again",
           "artist": "Sunset Rollercoaster",
           "genre": "Alternative Rock",
-          "file": "music/songs/Sunset Rollercoaster - Topic - Let There Be Light Again.mp3",
-          "downloadable": true
+          "file": "music/songs/Sunset Rollercoaster - Topic - Let There Be Light Again.mp3"
         },
         {
           "id": "the-helix-nebula-sea-of-suns",
           "title": "Sea of Suns",
           "artist": "The Helix Nebula",
           "genre": "Progressive Metal",
-          "file": "music/songs/The Helix Nebula - Topic - Sea of Suns.mp3",
-          "downloadable": true
+          "file": "music/songs/The Helix Nebula - Topic - Sea of Suns.mp3"
         },
         {
           "id": "unknown-mortal-orchestra-the-world-is-crowded",
           "title": "The World Is Crowded",
           "artist": "Unknown Mortal Orchestra",
           "genre": "Indie Rock",
-          "file": "music/songs/Unknown Mortal Orchestra - Topic - The World Is Crowded.mp3",
-          "downloadable": true
+          "file": "music/songs/Unknown Mortal Orchestra - Topic - The World Is Crowded.mp3"
         },
         {
           "id": "unknown-where-owls-know-my-name-2",
           "title": "Where Owls Know My Name",
           "artist": "Rivers of Nihil",
           "genre": "Progressive Metal",
-          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3",
-          "downloadable": true
+          "file": "music/songs/Rivers of Nihil - Topic - Where Owls Know My Name.mp3"
         },
         {
           "id": "venna-prophet",
           "title": "Prophet",
           "artist": "Venna",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Venna - Topic - Prophet.mp3",
-          "downloadable": true
+          "file": "music/songs/Venna - Topic - Prophet.mp3"
         },
         {
           "id": "via-luna-mike-count-to-four",
           "title": "Mike, Count to Four",
           "artist": "Via Luna",
           "genre": "Math Rock",
-          "file": "music/songs/Via Luna - Topic - Mike, Count to Four.mp3",
-          "downloadable": true
+          "file": "music/songs/Via Luna - Topic - Mike, Count to Four.mp3"
         },
         {
           "id": "0neo-px",
           "title": "@px",
           "artist": "0neo",
           "genre": "Electronic",
-          "file": "music/songs/0neo - Topic - @px.mp3",
-          "downloadable": true
+          "file": "music/songs/0neo - Topic - @px.mp3"
         },
         {
           "id": "4am-breaks-luxi-dawn-aquarium-surface-tension-2022",
           "title": "Luxi - Dawn Aquarium / Surface Tension (2022)",
           "artist": "4AM Breaks",
           "genre": "Electronic",
-          "file": "music/songs/4AM Breaks - Luxi - Dawn Aquarium _ Surface Tension (2022).mp3",
-          "downloadable": true
+          "file": "music/songs/4AM Breaks - Luxi - Dawn Aquarium _ Surface Tension (2022).mp3"
         },
         {
           "id": "a-l-e-x-9-to-5",
           "title": "9 to 5",
           "artist": "A L E X",
           "genre": "Hip-Hop",
-          "file": "music/songs/A L E X - Topic - 9 to 5.mp3",
-          "downloadable": true
+          "file": "music/songs/A L E X - Topic - 9 to 5.mp3"
         },
         {
           "id": "a-l-e-x-zeldas-lullaby",
           "title": "Zeldas Lullaby",
           "artist": "A L E X",
           "genre": "Hip-Hop",
-          "file": "music/songs/A L E X - Topic - Zeldas Lullaby.mp3",
-          "downloadable": true
+          "file": "music/songs/A L E X - Topic - Zeldas Lullaby.mp3"
         },
         {
           "id": "a-perfect-circle-the-hollow",
           "title": "The Hollow",
           "artist": "A Perfect Circle",
           "genre": "Blues Rock",
-          "file": "music/songs/A Perfect Circle - Topic - The Hollow.mp3",
-          "downloadable": true
+          "file": "music/songs/A Perfect Circle - Topic - The Hollow.mp3"
         },
         {
           "id": "a-picture-of-her-picnic-perfect",
           "title": "picnic-perfect",
           "artist": "a picture of her",
           "genre": "Math Rock",
-          "file": "music/songs/a picture of her - Topic - picnic-perfect.mp3",
-          "downloadable": true
+          "file": "music/songs/a picture of her - Topic - picnic-perfect.mp3"
         },
         {
           "id": "a-picture-of-her-relatively-still-life",
           "title": "relatively still life",
           "artist": "a picture of her",
           "genre": "Math Rock",
-          "file": "music/songs/a picture of her - Topic - relatively still life.mp3",
-          "downloadable": true
+          "file": "music/songs/a picture of her - Topic - relatively still life.mp3"
         },
         {
           "id": "aaron-cherof-watcher",
           "title": "Watcher",
           "artist": "Aaron Cherof",
           "genre": "Electronic",
-          "file": "music/songs/Aaron Cherof - Topic - Watcher.mp3",
-          "downloadable": true
+          "file": "music/songs/Aaron Cherof - Topic - Watcher.mp3"
         },
         {
           "id": "aaron-frazer-bring-you-a-ring",
           "title": "Bring You A Ring",
           "artist": "Aaron Frazer",
           "genre": "Alternative Rock",
-          "file": "music/songs/Aaron Frazer - Topic - Bring You A Ring.mp3",
-          "downloadable": true
+          "file": "music/songs/Aaron Frazer - Topic - Bring You A Ring.mp3"
         },
         {
           "id": "ace-futureland-extended-version",
           "title": "Futureland (Extended Version)",
           "artist": "ACE",
           "genre": "Blues Rock",
-          "file": "music/songs/ACE - Topic - Futureland (Extended Version).mp3",
-          "downloadable": true
+          "file": "music/songs/ACE - Topic - Futureland (Extended Version).mp3"
         },
         {
           "id": "aj-mcqueen-sit-yuh-self-down",
           "title": "SIT YUH SELF DOWN",
           "artist": "AJ McQueen",
           "genre": "Electronic",
-          "file": "music/songs/AJ McQueen - Topic - SIT YUH SELF DOWN.mp3",
-          "downloadable": true
+          "file": "music/songs/AJ McQueen - Topic - SIT YUH SELF DOWN.mp3"
         },
         {
           "id": "alfa-mist-avoid-the-drones",
           "title": "Avoid The Drones",
           "artist": "Alfa Mist",
           "genre": "Hip-Hop",
-          "file": "music/songs/Alfa Mist - Topic - Avoid The Drones.mp3",
-          "downloadable": true
+          "file": "music/songs/Alfa Mist - Topic - Avoid The Drones.mp3"
         },
         {
           "id": "alfa-mist-door-feat-jordan-rakei",
           "title": "Door (feat. Jordan Rakei)",
           "artist": "Alfa Mist",
           "genre": "Hip-Hop",
-          "file": "music/songs/Alfa Mist - Topic - Door (feat. Jordan Rakei).mp3",
-          "downloadable": true
+          "file": "music/songs/Alfa Mist - Topic - Door (feat. Jordan Rakei).mp3"
         },
         {
           "id": "alfa-mist-energy",
           "title": "Energy",
           "artist": "Alfa Mist",
           "genre": "Hip-Hop",
-          "file": "music/songs/Alfa Mist - Topic - Energy.mp3",
-          "downloadable": true
+          "file": "music/songs/Alfa Mist - Topic - Energy.mp3"
         },
         {
           "id": "alfa-mist-stay-here",
           "title": "Stay Here",
           "artist": "Alfa Mist",
           "genre": "Hip-Hop",
-          "file": "music/songs/Alfa Mist - Topic - Stay Here.mp3",
-          "downloadable": true
+          "file": "music/songs/Alfa Mist - Topic - Stay Here.mp3"
         },
         {
           "id": "alice-in-chains-would-2022-remaster",
           "title": "Would? (2022 Remaster)",
           "artist": "Alice in Chains",
           "genre": "Alternative Rock",
-          "file": "music/songs/Alice in Chains - Topic - Would_ (2022 Remaster).mp3",
-          "downloadable": true
+          "file": "music/songs/Alice in Chains - Topic - Would_ (2022 Remaster).mp3"
         },
         {
           "id": "alyzea-always-online",
           "title": "always online",
           "artist": "alyzea",
           "genre": "Alternative Rock",
-          "file": "music/songs/alyzea - Topic - always online.mp3",
-          "downloadable": true
+          "file": "music/songs/alyzea - Topic - always online.mp3"
         },
         {
           "id": "american-football-honestly",
           "title": "Honestly?",
           "artist": "American Football",
           "genre": "Alternative Rock",
-          "file": "music/songs/American Football - Topic - Honestly_.mp3",
-          "downloadable": true
+          "file": "music/songs/American Football - Topic - Honestly_.mp3"
         },
         {
           "id": "animal-kingdom-get-away-with-it",
           "title": "Get Away With It",
           "artist": "Animal Kingdom",
           "genre": "Alternative Rock",
-          "file": "music/songs/Animal Kingdom - Topic - Get Away With It.mp3",
-          "downloadable": true
+          "file": "music/songs/Animal Kingdom - Topic - Get Away With It.mp3"
         },
         {
           "id": "animals-as-leaders-the-woven-web",
           "title": "The Woven Web",
           "artist": "Animals As Leaders",
           "genre": "Progressive Metal",
-          "file": "music/songs/Animals As Leaders - Topic - The Woven Web.mp3",
-          "downloadable": true
+          "file": "music/songs/Animals As Leaders - Topic - The Woven Web.mp3"
         },
         {
           "id": "antonio-barret-point-of-view",
           "title": "Point of View",
           "artist": "Antonio Barret",
           "genre": "Indie Pop",
-          "file": "music/songs/Antonio Barret - Topic - Point of View.mp3",
-          "downloadable": true
+          "file": "music/songs/Antonio Barret - Topic - Point of View.mp3"
         },
         {
           "id": "anwius-fate",
           "title": "Fate",
           "artist": "Anwius",
           "genre": "Electronic",
-          "file": "music/songs/Anwius - Topic - Fate.mp3",
-          "downloadable": true
+          "file": "music/songs/Anwius - Topic - Fate.mp3"
         },
         {
           "id": "anwius-inability",
           "title": "Inability",
           "artist": "Anwius",
           "genre": "Electronic",
-          "file": "music/songs/Anwius - Topic - Inability.mp3",
-          "downloadable": true
+          "file": "music/songs/Anwius - Topic - Inability.mp3"
         },
         {
           "id": "archangel-run-to-you",
           "title": "Run To You",
           "artist": "Archangel",
           "genre": "Drum and Bass",
-          "file": "music/songs/Archangel - Topic - Run To You.mp3",
-          "downloadable": true
+          "file": "music/songs/Archangel - Topic - Run To You.mp3"
         },
         {
           "id": "ariana-grande-one-last-time",
           "title": "One Last Time",
           "artist": "Ariana Grande",
           "genre": "Indie Pop",
-          "file": "music/songs/Ariana Grande - Topic - One Last Time.mp3",
-          "downloadable": true
+          "file": "music/songs/Ariana Grande - Topic - One Last Time.mp3"
         },
         {
           "id": "arielle-free-shy",
           "title": "Shy",
           "artist": "Arielle Free",
           "genre": "Electronic",
-          "file": "music/songs/Arielle Free - Topic - Shy.mp3",
-          "downloadable": true
+          "file": "music/songs/Arielle Free - Topic - Shy.mp3"
         },
         {
           "id": "aural-imbalance-particle-force",
           "title": "Particle Force",
           "artist": "Aural Imbalance",
           "genre": "Drum and Bass",
-          "file": "music/songs/Aural Imbalance - Topic - Particle Force.mp3",
-          "downloadable": true
+          "file": "music/songs/Aural Imbalance - Topic - Particle Force.mp3"
         },
         {
           "id": "babeheaven-human-nature",
           "title": "Human Nature",
           "artist": "Babeheaven",
           "genre": "Indie Pop",
-          "file": "music/songs/Babeheaven - Topic - Human Nature.mp3",
-          "downloadable": true
+          "file": "music/songs/Babeheaven - Topic - Human Nature.mp3"
         },
         {
           "id": "babeheaven-in-my-arms",
           "title": "In My Arms",
           "artist": "Babeheaven",
           "genre": "Alternative Rock",
-          "file": "music/songs/Babeheaven - Topic - In My Arms.mp3",
-          "downloadable": true
+          "file": "music/songs/Babeheaven - Topic - In My Arms.mp3"
         },
         {
           "id": "babeheaven-make-me-wanna",
           "title": "Make Me Wanna",
           "artist": "Babeheaven",
           "genre": "Alternative Rock",
-          "file": "music/songs/Babeheaven - Topic - Make Me Wanna.mp3",
-          "downloadable": true
+          "file": "music/songs/Babeheaven - Topic - Make Me Wanna.mp3"
         },
         {
           "id": "babeheaven-november",
           "title": "November",
           "artist": "Babeheaven",
           "genre": "Alternative Rock",
-          "file": "music/songs/Babeheaven - Topic - November.mp3",
-          "downloadable": true
+          "file": "music/songs/Babeheaven - Topic - November.mp3"
         },
         {
           "id": "babeheaven-the-hours",
           "title": "The Hours",
           "artist": "Babeheaven",
           "genre": "Alternative Rock",
-          "file": "music/songs/Babeheaven - Topic - The Hours.mp3",
-          "downloadable": true
+          "file": "music/songs/Babeheaven - Topic - The Hours.mp3"
         },
         {
           "id": "banda-black-rio-na-baixa-do-sapateiro",
           "title": "Na baixa do sapateiro",
           "artist": "Banda Black Rio",
           "genre": "Jazz",
-          "file": "music/songs/Banda Black Rio - Topic - Na baixa do sapateiro.mp3",
-          "downloadable": true
+          "file": "music/songs/Banda Black Rio - Topic - Na baixa do sapateiro.mp3"
         },
         {
           "id": "barry-can-t-swim-deadbeat-gospel",
           "title": "Deadbeat Gospel",
           "artist": "Barry Can’t Swim",
           "genre": "Electronic",
-          "file": "music/songs/Barry Can’t Swim - Topic - Deadbeat Gospel.mp3",
-          "downloadable": true
+          "file": "music/songs/Barry Can’t Swim - Topic - Deadbeat Gospel.mp3"
         },
         {
           "id": "bastille-send-them-off",
           "title": "Send Them Off!",
           "artist": "Bastille",
           "genre": "Indie Rock",
-          "file": "music/songs/Bastille - Topic - Send Them Off!.mp3",
-          "downloadable": true
+          "file": "music/songs/Bastille - Topic - Send Them Off!.mp3"
         },
         {
           "id": "berlioz-deep-in-it",
           "title": "deep in it",
           "artist": "berlioz",
           "genre": "Jazz",
-          "file": "music/songs/berlioz - Topic - deep in it.mp3",
-          "downloadable": true
+          "file": "music/songs/berlioz - Topic - deep in it.mp3"
         },
         {
           "id": "betcover",
           "title": "ゆめみちゃった (アルバムバージョン)",
           "artist": "betcover!!",
           "genre": "Alternative Rock",
-          "file": "music/songs/betcover!! - Topic - ゆめみちゃった (アルバムバージョン).mp3",
-          "downloadable": true
+          "file": "music/songs/betcover!! - Topic - ゆめみちゃった (アルバムバージョン).mp3"
         },
         {
           "id": "betcover-live",
           "title": "卵 (Live)",
           "artist": "betcover!!",
           "genre": "Alternative Rock",
-          "file": "music/songs/betcover!! - Topic - 卵 (Live).mp3",
-          "downloadable": true
+          "file": "music/songs/betcover!! - Topic - 卵 (Live).mp3"
         },
         {
           "id": "betcover-2",
           "title": "異星人",
           "artist": "betcover!!",
           "genre": "Alternative Rock",
-          "file": "music/songs/betcover!! - Topic - 異星人.mp3",
-          "downloadable": true
+          "file": "music/songs/betcover!! - Topic - 異星人.mp3"
         },
         {
           "id": "billie-eilish-chihiro",
           "title": "CHIHIRO",
           "artist": "Billie Eilish",
           "genre": "Indie Pop",
-          "file": "music/songs/Billie Eilish - Topic - CHIHIRO.mp3",
-          "downloadable": true
+          "file": "music/songs/Billie Eilish - Topic - CHIHIRO.mp3"
         },
         {
           "id": "blush-absence",
           "title": "absence",
           "artist": "blushʕ ꈍᴥꈍʔ",
           "genre": "Electronic",
-          "file": "music/songs/blushʕ ꈍᴥꈍʔ - Topic - absence.mp3",
-          "downloadable": true
+          "file": "music/songs/blushʕ ꈍᴥꈍʔ - Topic - absence.mp3"
         },
         {
           "id": "bob-marley-is-this-love",
           "title": "Is This Love",
           "artist": "Bob Marley",
           "genre": "Indie Pop",
-          "file": "music/songs/Bob Marley - Topic - Is This Love.mp3",
-          "downloadable": true
+          "file": "music/songs/Bob Marley - Topic - Is This Love.mp3"
         },
         {
           "id": "bobby-hebb-sunny",
           "title": "Sunny",
           "artist": "Bobby Hebb",
           "genre": "Indie Pop",
-          "file": "music/songs/Bobby Hebb - Topic - Sunny.mp3",
-          "downloadable": true
+          "file": "music/songs/Bobby Hebb - Topic - Sunny.mp3"
         },
         {
           "id": "bonobo-animals",
           "title": "Animals",
           "artist": "Bonobo",
           "genre": "Electronic",
-          "file": "music/songs/Bonobo - Topic - Animals.mp3",
-          "downloadable": true
+          "file": "music/songs/Bonobo - Topic - Animals.mp3"
         },
         {
           "id": "bonobo-rippling",
           "title": "Rippling",
           "artist": "Bonobo",
           "genre": "Electronic",
-          "file": "music/songs/Bonobo - Topic - Rippling.mp3",
-          "downloadable": true
+          "file": "music/songs/Bonobo - Topic - Rippling.mp3"
         },
         {
           "id": "boy-2000-new-lite",
           "title": "new lite",
           "artist": "boy 2000",
           "genre": "Drum and Bass",
-          "file": "music/songs/boy 2000 - Topic - new lite.mp3",
-          "downloadable": true
+          "file": "music/songs/boy 2000 - Topic - new lite.mp3"
         },
         {
           "id": "brekky-boy-portrait-of-tracy",
           "title": "Portrait of Tracy",
           "artist": "Brekky Boy",
           "genre": "Electronic",
-          "file": "music/songs/Brekky Boy - Topic - Portrait of Tracy.mp3",
-          "downloadable": true
+          "file": "music/songs/Brekky Boy - Topic - Portrait of Tracy.mp3"
         },
         {
           "id": "brynn-elise-like-this",
           "title": "Like This",
           "artist": "Brynn Elise",
           "genre": "Indie Pop",
-          "file": "music/songs/Brynn Elise - Topic - Like This.mp3",
-          "downloadable": true
+          "file": "music/songs/Brynn Elise - Topic - Like This.mp3"
         },
         {
           "id": "c418-haunt-muskie",
           "title": "Haunt Muskie",
           "artist": "C418",
           "genre": "Electronic",
-          "file": "music/songs/C418 - Topic - Haunt Muskie.mp3",
-          "downloadable": true
+          "file": "music/songs/C418 - Topic - Haunt Muskie.mp3"
         },
         {
           "id": "caligula-s-horse-daughter-of-the-mountain",
           "title": "Daughter of the Mountain",
           "artist": "Caligula's Horse",
           "genre": "Progressive Metal",
-          "file": "music/songs/Caligula's Horse - Topic - Daughter of the Mountain.mp3",
-          "downloadable": true
+          "file": "music/songs/Caligula's Horse - Topic - Daughter of the Mountain.mp3"
         },
         {
           "id": "casiopea-swallow",
           "title": "Swallow",
           "artist": "CASIOPEA",
           "genre": "Jazz",
-          "file": "music/songs/CASIOPEA - Topic - Swallow.mp3",
-          "downloadable": true
+          "file": "music/songs/CASIOPEA - Topic - Swallow.mp3"
         },
         {
           "id": "catching-cairo-lose-no-sleep-masterpeace",
           "title": "Lose No Sleep (Masterpeace)",
           "artist": "Catching Cairo",
           "genre": "Electronic",
-          "file": "music/songs/Catching Cairo - Topic - Lose No Sleep (Masterpeace).mp3",
-          "downloadable": true
+          "file": "music/songs/Catching Cairo - Topic - Lose No Sleep (Masterpeace).mp3"
         },
         {
           "id": "charlotte-plank-nightshift",
           "title": "Nightshift",
           "artist": "Charlotte Plank",
           "genre": "Drum and Bass",
-          "file": "music/songs/Charlotte Plank - Topic - Nightshift.mp3",
-          "downloadable": true
+          "file": "music/songs/Charlotte Plank - Topic - Nightshift.mp3"
         },
         {
           "id": "chenayder-colors",
           "title": "Colors",
           "artist": "Chenayder",
           "genre": "Indie Pop",
-          "file": "music/songs/Chenayder - Topic - Colors.mp3",
-          "downloadable": true
+          "file": "music/songs/Chenayder - Topic - Colors.mp3"
         },
         {
           "id": "chet-baker-i-fell-in-love-too-easily",
           "title": "I Fell in Love Too Easily",
           "artist": "Chet Baker",
           "genre": "Jazz",
-          "file": "music/songs/Chet Baker - Topic - I Fell in Love Too Easily.mp3",
-          "downloadable": true
+          "file": "music/songs/Chet Baker - Topic - I Fell in Love Too Easily.mp3"
         },
         {
           "id": "chet-baker-there-will-never-be-another-you-vocal-version",
           "title": "There Will Never Be Another You (Vocal Version)",
           "artist": "Chet Baker",
           "genre": "Jazz",
-          "file": "music/songs/Chet Baker - Topic - There Will Never Be Another You (Vocal Version).mp3",
-          "downloadable": true
+          "file": "music/songs/Chet Baker - Topic - There Will Never Be Another You (Vocal Version).mp3"
         },
         {
           "id": "childish-gambino-lithonia",
           "title": "Lithonia",
           "artist": "Childish Gambino",
           "genre": "Hip-Hop",
-          "file": "music/songs/Childish Gambino - Topic - Lithonia.mp3",
-          "downloadable": true
+          "file": "music/songs/Childish Gambino - Topic - Lithonia.mp3"
         },
         {
           "id": "childish-gambino-me-and-your-mama",
           "title": "Me and Your Mama",
           "artist": "Childish Gambino",
           "genre": "Hip-Hop",
-          "file": "music/songs/Childish Gambino - Topic - Me and Your Mama.mp3",
-          "downloadable": true
+          "file": "music/songs/Childish Gambino - Topic - Me and Your Mama.mp3"
         },
         {
           "id": "chon-bubble-dream",
           "title": "Bubble Dream",
           "artist": "Chon",
           "genre": "Alternative Rock",
-          "file": "music/songs/Chon - Topic - Bubble Dream.mp3",
-          "downloadable": true
+          "file": "music/songs/Chon - Topic - Bubble Dream.mp3"
         },
         {
           "id": "chris-lake-summertime-blues",
           "title": "Summertime Blues",
           "artist": "Chris Lake",
           "genre": "Electronic",
-          "file": "music/songs/Chris Lake - Topic - Summertime Blues.mp3",
-          "downloadable": true
+          "file": "music/songs/Chris Lake - Topic - Summertime Blues.mp3"
         },
         {
           "id": "clairo-amoeba",
           "title": "Amoeba",
           "artist": "Clairo",
           "genre": "Indie Pop",
-          "file": "music/songs/Clairo - Topic - Amoeba.mp3",
-          "downloadable": true
+          "file": "music/songs/Clairo - Topic - Amoeba.mp3"
         },
         {
           "id": "clams-casino-i-m-god",
           "title": "I'm God",
           "artist": "Clams Casino",
           "genre": "Electronic",
-          "file": "music/songs/Clams Casino - Topic - I'm God.mp3",
-          "downloadable": true
+          "file": "music/songs/Clams Casino - Topic - I'm God.mp3"
         },
         {
           "id": "claude-debussy-arabesque-no-1-in-e-major",
           "title": "Arabesque, No. 1 in E Major",
           "artist": "Claude Debussy",
           "genre": "Electronic",
-          "file": "music/songs/Claude Debussy - Topic - Arabesque, No. 1 in E Major.mp3",
-          "downloadable": true
+          "file": "music/songs/Claude Debussy - Topic - Arabesque, No. 1 in E Major.mp3"
         },
         {
           "id": "clean-bandit-real-love",
           "title": "Real Love",
           "artist": "Clean Bandit",
           "genre": "Electronic",
-          "file": "music/songs/Clean Bandit - Topic - Real Love.mp3",
-          "downloadable": true
+          "file": "music/songs/Clean Bandit - Topic - Real Love.mp3"
         },
         {
           "id": "clean-bandit-symphony-feat-zara-larsson",
           "title": "Symphony (feat. Zara Larsson)",
           "artist": "Clean Bandit",
           "genre": "Electronic",
-          "file": "music/songs/Clean Bandit - Topic - Symphony (feat. Zara Larsson).mp3",
-          "downloadable": true
+          "file": "music/songs/Clean Bandit - Topic - Symphony (feat. Zara Larsson).mp3"
         },
         {
           "id": "clever-girl-ohmygodiloveyoupleasedontleaveme",
           "title": "Ohmygodiloveyoupleasedontleaveme",
           "artist": "Clever Girl",
           "genre": "Math Rock",
-          "file": "music/songs/Clever Girl - Topic - Ohmygodiloveyoupleasedontleaveme.mp3",
-          "downloadable": true
+          "file": "music/songs/Clever Girl - Topic - Ohmygodiloveyoupleasedontleaveme.mp3"
         },
         {
           "id": "co-shu-nie-o-simple-is",
           "title": "ö=Simple is!",
           "artist": "Cö shu Nie",
           "genre": "Alternative Rock",
-          "file": "music/songs/Cö shu Nie - Topic - ö=Simple is!.mp3",
-          "downloadable": true
+          "file": "music/songs/Cö shu Nie - Topic - ö=Simple is!.mp3"
         },
         {
           "id": "colors-cleo-sol-why-don-t-you-a-colors-show",
           "title": "Cleo Sol - Why Don't You | A COLORS SHOW",
           "artist": "COLORS",
           "genre": "Progressive Rock",
-          "file": "music/songs/COLORS - Cleo Sol - Why Don't You _ A COLORS SHOW.mp3",
-          "downloadable": true
+          "file": "music/songs/COLORS - Cleo Sol - Why Don't You _ A COLORS SHOW.mp3"
         },
         {
           "id": "common-saints-summer-sun",
           "title": "Summer Sun",
           "artist": "Common Saints",
           "genre": "Electronic",
-          "file": "music/songs/Common Saints - Topic - Summer Sun.mp3",
-          "downloadable": true
+          "file": "music/songs/Common Saints - Topic - Summer Sun.mp3"
         },
         {
           "id": "con-colour-tallulah-s-my-mothers-name",
           "title": "Tallulah's My Mothers Name",
           "artist": "Con Colour",
           "genre": "Electronic",
-          "file": "music/songs/Con Colour - Topic - Tallulah's My Mothers Name.mp3",
-          "downloadable": true
+          "file": "music/songs/Con Colour - Topic - Tallulah's My Mothers Name.mp3"
         },
         {
           "id": "corto-alto-vandal",
           "title": "VANDAL",
           "artist": "corto.alto",
           "genre": "Jazz",
-          "file": "music/songs/corto.alto - Topic - VANDAL.mp3",
-          "downloadable": true
+          "file": "music/songs/corto.alto - Topic - VANDAL.mp3"
         },
         {
           "id": "cprcrn-so-low",
           "title": "So Low",
           "artist": "CPRCRN",
           "genre": "Electronic",
-          "file": "music/songs/CPRCRN - Topic - So Low.mp3",
-          "downloadable": true
+          "file": "music/songs/CPRCRN - Topic - So Low.mp3"
         },
         {
           "id": "crumb-bones",
           "title": "Bones",
           "artist": "Crumb",
           "genre": "Indie Rock",
-          "file": "music/songs/Crumb - Topic - Bones.mp3",
-          "downloadable": true
+          "file": "music/songs/Crumb - Topic - Bones.mp3"
         },
         {
           "id": "crumb-locket",
           "title": "Locket",
           "artist": "Crumb",
           "genre": "Indie Rock",
-          "file": "music/songs/Crumb - Topic - Locket.mp3",
-          "downloadable": true
+          "file": "music/songs/Crumb - Topic - Locket.mp3"
         },
         {
           "id": "culth-i-want-to-be-with-you-sadness-bootleg-culth-edit",
           "title": "I Want To Be With You (Sadness Bootleg) (Culth Edit)",
           "artist": "Culth",
           "genre": "Alternative Rock",
-          "file": "music/songs/Culth - Topic - I Want To Be With You (Sadness Bootleg) (Culth Edit).mp3",
-          "downloadable": true
+          "file": "music/songs/Culth - Topic - I Want To Be With You (Sadness Bootleg) (Culth Edit).mp3"
         },
         {
           "id": "d-angelo-betray-my-heart",
           "title": "Betray My Heart",
           "artist": "D'Angelo",
           "genre": "Hip-Hop",
-          "file": "music/songs/D'Angelo - Topic - Betray My Heart.mp3",
-          "downloadable": true
+          "file": "music/songs/D'Angelo - Topic - Betray My Heart.mp3"
         },
         {
           "id": "d-angelo-till-it-s-done-tutu",
           "title": "Till It's Done (Tutu)",
           "artist": "D'Angelo",
           "genre": "Hip-Hop",
-          "file": "music/songs/D'Angelo - Topic - Till It's Done (Tutu).mp3",
-          "downloadable": true
+          "file": "music/songs/D'Angelo - Topic - Till It's Done (Tutu).mp3"
         },
         {
           "id": "dana-and-alden-dragonfly",
           "title": "Dragonfly",
           "artist": "Dana and Alden",
           "genre": "Electronic",
-          "file": "music/songs/Dana and Alden - Topic - Dragonfly.mp3",
-          "downloadable": true
+          "file": "music/songs/Dana and Alden - Topic - Dragonfly.mp3"
         },
         {
           "id": "dance-gavin-dance-for-the-jeers",
           "title": "For The Jeers",
           "artist": "Dance Gavin Dance",
           "genre": "Post-Hardcore",
-          "file": "music/songs/Dance Gavin Dance - Topic - For The Jeers.mp3",
-          "downloadable": true
+          "file": "music/songs/Dance Gavin Dance - Topic - For The Jeers.mp3"
         },
         {
           "id": "daniel-caesar-rain-down",
           "title": "Rain Down",
           "artist": "Daniel Caesar",
           "genre": "Electronic",
-          "file": "music/songs/Daniel Caesar - Topic - Rain Down.mp3",
-          "downloadable": true
+          "file": "music/songs/Daniel Caesar - Topic - Rain Down.mp3"
         },
         {
           "id": "dazegxd-trust-me-it-ll-b-ok",
           "title": "trust me (it'll b ok)",
           "artist": "Dazegxd",
           "genre": "Electronic",
-          "file": "music/songs/Dazegxd - Topic - trust me (it'll b ok).mp3",
-          "downloadable": true
+          "file": "music/songs/Dazegxd - Topic - trust me (it'll b ok).mp3"
         },
         {
           "id": "dc0re-in-my-restless-dreams",
           "title": "in my restless dreams",
           "artist": "dc0re",
           "genre": "Electronic",
-          "file": "music/songs/dc0re - Topic - in my restless dreams.mp3",
-          "downloadable": true
+          "file": "music/songs/dc0re - Topic - in my restless dreams.mp3"
         },
         {
           "id": "deathbrain-phrenia",
           "title": "Phrenia",
           "artist": "Deathbrain",
           "genre": "Drum and Bass",
-          "file": "music/songs/Deathbrain - Topic - Phrenia.mp3",
-          "downloadable": true
+          "file": "music/songs/Deathbrain - Topic - Phrenia.mp3"
         },
         {
           "id": "dedriarch4405-catching-cairo-lose-no-sleep-masterpeace-available-now",
           "title": "Catching Cairo - Lose No Sleep (Masterpeace) [AVAILABLE NOW]",
           "artist": "Dedriarch4405",
           "genre": "Electronic",
-          "file": "music/songs/Dedriarch4405 - Catching Cairo - Lose No Sleep (Masterpeace) [AVAILABLE NOW].mp3",
-          "downloadable": true
+          "file": "music/songs/Dedriarch4405 - Catching Cairo - Lose No Sleep (Masterpeace) [AVAILABLE NOW].mp3"
         },
         {
           "id": "deliric-am-visat-ca-schimbam-lumea",
           "title": "Am Visat Ca Schimbam Lumea",
           "artist": "Deliric",
           "genre": "Electronic",
-          "file": "music/songs/Deliric - Topic - Am Visat Ca Schimbam Lumea.mp3",
-          "downloadable": true
+          "file": "music/songs/Deliric - Topic - Am Visat Ca Schimbam Lumea.mp3"
         },
         {
           "id": "diplo-get-it-right",
           "title": "Get It Right",
           "artist": "Diplo",
           "genre": "Electronic",
-          "file": "music/songs/Diplo - Topic - Get It Right.mp3",
-          "downloadable": true
+          "file": "music/songs/Diplo - Topic - Get It Right.mp3"
         },
         {
           "id": "diplo-wish",
           "title": "Wish",
           "artist": "Diplo",
           "genre": "Electronic",
-          "file": "music/songs/Diplo - Topic - Wish.mp3",
-          "downloadable": true
+          "file": "music/songs/Diplo - Topic - Wish.mp3"
         },
         {
           "id": "don-glori-pause",
           "title": "Pause",
           "artist": "Don Glori",
           "genre": "Experimental Rock",
-          "file": "music/songs/Don Glori - Topic - Pause.mp3",
-          "downloadable": true
+          "file": "music/songs/Don Glori - Topic - Pause.mp3"
         },
         {
           "id": "drake-massive",
           "title": "Massive",
           "artist": "Drake",
           "genre": "Hip-Hop",
-          "file": "music/songs/Drake - Topic - Massive.mp3",
-          "downloadable": true
+          "file": "music/songs/Drake - Topic - Massive.mp3"
         },
         {
           "id": "dreamville-sacrifices",
           "title": "Sacrifices",
           "artist": "Dreamville",
           "genre": "Electronic",
-          "file": "music/songs/Dreamville - Topic - Sacrifices.mp3",
-          "downloadable": true
+          "file": "music/songs/Dreamville - Topic - Sacrifices.mp3"
         },
         {
           "id": "duskus-better",
           "title": "Better",
           "artist": "Duskus",
           "genre": "Electronic",
-          "file": "music/songs/Duskus - Topic - Better.mp3",
-          "downloadable": true
+          "file": "music/songs/Duskus - Topic - Better.mp3"
         },
         {
           "id": "duster-constellations",
           "title": "Constellations",
           "artist": "duster",
           "genre": "Indie Rock",
-          "file": "music/songs/duster - Topic - Constellations.mp3",
-          "downloadable": true
+          "file": "music/songs/duster - Topic - Constellations.mp3"
         },
         {
           "id": "eek-a-mouse-wa-do-dem",
           "title": "Wa-Do-Dem",
           "artist": "Eek-A-Mouse",
           "genre": "Electronic",
-          "file": "music/songs/Eek-A-Mouse - Topic - Wa-Do-Dem.mp3",
-          "downloadable": true
+          "file": "music/songs/Eek-A-Mouse - Topic - Wa-Do-Dem.mp3"
         },
         {
           "id": "eightiesheadachetape-shiver",
           "title": "shiver",
           "artist": "eightiesheadachetape",
           "genre": "Electronic",
-          "file": "music/songs/eightiesheadachetape - Topic - shiver.mp3",
-          "downloadable": true
+          "file": "music/songs/eightiesheadachetape - Topic - shiver.mp3"
         },
         {
           "id": "eightiesheadachetape-what-we-did-in-the-desert",
           "title": "what we did in the desert",
           "artist": "eightiesheadachetape",
           "genre": "Electronic",
-          "file": "music/songs/eightiesheadachetape - Topic - what we did in the desert.mp3",
-          "downloadable": true
+          "file": "music/songs/eightiesheadachetape - Topic - what we did in the desert.mp3"
         },
         {
           "id": "emil-brandqvist-trio-a-visit-to-reality",
           "title": "A Visit to Reality",
           "artist": "Emil Brandqvist Trio",
           "genre": "Electronic",
-          "file": "music/songs/Emil Brandqvist Trio - Topic - A Visit to Reality.mp3",
-          "downloadable": true
+          "file": "music/songs/Emil Brandqvist Trio - Topic - A Visit to Reality.mp3"
         },
         {
           "id": "enigma-the-eyes-of-truth-radio-edit",
           "title": "The Eyes Of Truth (Radio Edit)",
           "artist": "Enigma",
           "genre": "Electronic",
-          "file": "music/songs/Enigma - Topic - The Eyes Of Truth (Radio Edit).mp3",
-          "downloadable": true
+          "file": "music/songs/Enigma - Topic - The Eyes Of Truth (Radio Edit).mp3"
         },
         {
           "id": "erik-satie-gymnopedie-no-1",
           "title": "Gymnopédie No. 1",
           "artist": "Erik Satie",
           "genre": "Alternative Rock",
-          "file": "music/songs/Erik Satie - Topic - Gymnopédie No. 1.mp3",
-          "downloadable": true
+          "file": "music/songs/Erik Satie - Topic - Gymnopédie No. 1.mp3"
         },
         {
           "id": "erik-satie-jazzopedie",
           "title": "Jazzopédie",
           "artist": "Erik Satie",
           "genre": "Alternative Rock",
-          "file": "music/songs/Erik Satie - Topic - Jazzopédie.mp3",
-          "downloadable": true
+          "file": "music/songs/Erik Satie - Topic - Jazzopédie.mp3"
         },
         {
           "id": "evanescence-bring-me-to-life",
           "title": "Bring Me To Life",
           "artist": "Evanescence",
           "genre": "Alternative Metal",
-          "file": "music/songs/Evanescence - Topic - Bring Me To Life.mp3",
-          "downloadable": true
+          "file": "music/songs/Evanescence - Topic - Bring Me To Life.mp3"
         },
         {
           "id": "everything-everything-blast-doors",
           "title": "Blast Doors",
           "artist": "Everything Everything",
           "genre": "Indie Rock",
-          "file": "music/songs/Everything Everything - Topic - Blast Doors.mp3",
-          "downloadable": true
+          "file": "music/songs/Everything Everything - Topic - Blast Doors.mp3"
         },
         {
           "id": "facesoul-grow-a-colors-encore",
           "title": "Grow - A COLORS ENCORE",
           "artist": "FACESOUL",
           "genre": "Electronic",
-          "file": "music/songs/FACESOUL - Topic - Grow - A COLORS ENCORE.mp3",
-          "downloadable": true
+          "file": "music/songs/FACESOUL - Topic - Grow - A COLORS ENCORE.mp3"
         },
         {
           "id": "farhad-mehrad-i-believe-to-my-soul",
           "title": "I Believe To My Soul",
           "artist": "Farhad Mehrad",
           "genre": "Blues Rock",
-          "file": "music/songs/Farhad Mehrad - Topic - I Believe To My Soul.mp3",
-          "downloadable": true
+          "file": "music/songs/Farhad Mehrad - Topic - I Believe To My Soul.mp3"
         },
         {
           "id": "faye-webster-i-know-you",
           "title": "I Know You",
           "artist": "Faye Webster",
           "genre": "Electronic",
-          "file": "music/songs/Faye Webster - Topic - I Know You.mp3",
-          "downloadable": true
+          "file": "music/songs/Faye Webster - Topic - I Know You.mp3"
         },
         {
           "id": "flight-facilities-crave-you-feat-giselle",
           "title": "Crave You (feat. Giselle)",
           "artist": "Flight Facilities",
           "genre": "Electronic",
-          "file": "music/songs/Flight Facilities - Topic - Crave You (feat. Giselle).mp3",
-          "downloadable": true
+          "file": "music/songs/Flight Facilities - Topic - Crave You (feat. Giselle).mp3"
         },
         {
           "id": "flooding-delayed-gratification",
           "title": "Delayed Gratification",
           "artist": "Flooding",
           "genre": "Electronic",
-          "file": "music/songs/Flooding - Topic - Delayed Gratification.mp3",
-          "downloadable": true
+          "file": "music/songs/Flooding - Topic - Delayed Gratification.mp3"
         },
         {
           "id": "fobi-water-flow",
           "title": "Water Flow",
           "artist": "Fobi",
           "genre": "Electronic",
-          "file": "music/songs/Fobi - Topic - Water Flow.mp3",
-          "downloadable": true
+          "file": "music/songs/Fobi - Topic - Water Flow.mp3"
         },
         {
           "id": "ftlframe-subterranean-loner",
           "title": "Subterranean Loner",
           "artist": "Ftlframe",
           "genre": "Electronic",
-          "file": "music/songs/Ftlframe - Topic - Subterranean Loner.mp3",
-          "downloadable": true
+          "file": "music/songs/Ftlframe - Topic - Subterranean Loner.mp3"
         },
         {
           "id": "funky-dl-don-t-even-try-it",
           "title": "Don't Even Try It",
           "artist": "Funky DL",
           "genre": "Hip-Hop",
-          "file": "music/songs/Funky DL - Topic - Don't Even Try It.mp3",
-          "downloadable": true
+          "file": "music/songs/Funky DL - Topic - Don't Even Try It.mp3"
         },
         {
           "id": "geek-boy-rollin-with-the-flow",
           "title": "Rollin With The Flow",
           "artist": "Geek Boy",
           "genre": "Electronic",
-          "file": "music/songs/Geek Boy - Topic - Rollin With The Flow.mp3",
-          "downloadable": true
+          "file": "music/songs/Geek Boy - Topic - Rollin With The Flow.mp3"
         },
         {
           "id": "gerardo-frisina-on-again",
           "title": "On Again",
           "artist": "Gerardo Frisina",
           "genre": "Jazz",
-          "file": "music/songs/Gerardo Frisina - Topic - On Again.mp3",
-          "downloadable": true
+          "file": "music/songs/Gerardo Frisina - Topic - On Again.mp3"
         },
         {
           "id": "girlfriends-untitled-6",
           "title": "Untitled #6",
           "artist": "Girlfriends",
           "genre": "Math Rock",
-          "file": "music/songs/Girlfriends - Topic - Untitled #6.mp3",
-          "downloadable": true
+          "file": "music/songs/Girlfriends - Topic - Untitled #6.mp3"
         },
         {
           "id": "girls-in-airports-the-grass-by-the-roses",
           "title": "The Grass by the Roses",
           "artist": "Girls In Airports",
           "genre": "Electronic",
-          "file": "music/songs/Girls In Airports - Topic - The Grass by the Roses.mp3",
-          "downloadable": true
+          "file": "music/songs/Girls In Airports - Topic - The Grass by the Roses.mp3"
         },
         {
           "id": "glimlip-green-heart",
           "title": "Green Heart",
           "artist": "Glimlip",
           "genre": "Hip-Hop",
-          "file": "music/songs/Glimlip - Topic - Green Heart.mp3",
-          "downloadable": true
+          "file": "music/songs/Glimlip - Topic - Green Heart.mp3"
         },
         {
           "id": "gogo-penguin-erased-by-sunlight",
           "title": "Erased by Sunlight",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - Erased by Sunlight.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - Erased by Sunlight.mp3"
         },
         {
           "id": "gogo-penguin-hopopono",
           "title": "Hopopono",
           "artist": "GoGo Penguin",
           "genre": "Jazz",
-          "file": "music/songs/GoGo Penguin - Topic - Hopopono.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - Hopopono.mp3"
         },
         {
           "id": "gogo-penguin-in-amber",
           "title": "In Amber",
           "artist": "GoGo Penguin",
           "genre": "Electronic",
-          "file": "music/songs/GoGo Penguin - Topic - In Amber.mp3",
-          "downloadable": true
+          "file": "music/songs/GoGo Penguin - Topic - In Amber.mp3"
         },
         {
           "id": "hail-the-sun-black-serotonin-explicit",
           "title": "Black Serotonin (Explicit)",
           "artist": "Hail the Sun",
           "genre": "Post-Hardcore",
-          "file": "music/songs/Hail the Sun - Topic - Black Serotonin (Explicit).mp3",
-          "downloadable": true
+          "file": "music/songs/Hail the Sun - Topic - Black Serotonin (Explicit).mp3"
         },
         {
           "id": "hiatus-kaiyote-borderline-with-my-atoms",
           "title": "Borderline with My Atoms",
           "artist": "Hiatus Kaiyote",
           "genre": "Electronic",
-          "file": "music/songs/Hiatus Kaiyote - Topic - Borderline with My Atoms.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - Borderline with My Atoms.mp3"
         },
         {
           "id": "hiatus-kaiyote-molasses",
           "title": "Molasses",
           "artist": "Hiatus Kaiyote",
           "genre": "Hip-Hop",
-          "file": "music/songs/Hiatus Kaiyote - Topic - Molasses.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - Molasses.mp3"
         },
         {
           "id": "hiatus-kaiyote-nakamarra",
           "title": "Nakamarra",
           "artist": "Hiatus Kaiyote",
           "genre": "Electronic",
-          "file": "music/songs/Hiatus Kaiyote - Topic - Nakamarra.mp3",
-          "downloadable": true
+          "file": "music/songs/Hiatus Kaiyote - Topic - Nakamarra.mp3"
         },
         {
           "id": "honeydip-summer-s-gone-second-season-ver",
           "title": "Summer's Gone -second season ver-",
           "artist": "honeydip",
           "genre": "Electronic",
-          "file": "music/songs/honeydip - Topic - Summer's Gone -second season ver-.mp3",
-          "downloadable": true
+          "file": "music/songs/honeydip - Topic - Summer's Gone -second season ver-.mp3"
         },
         {
           "id": "hydraa-shangri-la",
           "title": "Shangri-La",
           "artist": "Hydraa",
           "genre": "Electronic",
-          "file": "music/songs/Hydraa - Topic - Shangri-La.mp3",
-          "downloadable": true
+          "file": "music/songs/Hydraa - Topic - Shangri-La.mp3"
         },
         {
           "id": "ikigai-the-elves-are-dancing-in-the-meadow",
           "title": "The Elves Are Dancing In The Meadow",
           "artist": "Ikigai",
           "genre": "Jazz",
-          "file": "music/songs/Ikigai - Topic - The Elves Are Dancing In The Meadow.mp3",
-          "downloadable": true
+          "file": "music/songs/Ikigai - Topic - The Elves Are Dancing In The Meadow.mp3"
         },
         {
           "id": "imogen-heap-just-for-now",
           "title": "Just for Now",
           "artist": "Imogen Heap",
           "genre": "Electronic",
-          "file": "music/songs/Imogen Heap - Topic - Just for Now.mp3",
-          "downloadable": true
+          "file": "music/songs/Imogen Heap - Topic - Just for Now.mp3"
         },
         {
           "id": "imogen-heap-the-moment-i-said-it",
           "title": "The Moment I Said It",
           "artist": "Imogen Heap",
           "genre": "Electronic",
-          "file": "music/songs/Imogen Heap - Topic - The Moment I Said It.mp3",
-          "downloadable": true
+          "file": "music/songs/Imogen Heap - Topic - The Moment I Said It.mp3"
         },
         {
           "id": "incognito-after-the-fall-instrumental-version",
           "title": "After The Fall (Instrumental Version)",
           "artist": "Incognito",
           "genre": "Drum and Bass",
-          "file": "music/songs/Incognito - Topic - After The Fall (Instrumental Version).mp3",
-          "downloadable": true
+          "file": "music/songs/Incognito - Topic - After The Fall (Instrumental Version).mp3"
         },
         {
           "id": "jasmine-myra-how-tall-the-mountains",
           "title": "How Tall the Mountains",
           "artist": "Jasmine Myra",
           "genre": "Jazz",
-          "file": "music/songs/Jasmine Myra - Topic - How Tall the Mountains.mp3",
-          "downloadable": true
+          "file": "music/songs/Jasmine Myra - Topic - How Tall the Mountains.mp3"
         },
         {
           "id": "jazzbois-song-of-hope",
           "title": "Song of Hope",
           "artist": "Jazzbois",
           "genre": "Electronic",
-          "file": "music/songs/Jazzbois - Topic - Song of Hope.mp3",
-          "downloadable": true
+          "file": "music/songs/Jazzbois - Topic - Song of Hope.mp3"
         },
         {
           "id": "jembaa-groove-sweet-my-ear",
           "title": "Sweet My Ear",
           "artist": "Jembaa Groove",
           "genre": "Jazz",
-          "file": "music/songs/Jembaa Groove - Topic - Sweet My Ear.mp3",
-          "downloadable": true
+          "file": "music/songs/Jembaa Groove - Topic - Sweet My Ear.mp3"
         },
         {
           "id": "jimmy-cliff-the-harder-they-come",
           "title": "The Harder They Come",
           "artist": "Jimmy Cliff",
           "genre": "Electronic",
-          "file": "music/songs/Jimmy Cliff - Topic - The Harder They Come.mp3",
-          "downloadable": true
+          "file": "music/songs/Jimmy Cliff - Topic - The Harder They Come.mp3"
         },
         {
           "id": "jmj-richie-montana",
           "title": "Montana",
           "artist": "JMJ & Richie",
           "genre": "Electronic",
-          "file": "music/songs/JMJ & Richie - Topic - Montana.mp3",
-          "downloadable": true
+          "file": "music/songs/JMJ & Richie - Topic - Montana.mp3"
         },
         {
           "id": "joe-alterman-the-bird-wave",
           "title": "The Bird Wave",
           "artist": "Joe Alterman",
           "genre": "Electronic",
-          "file": "music/songs/Joe Alterman - Topic - The Bird Wave.mp3",
-          "downloadable": true
+          "file": "music/songs/Joe Alterman - Topic - The Bird Wave.mp3"
         },
         {
           "id": "john-lennon-imagine-take-10-raw-studio-mix",
           "title": "Imagine (Take 10 / Raw Studio Mix)",
           "artist": "John Lennon",
           "genre": "Electronic",
-          "file": "music/songs/John Lennon - Topic - Imagine (Take 10 _ Raw Studio Mix).mp3",
-          "downloadable": true
+          "file": "music/songs/John Lennon - Topic - Imagine (Take 10 _ Raw Studio Mix).mp3"
         },
         {
           "id": "joomanji-somethin-out-of-nothin",
           "title": "Somethin Out of Nothin'",
           "artist": "Joomanji",
           "genre": "Electronic",
-          "file": "music/songs/Joomanji - Topic - Somethin Out of Nothin'.mp3",
-          "downloadable": true
+          "file": "music/songs/Joomanji - Topic - Somethin Out of Nothin'.mp3"
         },
         {
           "id": "judas-priest-the-sentinel",
           "title": "The Sentinel",
           "artist": "Judas Priest",
           "genre": "Metal",
-          "file": "music/songs/Judas Priest - Topic - The Sentinel.mp3",
-          "downloadable": true
+          "file": "music/songs/Judas Priest - Topic - The Sentinel.mp3"
         },
         {
           "id": "julie-doiron-august-10",
           "title": "August 10",
           "artist": "Julie Doiron",
           "genre": "Indie Rock",
-          "file": "music/songs/Julie Doiron - Topic - August 10.mp3",
-          "downloadable": true
+          "file": "music/songs/Julie Doiron - Topic - August 10.mp3"
         },
         {
           "id": "kabaka-pyramid-red-gold-and-green",
           "title": "Red Gold and Green",
           "artist": "Kabaka Pyramid",
           "genre": "Afrobeat",
-          "file": "music/songs/Kabaka Pyramid - Topic - Red Gold and Green.mp3",
-          "downloadable": true
+          "file": "music/songs/Kabaka Pyramid - Topic - Red Gold and Green.mp3"
         },
         {
           "id": "kamasi-washington-dream-state",
           "title": "Dream State",
           "artist": "Kamasi Washington",
           "genre": "Jazz",
-          "file": "music/songs/Kamasi Washington - Topic - Dream State.mp3",
-          "downloadable": true
+          "file": "music/songs/Kamasi Washington - Topic - Dream State.mp3"
         },
         {
           "id": "kamauu-garden",
           "title": "GARDEN",
           "artist": "KAMAUU",
           "genre": "Electronic",
-          "file": "music/songs/KAMAUU - Topic - GARDEN.mp3",
-          "downloadable": true
+          "file": "music/songs/KAMAUU - Topic - GARDEN.mp3"
         },
         {
           "id": "kamauu-jusfayu-feat-no-wyld",
           "title": "Jusfayu (feat. No Wyld)",
           "artist": "KAMAUU",
           "genre": "Electronic",
-          "file": "music/songs/KAMAUU - Topic - Jusfayu (feat. No Wyld).mp3",
-          "downloadable": true
+          "file": "music/songs/KAMAUU - Topic - Jusfayu (feat. No Wyld).mp3"
         },
         {
           "id": "kanye-west-family-business",
           "title": "Family Business",
           "artist": "Kanye West",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kanye West - Topic - Family Business.mp3",
-          "downloadable": true
+          "file": "music/songs/Kanye West - Topic - Family Business.mp3"
         },
         {
           "id": "kanye-west-touch-the-sky",
           "title": "Touch The Sky",
           "artist": "Kanye West",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kanye West - Topic - Touch The Sky.mp3",
-          "downloadable": true
+          "file": "music/songs/Kanye West - Topic - Touch The Sky.mp3"
         },
         {
           "id": "katie-tupper-need-nothing",
           "title": "Need Nothing",
           "artist": "Katie Tupper",
           "genre": "Indie Pop",
-          "file": "music/songs/Katie Tupper - Topic - Need Nothing.mp3",
-          "downloadable": true
+          "file": "music/songs/Katie Tupper - Topic - Need Nothing.mp3"
         },
         {
           "id": "kendra-morris-catch-the-sun",
           "title": "Catch The Sun",
           "artist": "Kendra Morris",
           "genre": "Electronic",
-          "file": "music/songs/Kendra Morris - Topic - Catch The Sun.mp3",
-          "downloadable": true
+          "file": "music/songs/Kendra Morris - Topic - Catch The Sun.mp3"
         },
         {
           "id": "kendrick-lamar-alright",
           "title": "Alright",
           "artist": "Kendrick Lamar",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kendrick Lamar - Topic - Alright.mp3",
-          "downloadable": true
+          "file": "music/songs/Kendrick Lamar - Topic - Alright.mp3"
         },
         {
           "id": "kenichiro-nishihara-heart",
           "title": "Heart",
           "artist": "Kenichiro Nishihara",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kenichiro Nishihara - Topic - Heart.mp3",
-          "downloadable": true
+          "file": "music/songs/Kenichiro Nishihara - Topic - Heart.mp3"
         },
         {
           "id": "kenichiro-nishihara-never-let-go",
           "title": "Never Let Go",
           "artist": "Kenichiro Nishihara",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kenichiro Nishihara - Topic - Never Let Go.mp3",
-          "downloadable": true
+          "file": "music/songs/Kenichiro Nishihara - Topic - Never Let Go.mp3"
         },
         {
           "id": "kenichiro-nishihara-waves-2023-wax-alchemy-remastered",
           "title": "waves (2023 Wax Alchemy Remastered)",
           "artist": "Kenichiro Nishihara",
           "genre": "Hip-Hop",
-          "file": "music/songs/Kenichiro Nishihara - Topic - waves (2023 Wax Alchemy Remastered).mp3",
-          "downloadable": true
+          "file": "music/songs/Kenichiro Nishihara - Topic - waves (2023 Wax Alchemy Remastered).mp3"
         },
         {
           "id": "kiyosumi",
           "title": "ロマンサー",
           "artist": "Kiyosumi",
           "genre": "Electronic",
-          "file": "music/songs/Kiyosumi - Topic - ロマンサー.mp3",
-          "downloadable": true
+          "file": "music/songs/Kiyosumi - Topic - ロマンサー.mp3"
         },
         {
           "id": "knumears-wednesday",
           "title": "Wednesday",
           "artist": "Knumears",
           "genre": "Alternative Rock",
-          "file": "music/songs/Knumears - Topic - Wednesday.mp3",
-          "downloadable": true
+          "file": "music/songs/Knumears - Topic - Wednesday.mp3"
         },
         {
           "id": "lady-wray-what-it-means",
           "title": "What It Means",
           "artist": "Lady Wray",
           "genre": "Alternative Rock",
-          "file": "music/songs/Lady Wray - Topic - What It Means.mp3",
-          "downloadable": true
+          "file": "music/songs/Lady Wray - Topic - What It Means.mp3"
         },
         {
           "id": "lamp-a",
           "title": "A都市の秋",
           "artist": "Lamp",
           "genre": "Indie Pop",
-          "file": "music/songs/Lamp - Topic - A都市の秋.mp3",
-          "downloadable": true
+          "file": "music/songs/Lamp - Topic - A都市の秋.mp3"
         },
         {
           "id": "laufey-trouble",
           "title": "Trouble",
           "artist": "Laufey",
           "genre": "Jazz",
-          "file": "music/songs/Laufey - Topic - Trouble.mp3",
-          "downloadable": true
+          "file": "music/songs/Laufey - Topic - Trouble.mp3"
         },
         {
           "id": "leonard-luka-misdirection",
           "title": "Misdirection",
           "artist": "Leonard Luka",
           "genre": "Electronic",
-          "file": "music/songs/Leonard Luka - Topic - Misdirection.mp3",
-          "downloadable": true
+          "file": "music/songs/Leonard Luka - Topic - Misdirection.mp3"
         },
         {
           "id": "leverfall-lain2lain",
           "title": "lain2lain",
           "artist": "Leverfall",
           "genre": "Electronic",
-          "file": "music/songs/Leverfall - Topic - lain2lain.mp3",
-          "downloadable": true
+          "file": "music/songs/Leverfall - Topic - lain2lain.mp3"
         },
         {
           "id": "leverfall-memories",
           "title": "memories",
           "artist": "Leverfall",
           "genre": "Electronic",
-          "file": "music/songs/Leverfall - Topic - memories.mp3",
-          "downloadable": true
+          "file": "music/songs/Leverfall - Topic - memories.mp3"
         },
         {
           "id": "leverfall-regretful",
           "title": "regretful",
           "artist": "Leverfall",
           "genre": "Electronic",
-          "file": "music/songs/Leverfall - Topic - regretful.mp3",
-          "downloadable": true
+          "file": "music/songs/Leverfall - Topic - regretful.mp3"
         },
         {
           "id": "lexurus-out-of-love",
           "title": "Out Of Love",
           "artist": "Lexurus",
           "genre": "Drum and Bass",
-          "file": "music/songs/Lexurus - Topic - Out Of Love.mp3",
-          "downloadable": true
+          "file": "music/songs/Lexurus - Topic - Out Of Love.mp3"
         },
         {
           "id": "lia-butler-umabukisa",
           "title": "Umabukisa",
           "artist": "Lia Butler",
           "genre": "Electronic",
-          "file": "music/songs/Lia Butler - Topic - Umabukisa.mp3",
-          "downloadable": true
+          "file": "music/songs/Lia Butler - Topic - Umabukisa.mp3"
         },
         {
           "id": "lil-yachty-drive-me-crazy",
           "title": "drive ME crazy!",
           "artist": "Lil Yachty",
           "genre": "Hip-Hop",
-          "file": "music/songs/Lil Yachty - Topic - drive ME crazy!.mp3",
-          "downloadable": true
+          "file": "music/songs/Lil Yachty - Topic - drive ME crazy!.mp3"
         },
         {
           "id": "lily-chou-chou-arabesque",
           "title": "Arabesque",
           "artist": "Lily Chou-Chou",
           "genre": "Electronic",
-          "file": "music/songs/Lily Chou-Chou - Topic - Arabesque.mp3",
-          "downloadable": true
+          "file": "music/songs/Lily Chou-Chou - Topic - Arabesque.mp3"
         },
         {
           "id": "lily-chou-chou-erotic",
           "title": "Erotic",
           "artist": "Lily Chou-Chou",
           "genre": "Electronic",
-          "file": "music/songs/Lily Chou-Chou - Topic - Erotic.mp3",
-          "downloadable": true
+          "file": "music/songs/Lily Chou-Chou - Topic - Erotic.mp3"
         },
         {
           "id": "lily-chou-chou-glide",
           "title": "Glide",
           "artist": "Lily Chou-Chou",
           "genre": "Electronic",
-          "file": "music/songs/Lily Chou-Chou - Topic - Glide.mp3",
-          "downloadable": true
+          "file": "music/songs/Lily Chou-Chou - Topic - Glide.mp3"
         },
         {
           "id": "lily-moore-in-between",
           "title": "In-between",
           "artist": "Lily Moore",
           "genre": "Electronic",
-          "file": "music/songs/Lily Moore - Topic - In-between.mp3",
-          "downloadable": true
+          "file": "music/songs/Lily Moore - Topic - In-between.mp3"
         },
         {
           "id": "liquiddnbftw-seathasky-let-it-go",
           "title": "Seathasky - Let It Go",
           "artist": "Liquiddnbftw",
           "genre": "Electronic",
-          "file": "music/songs/Liquiddnbftw - Seathasky - Let It Go.mp3",
-          "downloadable": true
+          "file": "music/songs/Liquiddnbftw - Seathasky - Let It Go.mp3"
         },
         {
           "id": "local-natives-i-saw-you-close-your-eyes",
           "title": "I Saw You Close Your Eyes",
           "artist": "Local Natives",
           "genre": "Indie Rock",
-          "file": "music/songs/Local Natives - Topic - I Saw You Close Your Eyes.mp3",
-          "downloadable": true
+          "file": "music/songs/Local Natives - Topic - I Saw You Close Your Eyes.mp3"
         },
         {
           "id": "local-natives-when-am-i-gonna-lose-you",
           "title": "When Am I Gonna Lose You",
           "artist": "Local Natives",
           "genre": "Indie Rock",
-          "file": "music/songs/Local Natives - Topic - When Am I Gonna Lose You.mp3",
-          "downloadable": true
+          "file": "music/songs/Local Natives - Topic - When Am I Gonna Lose You.mp3"
         },
         {
           "id": "lomaji-run-with-me",
           "title": "run with me",
           "artist": "LOMAJI",
           "genre": "Electronic",
-          "file": "music/songs/LOMAJI - Topic - run with me.mp3",
-          "downloadable": true
+          "file": "music/songs/LOMAJI - Topic - run with me.mp3"
         },
         {
           "id": "lomaji-virtual-beauty",
           "title": "virtual beauty",
           "artist": "LOMAJI",
           "genre": "Electronic",
-          "file": "music/songs/LOMAJI - Topic - virtual beauty.mp3",
-          "downloadable": true
+          "file": "music/songs/LOMAJI - Topic - virtual beauty.mp3"
         },
         {
           "id": "lomaji-your-touch",
           "title": "your touch",
           "artist": "LOMAJI",
           "genre": "Electronic",
-          "file": "music/songs/LOMAJI - Topic - your touch.mp3",
-          "downloadable": true
+          "file": "music/songs/LOMAJI - Topic - your touch.mp3"
         },
         {
           "id": "loopgarden-sungazing",
           "title": "Sungazing",
           "artist": "loopgarden",
           "genre": "Electronic",
-          "file": "music/songs/loopgarden - Topic - Sungazing.mp3",
-          "downloadable": true
+          "file": "music/songs/loopgarden - Topic - Sungazing.mp3"
         },
         {
           "id": "lord-sko-pimp-socks",
           "title": "PIMP SOCKS",
           "artist": "Lord Sko",
           "genre": "Electronic",
-          "file": "music/songs/Lord Sko - Topic - PIMP SOCKS.mp3",
-          "downloadable": true
+          "file": "music/songs/Lord Sko - Topic - PIMP SOCKS.mp3"
         },
         {
           "id": "lunarmountains-sweet-smoke-baby-night-1970-hq",
           "title": "Sweet Smoke - Baby Night (1970) HQ",
           "artist": "lunarmountains",
           "genre": "Electronic",
-          "file": "music/songs/lunarmountains - Sweet Smoke - Baby Night (1970) HQ.mp3",
-          "downloadable": true
+          "file": "music/songs/lunarmountains - Sweet Smoke - Baby Night (1970) HQ.mp3"
         },
         {
           "id": "lusine-not-alone-ft-jenn-champion",
           "title": "Not Alone (ft. Jenn Champion)",
           "artist": "Lusine",
           "genre": "Electronic",
-          "file": "music/songs/Lusine - Topic - Not Alone (ft. Jenn Champion).mp3",
-          "downloadable": true
+          "file": "music/songs/Lusine - Topic - Not Alone (ft. Jenn Champion).mp3"
         },
         {
           "id": "lusine-retrace",
           "title": "Retrace",
           "artist": "Lusine",
           "genre": "Electronic",
-          "file": "music/songs/Lusine - Topic - Retrace.mp3",
-          "downloadable": true
+          "file": "music/songs/Lusine - Topic - Retrace.mp3"
         },
         {
           "id": "mac-miller-dunno",
           "title": "Dunno",
           "artist": "Mac Miller",
           "genre": "Alternative Rock",
-          "file": "music/songs/Mac Miller - Topic - Dunno.mp3",
-          "downloadable": true
+          "file": "music/songs/Mac Miller - Topic - Dunno.mp3"
         },
         {
           "id": "mac-miller-earth-feat-future",
           "title": "Earth (feat. Future)",
           "artist": "Mac Miller",
           "genre": "Alternative Rock",
-          "file": "music/songs/Mac Miller - Topic - Earth (feat. Future).mp3",
-          "downloadable": true
+          "file": "music/songs/Mac Miller - Topic - Earth (feat. Future).mp3"
         },
         {
           "id": "mac-miller-good-news",
           "title": "Good News",
           "artist": "Mac Miller",
           "genre": "Alternative Rock",
-          "file": "music/songs/Mac Miller - Topic - Good News.mp3",
-          "downloadable": true
+          "file": "music/songs/Mac Miller - Topic - Good News.mp3"
         },
         {
           "id": "mac-miller-what-s-the-use",
           "title": "What's the Use?",
           "artist": "Mac Miller",
           "genre": "Alternative Rock",
-          "file": "music/songs/Mac Miller - Topic - What's the Use_.mp3",
-          "downloadable": true
+          "file": "music/songs/Mac Miller - Topic - What's the Use_.mp3"
         },
         {
           "id": "machine-girl-waited-so-long",
           "title": "Waited So Long",
           "artist": "Machine Girl",
           "genre": "Drum and Bass",
-          "file": "music/songs/Machine Girl - Topic - Waited So Long.mp3",
-          "downloadable": true
+          "file": "music/songs/Machine Girl - Topic - Waited So Long.mp3"
         },
         {
           "id": "maduk-take-you-there",
           "title": "Take You There",
           "artist": "Maduk",
           "genre": "Drum and Bass",
-          "file": "music/songs/Maduk - Topic - Take You There.mp3",
-          "downloadable": true
+          "file": "music/songs/Maduk - Topic - Take You There.mp3"
         },
         {
           "id": "mage-tears-cats-in-the-cold",
           "title": "cats in the cold",
           "artist": "mage tears",
           "genre": "Electronic",
-          "file": "music/songs/mage tears - Topic - cats in the cold.mp3",
-          "downloadable": true
+          "file": "music/songs/mage tears - Topic - cats in the cold.mp3"
         },
         {
           "id": "mammal-hands-kai",
           "title": "Kai",
           "artist": "Mammal Hands",
           "genre": "Jazz",
-          "file": "music/songs/Mammal Hands - Topic - Kai.mp3",
-          "downloadable": true
+          "file": "music/songs/Mammal Hands - Topic - Kai.mp3"
         },
         {
           "id": "marmalade-butcher-floccinaucinihilipilification",
           "title": "Floccinaucinihilipilification",
           "artist": "Marmalade butcher",
           "genre": "Math Rock",
-          "file": "music/songs/Marmalade butcher - Topic - Floccinaucinihilipilification.mp3",
-          "downloadable": true
+          "file": "music/songs/Marmalade butcher - Topic - Floccinaucinihilipilification.mp3"
         },
         {
           "id": "maroon-5-sunday-morning",
           "title": "Sunday Morning",
           "artist": "Maroon 5",
           "genre": "Alternative Rock",
-          "file": "music/songs/Maroon 5 - Topic - Sunday Morning.mp3",
-          "downloadable": true
+          "file": "music/songs/Maroon 5 - Topic - Sunday Morning.mp3"
         },
         {
           "id": "maruja-blind-spot",
           "title": "Blind Spot",
           "artist": "Maruja",
           "genre": "Jazz",
-          "file": "music/songs/Maruja - Topic - Blind Spot.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - Blind Spot.mp3"
         },
         {
           "id": "maruja-look-down-on-us",
           "title": "Look Down On Us",
           "artist": "Maruja",
           "genre": "Jazz",
-          "file": "music/songs/Maruja - Topic - Look Down On Us.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - Look Down On Us.mp3"
         },
         {
           "id": "maruja-one-hand-behind-the-devil",
           "title": "One Hand Behind The Devil",
           "artist": "Maruja",
           "genre": "Jazz",
-          "file": "music/songs/Maruja - Topic - One Hand Behind The Devil.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - One Hand Behind The Devil.mp3"
         },
         {
           "id": "maruja-reconcile",
           "title": "Reconcile",
           "artist": "Maruja",
           "genre": "Jazz",
-          "file": "music/songs/Maruja - Topic - Reconcile.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - Reconcile.mp3"
         },
         {
           "id": "maruja-resisting-resistance",
           "title": "Resisting Resistance",
           "artist": "Maruja",
           "genre": "Jazz",
-          "file": "music/songs/Maruja - Topic - Resisting Resistance.mp3",
-          "downloadable": true
+          "file": "music/songs/Maruja - Topic - Resisting Resistance.mp3"
         },
         {
           "id": "mass-of-the-fermenting-dregs-she-is-inside-he-is-outside",
           "title": "She is inside, He is outside",
           "artist": "Mass of the Fermenting Dregs",
           "genre": "Indie Rock",
-          "file": "music/songs/Mass of the Fermenting Dregs - Topic - She is inside, He is outside.mp3",
-          "downloadable": true
+          "file": "music/songs/Mass of the Fermenting Dregs - Topic - She is inside, He is outside.mp3"
         },
         {
           "id": "massive-attack-teardrop",
           "title": "Teardrop",
           "artist": "Massive Attack",
           "genre": "Electronic",
-          "file": "music/songs/Massive Attack - Topic - Teardrop.mp3",
-          "downloadable": true
+          "file": "music/songs/Massive Attack - Topic - Teardrop.mp3"
         },
         {
           "id": "matthew-halsall-newborough-forest",
           "title": "Newborough Forest",
           "artist": "Matthew Halsall",
           "genre": "Jazz",
-          "file": "music/songs/Matthew Halsall - Topic - Newborough Forest.mp3",
-          "downloadable": true
+          "file": "music/songs/Matthew Halsall - Topic - Newborough Forest.mp3"
         },
         {
           "id": "mei-semones-kurayami",
           "title": "Kurayami",
           "artist": "Mei Semones",
           "genre": "Jazz",
-          "file": "music/songs/Mei Semones - Topic - Kurayami.mp3",
-          "downloadable": true
+          "file": "music/songs/Mei Semones - Topic - Kurayami.mp3"
         },
         {
           "id": "mf-doom-hoe-cakes",
           "title": "Hoe Cakes",
           "artist": "MF DOOM",
           "genre": "Hip-Hop",
-          "file": "music/songs/MF DOOM - Topic - Hoe Cakes.mp3",
-          "downloadable": true
+          "file": "music/songs/MF DOOM - Topic - Hoe Cakes.mp3"
         },
         {
           "id": "mf-doom-one-beer",
           "title": "One Beer",
           "artist": "MF DOOM",
           "genre": "Hip-Hop",
-          "file": "music/songs/MF DOOM - Topic - One Beer.mp3",
-          "downloadable": true
+          "file": "music/songs/MF DOOM - Topic - One Beer.mp3"
         },
         {
           "id": "michael-jackson-chicago",
           "title": "Chicago",
           "artist": "Michael Jackson",
           "genre": "Electronic",
-          "file": "music/songs/Michael Jackson - Topic - Chicago.mp3",
-          "downloadable": true
+          "file": "music/songs/Michael Jackson - Topic - Chicago.mp3"
         },
         {
           "id": "michael-jackson-earth-song-remastered-version",
           "title": "Earth Song (Remastered Version)",
           "artist": "Michael Jackson",
           "genre": "Electronic",
-          "file": "music/songs/Michael Jackson - Topic - Earth Song (Remastered Version).mp3",
-          "downloadable": true
+          "file": "music/songs/Michael Jackson - Topic - Earth Song (Remastered Version).mp3"
         },
         {
           "id": "miike-snow-paddling-out",
           "title": "Paddling Out",
           "artist": "Miike Snow",
           "genre": "Synth Pop",
-          "file": "music/songs/Miike Snow - Topic - Paddling Out.mp3",
-          "downloadable": true
+          "file": "music/songs/Miike Snow - Topic - Paddling Out.mp3"
         },
         {
           "id": "mild-minds-devotion",
           "title": "DEVOTION",
           "artist": "Mild Minds",
           "genre": "Electronic",
-          "file": "music/songs/Mild Minds - Topic - DEVOTION.mp3",
-          "downloadable": true
+          "file": "music/songs/Mild Minds - Topic - DEVOTION.mp3"
         },
         {
           "id": "mild-minds-formations",
           "title": "FORMATIONS",
           "artist": "Mild Minds",
           "genre": "Electronic",
-          "file": "music/songs/Mild Minds - Topic - FORMATIONS.mp3",
-          "downloadable": true
+          "file": "music/songs/Mild Minds - Topic - FORMATIONS.mp3"
         },
         {
           "id": "minmi-who-s-theme",
           "title": "Who's Theme",
           "artist": "MINMI",
           "genre": "Electronic",
-          "file": "music/songs/MINMI - Topic - Who's Theme.mp3",
-          "downloadable": true
+          "file": "music/songs/MINMI - Topic - Who's Theme.mp3"
         },
         {
           "id": "minova-tell-me-something",
           "title": "Tell Me Something",
           "artist": "MINOVA",
           "genre": "Electronic",
-          "file": "music/songs/MINOVA - Topic - Tell Me Something.mp3",
-          "downloadable": true
+          "file": "music/songs/MINOVA - Topic - Tell Me Something.mp3"
         },
         {
           "id": "monobody-former-islands",
           "title": "Former Islands",
           "artist": "Monobody",
           "genre": "Electronic",
-          "file": "music/songs/Monobody - Topic - Former Islands.mp3",
-          "downloadable": true
+          "file": "music/songs/Monobody - Topic - Former Islands.mp3"
         },
         {
           "id": "monrroe-stay",
           "title": "Stay",
           "artist": "Monrroe",
           "genre": "Drum and Bass",
-          "file": "music/songs/Monrroe - Topic - Stay.mp3",
-          "downloadable": true
+          "file": "music/songs/Monrroe - Topic - Stay.mp3"
         },
         {
           "id": "monrroe-you-got-me",
           "title": "You Got Me",
           "artist": "Monrroe",
           "genre": "Drum and Bass",
-          "file": "music/songs/Monrroe - Topic - You Got Me.mp3",
-          "downloadable": true
+          "file": "music/songs/Monrroe - Topic - You Got Me.mp3"
         },
         {
           "id": "moon-monsoon-all-i-want",
           "title": "All I Want",
           "artist": "Moon Monsoon",
           "genre": "Indie Pop",
-          "file": "music/songs/Moon Monsoon - Topic - All I Want.mp3",
-          "downloadable": true
+          "file": "music/songs/Moon Monsoon - Topic - All I Want.mp3"
         },
         {
           "id": "moses-yoofee-trio-till-tomorrow",
           "title": "TILL TOMORROW",
           "artist": "Moses Yoofee Trio",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Moses Yoofee Trio - Topic - TILL TOMORROW.mp3",
-          "downloadable": true
+          "file": "music/songs/Moses Yoofee Trio - Topic - TILL TOMORROW.mp3"
         },
         {
           "id": "muchi-the-pressure-is-on-me",
           "title": "the pressure is on me.",
           "artist": "Muchi",
           "genre": "Electronic",
-          "file": "music/songs/Muchi - Topic - the pressure is on me..mp3",
-          "downloadable": true
+          "file": "music/songs/Muchi - Topic - the pressure is on me..mp3"
         },
         {
           "id": "nai-palm-atoll",
           "title": "Atoll",
           "artist": "Nai Palm",
           "genre": "Electronic",
-          "file": "music/songs/Nai Palm - Topic - Atoll.mp3",
-          "downloadable": true
+          "file": "music/songs/Nai Palm - Topic - Atoll.mp3"
         },
         {
           "id": "nai-palm-crossfire-so-into-you",
           "title": "Crossfire / So Into You",
           "artist": "Nai Palm",
           "genre": "Electronic",
-          "file": "music/songs/Nai Palm - Topic - Crossfire _ So Into You.mp3",
-          "downloadable": true
+          "file": "music/songs/Nai Palm - Topic - Crossfire _ So Into You.mp3"
         },
         {
           "id": "nature-tv-photograph",
           "title": "Photograph",
           "artist": "Nature TV",
           "genre": "Electronic",
-          "file": "music/songs/Nature TV - Topic - Photograph.mp3",
-          "downloadable": true
+          "file": "music/songs/Nature TV - Topic - Photograph.mp3"
         },
         {
           "id": "ne-obliviscaris-forget-not",
           "title": "Forget Not",
           "artist": "Ne Obliviscaris",
           "genre": "Progressive Metal",
-          "file": "music/songs/Ne Obliviscaris - Topic - Forget Not.mp3",
-          "downloadable": true
+          "file": "music/songs/Ne Obliviscaris - Topic - Forget Not.mp3"
         },
         {
           "id": "no-time-for-swing-bastard",
           "title": "Bastard",
           "artist": "No Time For Swing",
           "genre": "Electronic",
-          "file": "music/songs/No Time For Swing - Topic - Bastard.mp3",
-          "downloadable": true
+          "file": "music/songs/No Time For Swing - Topic - Bastard.mp3"
         },
         {
           "id": "nu-guinea-vesuvio",
           "title": "Vesuvio",
           "artist": "Nu Guinea",
           "genre": "Electronic",
-          "file": "music/songs/Nu Guinea - Topic - Vesuvio.mp3",
-          "downloadable": true
+          "file": "music/songs/Nu Guinea - Topic - Vesuvio.mp3"
         },
         {
           "id": "nujabes-city-lights",
           "title": "City Lights",
           "artist": "Nujabes",
           "genre": "Hip-Hop",
-          "file": "music/songs/Nujabes - Topic - City Lights.mp3",
-          "downloadable": true
+          "file": "music/songs/Nujabes - Topic - City Lights.mp3"
         },
         {
           "id": "nujabes-feather-feat-cise-starr-akin-from-cyne",
           "title": "Feather (feat. Cise Starr & Akin from CYNE)",
           "artist": "Nujabes",
           "genre": "Hip-Hop",
-          "file": "music/songs/Nujabes - Topic - Feather (feat. Cise Starr & Akin from CYNE).mp3",
-          "downloadable": true
+          "file": "music/songs/Nujabes - Topic - Feather (feat. Cise Starr & Akin from CYNE).mp3"
         },
         {
           "id": "nujabes-kumomi",
           "title": "Kumomi",
           "artist": "Nujabes",
           "genre": "Hip-Hop",
-          "file": "music/songs/Nujabes - Topic - Kumomi.mp3",
-          "downloadable": true
+          "file": "music/songs/Nujabes - Topic - Kumomi.mp3"
         },
         {
           "id": "okvsho-soule",
           "title": "Soulé",
           "artist": "Okvsho",
           "genre": "Hip-Hop",
-          "file": "music/songs/Okvsho - Topic - Soulé.mp3",
-          "downloadable": true
+          "file": "music/songs/Okvsho - Topic - Soulé.mp3"
         },
         {
           "id": "olympic-ayres-magic",
           "title": "Magic",
           "artist": "Olympic Ayres",
           "genre": "Electronic",
-          "file": "music/songs/Olympic Ayres - Topic - Magic.mp3",
-          "downloadable": true
+          "file": "music/songs/Olympic Ayres - Topic - Magic.mp3"
         },
         {
           "id": "ooxygen-final-wish",
           "title": "Final wish",
           "artist": "ooxygen",
           "genre": "Electronic",
-          "file": "music/songs/ooxygen - Topic - Final wish.mp3",
-          "downloadable": true
+          "file": "music/songs/ooxygen - Topic - Final wish.mp3"
         },
         {
           "id": "oscar-noul-capitol-din-viata-mea",
           "title": "Noul Capitol Din Viața Mea",
           "artist": "Oscar",
           "genre": "Jazz",
-          "file": "music/songs/Oscar - Topic - Noul Capitol Din Viața Mea.mp3",
-          "downloadable": true
+          "file": "music/songs/Oscar - Topic - Noul Capitol Din Viața Mea.mp3"
         },
         {
           "id": "palace-it-s-over",
           "title": "It's Over",
           "artist": "Palace",
           "genre": "Alternative Rock",
-          "file": "music/songs/Palace - Topic - It's Over.mp3",
-          "downloadable": true
+          "file": "music/songs/Palace - Topic - It's Over.mp3"
         },
         {
           "id": "palace-live-well",
           "title": "Live Well",
           "artist": "Palace",
           "genre": "Alternative Rock",
-          "file": "music/songs/Palace - Topic - Live Well.mp3",
-          "downloadable": true
+          "file": "music/songs/Palace - Topic - Live Well.mp3"
         },
         {
           "id": "panam-panic-love-of-humanity",
           "title": "Love of Humanity",
           "artist": "Panam Panic",
           "genre": "Electronic",
-          "file": "music/songs/Panam Panic - Topic - Love of Humanity.mp3",
-          "downloadable": true
+          "file": "music/songs/Panam Panic - Topic - Love of Humanity.mp3"
         },
         {
           "id": "passenger-let-her-go",
           "title": "Let Her Go",
           "artist": "Passenger",
           "genre": "Folk Rock",
-          "file": "music/songs/Passenger - Topic - Let Her Go.mp3",
-          "downloadable": true
+          "file": "music/songs/Passenger - Topic - Let Her Go.mp3"
         },
         {
           "id": "passing-currents-bimmer",
           "title": "'BIMMER'",
           "artist": "Passing Currents",
           "genre": "Electronic",
-          "file": "music/songs/Passing Currents - Topic - 'BIMMER'.mp3",
-          "downloadable": true
+          "file": "music/songs/Passing Currents - Topic - 'BIMMER'.mp3"
         },
         {
           "id": "passing-currents-extensive-funds",
           "title": "EXTENSIVE FUNDS",
           "artist": "Passing Currents",
           "genre": "Electronic",
-          "file": "music/songs/Passing Currents - Topic - EXTENSIVE FUNDS.mp3",
-          "downloadable": true
+          "file": "music/songs/Passing Currents - Topic - EXTENSIVE FUNDS.mp3"
         },
         {
           "id": "passing-currents-iudicium",
           "title": "IUDICIUM",
           "artist": "Passing Currents",
           "genre": "Electronic",
-          "file": "music/songs/Passing Currents - Topic - IUDICIUM.mp3",
-          "downloadable": true
+          "file": "music/songs/Passing Currents - Topic - IUDICIUM.mp3"
         },
         {
           "id": "passing-currents-judgment",
           "title": "Judgment",
           "artist": "Passing Currents",
           "genre": "Electronic",
-          "file": "music/songs/Passing Currents - Topic - Judgment.mp3",
-          "downloadable": true
+          "file": "music/songs/Passing Currents - Topic - Judgment.mp3"
         },
         {
           "id": "passing-currents-optn",
           "title": "optn",
           "artist": "Passing Currents",
           "genre": "Electronic",
-          "file": "music/songs/Passing Currents - Topic - optn.mp3",
-          "downloadable": true
+          "file": "music/songs/Passing Currents - Topic - optn.mp3"
         },
         {
           "id": "passion-mango-boy",
           "title": "boy",
           "artist": "Passion Mango",
           "genre": "Electronic",
-          "file": "music/songs/Passion Mango - Topic - boy.mp3",
-          "downloadable": true
+          "file": "music/songs/Passion Mango - Topic - boy.mp3"
         },
         {
           "id": "patrick-watson-je-te-laisserai-des-mots",
           "title": "Je te laisserai des mots",
           "artist": "Patrick Watson",
           "genre": "Indie Rock",
-          "file": "music/songs/Patrick Watson - Topic - Je te laisserai des mots.mp3",
-          "downloadable": true
+          "file": "music/songs/Patrick Watson - Topic - Je te laisserai des mots.mp3"
         },
         {
           "id": "pink-floyd-the-great-gig-in-the-sky",
           "title": "The Great Gig in the Sky",
           "artist": "Pink Floyd",
           "genre": "Progressive Rock",
-          "file": "music/songs/Pink Floyd - Topic - The Great Gig in the Sky.mp3",
-          "downloadable": true
+          "file": "music/songs/Pink Floyd - Topic - The Great Gig in the Sky.mp3"
         },
         {
           "id": "pipotaku-i-need-a-friend",
           "title": "i need a friend",
           "artist": "Pipotaku",
           "genre": "Electronic",
-          "file": "music/songs/Pipotaku - Topic - i need a friend.mp3",
-          "downloadable": true
+          "file": "music/songs/Pipotaku - Topic - i need a friend.mp3"
         },
         {
           "id": "quarteto-em-cy-tudo-que-voce-podia-ser",
           "title": "Tudo Que Voce Podia Ser",
           "artist": "Quarteto em Cy",
           "genre": "Jazz",
-          "file": "music/songs/Quarteto em Cy - Topic - Tudo Que Voce Podia Ser.mp3",
-          "downloadable": true
+          "file": "music/songs/Quarteto em Cy - Topic - Tudo Que Voce Podia Ser.mp3"
         },
         {
           "id": "queen-somebody-to-love-remastered-2011",
           "title": "Somebody To Love (Remastered 2011)",
           "artist": "Queen",
           "genre": "Progressive Rock",
-          "file": "music/songs/Queen - Topic - Somebody To Love (Remastered 2011).mp3",
-          "downloadable": true
+          "file": "music/songs/Queen - Topic - Somebody To Love (Remastered 2011).mp3"
         },
         {
           "id": "r1naq-fairy-s-cry",
           "title": "fairy’s cry",
           "artist": "r1naq",
           "genre": "Electronic",
-          "file": "music/songs/r1naq - Topic - fairy’s cry.mp3",
-          "downloadable": true
+          "file": "music/songs/r1naq - Topic - fairy’s cry.mp3"
         },
         {
           "id": "radiohead-jigsaw-falling-into-place",
           "title": "Jigsaw Falling Into Place",
           "artist": "Radiohead",
           "genre": "Alternative Rock",
-          "file": "music/songs/Radiohead - Topic - Jigsaw Falling Into Place.mp3",
-          "downloadable": true
+          "file": "music/songs/Radiohead - Topic - Jigsaw Falling Into Place.mp3"
         },
         {
           "id": "red-hot-chili-peppers-dark-necessities",
           "title": "Dark Necessities",
           "artist": "Red Hot Chili Peppers",
           "genre": "Alternative Rock",
-          "file": "music/songs/Red Hot Chili Peppers - Topic - Dark Necessities.mp3",
-          "downloadable": true
+          "file": "music/songs/Red Hot Chili Peppers - Topic - Dark Necessities.mp3"
         },
         {
           "id": "release-lx-777-lunar-data",
           "title": "LX-777 (Lunar Data)",
           "artist": "Release",
           "genre": "Drum and Bass",
-          "file": "music/songs/Release - Topic - LX-777 (Lunar Data).mp3",
-          "downloadable": true
+          "file": "music/songs/Release - Topic - LX-777 (Lunar Data).mp3"
         },
         {
           "id": "release-mystic-brew",
           "title": "Mystic Brew",
           "artist": "Release",
           "genre": "Drum and Bass",
-          "file": "music/songs/Release - Topic - Mystic Brew.mp3",
-          "downloadable": true
+          "file": "music/songs/Release - Topic - Mystic Brew.mp3"
         },
         {
           "id": "release-voice-of-the-soul",
           "title": "Voice of the Soul",
           "artist": "Release",
           "genre": "Drum and Bass",
-          "file": "music/songs/Release - Topic - Voice of the Soul.mp3",
-          "downloadable": true
+          "file": "music/songs/Release - Topic - Voice of the Soul.mp3"
         },
         {
           "id": "rema-dumebi",
           "title": "Dumebi",
           "artist": "Rema",
           "genre": "Afrobeat",
-          "file": "music/songs/Rema - Topic - Dumebi.mp3",
-          "downloadable": true
+          "file": "music/songs/Rema - Topic - Dumebi.mp3"
         },
         {
           "id": "rooftops-sea-frailty",
           "title": "Sea Frailty",
           "artist": "Rooftops",
           "genre": "Electronic",
-          "file": "music/songs/Rooftops - Topic - Sea Frailty.mp3",
-          "downloadable": true
+          "file": "music/songs/Rooftops - Topic - Sea Frailty.mp3"
         },
         {
           "id": "rooftops-year-as-lift",
           "title": "Year as Lift",
           "artist": "Rooftops",
           "genre": "Electronic",
-          "file": "music/songs/Rooftops - Topic - Year as Lift.mp3",
-          "downloadable": true
+          "file": "music/songs/Rooftops - Topic - Year as Lift.mp3"
         },
         {
           "id": "ruti-my-sunrise",
           "title": "My Sunrise",
           "artist": "Ruti",
           "genre": "Electronic",
-          "file": "music/songs/Ruti - Topic - My Sunrise.mp3",
-          "downloadable": true
+          "file": "music/songs/Ruti - Topic - My Sunrise.mp3"
         },
         {
           "id": "sade-is-it-a-crime-remastered",
           "title": "Is It a Crime (Remastered)",
           "artist": "Sade",
           "genre": "Jazz",
-          "file": "music/songs/Sade - Topic - Is It a Crime (Remastered).mp3",
-          "downloadable": true
+          "file": "music/songs/Sade - Topic - Is It a Crime (Remastered).mp3"
         },
         {
           "id": "salvatore-ganacci-step-grandma",
           "title": "Step-Grandma",
           "artist": "Salvatore Ganacci",
           "genre": "Electronic",
-          "file": "music/songs/Salvatore Ganacci - Topic - Step-Grandma.mp3",
-          "downloadable": true
+          "file": "music/songs/Salvatore Ganacci - Topic - Step-Grandma.mp3"
         },
         {
           "id": "sandia-colombia",
           "title": "Colombia",
           "artist": "Sandia",
           "genre": "Electronic",
-          "file": "music/songs/Sandia - Topic - Colombia.mp3",
-          "downloadable": true
+          "file": "music/songs/Sandia - Topic - Colombia.mp3"
         },
         {
           "id": "sandia-shorashim",
           "title": "Shorashim",
           "artist": "Sandia",
           "genre": "Electronic",
-          "file": "music/songs/Sandia - Topic - Shorashim.mp3",
-          "downloadable": true
+          "file": "music/songs/Sandia - Topic - Shorashim.mp3"
         },
         {
           "id": "searows-keep-the-rain",
           "title": "Keep The Rain",
           "artist": "Searows",
           "genre": "Electronic",
-          "file": "music/songs/Searows - Topic - Keep The Rain.mp3",
-          "downloadable": true
+          "file": "music/songs/Searows - Topic - Keep The Rain.mp3"
         },
         {
           "id": "seba-crockett-remastered",
           "title": "Crockett (Remastered)",
           "artist": "Seba",
           "genre": "Drum and Bass",
-          "file": "music/songs/Seba - Topic - Crockett (Remastered).mp3",
-          "downloadable": true
+          "file": "music/songs/Seba - Topic - Crockett (Remastered).mp3"
         },
         {
           "id": "seraphine-noir-cyberbird",
           "title": "Cyberbird",
           "artist": "Seraphine Noir",
           "genre": "Hip-Hop",
-          "file": "music/songs/Seraphine Noir - Topic - Cyberbird.mp3",
-          "downloadable": true
+          "file": "music/songs/Seraphine Noir - Topic - Cyberbird.mp3"
         },
         {
           "id": "shadicx245-clear-mind",
           "title": "Clear Mind",
           "artist": "Shadicx245",
           "genre": "Electronic",
-          "file": "music/songs/Shadicx245 - Topic - Clear Mind.mp3",
-          "downloadable": true
+          "file": "music/songs/Shadicx245 - Topic - Clear Mind.mp3"
         },
         {
           "id": "shintaro-sakamoto-you-just-decided",
           "title": "You Just Decided",
           "artist": "Shintaro Sakamoto",
           "genre": "Electronic",
-          "file": "music/songs/Shintaro Sakamoto - Topic - You Just Decided.mp3",
-          "downloadable": true
+          "file": "music/songs/Shintaro Sakamoto - Topic - You Just Decided.mp3"
         },
         {
           "id": "siberia-chase-the-sun",
           "title": "Chase The Sun",
           "artist": "Siberia",
           "genre": "Electronic",
-          "file": "music/songs/Siberia - Topic - Chase The Sun.mp3",
-          "downloadable": true
+          "file": "music/songs/Siberia - Topic - Chase The Sun.mp3"
         },
         {
           "id": "small-axe-love-attack",
           "title": "Love Attack",
           "artist": "Small Axe",
           "genre": "Electronic",
-          "file": "music/songs/Small Axe - Topic - Love Attack.mp3",
-          "downloadable": true
+          "file": "music/songs/Small Axe - Topic - Love Attack.mp3"
         },
         {
           "id": "snarez-frog-family",
           "title": "Frog Family",
           "artist": "Snarez",
           "genre": "Electronic",
-          "file": "music/songs/Snarez - Topic - Frog Family.mp3",
-          "downloadable": true
+          "file": "music/songs/Snarez - Topic - Frog Family.mp3"
         },
         {
           "id": "soen-oscillation",
           "title": "Oscillation",
           "artist": "SOEN",
           "genre": "Progressive Metal",
-          "file": "music/songs/SOEN - Topic - Oscillation.mp3",
-          "downloadable": true
+          "file": "music/songs/SOEN - Topic - Oscillation.mp3"
         },
         {
           "id": "spoon-do-you",
           "title": "Do You",
           "artist": "Spoon",
           "genre": "Indie Rock",
-          "file": "music/songs/Spoon - Topic - Do You.mp3",
-          "downloadable": true
+          "file": "music/songs/Spoon - Topic - Do You.mp3"
         },
         {
           "id": "stray-blink",
           "title": "Blink",
           "artist": "Stray",
           "genre": "Electronic",
-          "file": "music/songs/Stray - Topic - Blink.mp3",
-          "downloadable": true
+          "file": "music/songs/Stray - Topic - Blink.mp3"
         },
         {
           "id": "strxwberrymilk-i-ll-go-home-then-radio-edit",
           "title": "I'll Go Home Then - Radio Edit",
           "artist": "strxwberrymilk",
           "genre": "Electronic",
-          "file": "music/songs/strxwberrymilk - Topic - I'll Go Home Then - Radio Edit.mp3",
-          "downloadable": true
+          "file": "music/songs/strxwberrymilk - Topic - I'll Go Home Then - Radio Edit.mp3"
         },
         {
           "id": "sun-kil-moon-duk-koo-kim",
           "title": "Duk Koo Kim",
           "artist": "Sun Kil Moon",
           "genre": "Folk Rock",
-          "file": "music/songs/Sun Kil Moon - Topic - Duk Koo Kim.mp3",
-          "downloadable": true
+          "file": "music/songs/Sun Kil Moon - Topic - Duk Koo Kim.mp3"
         },
         {
           "id": "surreal-night-to-remember",
           "title": "Night To Remember",
           "artist": "Surreal",
           "genre": "Drum and Bass",
-          "file": "music/songs/Surreal - Topic - Night To Remember.mp3",
-          "downloadable": true
+          "file": "music/songs/Surreal - Topic - Night To Remember.mp3"
         },
         {
           "id": "system-of-a-down-chop-suey",
           "title": "Chop Suey!",
           "artist": "System Of A Down",
           "genre": "Metal",
-          "file": "music/songs/System Of A Down - Topic - Chop Suey!.mp3",
-          "downloadable": true
+          "file": "music/songs/System Of A Down - Topic - Chop Suey!.mp3"
         },
         {
           "id": "taeko-onuki-tokai",
           "title": "Tokai",
           "artist": "Taeko Onuki",
           "genre": "Electronic",
-          "file": "music/songs/Taeko Onuki - Topic - Tokai.mp3",
-          "downloadable": true
+          "file": "music/songs/Taeko Onuki - Topic - Tokai.mp3"
         },
         {
           "id": "tamahau-higher",
           "title": "Higher",
           "artist": "Tamahau",
           "genre": "Electronic",
-          "file": "music/songs/Tamahau - Topic - Higher.mp3",
-          "downloadable": true
+          "file": "music/songs/Tamahau - Topic - Higher.mp3"
         },
         {
           "id": "tangled-hair-catalina",
           "title": "Catalina",
           "artist": "Tangled Hair",
           "genre": "Electronic",
-          "file": "music/songs/Tangled Hair - Topic - Catalina.mp3",
-          "downloadable": true
+          "file": "music/songs/Tangled Hair - Topic - Catalina.mp3"
         },
         {
           "id": "tangled-hair-turned-out-nice-again",
           "title": "Turned out Nice Again",
           "artist": "Tangled Hair",
           "genre": "Electronic",
-          "file": "music/songs/Tangled Hair - Topic - Turned out Nice Again.mp3",
-          "downloadable": true
+          "file": "music/songs/Tangled Hair - Topic - Turned out Nice Again.mp3"
         },
         {
           "id": "telepopmusik-breathe",
           "title": "Breathe",
           "artist": "Télépopmusik",
           "genre": "Electronic",
-          "file": "music/songs/Télépopmusik - Topic - Breathe.mp3",
-          "downloadable": true
+          "file": "music/songs/Télépopmusik - Topic - Breathe.mp3"
         },
         {
           "id": "telepopmusik-don-t-look-back",
           "title": "Don't Look Back",
           "artist": "Télépopmusik",
           "genre": "Electronic",
-          "file": "music/songs/Télépopmusik - Topic - Don't Look Back.mp3",
-          "downloadable": true
+          "file": "music/songs/Télépopmusik - Topic - Don't Look Back.mp3"
         },
         {
           "id": "terrace-martin-curly-martin",
           "title": "Curly Martin",
           "artist": "Terrace Martin",
           "genre": "Hip-Hop",
-          "file": "music/songs/Terrace Martin - Topic - Curly Martin.mp3",
-          "downloadable": true
+          "file": "music/songs/Terrace Martin - Topic - Curly Martin.mp3"
         },
         {
           "id": "terrace-martin-luv-u",
           "title": "LUV U",
           "artist": "Terrace Martin",
           "genre": "Hip-Hop",
-          "file": "music/songs/Terrace Martin - Topic - LUV U.mp3",
-          "downloadable": true
+          "file": "music/songs/Terrace Martin - Topic - LUV U.mp3"
         },
         {
           "id": "the-beatles-come-together-remastered-2009",
           "title": "Come Together (Remastered 2009)",
           "artist": "The Beatles",
           "genre": "Electronic",
-          "file": "music/songs/The Beatles - Topic - Come Together (Remastered 2009).mp3",
-          "downloadable": true
+          "file": "music/songs/The Beatles - Topic - Come Together (Remastered 2009).mp3"
         },
         {
           "id": "the-beatles-hey-jude-remastered-2015",
           "title": "Hey Jude (Remastered 2015)",
           "artist": "The Beatles",
           "genre": "Electronic",
-          "file": "music/songs/The Beatles - Topic - Hey Jude (Remastered 2015).mp3",
-          "downloadable": true
+          "file": "music/songs/The Beatles - Topic - Hey Jude (Remastered 2015).mp3"
         },
         {
           "id": "the-beatles-i-want-you-she-s-so-heavy-remastered-2009",
           "title": "I Want You (She's So Heavy) (Remastered 2009)",
           "artist": "The Beatles",
           "genre": "Electronic",
-          "file": "music/songs/The Beatles - Topic - I Want You (She's So Heavy) (Remastered 2009).mp3",
-          "downloadable": true
+          "file": "music/songs/The Beatles - Topic - I Want You (She's So Heavy) (Remastered 2009).mp3"
         },
         {
           "id": "the-beatles-something-remastered-2009",
           "title": "Something (Remastered 2009)",
           "artist": "The Beatles",
           "genre": "Electronic",
-          "file": "music/songs/The Beatles - Topic - Something (Remastered 2009).mp3",
-          "downloadable": true
+          "file": "music/songs/The Beatles - Topic - Something (Remastered 2009).mp3"
         },
         {
           "id": "the-cosmic-collective-nu-life",
           "title": "NU LIFE",
           "artist": "The Cosmic Collective",
           "genre": "Electronic",
-          "file": "music/songs/The Cosmic Collective - Topic - NU LIFE.mp3",
-          "downloadable": true
+          "file": "music/songs/The Cosmic Collective - Topic - NU LIFE.mp3"
         },
         {
           "id": "the-sound-providers-jazz-at-the-cove",
           "title": "Jazz At The Cove",
           "artist": "The Sound Providers",
           "genre": "Electronic",
-          "file": "music/songs/The Sound Providers - Topic - Jazz At The Cove.mp3",
-          "downloadable": true
+          "file": "music/songs/The Sound Providers - Topic - Jazz At The Cove.mp3"
         },
         {
           "id": "threetwenty-let-me-grow",
           "title": "Let Me Grow",
           "artist": "threetwenty",
           "genre": "Electronic",
-          "file": "music/songs/threetwenty - Topic - Let Me Grow.mp3",
-          "downloadable": true
+          "file": "music/songs/threetwenty - Topic - Let Me Grow.mp3"
         },
         {
           "id": "toe-all-i-understand-is-that-i-don-t-understand",
           "title": "all I understand is that I don't understand",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - all I understand is that I don't understand.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - all I understand is that I don't understand.mp3"
         },
         {
           "id": "toe-c",
           "title": "C",
           "artist": "toe",
           "genre": "Math Rock",
-          "file": "music/songs/toe - Topic - C.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - C.mp3"
         },
         {
           "id": "toe-close-to-you",
           "title": "CLOSE TO YOU",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - CLOSE TO YOU.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - CLOSE TO YOU.mp3"
         },
         {
           "id": "toe-everything-means-nothing",
           "title": "everything means nothing",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - everything means nothing.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - everything means nothing.mp3"
         },
         {
           "id": "toe-goodbye",
           "title": "Goodbye",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - Goodbye.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - Goodbye.mp3"
         },
         {
           "id": "toe-i-do-still-wrong",
           "title": "I do still wrong",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - I do still wrong.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - I do still wrong.mp3"
         },
         {
           "id": "toe-loneliness-will-shine",
           "title": "LONELINESS WILL SHINE",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - LONELINESS WILL SHINE.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - LONELINESS WILL SHINE.mp3"
         },
         {
           "id": "toe-ordinary-days",
           "title": "ordinary days",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - ordinary days.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - ordinary days.mp3"
         },
         {
           "id": "toe-run-for-word-first-ver",
           "title": "RUN FOR WORD_first ver",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - RUN FOR WORD_first ver.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - RUN FOR WORD_first ver.mp3"
         },
         {
           "id": "toe-say-it-ain-t-so",
           "title": "say it ain't so",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - say it ain't so.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - say it ain't so.mp3"
         },
         {
           "id": "toe-the-future-is-now",
           "title": "The Future Is Now",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - The Future Is Now.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - The Future Is Now.mp3"
         },
         {
           "id": "toe-the-latest-number",
           "title": "The Latest Number",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - The Latest Number.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - The Latest Number.mp3"
         },
         {
           "id": "toe-tremolo-delay",
           "title": "tremolo+delay",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - tremolo+delay.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - tremolo+delay.mp3"
         },
         {
           "id": "toe",
           "title": "孤独の発明",
           "artist": "toe",
           "genre": "Alternative Rock",
-          "file": "music/songs/toe - Topic - 孤独の発明.mp3",
-          "downloadable": true
+          "file": "music/songs/toe - Topic - 孤独の発明.mp3"
         },
         {
           "id": "tokyopill-club-cyberia",
           "title": "Club Cyberia",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - Club Cyberia.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - Club Cyberia.mp3"
         },
         {
           "id": "tokyopill-cult-members-only",
           "title": "CULT MEMBERS ONLY",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - CULT MEMBERS ONLY.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - CULT MEMBERS ONLY.mp3"
         },
         {
           "id": "tokyopill-e-t-h-e-r-e-a-l",
           "title": "E t h e r e a l",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - E t h e r e a l.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - E t h e r e a l.mp3"
         },
         {
           "id": "tokyopill-experiment-e-u-p-h-o-r-i-a",
           "title": "Experiment: E u p h o r i a",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - Experiment_ E u p h o r i a.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - Experiment_ E u p h o r i a.mp3"
         },
         {
           "id": "tokyopill-godspeed",
           "title": "Godspeed",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - Godspeed.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - Godspeed.mp3"
         },
         {
           "id": "tokyopill-tokyopill-4am",
           "title": "TOKYOPILL - 4am",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - TOKYOPILL - 4am.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - TOKYOPILL - 4am.mp3"
         },
         {
           "id": "tokyopill-triangles",
           "title": "Triangles",
           "artist": "TOKYOPILL",
           "genre": "Electronic",
-          "file": "music/songs/TOKYOPILL - Topic - Triangles.mp3",
-          "downloadable": true
+          "file": "music/songs/TOKYOPILL - Topic - Triangles.mp3"
         },
         {
           "id": "tom-misch-days-of-us",
           "title": "Days Of Us",
           "artist": "Tom Misch",
           "genre": "Jazz Funk",
-          "file": "music/songs/Tom Misch - Topic - Days Of Us.mp3",
-          "downloadable": true
+          "file": "music/songs/Tom Misch - Topic - Days Of Us.mp3"
         },
         {
           "id": "tom-misch-follow",
           "title": "Follow",
           "artist": "Tom Misch",
           "genre": "Jazz Funk",
-          "file": "music/songs/Tom Misch - Topic - Follow.mp3",
-          "downloadable": true
+          "file": "music/songs/Tom Misch - Topic - Follow.mp3"
         },
         {
           "id": "tomcbumpz-staring-contest",
           "title": "staring contest",
           "artist": "tomcbumpz",
           "genre": "Hip-Hop",
-          "file": "music/songs/tomcbumpz - Topic - staring contest.mp3",
-          "downloadable": true
+          "file": "music/songs/tomcbumpz - Topic - staring contest.mp3"
         },
         {
           "id": "trashiii-final-save",
           "title": "FINAL SAVE",
           "artist": "Trashiii",
           "genre": "Electronic",
-          "file": "music/songs/Trashiii - Topic - FINAL SAVE.mp3",
-          "downloadable": true
+          "file": "music/songs/Trashiii - Topic - FINAL SAVE.mp3"
         },
         {
           "id": "trashiii-metal-teeth",
           "title": "METAL TEETH",
           "artist": "Trashiii",
           "genre": "Electronic",
-          "file": "music/songs/Trashiii - Topic - METAL TEETH.mp3",
-          "downloadable": true
+          "file": "music/songs/Trashiii - Topic - METAL TEETH.mp3"
         },
         {
           "id": "trashiii-snowdream",
           "title": "Snowdream",
           "artist": "Trashiii",
           "genre": "Electronic",
-          "file": "music/songs/Trashiii - Topic - Snowdream.mp3",
-          "downloadable": true
+          "file": "music/songs/Trashiii - Topic - Snowdream.mp3"
         },
         {
           "id": "ukf-drum-bass-ellie-goulding-starry-eyed-dexcell-remix",
           "title": "Ellie Goulding - Starry Eyed (Dexcell Remix)",
           "artist": "UKF Drum & Bass",
           "genre": "Electronic",
-          "file": "music/songs/UKF Drum & Bass - Ellie Goulding - Starry Eyed (Dexcell Remix).mp3",
-          "downloadable": true
+          "file": "music/songs/UKF Drum & Bass - Ellie Goulding - Starry Eyed (Dexcell Remix).mp3"
         },
         {
           "id": "unknown-mortal-orchestra-nadja",
           "title": "Nadja",
           "artist": "Unknown Mortal Orchestra",
           "genre": "Indie Rock",
-          "file": "music/songs/Unknown Mortal Orchestra - Topic - Nadja.mp3",
-          "downloadable": true
+          "file": "music/songs/Unknown Mortal Orchestra - Topic - Nadja.mp3"
         },
         {
           "id": "usedcvnt-inhuman",
           "title": "inhuman",
           "artist": "usedcvnt",
           "genre": "Electronic",
-          "file": "music/songs/usedcvnt - Topic - inhuman.mp3",
-          "downloadable": true
+          "file": "music/songs/usedcvnt - Topic - inhuman.mp3"
         },
         {
           "id": "usedcvnt-taste-of-blood",
           "title": "taste of blood",
           "artist": "usedcvnt",
           "genre": "Electronic",
-          "file": "music/songs/usedcvnt - Topic - taste of blood.mp3",
-          "downloadable": true
+          "file": "music/songs/usedcvnt - Topic - taste of blood.mp3"
         },
         {
           "id": "uyama-hiroto-soul-of-freedom",
           "title": "Soul Of Freedom",
           "artist": "uyama hiroto",
           "genre": "Electronic",
-          "file": "music/songs/uyama hiroto - Topic - Soul Of Freedom.mp3",
-          "downloadable": true
+          "file": "music/songs/uyama hiroto - Topic - Soul Of Freedom.mp3"
         },
         {
           "id": "uyama-hiroto-spektrum",
           "title": "Spektrum",
           "artist": "uyama hiroto",
           "genre": "Electronic",
-          "file": "music/songs/uyama hiroto - Topic - Spektrum.mp3",
-          "downloadable": true
+          "file": "music/songs/uyama hiroto - Topic - Spektrum.mp3"
         },
         {
           "id": "venna-indigo",
           "title": "Indigo",
           "artist": "Venna",
           "genre": "Jazz Fusion",
-          "file": "music/songs/Venna - Topic - Indigo.mp3",
-          "downloadable": true
+          "file": "music/songs/Venna - Topic - Indigo.mp3"
         },
         {
           "id": "via-luna-no-one-cares",
           "title": "No One Cares",
           "artist": "Via Luna",
           "genre": "Math Rock",
-          "file": "music/songs/Via Luna - Topic - No One Cares.mp3",
-          "downloadable": true
+          "file": "music/songs/Via Luna - Topic - No One Cares.mp3"
         },
         {
           "id": "via-luna-ultramarine",
           "title": "Ultramarine",
           "artist": "Via Luna",
           "genre": "Math Rock",
-          "file": "music/songs/Via Luna - Topic - Ultramarine.mp3",
-          "downloadable": true
+          "file": "music/songs/Via Luna - Topic - Ultramarine.mp3"
         },
         {
           "id": "via-luna-unwinder",
           "title": "Unwinder",
           "artist": "Via Luna",
           "genre": "Math Rock",
-          "file": "music/songs/Via Luna - Topic - Unwinder.mp3",
-          "downloadable": true
+          "file": "music/songs/Via Luna - Topic - Unwinder.mp3"
         },
         {
           "id": "victoria-noelle-living-water",
           "title": "Living Water",
           "artist": "Victoria Noelle",
           "genre": "Electronic",
-          "file": "music/songs/Victoria Noelle - Topic - Living Water.mp3",
-          "downloadable": true
+          "file": "music/songs/Victoria Noelle - Topic - Living Water.mp3"
         },
         {
           "id": "vita-de-vie-haihui",
           "title": "Haihui",
           "artist": "Vița de Vie",
           "genre": "Alternative Rock",
-          "file": "music/songs/Vița de Vie - Topic - Haihui.mp3",
-          "downloadable": true
+          "file": "music/songs/Vița de Vie - Topic - Haihui.mp3"
         },
         {
           "id": "vita-de-vie-praf-de-stele-acoustic",
           "title": "Praf De Stele (Acoustic)",
           "artist": "Vița de Vie",
           "genre": "Alternative Rock",
-          "file": "music/songs/Vița de Vie - Topic - Praf De Stele (Acoustic).mp3",
-          "downloadable": true
+          "file": "music/songs/Vița de Vie - Topic - Praf De Stele (Acoustic).mp3"
         },
         {
           "id": "watts-feels-feat-khalid",
           "title": "Feels (feat. Khalid)",
           "artist": "WATTS",
           "genre": "Electronic",
-          "file": "music/songs/WATTS - Topic - Feels (feat. Khalid).mp3",
-          "downloadable": true
+          "file": "music/songs/WATTS - Topic - Feels (feat. Khalid).mp3"
         },
         {
           "id": "whitelight-1656028393454",
           "title": "1656028393454",
           "artist": "whitelight",
           "genre": "Electronic",
-          "file": "music/songs/whitelight - Topic - 1656028393454.mp3",
-          "downloadable": true
+          "file": "music/songs/whitelight - Topic - 1656028393454.mp3"
         },
         {
           "id": "yabujin-302-ionwan2go",
           "title": "302? ionwan2go",
           "artist": "Yabujin",
           "genre": "Electronic",
-          "file": "music/songs/Yabujin - Topic - 302_ ionwan2go.mp3",
-          "downloadable": true
+          "file": "music/songs/Yabujin - Topic - 302_ ionwan2go.mp3"
         },
         {
           "id": "yarden-soul",
           "title": "Soul",
           "artist": "Yarden",
           "genre": "Electronic",
-          "file": "music/songs/Yarden - Topic - Soul.mp3",
-          "downloadable": true
+          "file": "music/songs/Yarden - Topic - Soul.mp3"
         },
         {
           "id": "yebba-far-away",
           "title": "Far Away",
           "artist": "Yebba",
           "genre": "Electronic",
-          "file": "music/songs/Yebba - Topic - Far Away.mp3",
-          "downloadable": true
+          "file": "music/songs/Yebba - Topic - Far Away.mp3"
         },
         {
           "id": "yes-roundabout-2008-remaster",
           "title": "Roundabout (2008 Remaster)",
           "artist": "Yes",
           "genre": "Progressive Rock",
-          "file": "music/songs/Yes - Topic - Roundabout (2008 Remaster).mp3",
-          "downloadable": true
+          "file": "music/songs/Yes - Topic - Roundabout (2008 Remaster).mp3"
         },
         {
           "id": "youngblood-hawke-we-come-running",
           "title": "We Come Running",
           "artist": "Youngblood Hawke",
           "genre": "Indie Pop",
-          "file": "music/songs/Youngblood Hawke - Topic - We Come Running.mp3",
-          "downloadable": true
+          "file": "music/songs/Youngblood Hawke - Topic - We Come Running.mp3"
         },
         {
           "id": "yussef-dayes-love-is-the-message",
           "title": "Love Is the Message",
           "artist": "Yussef Dayes",
           "genre": "Jazz",
-          "file": "music/songs/Yussef Dayes - Topic - Love Is the Message.mp3",
-          "downloadable": true
+          "file": "music/songs/Yussef Dayes - Topic - Love Is the Message.mp3"
         },
         {
           "id": "yussef-dayes-raisins-under-the-sun-feat-shabaka-hutchings",
           "title": "Raisins Under the Sun (feat. Shabaka Hutchings)",
           "artist": "Yussef Dayes",
           "genre": "Jazz",
-          "file": "music/songs/Yussef Dayes - Topic - Raisins Under the Sun (feat. Shabaka Hutchings).mp3",
-          "downloadable": true
+          "file": "music/songs/Yussef Dayes - Topic - Raisins Under the Sun (feat. Shabaka Hutchings).mp3"
         },
         {
           "id": "yussef-dayes-tioga-pass-feat-rocco-palladino",
           "title": "Tioga Pass (feat. Rocco Palladino)",
           "artist": "Yussef Dayes",
           "genre": "Jazz",
-          "file": "music/songs/Yussef Dayes - Topic - Tioga Pass (feat. Rocco Palladino).mp3",
-          "downloadable": true
+          "file": "music/songs/Yussef Dayes - Topic - Tioga Pass (feat. Rocco Palladino).mp3"
         },
         {
           "id": "zombibeats-blurry-vision",
           "title": "Blurry Vision",
           "artist": "ZombiBeats",
           "genre": "Electronic",
-          "file": "music/songs/ZombiBeats - Topic - Blurry Vision.mp3",
-          "downloadable": true
+          "file": "music/songs/ZombiBeats - Topic - Blurry Vision.mp3"
         },
         {
           "id": "zorrovian-bios",
           "title": "BIOS",
           "artist": "Zorrovian",
           "genre": "Electronic",
-          "file": "music/songs/Zorrovian - Topic - BIOS.mp3",
-          "downloadable": true
+          "file": "music/songs/Zorrovian - Topic - BIOS.mp3"
         },
         {
           "id": "kanekoayano-kaneko-ayano-hikarinohoue",
           "title": "カネコアヤノ - 光の方へ / Kaneko Ayano - Hikarinohoue",
           "artist": "カネコアヤノ / kanekoayano",
           "genre": "Electronic",
-          "file": "music/songs/カネコアヤノ _ kanekoayano - カネコアヤノ - 光の方へ _ Kaneko Ayano - Hikarinohoue.mp3",
-          "downloadable": true
+          "file": "music/songs/カネコアヤノ _ kanekoayano - カネコアヤノ - 光の方へ _ Kaneko Ayano - Hikarinohoue.mp3"
         }
       ]
     }

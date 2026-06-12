@@ -275,7 +275,6 @@ async function initMusicPlayer() {
                 button.dataset.artist = artist
                 button.dataset.genre = genre
                 button.dataset.youtubeUrl = track.youtubeUrl || ''
-                button.dataset.downloadable = String(track.downloadable !== false)
 
                 songsLibrary.appendChild(button)
             })
@@ -543,8 +542,7 @@ async function initMusicPlayer() {
             title: trackTitle,
             artist: trackArtist,
             genre: trackGenre,
-            youtubeUrl: button.dataset.youtubeUrl || '',
-            downloadable: button.dataset.downloadable !== 'false'
+            youtubeUrl: button.dataset.youtubeUrl || ''
         }
     }
 

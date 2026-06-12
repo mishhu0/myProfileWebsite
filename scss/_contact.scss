@@ -3,7 +3,7 @@
 
 .contact-tab {
     width: 260px !important;
-    height: 150.5px !important;
+    height: 300px !important;
 }
 
 .contact-tab .tab-content {
@@ -17,7 +17,8 @@
     padding: 4px;
     box-sizing: border-box;
     background-color: p.$color2;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     @include mixins.win95-raised;
 }
@@ -39,7 +40,7 @@
         content: '';
         position: absolute;
         inset: 2px;
-        background: linear-gradient(180deg, p.$color10, p.$color9);
+        background: linear-gradient(180deg, p.$color7, p.$color9);
         z-index: 0;
         pointer-events: none;
     }
@@ -95,6 +96,111 @@
 
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.contact-dm-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 8px;
+    margin: 0;
+    background: linear-gradient(180deg, p.$overlay-white-18, p.$overlay-white-06);
+    @include mixins.win95-pressed;
+}
+
+.contact-dm-header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.contact-dm-title {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: p.$text-muted;
+}
+
+.contact-dm-status {
+    margin: 0;
+    min-height: 26px;
+    font-size: 11px;
+    line-height: 1.2;
+    color: p.$color8;
+    text-transform: lowercase;
+}
+
+.contact-dm-status.is-error {
+    color: #7a1212;
+}
+
+.contact-dm-status.is-success {
+    color: p.$color6;
+}
+
+.contact-dm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+}
+
+.contact-dm-field {
+    display: flex;
+}
+
+.contact-dm-field textarea {
+    width: 100%;
+    min-height: 72px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 6px;
+    color: p.$text-dark;
+    background-color: p.$window-surface;
+    border: none;
+    @include mixins.win95-pressed;
+}
+
+.contact-dm-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.contact-dm-hint {
+    font-size: 11px;
+    color: p.$text-muted;
+    text-transform: lowercase;
+}
+
+.contact-dm-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    padding: 2px 6px;
+    min-width: 46px;
+    line-height: 1;
+
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    text-decoration: none;
+    text-align: center;
+    background-color: p.$color6;
+    @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}
+
+.contact-tab.is-dm-name-missing {
+    .contact-dm-field textarea,
+    .contact-dm-send {
+        opacity: 0.7;
     }
 }
 

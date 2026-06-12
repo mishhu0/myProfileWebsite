@@ -1,0 +1,215 @@
+function initVisitorsTab() {
+    const visitorsTab = document.getElementById('visitorsTab')
+    const totalCount = document.getElementById('visitorsTotalCount')
+    const identityMessage = document.getElementById('visitorsIdentityMessage')
+    const identityTag = document.getElementById('visitorsIdentityTag')
+
+    if (!visitorsTab || !totalCount || !identityMessage || !identityTag) return
+
+    const visitorsConfig = (window.APP_CONFIG && window.APP_CONFIG.visitors) || {}
+    const visitorsEnabled = visitorsConfig.enabled !== false
+    const visitorsDebug = Boolean(visitorsConfig.debug)
+    const disabledMessage = String(visitorsConfig.disabledMessage || 'Visitor counter is disabled right now.')
+    const offlineMessage = String(visitorsConfig.offlineMessage || 'Visitor counter is unavailable right now.')
+    const visitorsApiBase = String(visitorsConfig.apiBase || (window.location.protocol === 'file:' ? 'http://127.0.0.1:8787/chat' : '/chat')).replace(/\/+$/, '')
+    const visitorsWsUrl = resolveWebSocketUrl(visitorsConfig.wsUrl, visitorsApiBase)
+
+    let activeSocket = null
+    let reconnectTimer = 0
+    let currentUserTag = ''
+    let currentTotalVisitors = 0
+
+    function joinUrl(base, suffix) {
+        return String(base || '').replace(/\/+$/, '') + '/' + String(suffix || '').replace(/^\/+/, '')
+    }
+
+    function resolveWebSocketUrl(configuredUrl, apiBase) {
+        const explicitUrl = String(configuredUrl || '').trim()
+        if (explicitUrl) return explicitUrl
+
+        if (window.location.protocol === 'file:') {
+            return 'ws://127.0.0.1:8787/chat/ws'
+        }
+
+        const httpUrl = /^https?:\/\//i.test(apiBase)
+            ? new URL(joinUrl(apiBase, 'ws'))
+            : new URL(joinUrl(apiBase, 'ws'), window.location.origin)
+
+        httpUrl.protocol = httpUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+        return httpUrl.toString()
+    }
+
+    function createFallbackUserTag() {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+            return window.crypto.randomUUID().slice(0, 6).toUpperCase()
+        }
+
+        return Math.random().toString(36).slice(2, 8).toUpperCase()
+    }
+
+    function getUserTag() {
+        if (typeof window.getPersistentUserTag === 'function') {
+            return window.getPersistentUserTag()
+        }
+
+        let storedTag = String(localStorage.getItem('chatUserTag') || '').trim().toUpperCase()
+        if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
+            storedTag = createFallbackUserTag()
+            localStorage.setItem('chatUserTag', storedTag)
+        }
+
+        return storedTag
+    }
+
+    function setTotalVisitors(value) {
+        currentTotalVisitors = Math.max(0, Number(value) || 0)
+        totalCount.textContent = String(currentTotalVisitors)
+    }
+
+    function setMessage(value) {
+        identityMessage.textContent = String(value || 'you are visitor #0')
+    }
+
+    function setTag(value) {
+        const safeValue = String(value || '').trim().toUpperCase()
+        identityTag.textContent = safeValue ? 'saved tag #' + safeValue : 'saved tag unavailable'
+    }
+
+    function applyRegistration(result) {
+        const visitor = result && result.visitor ? result.visitor : null
+        const visitorNumber = Math.max(0, Number(visitor && visitor.visitorNumber) || 0)
+        const totalVisitors = Math.max(visitorNumber, Number(result && result.totalVisitors) || 0)
+
+        setTotalVisitors(totalVisitors)
+        setTag(currentUserTag)
+
+        if (!visitorNumber) {
+            setMessage('you are visitor #0')
+            return
+        }
+
+        if (result && result.isNew) {
+            setMessage('you are the number ' + visitorNumber + ' visitor')
+            return
+        }
+
+        setMessage('you are visitor #' + visitorNumber)
+    }
+
+    async function registerVisitor() {
+        currentUserTag = getUserTag()
+        setTag(currentUserTag)
+
+        try {
+            const response = await fetch(joinUrl(visitorsApiBase, 'visitors'), {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userTag: currentUserTag })
+            })
+
+            const payload = await response.json().catch(function() {
+                return {}
+            })
+
+            if (!response.ok) {
+                throw new Error(payload && payload.error ? payload.error : 'Could not register visitor.')
+            }
+
+            applyRegistration(payload)
+        } catch (error) {
+            if (visitorsDebug) {
+                console.warn('Could not register visitor:', error)
+            }
+
+            setTotalVisitors(currentTotalVisitors)
+            setMessage(offlineMessage)
+        }
+    }
+
+    function scheduleReconnect() {
+        if (reconnectTimer || !visitorsEnabled) return
+
+        reconnectTimer = window.setTimeout(function() {
+            reconnectTimer = 0
+            connectSocket()
+        }, 2000)
+    }
+
+    function connectSocket() {
+        if (!visitorsEnabled || !visitorsWsUrl) return
+
+        try {
+            const socket = new WebSocket(visitorsWsUrl)
+            activeSocket = socket
+
+            socket.addEventListener('message', function(event) {
+                try {
+                    const rawPayload = typeof event.data === 'string' ? event.data.trim() : ''
+                    if (!rawPayload || (rawPayload.charAt(0) !== '{' && rawPayload.charAt(0) !== '[')) {
+                        return
+                    }
+
+                    const payload = JSON.parse(rawPayload)
+                    if (!payload || payload.type !== 'visitor.registered') return
+
+                    if (payload.totalVisitors !== undefined) {
+                        setTotalVisitors(payload.totalVisitors)
+                    }
+
+                    if (payload.visitor && String(payload.visitor.userTag || '').trim().toUpperCase() === currentUserTag) {
+                        applyRegistration({
+                            isNew: true,
+                            totalVisitors: payload.totalVisitors,
+                            visitor: payload.visitor
+                        })
+                    }
+                } catch (error) {
+                    if (visitorsDebug) {
+                        console.warn('Could not parse visitor socket payload:', error)
+                    }
+                }
+            })
+
+            socket.addEventListener('close', function() {
+                if (activeSocket === socket) {
+                    activeSocket = null
+                }
+                scheduleReconnect()
+            })
+
+            socket.addEventListener('error', function() {
+                socket.close()
+            })
+        } catch (error) {
+            if (visitorsDebug) {
+                console.warn('Could not connect visitor socket:', error)
+            }
+            scheduleReconnect()
+        }
+    }
+
+    window.addEventListener('beforeunload', function() {
+        window.clearTimeout(reconnectTimer)
+        if (activeSocket) {
+            activeSocket.close()
+            activeSocket = null
+        }
+    })
+
+    setTotalVisitors(0)
+    setTag('')
+
+    if (!visitorsEnabled) {
+        setMessage(disabledMessage)
+        return
+    }
+
+    setMessage('checking your visitor number...')
+    registerVisitor()
+    connectSocket()
+}
+
+window.initVisitorsTab = initVisitorsTab

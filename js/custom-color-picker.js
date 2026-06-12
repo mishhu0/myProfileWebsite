@@ -112,23 +112,23 @@
             '<input class="custom-color-hex" id="customColorHex" type="text" maxlength="7" spellcheck="false" />',
             '<div class="custom-color-sliders">',
             '  <label class="custom-color-slider-row">',
-            '    <span>H</span>',
+            '    <span class="custom-color-slider-label">Hue</span>',
             '    <input id="customColorHue" type="range" min="0" max="360" value="0" />',
             '    <span class="custom-color-value" id="customColorHueValue">0</span>',
             '  </label>',
             '  <label class="custom-color-slider-row">',
-            '    <span>S</span>',
+            '    <span class="custom-color-slider-label">Sat</span>',
             '    <input id="customColorSaturation" type="range" min="0" max="100" value="100" />',
-            '    <span class="custom-color-value" id="customColorSaturationValue">100</span>',
+            '    <span class="custom-color-value" id="customColorSaturationValue">100%</span>',
             '  </label>',
             '  <label class="custom-color-slider-row">',
-            '    <span>L</span>',
+            '    <span class="custom-color-slider-label">Light</span>',
             '    <input id="customColorLightness" type="range" min="0" max="100" value="50" />',
-            '    <span class="custom-color-value" id="customColorLightnessValue">50</span>',
+            '    <span class="custom-color-value" id="customColorLightnessValue">50%</span>',
             '  </label>',
             '</div>',
             '<div class="custom-color-actions">',
-            '  <button type="button" class="custom-color-btn" id="customColorClose">Close</button>',
+            '  <button type="button" class="custom-color-btn" id="customColorClose">close</button>',
             '</div>'
         ].join('')
 
@@ -164,6 +164,15 @@
         trigger.title = normalized
     }
 
+    function formatSliderValue(kind, value) {
+        const normalized = String(value || '0')
+        if (kind === 'saturation' || kind === 'lightness') {
+            return normalized + '%'
+        }
+
+        return normalized
+    }
+
     function syncDialogFromHex(value) {
         const normalized = normalizeHex(value, '#000000')
         const hsl = rgbToHsl(normalized)
@@ -171,9 +180,9 @@
         hueInput.value = String(hsl.hue)
         saturationInput.value = String(hsl.saturation)
         lightnessInput.value = String(hsl.lightness)
-        hueValue.textContent = String(hsl.hue)
-        saturationValue.textContent = String(hsl.saturation)
-        lightnessValue.textContent = String(hsl.lightness)
+        hueValue.textContent = formatSliderValue('hue', hsl.hue)
+        saturationValue.textContent = formatSliderValue('saturation', hsl.saturation)
+        lightnessValue.textContent = formatSliderValue('lightness', hsl.lightness)
         preview.style.backgroundColor = normalized
     }
 
@@ -279,17 +288,17 @@
     }
 
     hueInput.addEventListener('input', function() {
-        hueValue.textContent = hueInput.value
+        hueValue.textContent = formatSliderValue('hue', hueInput.value)
         syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
     })
 
     saturationInput.addEventListener('input', function() {
-        saturationValue.textContent = saturationInput.value
+        saturationValue.textContent = formatSliderValue('saturation', saturationInput.value)
         syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
     })
 
     lightnessInput.addEventListener('input', function() {
-        lightnessValue.textContent = lightnessInput.value
+        lightnessValue.textContent = formatSliderValue('lightness', lightnessInput.value)
         syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
     })
 

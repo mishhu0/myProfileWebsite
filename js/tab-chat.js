@@ -1,14 +1,22 @@
 function initChatTab() {
-    const STORAGE_KEY = (window.APP_CONFIG && window.APP_CONFIG.storageKeys && window.APP_CONFIG.storageKeys.chatMessages) || 'chatMessages'
     const CHAT_USER_TAG_KEY = 'chatUserTag'
     const DEFAULT_MESSAGE_COLORS = {
         nameColor: '#0a3333',
         textColor: '#233131'
     }
+    const RECONNECT_DELAY_MS = 2000
+    const chatConfig = (window.APP_CONFIG && window.APP_CONFIG.chat) || {}
+    const chatEnabled = chatConfig.enabled !== false
+    const chatDebug = Boolean(chatConfig.debug)
+    const disabledMessage = String(chatConfig.disabledMessage || 'Chat is disabled right now.')
+    const chatApiBase = String(chatConfig.apiBase || (window.location.protocol === 'file:' ? 'http://127.0.0.1:8787/chat' : '/chat')).replace(/\/+$/, '')
+    const chatWsUrl = resolveWebSocketUrl(chatConfig.wsUrl, chatApiBase)
+    const chatHistoryLimit = normalizeHistoryLimit(chatConfig.historyLimit)
     const chatRoot = document.getElementById('chatTab')
     const messagesRoot = document.getElementById('chatMessages')
     const form = document.getElementById('chatForm')
     const messageInput = document.getElementById('chatMessageInput')
+    const sendButton = document.getElementById('chatSendBtn')
     const status = document.getElementById('chatStatus')
     const editNameButton = document.getElementById('chatEditNameBtn')
     const nameColorInput = document.getElementById('chatNameColorInput')
@@ -17,9 +25,41 @@ function initChatTab() {
     const emojiToggleButton = document.getElementById('chatEmojiToggleBtn')
     const emojiMenu = document.getElementById('chatEmojiMenu')
 
-    if (!chatRoot || !messagesRoot || !form || !messageInput || !status || !editNameButton || !nameColorInput || !textColorInput || !emojiMenuWrap || !emojiToggleButton || !emojiMenu) return
+    if (!chatRoot || !messagesRoot || !form || !messageInput || !sendButton || !status || !editNameButton || !nameColorInput || !textColorInput || !emojiMenuWrap || !emojiToggleButton || !emojiMenu) return
 
     const emojiButtons = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
+    let messages = []
+    let loadState = 'loading'
+    let activeSocket = null
+    let reconnectTimer = 0
+    let statusResetTimer = 0
+    let isSending = false
+
+    function normalizeHistoryLimit(value) {
+        const parsed = Number.parseInt(String(value || ''), 10)
+        if (!Number.isInteger(parsed)) return 100
+        return Math.min(200, Math.max(10, parsed))
+    }
+
+    function joinUrl(base, suffix) {
+        return String(base || '').replace(/\/+$/, '') + '/' + String(suffix || '').replace(/^\/+/, '')
+    }
+
+    function resolveWebSocketUrl(configuredUrl, apiBase) {
+        const explicitUrl = String(configuredUrl || '').trim()
+        if (explicitUrl) return explicitUrl
+
+        if (window.location.protocol === 'file:') {
+            return 'ws://127.0.0.1:8787/chat/ws'
+        }
+
+        const httpUrl = /^https?:\/\//i.test(apiBase)
+            ? new URL(joinUrl(apiBase, 'ws'))
+            : new URL(joinUrl(apiBase, 'ws'), window.location.origin)
+
+        httpUrl.protocol = httpUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+        return httpUrl.toString()
+    }
 
     function getProfileName() {
         if (typeof window.getStoredProfileName === 'function') {
@@ -30,6 +70,10 @@ function initChatTab() {
     }
 
     function createUserTag() {
+        if (typeof window.getPersistentUserTag === 'function') {
+            return window.getPersistentUserTag()
+        }
+
         if (window.crypto && typeof window.crypto.randomUUID === 'function') {
             return window.crypto.randomUUID().slice(0, 6).toUpperCase()
         }
@@ -38,6 +82,10 @@ function initChatTab() {
     }
 
     function getChatUserTag() {
+        if (typeof window.getPersistentUserTag === 'function') {
+            return window.getPersistentUserTag()
+        }
+
         let storedTag = String(localStorage.getItem(CHAT_USER_TAG_KEY) || '').trim().toUpperCase()
         if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
             storedTag = createUserTag()
@@ -64,13 +112,6 @@ function initChatTab() {
         const currentColors = getCurrentMessageColors()
         chatRoot.style.setProperty('--chat-compose-name-color', currentColors.nameColor)
         chatRoot.style.setProperty('--chat-compose-text-color', currentColors.textColor)
-    }
-
-    function formatIdentity(name, userTag) {
-        const safeName = String(name || '').trim()
-        const safeTag = String(userTag || '').trim().toUpperCase()
-        if (!safeName) return 'name required'
-        return safeTag ? safeName + ' #' + safeTag : safeName
     }
 
     function appendIdentityParts(target, name, userTag, prefixText, nameColor) {
@@ -124,21 +165,63 @@ function initChatTab() {
         })
     }
 
-    function loadMessages() {
-        try {
-            const rawValue = localStorage.getItem(STORAGE_KEY)
-            const parsed = rawValue ? JSON.parse(rawValue) : []
-            return Array.isArray(parsed) ? parsed.filter(function(entry) {
-                return entry && entry.name && entry.text
-            }) : []
-        } catch (error) {
-            console.warn('Could not parse chat storage:', error)
-            return []
+    function getMessageSortValue(entry) {
+        const parsed = Date.parse(entry && entry.createdAt)
+        return Number.isFinite(parsed) ? parsed : 0
+    }
+
+    function normalizeMessageEntry(entry) {
+        if (!entry || !entry.name || !entry.text) return null
+
+        const id = String(entry.id || '').trim()
+        if (!id) return null
+
+        return {
+            id,
+            name: String(entry.name || '').trim().slice(0, 40),
+            userTag: String(entry.userTag || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8),
+            nameColor: normalizeHex(entry.nameColor, DEFAULT_MESSAGE_COLORS.nameColor),
+            textColor: normalizeHex(entry.textColor, DEFAULT_MESSAGE_COLORS.textColor),
+            text: String(entry.text || '').trim().slice(0, 280),
+            createdAt: String(entry.createdAt || new Date().toISOString())
         }
     }
 
-    function saveMessages(messages) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+    function replaceMessages(entries) {
+        messages = (Array.isArray(entries) ? entries : [])
+            .map(normalizeMessageEntry)
+            .filter(Boolean)
+            .sort(function(left, right) {
+                return getMessageSortValue(left) - getMessageSortValue(right)
+            })
+            .slice(-chatHistoryLimit)
+
+        loadState = 'ready'
+        renderMessages()
+    }
+
+    function mergeMessages(entries) {
+        const nextMessagesById = new Map()
+
+        messages.forEach(function(entry) {
+            nextMessagesById.set(entry.id, entry)
+        })
+
+        ;(Array.isArray(entries) ? entries : []).forEach(function(entry) {
+            const normalizedEntry = normalizeMessageEntry(entry)
+            if (normalizedEntry) {
+                nextMessagesById.set(normalizedEntry.id, normalizedEntry)
+            }
+        })
+
+        messages = Array.from(nextMessagesById.values())
+            .sort(function(left, right) {
+                return getMessageSortValue(left) - getMessageSortValue(right)
+            })
+            .slice(-chatHistoryLimit)
+
+        loadState = 'ready'
+        renderMessages()
     }
 
     function scrollToLatest() {
@@ -147,6 +230,24 @@ function initChatTab() {
 
     function setStatus(message) {
         status.textContent = String(message || 'name required')
+    }
+
+    function showTemporaryStatus(message) {
+        window.clearTimeout(statusResetTimer)
+        setStatus(message)
+        statusResetTimer = window.setTimeout(function() {
+            if (!chatEnabled) {
+                setStatus(disabledMessage)
+                return
+            }
+
+            syncIdentity()
+        }, 2500)
+    }
+
+    function setFormBusy(isBusy) {
+        isSending = Boolean(isBusy)
+        sendButton.disabled = isSending
     }
 
     function syncIdentity() {
@@ -161,8 +262,31 @@ function initChatTab() {
     }
 
     function renderMessages() {
-        const messages = loadMessages()
         messagesRoot.innerHTML = ''
+
+        if (loadState === 'disabled') {
+            const disabledState = document.createElement('p')
+            disabledState.className = 'chat-empty'
+            disabledState.textContent = disabledMessage
+            messagesRoot.appendChild(disabledState)
+            return
+        }
+
+        if (!messages.length && loadState === 'loading') {
+            const loading = document.createElement('p')
+            loading.className = 'chat-loading'
+            loading.textContent = 'Loading chat...'
+            messagesRoot.appendChild(loading)
+            return
+        }
+
+        if (!messages.length && loadState === 'error') {
+            const errorState = document.createElement('p')
+            errorState.className = 'chat-empty'
+            errorState.textContent = 'Chat server is offline right now.'
+            messagesRoot.appendChild(errorState)
+            return
+        }
 
         if (!messages.length) {
             const empty = document.createElement('p')
@@ -200,6 +324,114 @@ function initChatTab() {
         })
 
         scrollToLatest()
+    }
+
+    async function fetchMessages() {
+        if (!chatEnabled) return
+
+        try {
+            const response = await fetch(joinUrl(chatApiBase, 'messages') + '?limit=' + encodeURIComponent(String(chatHistoryLimit)), {
+                headers: {
+                    Accept: 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error('Chat history request failed with ' + response.status)
+            }
+
+            const payload = await response.json()
+            replaceMessages(payload && payload.messages)
+        } catch (error) {
+            if (!messages.length) {
+                loadState = 'error'
+                renderMessages()
+            }
+            if (chatDebug) {
+                console.warn('Could not load chat messages:', error)
+            }
+        }
+    }
+
+    async function postMessage(messagePayload) {
+        if (!chatEnabled) {
+            throw new Error(disabledMessage)
+        }
+
+        const response = await fetch(joinUrl(chatApiBase, 'messages'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify(messagePayload)
+        })
+
+        const payload = await response.json().catch(function() {
+            return {}
+        })
+
+        if (!response.ok) {
+            throw new Error(payload && payload.error ? payload.error : 'Chat message could not be sent.')
+        }
+
+        return payload && payload.message ? payload.message : null
+    }
+
+    function scheduleReconnect() {
+        if (reconnectTimer) return
+
+        reconnectTimer = window.setTimeout(function() {
+            reconnectTimer = 0
+            connectSocket()
+        }, RECONNECT_DELAY_MS)
+    }
+
+    function connectSocket() {
+        if (!chatEnabled || !chatWsUrl) return
+
+        try {
+            const socket = new WebSocket(chatWsUrl)
+            activeSocket = socket
+
+            socket.addEventListener('open', function() {
+                fetchMessages()
+            })
+
+            socket.addEventListener('message', function(event) {
+                try {
+                    const rawPayload = typeof event.data === 'string' ? event.data.trim() : ''
+                    if (!rawPayload || (rawPayload.charAt(0) !== '{' && rawPayload.charAt(0) !== '[')) {
+                        return
+                    }
+
+                    const payload = JSON.parse(rawPayload)
+                    if (payload && payload.type === 'message.created') {
+                        mergeMessages([payload.message])
+                    }
+                } catch (error) {
+                    if (chatDebug) {
+                        console.warn('Could not parse chat socket payload:', error)
+                    }
+                }
+            })
+
+            socket.addEventListener('close', function() {
+                if (activeSocket === socket) {
+                    activeSocket = null
+                }
+                scheduleReconnect()
+            })
+
+            socket.addEventListener('error', function() {
+                socket.close()
+            })
+        } catch (error) {
+            if (chatDebug) {
+                console.warn('Could not connect to chat socket:', error)
+            }
+            scheduleReconnect()
+        }
     }
 
     function openOptionsForName() {
@@ -265,23 +497,6 @@ function initChatTab() {
         return ''
     }
 
-    function appendMessage(name, text) {
-        const userTag = getChatUserTag()
-        const currentColors = getCurrentMessageColors()
-        const messages = loadMessages()
-        messages.push({
-            id: 'msg-' + Date.now() + '-' + Math.round(Math.random() * 100000),
-            name: String(name),
-            userTag: userTag,
-            nameColor: currentColors.nameColor,
-            textColor: currentColors.textColor,
-            text: String(text),
-            createdAt: new Date().toISOString()
-        })
-        saveMessages(messages)
-        renderMessages()
-    }
-
     function setEmojiMenuOpen(isOpen) {
         emojiMenuWrap.classList.toggle('is-open', isOpen)
         emojiMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true')
@@ -305,6 +520,10 @@ function initChatTab() {
 
     window.windowOpenGuards = window.windowOpenGuards || {}
     window.windowOpenGuards.chatTab = function() {
+        if (!chatEnabled) {
+            return true
+        }
+
         const profileName = ensureChatIdentity()
         syncIdentity()
         return Boolean(profileName)
@@ -339,8 +558,15 @@ function initChatTab() {
         ensureChatIdentity()
     })
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', async function(event) {
         event.preventDefault()
+
+        if (!chatEnabled) {
+            showTemporaryStatus(disabledMessage)
+            return
+        }
+
+        if (isSending) return
 
         const profileName = ensureChatIdentity()
         if (!profileName) return
@@ -351,16 +577,31 @@ function initChatTab() {
             return
         }
 
-        appendMessage(profileName, message)
-        messageInput.value = ''
-        syncIdentity()
-        messageInput.focus()
-    })
+        setFormBusy(true)
 
-    window.addEventListener('storage', function(event) {
-        if (event.key === STORAGE_KEY || event.key === 'profileName') {
-            renderMessages()
+        try {
+            const createdMessage = await postMessage({
+                name: profileName,
+                userTag: getChatUserTag(),
+                nameColor: getCurrentMessageColors().nameColor,
+                textColor: getCurrentMessageColors().textColor,
+                text: message
+            })
+
+            if (createdMessage) {
+                mergeMessages([createdMessage])
+            }
+
+            messageInput.value = ''
             syncIdentity()
+            messageInput.focus()
+        } catch (error) {
+            if (chatDebug) {
+                console.warn('Could not send chat message:', error)
+            }
+            showTemporaryStatus('chat server unavailable')
+        } finally {
+            setFormBusy(false)
         }
     })
 
@@ -368,11 +609,34 @@ function initChatTab() {
         syncIdentity()
     })
 
+    window.addEventListener('beforeunload', function() {
+        window.clearTimeout(reconnectTimer)
+        window.clearTimeout(statusResetTimer)
+        if (activeSocket) {
+            activeSocket.close()
+            activeSocket = null
+        }
+    })
+
     nameColorInput.value = DEFAULT_MESSAGE_COLORS.nameColor
     textColorInput.value = DEFAULT_MESSAGE_COLORS.textColor
     applyComposerColors()
+
+    if (!chatEnabled) {
+        loadState = 'disabled'
+        messageInput.disabled = true
+        sendButton.disabled = true
+        emojiToggleButton.disabled = true
+        messageInput.placeholder = 'chat disabled in local dev'
+        renderMessages()
+        setStatus(disabledMessage)
+        return
+    }
+
     renderMessages()
     syncIdentity()
+    fetchMessages()
+    connectSocket()
 }
 
 window.initChatTab = initChatTab

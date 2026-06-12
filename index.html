@@ -164,6 +164,11 @@
         </div>
 
         <div class="dsk-icon">
+            <img src="images/projects_logo.png" alt="visitors icon" />
+            <span>Visitors</span>
+        </div>
+
+        <div class="dsk-icon">
             <img src="images/projects_logo.png" alt="photography icon" />
             <span>Photography</span>
         </div>
@@ -432,10 +437,57 @@
                 >mihai@truthmonad.com</a>
                 <button type="button" class="contact-copy-btn" id="contactCopyBtn" aria-label="Copy email">copy</button>
             </div>
+
+            <div class="contact-dm-panel" aria-label="direct message">
+                <div class="contact-dm-header no-select">
+                    <div class="contact-dm-title">send me a message</div>
+                    <p class="contact-dm-status" id="contactDmStatus" aria-live="polite">set your name in options first</p>
+                </div>
+
+                <form id="contactDmForm" class="contact-dm-form">
+                    <label class="contact-dm-field" for="contactDmInput">
+                        <textarea id="contactDmInput" maxlength="600" placeholder="write me private message..."></textarea>
+                    </label>
+
+                    <div class="contact-dm-footer no-select">
+                        <span class="contact-dm-hint">if your tag doesn't change you will be able to receive a reply.</span>
+                        <button type="submit" class="contact-dm-send" id="contactDmSendBtn">send</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="contact-copy-note" id="contactCopyNote" aria-hidden="true">
             <p id="contactCopyNoteText">email copied</p>
+        </div>
+    </div>
+
+    <div class="visitors-tab movable" id="visitorsTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="visitors icon" />
+                <span>Visitors</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="minbtnVisitors"><img src="images/minimize.svg" alt="minimize icon"></button>
+                <button id="exitbtnVisitors"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="visitors-header-top no-select">
+                <div class="visitors-header-copy">
+                    <div class="visitors-header-kicker">site visitor counter</div>
+                    <div class="visitors-header-hint">unique visitors only</div>
+                </div>
+                <span class="visitors-header-count" id="visitorsTotalCount" aria-label="visitor total" aria-live="polite">0</span>
+            </div>
+
+            <div class="visitors-identity-panel" aria-live="polite">
+                <p class="visitors-identity-message" id="visitorsIdentityMessage">you are visitor #0</p>
+                <span class="visitors-identity-tag" id="visitorsIdentityTag">saved tag #------</span>
+            </div>
         </div>
     </div>
 
@@ -647,6 +699,7 @@
     <script src="js/tab-photography.js"></script>
     <script src="js/tab-blog.js"></script>
     <script src="js/tab-contact.js"></script>
+    <script src="js/tab-visitors.js"></script>
     <script src="js/tab-chat.js"></script>
     <script src="js/entity.js"></script>
     <script src="js/main.js"></script>

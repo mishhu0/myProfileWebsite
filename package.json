@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "sass scss/style.scss style.css --no-source-map",
-    "watch": "sass --watch scss/style.scss:style.css"
+    "watch": "sass --watch scss/style.scss:style.css",
+    "chat:start": "node server/chat-server.js"
   },
   "devDependencies": {
     "sass": "^1.99.0"
   },
   "dependencies": {
-    "three": "^0.184.0"
+    "better-sqlite3": "^11.10.0",
+    "three": "^0.184.0",
+    "ws": "^8.21.0"
   }
 }

@@ -13,6 +13,61 @@ function getBlogFallbackMessage() {
     return window.DATA_FALLBACK_MESSAGE || "data couldn't be found - working on it..."
 }
 
+function isPlainObject(value) {
+    return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+}
+
+function normalizeBlogImageBlock(value) {
+    if (!isPlainObject(value)) return null
+
+    const type = String(value.type || '').trim().toLowerCase()
+    if (type !== 'image') return null
+
+    const src = String(value.src || value.publicPath || '').trim()
+    if (!src) return null
+
+    return {
+        type: 'image',
+        src: src,
+        alt: String(value.alt || value.altText || '').trim()
+    }
+}
+
+function normalizeBlogContent(postBody) {
+    const normalized = []
+    const content = Array.isArray(postBody && postBody.content) ? postBody.content : []
+
+    content.forEach(function(entry) {
+        if (typeof entry === 'string') {
+            const paragraph = entry.trim()
+            if (paragraph) {
+                normalized.push(paragraph)
+            }
+            return
+        }
+
+        const imageBlock = normalizeBlogImageBlock(entry)
+        if (imageBlock) {
+            normalized.push(imageBlock)
+        }
+    })
+
+    const hasInlineImages = normalized.some(function(entry) {
+        return isPlainObject(entry) && entry.type === 'image' && entry.src
+    })
+    const legacyCoverPath = String(postBody && postBody.coverImage || '').trim()
+
+    if (!hasInlineImages && legacyCoverPath) {
+        normalized.unshift({
+            type: 'image',
+            src: legacyCoverPath,
+            alt: ''
+        })
+    }
+
+    return normalized
+}
+
 async function initBlogTab() {
     const listRoot = document.getElementById('blogList')
     const detailEmpty = document.getElementById('blogDetailEmpty')
@@ -124,14 +179,29 @@ async function initBlogTab() {
     function renderBody(postBody) {
         body.innerHTML = ''
 
-        const paragraphs = Array.isArray(postBody && postBody.content)
-            ? postBody.content.filter(Boolean)
-            : []
+        const blocks = normalizeBlogContent(postBody)
 
-        paragraphs.forEach(function(paragraph) {
-            const p = document.createElement('p')
-            p.textContent = String(paragraph)
-            body.appendChild(p)
+        blocks.forEach(function(block) {
+            if (typeof block === 'string') {
+                const p = document.createElement('p')
+                p.textContent = block
+                body.appendChild(p)
+                return
+            }
+
+            const imageBlock = normalizeBlogImageBlock(block)
+            if (!imageBlock) return
+
+            const figure = document.createElement('figure')
+            figure.className = 'blog-image-block'
+
+            const image = document.createElement('img')
+            image.className = 'blog-inline-image'
+            image.src = imageBlock.src
+            image.alt = imageBlock.alt || ''
+
+            figure.appendChild(image)
+            body.appendChild(figure)
         })
 
         const sections = Array.isArray(postBody && postBody.sections) ? postBody.sections : []

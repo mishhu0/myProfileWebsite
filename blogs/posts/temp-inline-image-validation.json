@@ -1,0 +1,11 @@
+{
+  "content": [
+    "first paragraph.",
+    {
+      "type": "image",
+      "src": "blogs/posts/media/temp-inline-image-validation/01.webp",
+      "alt": "Temp inline image validation image 1"
+    },
+    "second paragraph."
+  ]
+}

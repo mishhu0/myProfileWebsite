@@ -3,19 +3,12 @@ node_modules/
 style.css.map
 .github/
 
-# local editor / OS noise
-.vscode/
-Thumbs.db
-.DS_Store
-
 # local release artifacts
 deploy/
 dist/
 ops/
 *.zip
-
-# helper project stays local; website runtime should not deploy it
-playlistFetch - different project/
+.data/
 
 # local-only music payload; keep metadata in git, keep binaries outside git
 music/songs/

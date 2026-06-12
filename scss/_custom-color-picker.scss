@@ -36,8 +36,9 @@ input[type='color'].custom-color-input {
 .custom-color-dialog {
     position: fixed;
     display: none;
-    width: 220px;
+    width: 244px;
     padding: 6px;
+    box-sizing: border-box;
     background-color: p.$window-surface;
     z-index: 2147483647;
     @include mixins.win95-raised;
@@ -45,19 +46,26 @@ input[type='color'].custom-color-input {
     &.is-open {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 6px;
     }
 }
 
 .custom-color-preview {
+    display: block;
     width: 100%;
+    min-width: 0;
     height: 28px;
+    margin: 0;
+    box-sizing: border-box;
     border: 1px solid p.$window-shadow-mid;
     @include mixins.win95-raised;
 }
 
 .custom-color-hex {
+    display: block;
     width: 100%;
+    min-width: 0;
+    margin: 0;
     box-sizing: border-box;
     padding: 6px;
     border: 1px solid p.$window-shadow-mid;
@@ -70,20 +78,31 @@ input[type='color'].custom-color-input {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 2px 0;
+    padding: 2px 0 0;
 }
 
 .custom-color-slider-row {
     display: grid;
-    grid-template-columns: 18px 1fr 34px;
-    gap: 6px;
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+    gap: 8px;
     align-items: center;
+    margin: 0;
     color: p.$window-shadow-dark;
     font-size: 14px;
 }
 
+.custom-color-slider-label,
+.custom-color-value {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
 .custom-color-slider-row input[type='range'] {
     width: 100%;
+    min-width: 0;
     height: 10px;
     margin: 0;
     padding: 0;
@@ -129,13 +148,13 @@ input[type='color'].custom-color-input {
 }
 
 .custom-color-value {
-    text-align: right;
     color: p.$text-muted;
+    font-variant-numeric: tabular-nums;
 }
 
 .custom-color-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 6px;
     padding-top: 2px;
 }
@@ -143,8 +162,13 @@ input[type='color'].custom-color-input {
 .custom-color-btn {
     border: none;
     padding: 3px 10px;
-    background-color: p.$window-surface;
-    color: p.$window-shadow-dark;
+    background-color: p.$color6;
+    color: p.$window-shadow-light;
     cursor: pointer;
+    text-transform: lowercase;
     @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
 }

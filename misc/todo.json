@@ -1,31 +1,28 @@
 {
-    "title": "To Do",
-    "updatedAt": "2026-05-14",
-    "entry": {
-        "notes": [
-            "all the content should be json driven for easy updates and additions",
-            "simple admin page for easy content management",
-            "dm me feature in contact tab?",
-            "my cd collection",
-            "music too loud posts",
-            "sort songs where i want them to be / check genre",
-            "improve entity design/animations/functionality/more chats",
-            "new visual assets",
-            "new cool interactions",
-            "games",
-            "drawings",
-            "visitors",
-            "song of the week",
-            "random thoughts maybe by entity?",
-            "random mottos/sayings by entity?",
-            "random pics",
-            "funny stuff",
-            "my time",
-            "sitemap?",
-            "doodles (by me and other people) so other people can post also?",
-            "improve music player / mini player",
-            "add info for some songs?",
-            "dev documentation"
-        ]
-    }
+  "title": "To Do",
+  "entry": {
+    "notes": [
+      "all the content should be json driven for easy updates and additions",
+      "simple admin page for easy content management",
+      "dm me feature in contact tab?",
+      "my cd collection",
+      "music too loud posts",
+      "sort songs where i want them to be / check genre",
+      "improve entity design/animations/functionality/more chats",
+      "new visual assets",
+      "new cool interactions",
+      "games",
+      "drawings",
+      "random thoughts maybe by entity?",
+      "random mottos/sayings by entity?",
+      "random pics",
+      "funny stuff",
+      "my time",
+      "sitemap?",
+      "doodles (by me and other people) so other people can post also?",
+      "improve music player / mini player",
+      "add info for some songs?",
+      "dev documentation"
+    ]
+  }
 }

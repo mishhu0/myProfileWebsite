@@ -1,7 +1,39 @@
 {
 	"title": "Changelog",
-	"updatedAt": "2026-06-02",
 	"entries": [
+		{
+			"version": "32.",
+			"date": "2026-06-09",
+			"tag": "improvement",
+			"summary": "nearly finished admin page, cleaned up",
+			"highlights": [
+				"fixed being able to receive emails but not send using my custom email",
+				"implemented a dm feature in contact me",
+				"cleaned up playlistFetcher scripts for the website",
+				"kinda finished admin page"
+			]
+		},
+		{
+			"version": "31.",
+			"date": "2026-06-04",
+			"tag": "improvement",
+			"summary": "admin page",
+			"highlights": [
+				"started working on admin page"
+			]
+		},
+		{
+			"version": "30.",
+			"date": "2026-06-03",
+			"tag": "improvement",
+			"summary": "uploading files to the server",
+			"highlights": [
+				"new visitors tab!",
+				"chatbox is now server sided",
+				"server is live! but importing local content/files to server side WIP",
+				"uploaded my files to the server"
+			]
+		},
 		{
 			"version": "29.",
 			"date": "2026-06-02",

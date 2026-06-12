@@ -1,11 +1,56 @@
 let highestZ = { value: 0 }
 
 const APP_DATA_FALLBACK_MESSAGE = "data couldn't be found - working on it..."
+const PERSISTENT_USER_TAG_KEY = 'chatUserTag'
 
 window.DATA_FALLBACK_MESSAGE = window.DATA_FALLBACK_MESSAGE || APP_DATA_FALLBACK_MESSAGE
 
 function getAppDataFallbackMessage() {
     return window.DATA_FALLBACK_MESSAGE || APP_DATA_FALLBACK_MESSAGE
+}
+
+function isLocalDevelopmentHost() {
+    return window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+}
+
+function isEnabledQueryFlag(value) {
+    const normalized = String(value || '').trim().toLowerCase()
+    return normalized === '1' || normalized === 'true' || normalized === 'on'
+}
+
+function isLocalServerFeaturesEnabled() {
+    const searchParams = new URLSearchParams(window.location.search)
+    return isEnabledQueryFlag(searchParams.get('server')) || isEnabledQueryFlag(searchParams.get('chat'))
+}
+
+function createPersistentUserTag() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+        return window.crypto.randomUUID().slice(0, 6).toUpperCase()
+    }
+
+    return Math.random().toString(36).slice(2, 8).toUpperCase()
+}
+
+function getPersistentUserTag() {
+    let storedTag = ''
+
+    try {
+        storedTag = String(localStorage.getItem(PERSISTENT_USER_TAG_KEY) || '').trim().toUpperCase()
+    } catch {
+        storedTag = ''
+    }
+
+    if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
+        storedTag = createPersistentUserTag()
+
+        try {
+            localStorage.setItem(PERSISTENT_USER_TAG_KEY, storedTag)
+        } catch {
+            return storedTag
+        }
+    }
+
+    return storedTag
 }
 
 const APP_CONFIG = {
@@ -34,6 +79,10 @@ const APP_CONFIG = {
             label: 'Chatbox',
             icon: 'images/projects_logo.png'
         },
+        visitorsTab: {
+            label: 'Visitors',
+            icon: 'images/projects_logo.png'
+        },
         contactTab: {
             label: 'Contact me',
             icon: 'images/projects_logo.png'
@@ -57,6 +106,7 @@ const APP_CONFIG = {
         'Contact': 'contactTab',
         'Music': 'musicTab',
         'Chatbox': 'chatTab',
+        'Visitors': 'visitorsTab',
         'Photography': 'picturesTab',
         'Blog': 'blogTab'
     },
@@ -68,17 +118,36 @@ const APP_CONFIG = {
         { tabId: 'contactTab', exitBtnId: 'exitbtnContact', minBtnId: 'minbtnContact' },
         { tabId: 'musicTab', exitBtnId: 'exitbtnMusic', minBtnId: 'minbtnMusic' },
         { tabId: 'chatTab', exitBtnId: 'exitbtnChat', minBtnId: 'minbtnChat' },
+        { tabId: 'visitorsTab', exitBtnId: 'exitbtnVisitors', minBtnId: 'minbtnVisitors' },
         { tabId: 'picturesTab', exitBtnId: 'exitbtnPictures', minBtnId: 'minbtnPictures' },
         { tabId: 'blogTab', exitBtnId: 'exitbtnBlog', minBtnId: 'minbtnBlog' }
     ],
     storageKeys: {
         globalVolume: 'globalVolume',
         chatMessages: 'chatMessages'
+    },
+    chat: {
+        enabled: isLocalDevelopmentHost() ? isLocalServerFeaturesEnabled() : true,
+        apiBase: isLocalDevelopmentHost() ? 'http://127.0.0.1:8787/chat' : '/chat',
+        wsUrl: isLocalDevelopmentHost() ? 'ws://127.0.0.1:8787/chat/ws' : '',
+        historyLimit: 100,
+        disabledMessage: isLocalDevelopmentHost()
+            ? 'Chat is disabled in local dev'
+            : 'Chat is unavailable right now'
+    },
+    visitors: {
+        enabled: isLocalDevelopmentHost() ? isLocalServerFeaturesEnabled() : true,
+        apiBase: isLocalDevelopmentHost() ? 'http://127.0.0.1:8787/chat' : '/chat',
+        wsUrl: isLocalDevelopmentHost() ? 'ws://127.0.0.1:8787/chat/ws' : '',
+        disabledMessage: isLocalDevelopmentHost()
+            ? 'Visitor counter is disabled in local dev'
+            : 'Visitor counter is unavailable right now'
     }
 }
 
 window.highestZ = highestZ
 window.APP_CONFIG = APP_CONFIG
+window.getPersistentUserTag = getPersistentUserTag
 
 function toRoman(value) {
     const romanMap = [
@@ -300,6 +369,9 @@ function initApp() {
     }
     if (typeof initContactTab === 'function') {
         initContactTab()
+    }
+    if (typeof initVisitorsTab === 'function') {
+        initVisitorsTab()
     }
     initBlogTab().catch(function(error) {
         console.error('Blog tab failed to initialize:', error)
