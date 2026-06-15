@@ -71,7 +71,14 @@ db.exec(`
 
     CREATE INDEX IF NOT EXISTS idx_admin_replies_user_tag
     ON admin_replies (user_tag, is_read);
+
+    CREATE TABLE IF NOT EXISTS online_users (
+        user_tag TEXT PRIMARY KEY,
+        last_seen_at_ms INTEGER NOT NULL
+    );
 `)
+
+db.exec(`DELETE FROM online_users`)
 
 const insertMessageStatement = db.prepare(`
     INSERT INTO messages (
@@ -211,6 +218,21 @@ const selectDirectMessagesByUserTagStatement = db.prepare(`
     WHERE user_tag = ?
     ORDER BY created_at_ms ASC
 `)
+
+const upsertOnlineUserStatement = db.prepare(`
+    INSERT OR REPLACE INTO online_users (user_tag, last_seen_at_ms)
+    VALUES (@user_tag, @last_seen_at_ms)
+`)
+
+const deleteOnlineUserStatement = db.prepare(`
+    DELETE FROM online_users WHERE user_tag = ?
+`)
+
+const selectAllOnlineUsersStatement = db.prepare(`
+    SELECT user_tag FROM online_users
+`)
+
+const onlineCounts = new Map()
 
 const webSocketServer = new WebSocketServer({ noServer: true })
 
@@ -598,6 +620,15 @@ const server = http.createServer(async function(request, response) {
             return
         }
 
+        const onlineUsersPath = CHAT_BASE_PATH + '/online-users'
+
+        if (request.method === 'GET' && pathname === onlineUsersPath) {
+            const rows = selectAllOnlineUsersStatement.all()
+            const onlineUsers = rows.map(function(row) { return row.user_tag })
+            writeJson(response, 200, { onlineUsers })
+            return
+        }
+
         throw createHttpError(404, 'Chat route not found.')
     } catch (error) {
         const statusCode = Number.isInteger(error && error.statusCode) ? error.statusCode : 500
@@ -638,6 +669,45 @@ webSocketServer.on('connection', function(client) {
         type: 'chat.ready',
         historyLimit: CHAT_HISTORY_LIMIT
     }))
+
+    client.on('message', function(data) {
+        try {
+            const message = JSON.parse(data.toString())
+            if (message && message.type === 'user.identify') {
+                const userTag = normalizeUserTag(message.userTag)
+                if (userTag && userTag.length >= 4) {
+                    const prevCount = onlineCounts.get(userTag) || 0
+                    onlineCounts.set(userTag, prevCount + 1)
+                    client.userTag = userTag
+
+                    upsertOnlineUserStatement.run({
+                        user_tag: userTag,
+                        last_seen_at_ms: Date.now()
+                    })
+
+                    if (prevCount === 0) {
+                        broadcast({ type: 'user.online', userTag })
+                    }
+                }
+            }
+        } catch {
+            // Ignore invalid JSON messages
+        }
+    })
+
+    client.on('close', function() {
+        const userTag = client.userTag
+        if (userTag) {
+            const count = (onlineCounts.get(userTag) || 1) - 1
+            if (count <= 0) {
+                onlineCounts.delete(userTag)
+                deleteOnlineUserStatement.run(userTag)
+                broadcast({ type: 'user.offline', userTag })
+            } else {
+                onlineCounts.set(userTag, count)
+            }
+        }
+    })
 })
 
 server.listen(CHAT_PORT, CHAT_HOST, function() {

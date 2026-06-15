@@ -396,6 +396,10 @@ function initChatTab() {
 
             socket.addEventListener('open', function() {
                 fetchMessages()
+                var tag = getChatUserTag()
+                if (tag) {
+                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag }))
+                }
             })
 
             socket.addEventListener('message', function(event) {
