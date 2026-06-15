@@ -620,12 +620,15 @@ const server = http.createServer(async function(request, response) {
                 throw createHttpError(400, 'A valid userTag query parameter is required.')
             }
 
-            const replies = getUnreadReplies(userTag)
+            const normalizedTag = normalizeUserTag(userTag)
+            const replies = selectRepliesByUserTagStatement.all(normalizedTag).map(serializeAdminReply)
+            const unreadRow = countUnreadRepliesByUserTagStatement.get(normalizedTag)
+            const unreadCount = unreadRow ? Number(unreadRow.count) : 0
             markRepliesRead(userTag)
 
             writeJson(response, 200, {
                 replies,
-                unreadCount: replies.length
+                unreadCount
             })
             return
         }
