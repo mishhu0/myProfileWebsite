@@ -132,7 +132,7 @@ function initReplyTab() {
                     id: dms[i].id,
                     text: dms[i].text,
                     createdAt: dms[i].createdAt,
-                    created_at_ms: new Date(dms[i].createdAt).getTime(),
+                    created_at_ms: Number(dms[i].createdAtMs || 0),
                     isReply: false
                 })
             }
@@ -141,7 +141,7 @@ function initReplyTab() {
                     id: replies[j].id,
                     text: replies[j].text,
                     createdAt: replies[j].createdAt,
-                    created_at_ms: new Date(replies[j].createdAt).getTime(),
+                    created_at_ms: Number(replies[j].createdAtMs || 0),
                     isReply: true
                 })
             }
