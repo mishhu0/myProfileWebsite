@@ -201,6 +201,12 @@ const selectUnreadRepliesByUserTagStatement = db.prepare(`
     ORDER BY created_at_ms ASC
 `)
 
+const countUnreadRepliesByUserTagStatement = db.prepare(`
+    SELECT COUNT(*) AS count
+    FROM admin_replies
+    WHERE user_tag = ? AND is_read = 0
+`)
+
 const markRepliesReadByUserTagStatement = db.prepare(`
     UPDATE admin_replies SET is_read = 1
     WHERE user_tag = ? AND is_read = 0
@@ -617,6 +623,23 @@ const server = http.createServer(async function(request, response) {
                 replies,
                 unreadCount: replies.length
             })
+            return
+        }
+
+        const replyUnreadCountPath = CHAT_BASE_PATH + '/replies/unread-count'
+
+        if (request.method === 'GET' && pathname === replyUnreadCountPath) {
+            const userTag = requestUrl.searchParams.get('userTag') || ''
+
+            if (!userTag || normalizeUserTag(userTag).length < 4) {
+                throw createHttpError(400, 'A valid userTag query parameter is required.')
+            }
+
+            const normalizedTag = normalizeUserTag(userTag)
+            const row = countUnreadRepliesByUserTagStatement.get(normalizedTag)
+            var unreadCount = row ? Number(row.count) : 0
+
+            writeJson(response, 200, { unreadCount })
             return
         }
 

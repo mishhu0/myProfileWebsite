@@ -20,6 +20,8 @@ function initReplyTab() {
     let profileName = ''
     let isLoading = false
     let conversation = []
+    let replyPollTimer = 0
+    const POLL_INTERVAL_MS = 30000
 
     function getUserTag() {
         if (typeof window.getPersistentUserTag === 'function') {
@@ -165,6 +167,33 @@ function initReplyTab() {
         isLoading = false
     }
 
+    async function checkUnreadReplies() {
+        try {
+            var data = await requestJson(joinUrl(apiBase, 'replies/unread-count') + '?userTag=' + encodeURIComponent(userTag))
+            if (data && data.unreadCount > 0) {
+                var tabsTaskbar = window.tabsTaskbar
+                if (tabsTaskbar && typeof tabsTaskbar.openTab === 'function') {
+                    tabsTaskbar.openTab('replyTab')
+                }
+                fetchConversation()
+            }
+        } catch {
+            // Server might be offline, silently ignore
+        }
+    }
+
+    function startReplyPolling() {
+        stopReplyPolling()
+        replyPollTimer = window.setInterval(checkUnreadReplies, POLL_INTERVAL_MS)
+    }
+
+    function stopReplyPolling() {
+        if (replyPollTimer) {
+            window.clearInterval(replyPollTimer)
+            replyPollTimer = 0
+        }
+    }
+
     function resetForm() {
         replyInput.value = ''
         replySendBtn.disabled = false
@@ -221,6 +250,7 @@ function initReplyTab() {
 
     if (chatEnabled && userTag && userTag.length >= 4) {
         fetchConversation()
+        startReplyPolling()
     }
 }
 
