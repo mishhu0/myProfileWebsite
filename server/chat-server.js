@@ -175,6 +175,10 @@ const insertVisitorStatement = db.prepare(`
     )
 `)
 
+const selectMaxVisitorNumberStatement = db.prepare(`
+    SELECT COALESCE(MAX(visitor_number), 0) AS max_number FROM visitors
+`)
+
 const selectRepliesByUserTagStatement = db.prepare(`
     SELECT
         id,
@@ -433,7 +437,7 @@ const registerVisitorTransaction = db.transaction(function(userTag) {
     }
 
     const createdAtMs = Date.now()
-    const nextVisitorNumber = Number(selectVisitorCountStatement.get().count || 0) + 1
+    const nextVisitorNumber = Number(selectMaxVisitorNumberStatement.get().max_number || 0) + 1
     const record = {
         user_tag: userTag,
         visitor_number: nextVisitorNumber,

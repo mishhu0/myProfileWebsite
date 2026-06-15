@@ -156,8 +156,8 @@ function initReplyTab() {
 
             if (repliesData.unreadCount > 0) {
                 var tabsTaskbar = window.tabsTaskbar
-                if (tabsTaskbar && typeof tabsTaskbar.openTab === 'function') {
-                    tabsTaskbar.openTab('replyTab')
+                if (tabsTaskbar && typeof tabsTaskbar.openWindow === 'function') {
+                    tabsTaskbar.openWindow('replyTab')
                 }
             }
         } catch (error) {
@@ -172,8 +172,8 @@ function initReplyTab() {
             var data = await requestJson(joinUrl(apiBase, 'replies/unread-count') + '?userTag=' + encodeURIComponent(userTag))
             if (data && data.unreadCount > 0) {
                 var tabsTaskbar = window.tabsTaskbar
-                if (tabsTaskbar && typeof tabsTaskbar.openTab === 'function') {
-                    tabsTaskbar.openTab('replyTab')
+                if (tabsTaskbar && typeof tabsTaskbar.openWindow === 'function') {
+                    tabsTaskbar.openWindow('replyTab')
                 }
                 fetchConversation()
             }
