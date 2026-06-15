@@ -2135,7 +2135,7 @@ input[type=color].custom-color-input {
 
 .contact-tab {
   width: 260px !important;
-  height: 300px !important;
+  height: 316px !important;
 }
 
 .contact-tab .tab-content {
@@ -3954,3 +3954,5 @@ body.pictures-expanded .entity-chat {
 .todo-tab .todo-note + .todo-note {
   margin-top: 4px;
 }
+
+/*# sourceMappingURL=style.css.map */

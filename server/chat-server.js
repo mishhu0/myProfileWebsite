@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 
 const CHAT_BASE_PATH = normalizeBasePath(process.env.CHAT_BASE_PATH || '/chat')
-const CHAT_HOST = String(process.env.CHAT_HOST || '127.0.0.1')
+const CHAT_HOST = String(process.env.CHAT_HOST || '0.0.0.0')
 const CHAT_PORT = normalizePort(process.env.CHAT_PORT || '8787', 8787)
 const CHAT_HISTORY_LIMIT = clampInteger(process.env.CHAT_HISTORY_LIMIT || '100', 1, 500, 100)
 const CHAT_ALLOWED_ORIGIN = String(process.env.CHAT_ALLOWED_ORIGIN || '*').trim() || '*'

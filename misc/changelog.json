@@ -2,6 +2,18 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "33.",
+			"date": "2026-06-12",
+			"tag": "improvement",
+			"summary": "updated live version",
+			"highlights": [
+				"fixed the chat api and websocket not working",
+				"updated the files on vps",
+				"updated git repos",
+				"uploaded the admin page on the vps"
+			]
+		},
+		{
 			"version": "32.",
 			"date": "2026-06-09",
 			"tag": "improvement",
