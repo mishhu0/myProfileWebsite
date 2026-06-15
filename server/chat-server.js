@@ -279,6 +279,7 @@ function serializeAdminReply(row) {
         userTag: row.user_tag,
         text: row.text,
         createdAt: row.created_at,
+        createdAtMs: row.created_at_ms,
         isRead: Boolean(row.is_read)
     }
 }
@@ -338,7 +339,8 @@ function serializeDirectMessage(row) {
         name: row.name,
         userTag: row.user_tag,
         text: row.text,
-        createdAt: row.created_at
+        createdAt: row.created_at,
+        createdAtMs: row.created_at_ms
     }
 }
 
