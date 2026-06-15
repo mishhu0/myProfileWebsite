@@ -2,8 +2,14 @@
 @use "mixins";
 
 .reply-tab {
+    position: fixed;
+    display: none;
     width: 320px !important;
     height: 340px !important;
+    right: 10%;
+    bottom: 10%;
+    background-color: p.$window-surface;
+    @include mixins.win95-raised;
 }
 
 .reply-content {
