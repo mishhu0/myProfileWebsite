@@ -462,6 +462,37 @@
         </div>
     </div>
 
+    <div class="reply-tab movable" id="replyTab">
+        <div class="tab-title no-select">
+            <div class="tab-left">
+                <img src="images/projects_logo.png" alt="reply icon" />
+                <span>Reply from Mihai</span>
+            </div>
+
+            <div class="tab-right">
+                <button id="exitbtnReply"><img src="images/close.svg" alt="close icon"></button>
+            </div>
+        </div>
+
+        <div class="reply-content">
+            <div class="reply-panel">
+                <div class="reply-messages" id="replyMessages">
+                    <p class="reply-loading">loading conversation...</p>
+                </div>
+
+                <form class="reply-form" id="replyForm">
+                    <label class="reply-field" for="replyMessageInput">
+                        <textarea id="replyMessageInput" rows="3" maxlength="600" placeholder="write a message..." aria-label="Reply message"></textarea>
+                    </label>
+                    <div class="reply-actions">
+                        <span class="reply-hint">send me a message</span>
+                        <button type="submit" class="reply-send-btn" id="replySendBtn">send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="visitors-tab movable" id="visitorsTab">
         <div class="tab-title no-select">
             <div class="tab-left">
@@ -701,6 +732,7 @@
     <script src="js/tab-contact.js"></script>
     <script src="js/tab-visitors.js"></script>
     <script src="js/tab-chat.js"></script>
+    <script src="js/tab-reply.js"></script>
     <script src="js/entity.js"></script>
     <script src="js/main.js"></script>
 </body>

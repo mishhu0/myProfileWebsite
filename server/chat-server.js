@@ -59,6 +59,18 @@ db.exec(`
 
     CREATE INDEX IF NOT EXISTS idx_visitors_visitor_number
     ON visitors (visitor_number DESC);
+
+    CREATE TABLE IF NOT EXISTS admin_replies (
+        id TEXT PRIMARY KEY,
+        user_tag TEXT NOT NULL,
+        text TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        created_at_ms INTEGER NOT NULL,
+        is_read INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_admin_replies_user_tag
+    ON admin_replies (user_tag, is_read);
 `)
 
 const insertMessageStatement = db.prepare(`
@@ -156,6 +168,50 @@ const insertVisitorStatement = db.prepare(`
     )
 `)
 
+const selectRepliesByUserTagStatement = db.prepare(`
+    SELECT
+        id,
+        user_tag,
+        text,
+        created_at,
+        created_at_ms,
+        is_read
+    FROM admin_replies
+    WHERE user_tag = ?
+    ORDER BY created_at_ms ASC
+`)
+
+const selectUnreadRepliesByUserTagStatement = db.prepare(`
+    SELECT
+        id,
+        user_tag,
+        text,
+        created_at,
+        created_at_ms,
+        is_read
+    FROM admin_replies
+    WHERE user_tag = ? AND is_read = 0
+    ORDER BY created_at_ms ASC
+`)
+
+const markRepliesReadByUserTagStatement = db.prepare(`
+    UPDATE admin_replies SET is_read = 1
+    WHERE user_tag = ? AND is_read = 0
+`)
+
+const selectDirectMessagesByUserTagStatement = db.prepare(`
+    SELECT
+        id,
+        name,
+        user_tag,
+        text,
+        created_at,
+        created_at_ms
+    FROM direct_messages
+    WHERE user_tag = ?
+    ORDER BY created_at_ms ASC
+`)
+
 const webSocketServer = new WebSocketServer({ noServer: true })
 
 function normalizeBasePath(value) {
@@ -183,6 +239,37 @@ function normalizeHex(value, fallback) {
     const safeFallback = String(fallback || '#000000').toLowerCase()
     const normalized = String(value || '').trim().toLowerCase()
     return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
+}
+
+function serializeAdminReply(row) {
+    return {
+        id: row.id,
+        userTag: row.user_tag,
+        text: row.text,
+        createdAt: row.created_at,
+        isRead: Boolean(row.is_read)
+    }
+}
+
+function getUnreadReplies(userTag) {
+    const normalizedTag = normalizeUserTag(userTag)
+    if (!normalizedTag || normalizedTag.length < 4) return []
+
+    return selectUnreadRepliesByUserTagStatement.all(normalizedTag).map(serializeAdminReply)
+}
+
+function markRepliesRead(userTag) {
+    const normalizedTag = normalizeUserTag(userTag)
+    if (!normalizedTag || normalizedTag.length < 4) return
+
+    markRepliesReadByUserTagStatement.run(normalizedTag)
+}
+
+function getUserDirectMessages(userTag) {
+    const normalizedTag = normalizeUserTag(userTag)
+    if (!normalizedTag || normalizedTag.length < 4) return []
+
+    return selectDirectMessagesByUserTagStatement.all(normalizedTag).map(serializeDirectMessage)
 }
 
 function normalizeName(value) {
@@ -428,6 +515,7 @@ const server = http.createServer(async function(request, response) {
         const directMessagesPath = CHAT_BASE_PATH + '/direct-messages'
         const visitorsPath = CHAT_BASE_PATH + '/visitors'
         const healthPath = CHAT_BASE_PATH + '/health'
+        const repliesPath = CHAT_BASE_PATH + '/replies'
 
         if (request.method === 'GET' && pathname === healthPath) {
             writeJson(response, 200, {
@@ -482,6 +570,31 @@ const server = http.createServer(async function(request, response) {
             }
 
             writeJson(response, result.isNew ? 201 : 200, result)
+            return
+        }
+
+        if (request.method === 'GET' && pathname === directMessagesPath) {
+            const userTag = requestUrl.searchParams.get('userTag') || ''
+            const messages = getUserDirectMessages(userTag)
+
+            writeJson(response, 200, { messages })
+            return
+        }
+
+        if (request.method === 'GET' && pathname === repliesPath) {
+            const userTag = requestUrl.searchParams.get('userTag') || ''
+
+            if (!userTag || normalizeUserTag(userTag).length < 4) {
+                throw createHttpError(400, 'A valid userTag query parameter is required.')
+            }
+
+            const replies = getUnreadReplies(userTag)
+            markRepliesRead(userTag)
+
+            writeJson(response, 200, {
+                replies,
+                unreadCount: replies.length
+            })
             return
         }
 

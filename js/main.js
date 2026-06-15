@@ -98,6 +98,10 @@ const APP_CONFIG = {
         entityTab: {
             label: 'Entity',
             icon: 'images/projects_logo.png'
+        },
+        replyTab: {
+            label: 'Reply from Mihai',
+            icon: 'images/projects_logo.png'
         }
     },
     desktopIconMap: {
@@ -120,7 +124,8 @@ const APP_CONFIG = {
         { tabId: 'chatTab', exitBtnId: 'exitbtnChat', minBtnId: 'minbtnChat' },
         { tabId: 'visitorsTab', exitBtnId: 'exitbtnVisitors', minBtnId: 'minbtnVisitors' },
         { tabId: 'picturesTab', exitBtnId: 'exitbtnPictures', minBtnId: 'minbtnPictures' },
-        { tabId: 'blogTab', exitBtnId: 'exitbtnBlog', minBtnId: 'minbtnBlog' }
+        { tabId: 'blogTab', exitBtnId: 'exitbtnBlog', minBtnId: 'minbtnBlog' },
+        { tabId: 'replyTab', exitBtnId: 'exitbtnReply' }
     ],
     storageKeys: {
         globalVolume: 'globalVolume',
@@ -372,6 +377,9 @@ function initApp() {
     }
     if (typeof initVisitorsTab === 'function') {
         initVisitorsTab()
+    }
+    if (typeof initReplyTab === 'function') {
+        initReplyTab()
     }
     initBlogTab().catch(function(error) {
         console.error('Blog tab failed to initialize:', error)
