@@ -320,12 +320,12 @@ function serializeVisitor(row) {
 
 function getRecentMessages(limit) {
     const rowLimit = clampInteger(limit, 1, 500, CHAT_HISTORY_LIMIT)
-    return selectRecentMessagesStatement.all(rowLimit).reverse().map(serializeMessage)
+    return selectRecentMessagesStatement.all(rowLimit).map(serializeMessage)
 }
 
 function getRecentDirectMessages(limit) {
     const rowLimit = clampInteger(limit, 1, 500, CHAT_HISTORY_LIMIT)
-    return selectRecentDirectMessagesStatement.all(rowLimit).reverse().map(serializeDirectMessage)
+    return selectRecentDirectMessagesStatement.all(rowLimit).map(serializeDirectMessage)
 }
 
 function createMessage(payload) {
