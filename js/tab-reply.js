@@ -21,6 +21,8 @@ function initReplyTab() {
     let isLoading = false
     let conversation = []
     let replyPollTimer = 0
+    let replySocket = null
+    const REPLY_RECONNECT_MS = 5000
     const POLL_INTERVAL_MS = 30000
 
     function getUserTag() {
@@ -194,6 +196,62 @@ function initReplyTab() {
         }
     }
 
+    function getReplyWsUrl() {
+        var chatWsConfig = window.APP_CONFIG && window.APP_CONFIG.chat && window.APP_CONFIG.chat.wsUrl
+        var explicitWs = String(chatWsConfig || '').trim()
+        if (explicitWs) return explicitWs
+        if (window.location.protocol === 'file:') return 'ws://127.0.0.1:8787/chat/ws'
+        var wsUrl = joinUrl(apiBase, 'ws')
+        var parsed = /^https?:\/\//i.test(apiBase)
+            ? new URL(wsUrl)
+            : new URL(wsUrl, window.location.origin)
+        parsed.protocol = parsed.protocol === 'https:' ? 'wss:' : 'ws:'
+        return parsed.toString()
+    }
+
+    function connectReplySocket() {
+        var wsUrl = getReplyWsUrl()
+        if (!wsUrl) return
+
+        try {
+            var socket = new WebSocket(wsUrl)
+            replySocket = socket
+
+            socket.addEventListener('open', function() {
+                if (userTag) {
+                    socket.send(JSON.stringify({ type: 'user.identify', userTag: userTag }))
+                }
+            })
+
+            socket.addEventListener('message', function(event) {
+                try {
+                    var rawPayload = typeof event.data === 'string' ? event.data.trim() : ''
+                    if (!rawPayload || (rawPayload.charAt(0) !== '{' && rawPayload.charAt(0) !== '[')) return
+
+                    var payload = JSON.parse(rawPayload)
+                    if (payload && payload.type === 'reply.created') {
+                        var tabsTaskbar = window.tabsTaskbar
+                        if (tabsTaskbar && typeof tabsTaskbar.openWindow === 'function') {
+                            tabsTaskbar.openWindow('replyTab')
+                        }
+                        fetchConversation()
+                    }
+                } catch {}
+            })
+
+            socket.addEventListener('close', function() {
+                if (replySocket === socket) replySocket = null
+                window.setTimeout(connectReplySocket, REPLY_RECONNECT_MS)
+            })
+
+            socket.addEventListener('error', function() {
+                socket.close()
+            })
+        } catch {
+            window.setTimeout(connectReplySocket, REPLY_RECONNECT_MS)
+        }
+    }
+
     function resetForm() {
         replyInput.value = ''
         replySendBtn.disabled = false
@@ -251,7 +309,12 @@ function initReplyTab() {
     if (chatEnabled && userTag && userTag.length >= 4) {
         fetchConversation()
         startReplyPolling()
+        connectReplySocket()
     }
+
+    window.addEventListener('beforeunload', function() {
+        if (replySocket) replySocket.close()
+    })
 }
 
 window.initReplyTab = initReplyTab

@@ -647,6 +647,35 @@ const server = http.createServer(async function(request, response) {
             return
         }
 
+        const repliesNotifyPath = CHAT_BASE_PATH + '/replies/notify'
+
+        if (request.method === 'POST' && pathname === repliesNotifyPath) {
+            const payload = await readJsonBody(request)
+            const notifyUserTag = normalizeUserTag(payload && payload.userTag)
+
+            if (!notifyUserTag || notifyUserTag.length < 4) {
+                throw createHttpError(400, 'A valid userTag is required.')
+            }
+
+            const rawReply = payload && payload.reply ? payload.reply : null
+            if (!rawReply || !rawReply.id || !rawReply.text) {
+                throw createHttpError(400, 'A reply object with id and text is required.')
+            }
+
+            var notifiedCount = 0
+            var serializedReply = serializeAdminReply(rawReply)
+
+            webSocketServer.clients.forEach(function(client) {
+                if (client.readyState === WebSocket.OPEN && client.userTag === notifyUserTag) {
+                    client.send(JSON.stringify({ type: 'reply.created', reply: serializedReply }))
+                    notifiedCount += 1
+                }
+            })
+
+            writeJson(response, 200, { ok: true, notified: notifiedCount })
+            return
+        }
+
         const onlineUsersPath = CHAT_BASE_PATH + '/online-users'
 
         if (request.method === 'GET' && pathname === onlineUsersPath) {

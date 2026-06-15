@@ -18,6 +18,7 @@ function initVisitorsTab() {
     let reconnectTimer = 0
     let currentUserTag = ''
     let currentTotalVisitors = 0
+    let healthPollTimer = 0
 
     function joinUrl(base, suffix) {
         return String(base || '').replace(/\/+$/, '') + '/' + String(suffix || '').replace(/^\/+/, '')
@@ -191,8 +192,22 @@ function initVisitorsTab() {
         }
     }
 
+    function startHealthPolling() {
+        healthPollTimer = window.setInterval(function() {
+            fetch(joinUrl(visitorsApiBase, 'health'))
+                .then(function(response) { return response.json() })
+                .then(function(data) {
+                    if (data && typeof data.visitorCount === 'number') {
+                        setTotalVisitors(data.visitorCount)
+                    }
+                })
+                .catch(function() {})
+        }, 30000)
+    }
+
     window.addEventListener('beforeunload', function() {
         window.clearTimeout(reconnectTimer)
+        window.clearInterval(healthPollTimer)
         if (activeSocket) {
             activeSocket.close()
             activeSocket = null
@@ -210,6 +225,7 @@ function initVisitorsTab() {
     setMessage('checking your visitor number...')
     registerVisitor()
     connectSocket()
+    startHealthPolling()
 }
 
 window.initVisitorsTab = initVisitorsTab
