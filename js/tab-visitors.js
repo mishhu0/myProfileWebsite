@@ -194,14 +194,7 @@ function initVisitorsTab() {
 
     function startHealthPolling() {
         healthPollTimer = window.setInterval(function() {
-            fetch(joinUrl(visitorsApiBase, 'health'))
-                .then(function(response) { return response.json() })
-                .then(function(data) {
-                    if (data && typeof data.visitorCount === 'number') {
-                        setTotalVisitors(data.visitorCount)
-                    }
-                })
-                .catch(function() {})
+            registerVisitor()
         }, 30000)
     }
 
