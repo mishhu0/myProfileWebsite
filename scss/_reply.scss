@@ -55,11 +55,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 9px 7px 0 7px;
+    padding: 10px 7px 0 7px;
 }
 
 .reply-messages-spacer {
-    min-height: 10px;
+    min-height: 2px;
     flex-shrink: 0;
 }
 
@@ -76,7 +76,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    max-width: 80%;
+    max-width: calc(100% - 10px);
     padding: 6px 6px;
     @include mixins.win95-raised;
 }
@@ -89,6 +89,10 @@
 .reply-message--user {
     align-self: flex-end;
     background-color: p.$color4;
+}
+
+.reply-message--user .reply-message__meta {
+    flex-direction: row-reverse;
 }
 
 .reply-message__meta {

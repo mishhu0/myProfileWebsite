@@ -699,8 +699,7 @@ async function initEntityTab() {
 		}
 
 		hideEntityChat()
-		const isDraggingAbout = aboutTab.classList.contains('no-select')
-		snapEntityToRect(rect, { immediate: isDraggingAbout })
+		snapEntityToRect(rect)
 	}
 
 	// Save home position when the user drags the entity (only when About is closed).
