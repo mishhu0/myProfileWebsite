@@ -246,6 +246,14 @@ function initReplyTab() {
                         }
                         fetchConversation()
                     }
+                    if (payload && payload.type === 'conversation.deleted') {
+                        conversation = []
+                        showEmpty()
+                        var tabsTaskbar = window.tabsTaskbar
+                        if (tabsTaskbar && typeof tabsTaskbar.minimizeWindow === 'function') {
+                            tabsTaskbar.minimizeWindow('replyTab')
+                        }
+                    }
                 } catch {}
             })
 

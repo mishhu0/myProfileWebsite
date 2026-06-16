@@ -681,6 +681,26 @@ const server = http.createServer(async function(request, response) {
             return
         }
 
+        const conversationsNotifyDeletedPath = CHAT_BASE_PATH + '/conversations/notify-deleted'
+
+        if (request.method === 'POST' && pathname === conversationsNotifyDeletedPath) {
+            const payload = await readJsonBody(request)
+            const notifyUserTag = normalizeUserTag(payload && payload.userTag)
+
+            if (!notifyUserTag || notifyUserTag.length < 4) {
+                throw createHttpError(400, 'A valid userTag is required.')
+            }
+
+            webSocketServer.clients.forEach(function(client) {
+                if (client.readyState === WebSocket.OPEN && client.userTag === notifyUserTag) {
+                    client.send(JSON.stringify({ type: 'conversation.deleted' }))
+                }
+            })
+
+            writeJson(response, 200, { ok: true })
+            return
+        }
+
         const onlineUsersPath = CHAT_BASE_PATH + '/online-users'
 
         if (request.method === 'GET' && pathname === onlineUsersPath) {
