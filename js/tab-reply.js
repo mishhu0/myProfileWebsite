@@ -27,9 +27,9 @@ function initReplyTab() {
 
     function getUserTag() {
         if (typeof window.getPersistentUserTag === 'function') {
-            return String(window.getPersistentUserTag() || '').trim().toUpperCase()
+            return String(window.getPersistentUserTag() || '').trim().toLowerCase()
         }
-        return String(Math.random().toString(36).slice(2, 8) || '').trim().toUpperCase()
+        return String(Math.random().toString(36).slice(2, 8) || '').trim().toLowerCase()
     }
 
     function getProfileName() {
@@ -80,7 +80,17 @@ function initReplyTab() {
 
         const meta = document.createElement('div')
         meta.className = 'reply-message__meta'
-        meta.textContent = (item.isReply ? 'Mihai' : profileName || 'You') + ' \u00B7 ' + formatTime(item.createdAt)
+
+        const nameEl = document.createElement('span')
+        nameEl.className = 'reply-message__meta-name'
+        nameEl.textContent = item.isReply ? 'Mihai' : (profileName || 'You')
+
+        const timeEl = document.createElement('span')
+        timeEl.className = 'reply-message__meta-time'
+        timeEl.textContent = formatTime(item.createdAt)
+
+        meta.appendChild(nameEl)
+        meta.appendChild(timeEl)
 
         const text = document.createElement('p')
         text.className = 'reply-message__text'
@@ -156,7 +166,7 @@ function initReplyTab() {
 
             renderConversation()
 
-            if (repliesData.unreadCount > 0) {
+            if (repliesData.unreadCount > 0 || conversation.length > 0) {
                 var tabsTaskbar = window.tabsTaskbar
                 if (tabsTaskbar && typeof tabsTaskbar.openWindow === 'function') {
                     tabsTaskbar.openWindow('replyTab')

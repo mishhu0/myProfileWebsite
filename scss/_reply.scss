@@ -3,7 +3,7 @@
 
 .reply-tab {
     position: fixed;
-    display: none;
+    display: block;
     width: 320px !important;
     height: 340px !important;
     right: 10%;
@@ -60,24 +60,36 @@
     gap: 2px;
     max-width: 80%;
     padding: 6px 8px;
-    border-radius: 4px;
+    @include mixins.win95-raised;
 }
 
 .reply-message--admin {
     align-self: flex-start;
     background-color: p.$color3;
-    border: 1px solid p.$color4;
 }
 
 .reply-message--user {
     align-self: flex-end;
     background-color: p.$color5;
-    border: 1px solid p.$color6;
 }
 
 .reply-message__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
     font-size: 10px;
     color: p.$text-muted;
+}
+
+.reply-message__meta-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reply-message__meta-time {
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .reply-message__text {
@@ -93,15 +105,9 @@
     flex-direction: column;
     gap: 4px;
     padding: 4px;
-    background-color: p.$color2;
-    @include mixins.win95-raised;
 }
 
-.reply-field {
-    display: flex;
-}
-
-.reply-field textarea {
+.reply-form textarea {
     width: 100%;
     min-height: 48px;
     resize: none;

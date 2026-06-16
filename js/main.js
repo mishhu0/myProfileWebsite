@@ -25,22 +25,22 @@ function isLocalServerFeaturesEnabled() {
 
 function createPersistentUserTag() {
     if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-        return window.crypto.randomUUID().slice(0, 6).toUpperCase()
+        return window.crypto.randomUUID().slice(0, 6).toLowerCase()
     }
 
-    return Math.random().toString(36).slice(2, 8).toUpperCase()
+    return Math.random().toString(36).slice(2, 8).toLowerCase()
 }
 
 function getPersistentUserTag() {
     let storedTag = ''
 
     try {
-        storedTag = String(localStorage.getItem(PERSISTENT_USER_TAG_KEY) || '').trim().toUpperCase()
+        storedTag = String(localStorage.getItem(PERSISTENT_USER_TAG_KEY) || '').trim().toLowerCase()
     } catch {
         storedTag = ''
     }
 
-    if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
+    if (!/^[a-z0-9]{4,8}$/.test(storedTag)) {
         storedTag = createPersistentUserTag()
 
         try {
@@ -100,7 +100,7 @@ const APP_CONFIG = {
             icon: 'images/projects_logo.png'
         },
         replyTab: {
-            label: 'Reply from Mihai',
+            label: 'Reply chat',
             icon: 'images/projects_logo.png'
         }
     },
@@ -125,7 +125,7 @@ const APP_CONFIG = {
         { tabId: 'visitorsTab', exitBtnId: 'exitbtnVisitors', minBtnId: 'minbtnVisitors' },
         { tabId: 'picturesTab', exitBtnId: 'exitbtnPictures', minBtnId: 'minbtnPictures' },
         { tabId: 'blogTab', exitBtnId: 'exitbtnBlog', minBtnId: 'minbtnBlog' },
-        { tabId: 'replyTab', exitBtnId: 'exitbtnReply' }
+        { tabId: 'replyTab', exitBtnId: 'exitbtnReply', minBtnId: 'minbtnReply' }
     ],
     storageKeys: {
         globalVolume: 'globalVolume',

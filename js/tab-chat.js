@@ -75,10 +75,10 @@ function initChatTab() {
         }
 
         if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-            return window.crypto.randomUUID().slice(0, 6).toUpperCase()
+            return window.crypto.randomUUID().slice(0, 6).toLowerCase()
         }
 
-        return Math.random().toString(36).slice(2, 8).toUpperCase()
+        return Math.random().toString(36).slice(2, 8).toLowerCase()
     }
 
     function getChatUserTag() {
@@ -86,8 +86,8 @@ function initChatTab() {
             return window.getPersistentUserTag()
         }
 
-        let storedTag = String(localStorage.getItem(CHAT_USER_TAG_KEY) || '').trim().toUpperCase()
-        if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
+        let storedTag = String(localStorage.getItem(CHAT_USER_TAG_KEY) || '').trim().toLowerCase()
+        if (!/^[a-z0-9]{4,8}$/.test(storedTag)) {
             storedTag = createUserTag()
             localStorage.setItem(CHAT_USER_TAG_KEY, storedTag)
         }
@@ -118,7 +118,7 @@ function initChatTab() {
         if (!target) return
 
         const safeName = String(name || '').trim()
-        const safeTag = String(userTag || '').trim().toUpperCase()
+        const safeTag = String(userTag || '').trim().toLowerCase()
         target.innerHTML = ''
 
         if (prefixText) {
@@ -179,7 +179,7 @@ function initChatTab() {
         return {
             id,
             name: String(entry.name || '').trim().slice(0, 40),
-            userTag: String(entry.userTag || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8),
+            userTag: String(entry.userTag || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8),
             nameColor: normalizeHex(entry.nameColor, DEFAULT_MESSAGE_COLORS.nameColor),
             textColor: normalizeHex(entry.textColor, DEFAULT_MESSAGE_COLORS.textColor),
             text: String(entry.text || '').trim().slice(0, 280),

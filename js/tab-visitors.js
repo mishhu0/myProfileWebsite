@@ -42,10 +42,10 @@ function initVisitorsTab() {
 
     function createFallbackUserTag() {
         if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-            return window.crypto.randomUUID().slice(0, 6).toUpperCase()
+            return window.crypto.randomUUID().slice(0, 6).toLowerCase()
         }
 
-        return Math.random().toString(36).slice(2, 8).toUpperCase()
+        return Math.random().toString(36).slice(2, 8).toLowerCase()
     }
 
     function getUserTag() {
@@ -53,8 +53,8 @@ function initVisitorsTab() {
             return window.getPersistentUserTag()
         }
 
-        let storedTag = String(localStorage.getItem('chatUserTag') || '').trim().toUpperCase()
-        if (!/^[A-Z0-9]{4,8}$/.test(storedTag)) {
+        let storedTag = String(localStorage.getItem('chatUserTag') || '').trim().toLowerCase()
+        if (!/^[a-z0-9]{4,8}$/.test(storedTag)) {
             storedTag = createFallbackUserTag()
             localStorage.setItem('chatUserTag', storedTag)
         }
@@ -72,7 +72,7 @@ function initVisitorsTab() {
     }
 
     function setTag(value) {
-        const safeValue = String(value || '').trim().toUpperCase()
+        const safeValue = String(value || '').trim().toLowerCase()
         identityTag.textContent = safeValue ? 'saved tag #' + safeValue : 'saved tag unavailable'
     }
 
@@ -160,7 +160,7 @@ function initVisitorsTab() {
                         setTotalVisitors(payload.totalVisitors)
                     }
 
-                    if (payload.visitor && String(payload.visitor.userTag || '').trim().toUpperCase() === currentUserTag) {
+                    if (payload.visitor && String(payload.visitor.userTag || '').trim().toLowerCase() === currentUserTag) {
                         applyRegistration({
                             isNew: true,
                             totalVisitors: payload.totalVisitors,

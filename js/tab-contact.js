@@ -52,10 +52,10 @@ function initContactTab() {
 
 	function getUserTag() {
 		if (typeof window.getPersistentUserTag === 'function') {
-			return String(window.getPersistentUserTag() || '').trim().toUpperCase()
+			return String(window.getPersistentUserTag() || '').trim().toLowerCase()
 		}
 
-		return String(Math.random().toString(36).slice(2, 8) || '').trim().toUpperCase()
+		return String(Math.random().toString(36).slice(2, 8) || '').trim().toLowerCase()
 	}
 
 	function normalizeDirectMessageText(value) {

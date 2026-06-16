@@ -2,6 +2,15 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "34.",
+			"date": "2026-06-15",
+			"tag": "feature",
+			"summary": "reply chat",
+			"highlights": [
+				"new chat feature that replies on your message from contact. needs more care but works for now!"
+			]
+		},
+		{
 			"version": "33.",
 			"date": "2026-06-12",
 			"tag": "improvement",

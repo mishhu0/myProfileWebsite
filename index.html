@@ -466,10 +466,11 @@
         <div class="tab-title no-select">
             <div class="tab-left">
                 <img src="images/projects_logo.png" alt="reply icon" />
-                <span>Reply from Mihai</span>
+                <span>Reply chat</span>
             </div>
 
             <div class="tab-right">
+                <button id="minbtnReply"><img src="images/minimize.svg" alt="minimize icon"></button>
                 <button id="exitbtnReply"><img src="images/close.svg" alt="close icon"></button>
             </div>
         </div>
@@ -481,9 +482,7 @@
                 </div>
 
                 <form class="reply-form" id="replyForm">
-                    <label class="reply-field" for="replyMessageInput">
-                        <textarea id="replyMessageInput" rows="3" maxlength="600" placeholder="write a message..." aria-label="Reply message"></textarea>
-                    </label>
+                    <textarea id="replyMessageInput" rows="3" maxlength="600" placeholder="write a message..." aria-label="Reply message"></textarea>
                     <div class="reply-actions">
                         <span class="reply-hint">send me a message</span>
                         <button type="submit" class="reply-send-btn" id="replySendBtn">send</button>
