@@ -59,7 +59,7 @@
 }
 
 .reply-messages-spacer {
-    height: 12px;
+    height: 10px;
     display: block;
     flex-shrink: 0;
 }
@@ -180,4 +180,70 @@
         opacity: 0.6;
         cursor: not-allowed;
     }
+}
+
+.reply-emoji {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.reply-emoji-btn,
+.reply-emoji-option {
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    @include mixins.win95-raised;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}
+
+.reply-emoji-btn {
+    min-width: 36px;
+    height: 22px;
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.reply-emoji-menu {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 4px);
+    right: 0;
+    width: 150px;
+    max-height: 200px;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: p.$color10;
+    @include mixins.win95-raised;
+    z-index: 20;
+}
+
+.reply-emoji.is-open .reply-emoji-menu {
+    display: block;
+}
+
+.reply-emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px;
+    max-height: calc(200px - 8px);
+    overflow-y: auto;
+}
+
+.reply-emoji-option {
+    min-width: 0;
+    min-height: 28px;
+    height: auto;
+    padding: 4px;
+    font-size: 11px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
 }

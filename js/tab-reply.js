@@ -4,6 +4,9 @@ function initReplyTab() {
     const replyForm = document.getElementById('replyForm')
     const replyInput = document.getElementById('replyMessageInput')
     const replySendBtn = document.getElementById('replySendBtn')
+    const emojiWrap = document.getElementById('replyEmojiWrap')
+    const emojiToggle = document.getElementById('replyEmojiToggle')
+    const emojiMenu = document.getElementById('replyEmojiMenu')
 
     if (!replyTab || !replyMessages || !replyForm || !replyInput || !replySendBtn) return
 
@@ -50,6 +53,44 @@ function initReplyTab() {
             throw new Error(payload && payload.error ? payload.error : 'Request failed.')
         }
         return payload
+    }
+
+    function setEmojiMenuOpen(isOpen) {
+        if (!emojiWrap || !emojiToggle || !emojiMenu) return
+        emojiWrap.classList.toggle('is-open', isOpen)
+        emojiMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true')
+        emojiToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+    }
+
+    function insertEmoji(emojiValue) {
+        if (!replyInput) return
+        var rawValue = replyInput.value || ''
+        var emojiText = String(emojiValue || '')
+        if (!emojiText) return
+
+        var start = typeof replyInput.selectionStart === 'number' ? replyInput.selectionStart : rawValue.length
+        var end = typeof replyInput.selectionEnd === 'number' ? replyInput.selectionEnd : rawValue.length
+        var nextValue = rawValue.slice(0, start) + emojiText + rawValue.slice(end)
+        replyInput.value = nextValue
+
+        var nextCursor = start + emojiText.length
+        replyInput.focus()
+        replyInput.setSelectionRange(nextCursor, nextCursor)
+    }
+
+    if (emojiToggle && emojiWrap) {
+        emojiToggle.addEventListener('click', function() {
+            setEmojiMenuOpen(!emojiWrap.classList.contains('is-open'))
+        })
+    }
+
+    if (emojiMenu) {
+        var emojiButtons = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
+        emojiButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                insertEmoji(button.dataset.emoji)
+            })
+        })
     }
 
     function showLoading() {
@@ -332,6 +373,8 @@ function initReplyTab() {
         fetchConversation()
         startReplyPolling()
         connectReplySocket()
+    } else {
+        if (emojiToggle) emojiToggle.disabled = true
     }
 
     window.addEventListener('beforeunload', function() {
