@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 10px 7px 0 7px;
+    padding: 10px 10px 0 10px;
 }
 
 .reply-messages-spacer {
@@ -86,13 +86,13 @@
     background-color: p.$color3;
 }
 
+.reply-message--admin .reply-message__meta {
+    flex-direction: row-reverse;
+}
+
 .reply-message--user {
     align-self: flex-end;
     background-color: p.$color4;
-}
-
-.reply-message--user .reply-message__meta {
-    flex-direction: row-reverse;
 }
 
 .reply-message__meta {

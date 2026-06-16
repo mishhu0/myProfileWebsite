@@ -2,6 +2,17 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "35.",
+			"date": "2026-06-16",
+			"tag": "improvement",
+			"summary": "fixing bugs, updated design",
+			"highlights": [
+				"updated some small ui elements overall",
+				"fixed entity positioning bug",
+				"improved the reply chat visually and fixed some bugs"
+			]
+		},
+		{
 			"version": "34.",
 			"date": "2026-06-15",
 			"tag": "feature",

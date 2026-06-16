@@ -125,7 +125,7 @@ const APP_CONFIG = {
         { tabId: 'visitorsTab', exitBtnId: 'exitbtnVisitors', minBtnId: 'minbtnVisitors' },
         { tabId: 'picturesTab', exitBtnId: 'exitbtnPictures', minBtnId: 'minbtnPictures' },
         { tabId: 'blogTab', exitBtnId: 'exitbtnBlog', minBtnId: 'minbtnBlog' },
-        { tabId: 'replyTab', exitBtnId: 'exitbtnReply', minBtnId: 'minbtnReply' }
+        { tabId: 'replyTab', minBtnId: 'minbtnReply' }
     ],
     storageKeys: {
         globalVolume: 'globalVolume',

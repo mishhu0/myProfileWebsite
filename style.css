@@ -3827,7 +3827,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 10px 7px 0 7px;
+  padding: 10px 10px 0 10px;
 }
 
 .reply-messages-spacer {
@@ -3858,13 +3858,13 @@ body.pictures-expanded .entity-chat {
   background-color: var(--color3, #91b1b0);
 }
 
+.reply-message--admin .reply-message__meta {
+  flex-direction: row-reverse;
+}
+
 .reply-message--user {
   align-self: flex-end;
   background-color: var(--color4, #61a1a0);
-}
-
-.reply-message--user .reply-message__meta {
-  flex-direction: row-reverse;
 }
 
 .reply-message__meta {
