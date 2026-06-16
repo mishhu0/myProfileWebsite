@@ -3827,7 +3827,12 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 9px 7px 14px 7px;
+  padding: 9px 7px 0 7px;
+}
+
+.reply-messages-spacer {
+  min-height: 14px;
+  flex-shrink: 0;
 }
 
 .reply-loading,
@@ -3844,7 +3849,7 @@ body.pictures-expanded .entity-chat {
   flex-direction: column;
   gap: 2px;
   max-width: 80%;
-  padding: 6px 8px;
+  padding: 6px 6px;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
 }
 
