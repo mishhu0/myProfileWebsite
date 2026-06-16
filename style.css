@@ -2515,7 +2515,7 @@ input[type=color].custom-color-input {
   font-size: 11px;
   line-height: 1;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: #303030;
 }
 
@@ -3777,7 +3777,7 @@ body.pictures-expanded .entity-chat {
 
 .reply-tab {
   position: fixed;
-  display: block;
+  display: none;
   width: 320px !important;
   height: 340px !important;
   right: 10%;
@@ -3813,7 +3813,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 6px;
+  padding: 8px 6px 6px 6px;
   background-color: #c1c1c0;
   box-shadow: inset 1px 1px #0a0a0a, inset -1px -1px #ffffff, inset 2px 2px #808080, inset -2px -2px #dfdfdf;
 }
@@ -3843,7 +3843,7 @@ body.pictures-expanded .entity-chat {
 
 .reply-message--user {
   align-self: flex-end;
-  background-color: var(--color5, #018180);
+  background-color: var(--color4, #61a1a0);
 }
 
 .reply-message__meta {
@@ -3877,7 +3877,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 4px;
+  padding: 4px 0;
 }
 
 .reply-form textarea {
