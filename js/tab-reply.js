@@ -168,8 +168,8 @@ function initReplyTab() {
 
             if (repliesData.unreadCount > 0 || conversation.length > 0) {
                 var tabsTaskbar = window.tabsTaskbar
-                if (tabsTaskbar && typeof tabsTaskbar.openWindow === 'function') {
-                    tabsTaskbar.openWindow('replyTab')
+                if (tabsTaskbar && typeof tabsTaskbar.showTaskbarButton === 'function') {
+                    tabsTaskbar.showTaskbarButton('replyTab')
                 }
             }
         } catch (error) {

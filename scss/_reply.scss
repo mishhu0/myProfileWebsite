@@ -19,7 +19,7 @@
 
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 4px;
     box-sizing: border-box;
     background-color: p.$color2;
     overflow: hidden;
@@ -37,8 +37,16 @@
 .reply-messages-frame {
     flex: 1;
     overflow: hidden;
+    position: relative;
     background-color: p.$window-surface;
-    @include mixins.win95-pressed;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        @include mixins.win95-pressed;
+    }
 }
 
 .reply-messages {
@@ -47,7 +55,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 9px 7px 7px 7px;
+    padding: 9px 7px 14px 7px;
 }
 
 .reply-loading,
@@ -109,7 +117,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 5px 0;
+    padding: 2px 0;
 }
 
 .reply-form textarea {

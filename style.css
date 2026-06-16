@@ -3792,7 +3792,7 @@ body.pictures-expanded .entity-chat {
   height: calc(100% - 34px);
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 4px;
   box-sizing: border-box;
   background-color: var(--color2, #a9b9b8);
   overflow: hidden;
@@ -3810,7 +3810,14 @@ body.pictures-expanded .entity-chat {
 .reply-messages-frame {
   flex: 1;
   overflow: hidden;
+  position: relative;
   background-color: #c1c1c0;
+}
+.reply-messages-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   box-shadow: inset 1px 1px #0a0a0a, inset -1px -1px #ffffff, inset 2px 2px #808080, inset -2px -2px #dfdfdf;
 }
 
@@ -3820,7 +3827,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 9px 7px 7px 7px;
+  padding: 9px 7px 14px 7px;
 }
 
 .reply-loading,
@@ -3882,7 +3889,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 5px 0;
+  padding: 2px 0;
 }
 
 .reply-form textarea {

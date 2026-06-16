@@ -169,6 +169,11 @@ function TabsTaskbar() {
         focusWindow(tabId)
     }
 
+    function showTaskbarButton(tabId) {
+        if (!canOpenWindow(tabId)) return
+        createTaskbarButton(tabId)
+    }
+
     function closeWindow(tabId) {
         const tab = getTab(tabId)
         if (!tab) return
@@ -228,7 +233,8 @@ function TabsTaskbar() {
         openWindow: openWindow,
         closeWindow: closeWindow,
         focusWindow: focusWindow,
-        minimizeWindow: minimizeWindow
+        minimizeWindow: minimizeWindow,
+        showTaskbarButton: showTaskbarButton
     }
 }
 
