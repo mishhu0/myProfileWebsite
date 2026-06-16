@@ -116,6 +116,7 @@ function initReplyTab() {
         }
         var spacer = document.createElement('div')
         spacer.className = 'reply-messages-spacer'
+        spacer.innerHTML = '&nbsp;'
         fragment.appendChild(spacer)
         replyMessages.appendChild(fragment)
         replyMessages.scrollTop = replyMessages.scrollHeight
