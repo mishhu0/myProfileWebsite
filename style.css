@@ -3827,11 +3827,11 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 7px 7px 0 7px;
+  padding: 9px 7px 0 7px;
 }
 
 .reply-messages-spacer {
-  min-height: 14px;
+  min-height: 10px;
   flex-shrink: 0;
 }
 

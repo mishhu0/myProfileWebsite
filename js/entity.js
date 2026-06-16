@@ -688,7 +688,6 @@ async function initEntityTab() {
 			return
 		}
 
-		setMoveLocked(true)
 		syncAboutEntityLayer()
 
 		const rect = aboutPictureFrame.getBoundingClientRect()
