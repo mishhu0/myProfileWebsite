@@ -80,7 +80,13 @@ function initReplyTab() {
 
     if (emojiToggle && emojiWrap) {
         emojiToggle.addEventListener('click', function() {
-            setEmojiMenuOpen(!emojiWrap.classList.contains('is-open'))
+            var isOpen = !emojiWrap.classList.contains('is-open')
+            setEmojiMenuOpen(isOpen)
+            if (isOpen && emojiMenu && replyTab) {
+                var tabRect = replyTab.getBoundingClientRect()
+                emojiMenu.style.left = (tabRect.right + 4) + 'px'
+                emojiMenu.style.top = Math.max(0, tabRect.bottom - 200) + 'px'
+            }
         })
     }
 
