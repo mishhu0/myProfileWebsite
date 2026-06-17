@@ -131,7 +131,7 @@ const selectRecentMessagesStatement = db.prepare(`
         created_at,
         created_at_ms
     FROM messages
-    ORDER BY created_at_ms DESC, rowid DESC
+    ORDER BY created_at_ms ASC, rowid ASC
     LIMIT ?
 `)
 

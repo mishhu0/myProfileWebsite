@@ -225,7 +225,7 @@ function initChatTab() {
             .map(normalizeMessageEntry)
             .filter(Boolean)
             .sort(function(left, right) {
-                return getMessageSortValue(right) - getMessageSortValue(left)
+                return getMessageSortValue(left) - getMessageSortValue(right)
             })
             .slice(0, chatHistoryLimit)
 
@@ -249,7 +249,7 @@ function initChatTab() {
 
         messages = Array.from(nextMessagesById.values())
             .sort(function(left, right) {
-                return getMessageSortValue(right) - getMessageSortValue(left)
+                return getMessageSortValue(left) - getMessageSortValue(right)
             })
             .slice(0, chatHistoryLimit)
 
@@ -258,7 +258,7 @@ function initChatTab() {
     }
 
     function scrollToLatest() {
-        messagesRoot.scrollTop = 0
+        messagesRoot.scrollTop = messagesRoot.scrollHeight
     }
 
     function setStatus(message) {
