@@ -103,6 +103,22 @@ function initContactTab() {
 		dmSendBtn.disabled = !dmEnabled || !hasProfileName || !hasMessage || isSending
 	}
 
+	function startContactCooldown() {
+		isSending = true
+		var tick = function() {
+			var remaining = Math.ceil(window.msUntilCanSend() / 1000)
+			if (remaining <= 0) {
+				isSending = false
+				updateDmAvailability()
+				return
+			}
+			dmSendBtn.textContent = remaining + 's'
+			dmSendBtn.disabled = true
+			window.setTimeout(tick, 1000)
+		}
+		tick()
+	}
+
 	function syncDmComposer() {
 		if (!dmForm || !dmInput || !dmSendBtn || !dmStatus) return
 
@@ -225,6 +241,8 @@ function initContactTab() {
 			return
 		}
 
+        if (!window.canSendMessage()) return
+
 		isSending = true
 		syncDmComposer()
 
@@ -240,8 +258,8 @@ function initContactTab() {
 			})
 		}).then(function() {
 			dmInput.value = ''
-			isSending = false
-			updateDmAvailability()
+			window.markMessageSent()
+			startContactCooldown()
 			showCopiedNote('message sent', dmSendBtn)
 			syncDmComposer()
 		}).catch(function(error) {

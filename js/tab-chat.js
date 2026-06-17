@@ -28,6 +28,39 @@ function initChatTab() {
     if (!chatRoot || !messagesRoot || !form || !messageInput || !sendButton || !status || !editNameButton || !nameColorInput || !textColorInput || !emojiMenuWrap || !emojiToggleButton || !emojiMenu) return
 
     const emojiButtons = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
+    var emojiGrid = emojiMenu.querySelector('.chat-emoji-grid')
+
+    function bindEmojiButtons() {
+        var btns = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
+        btns.forEach(function(button) {
+            button.addEventListener('click', function() {
+                insertEmoji(button.dataset.emoji)
+            })
+        })
+    }
+
+    bindEmojiButtons()
+
+    if (emojiGrid) {
+        fetch('misc/emojis.json')
+            .then(function(r) { return r.json() })
+            .then(function(emojis) {
+                emojiGrid.innerHTML = ''
+                emojis.forEach(function(e) {
+                    var btn = document.createElement('button')
+                    btn.type = 'button'
+                    btn.className = 'chat-emoji-option'
+                    btn.setAttribute('data-emoji', e.emoji)
+                    btn.setAttribute('aria-label', e.label)
+                    if (e.small) btn.style.fontSize = '9px'
+                    btn.textContent = e.label === 'Star' ? '\u2605' : e.emoji
+                    emojiGrid.appendChild(btn)
+                })
+                bindEmojiButtons()
+            })
+            .catch(function() {})
+    }
+
     let messages = []
     let loadState = 'loading'
     let activeSocket = null
@@ -248,6 +281,23 @@ function initChatTab() {
     function setFormBusy(isBusy) {
         isSending = Boolean(isBusy)
         sendButton.disabled = isSending
+    }
+
+    function startChatCooldown() {
+        sendButton.disabled = true
+        var tick = function() {
+            var remaining = Math.ceil(window.msUntilCanSend() / 1000)
+            if (remaining <= 0) {
+                sendButton.disabled = false
+                sendButton.textContent = 'send'
+                setFormBusy(false)
+                return
+            }
+            sendButton.textContent = remaining + 's'
+            sendButton.disabled = true
+            window.setTimeout(tick, 1000)
+        }
+        tick()
     }
 
     function syncIdentity() {
@@ -550,12 +600,6 @@ function initChatTab() {
         setEmojiMenuOpen(!emojiMenuWrap.classList.contains('is-open'))
     })
 
-    emojiButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            insertEmoji(button.dataset.emoji)
-        })
-    })
-
     messageInput.addEventListener('focus', function() {
         if (getProfileName()) return
         messageInput.blur()
@@ -571,6 +615,10 @@ function initChatTab() {
         }
 
         if (isSending) return
+        if (!window.canSendMessage()) {
+            showTemporaryStatus('slow down — ' + Math.ceil(window.msUntilCanSend() / 1000) + 's')
+            return
+        }
 
         const profileName = ensureChatIdentity()
         if (!profileName) return
@@ -599,12 +647,13 @@ function initChatTab() {
             messageInput.value = ''
             syncIdentity()
             messageInput.focus()
+            window.markMessageSent()
+            startChatCooldown()
         } catch (error) {
             if (chatDebug) {
                 console.warn('Could not send chat message:', error)
             }
             showTemporaryStatus('chat server unavailable')
-        } finally {
             setFormBusy(false)
         }
     })

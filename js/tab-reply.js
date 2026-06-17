@@ -80,23 +80,43 @@ function initReplyTab() {
 
     if (emojiToggle && emojiWrap) {
         emojiToggle.addEventListener('click', function() {
-            var isOpen = !emojiWrap.classList.contains('is-open')
-            setEmojiMenuOpen(isOpen)
-            if (isOpen && emojiMenu && replyTab) {
-                var tabRect = replyTab.getBoundingClientRect()
-                emojiMenu.style.left = (tabRect.right + 4) + 'px'
-                emojiMenu.style.top = Math.max(0, tabRect.bottom - 200) + 'px'
-            }
+            setEmojiMenuOpen(!emojiWrap.classList.contains('is-open'))
         })
     }
 
-    if (emojiMenu) {
-        var emojiButtons = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
-        emojiButtons.forEach(function(button) {
+    function bindReplyEmojiButtons() {
+        if (!emojiMenu) return
+        var btns = Array.from(emojiMenu.querySelectorAll('[data-emoji]'))
+        btns.forEach(function(button) {
             button.addEventListener('click', function() {
                 insertEmoji(button.dataset.emoji)
             })
         })
+    }
+
+    bindReplyEmojiButtons()
+
+    if (emojiMenu) {
+        var emojiGrid = emojiMenu.querySelector('.reply-emoji-grid')
+        if (emojiGrid) {
+            fetch('misc/emojis.json')
+                .then(function(r) { return r.json() })
+                .then(function(emojis) {
+                    emojiGrid.innerHTML = ''
+                    emojis.forEach(function(e) {
+                        var btn = document.createElement('button')
+                        btn.type = 'button'
+                        btn.className = 'reply-emoji-option'
+                        btn.setAttribute('data-emoji', e.emoji)
+                        btn.setAttribute('aria-label', e.label)
+                        if (e.small) btn.style.fontSize = '9px'
+                        btn.textContent = e.label === 'Star' ? '\u2605' : e.emoji
+                        emojiGrid.appendChild(btn)
+                    })
+                    bindReplyEmojiButtons()
+                })
+                .catch(function() {})
+        }
     }
 
     function showLoading() {
@@ -323,12 +343,27 @@ function initReplyTab() {
 
     function resetForm() {
         replyInput.value = ''
-        replySendBtn.disabled = false
-        replySendBtn.textContent = 'send'
+    }
+
+    function startReplyCooldown() {
+        replySendBtn.disabled = true
+        var tick = function() {
+            var remaining = Math.ceil(window.msUntilCanSend() / 1000)
+            if (remaining <= 0) {
+                replySendBtn.disabled = false
+                replySendBtn.textContent = 'send'
+                return
+            }
+            replySendBtn.textContent = remaining + 's'
+            replySendBtn.disabled = true
+            window.setTimeout(tick, 1000)
+        }
+        tick()
     }
 
     async function sendMessage(text) {
         if (!text || !userTag) return
+        if (!window.canSendMessage()) return
 
         replySendBtn.disabled = true
         replySendBtn.textContent = 'sending...'
@@ -345,6 +380,8 @@ function initReplyTab() {
             })
 
             resetForm()
+            window.markMessageSent()
+            startReplyCooldown()
             await fetchConversation()
         } catch (error) {
             replySendBtn.textContent = 'failed'

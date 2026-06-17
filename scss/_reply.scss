@@ -59,7 +59,7 @@
 }
 
 .reply-messages-spacer {
-    height: 8px;
+    height: 6px;
     display: block;
     flex-shrink: 0;
 }
@@ -214,10 +214,12 @@
 
 .reply-emoji-menu {
     display: none;
-    position: fixed;
-    width: 150px;
-    max-height: 200px;
-    padding: 4px;
+    position: absolute;
+    left: calc(100% + 2px);
+    bottom: 0;
+    width: 130px;
+    max-height: 260px;
+    padding: 6px;
     box-sizing: border-box;
     background-color: p.$color10;
     @include mixins.win95-raised;
@@ -232,7 +234,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 3px;
-    max-height: calc(200px - 8px);
+    max-height: calc(260px - 12px);
     overflow-y: auto;
 }
 

@@ -154,6 +154,20 @@ window.highestZ = highestZ
 window.APP_CONFIG = APP_CONFIG
 window.getPersistentUserTag = getPersistentUserTag
 
+var messageSpamState = { lastSendTime: 0 }
+
+window.canSendMessage = function() {
+    return Date.now() - messageSpamState.lastSendTime >= 3000
+}
+
+window.markMessageSent = function() {
+    messageSpamState.lastSendTime = Date.now()
+}
+
+window.msUntilCanSend = function() {
+    return Math.max(0, 3000 - (Date.now() - messageSpamState.lastSendTime))
+}
+
 function toRoman(value) {
     const romanMap = [
         ['M', 1000],

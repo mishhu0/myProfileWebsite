@@ -2496,7 +2496,7 @@ input[type=color].custom-color-input {
 .visitors-identity-panel {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   min-height: 0;
   padding: 6px 10px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
@@ -3831,7 +3831,7 @@ body.pictures-expanded .entity-chat {
 }
 
 .reply-messages-spacer {
-  height: 8px;
+  height: 6px;
   display: block;
   flex-shrink: 0;
 }
@@ -3984,10 +3984,12 @@ body.pictures-expanded .entity-chat {
 
 .reply-emoji-menu {
   display: none;
-  position: fixed;
-  width: 150px;
-  max-height: 200px;
-  padding: 4px;
+  position: absolute;
+  left: calc(100% + 2px);
+  bottom: 0;
+  width: 130px;
+  max-height: 260px;
+  padding: 6px;
   box-sizing: border-box;
   background-color: var(--color10, #233131);
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
@@ -4002,7 +4004,7 @@ body.pictures-expanded .entity-chat {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3px;
-  max-height: 192px;
+  max-height: 248px;
   overflow-y: auto;
 }
 

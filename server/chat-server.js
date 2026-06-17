@@ -314,7 +314,7 @@ function normalizeUserTag(value) {
 }
 
 function normalizeMessageText(value) {
-    return String(value || '').replace(/\r\n/g, '\n').trim().slice(0, 280)
+    return String(value || '').replace(/\r\n/g, '\n').trim().slice(0, 600)
 }
 
 function normalizeDirectMessageText(value) {
