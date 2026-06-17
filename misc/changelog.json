@@ -2,6 +2,17 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "36.",
+			"date": "2026-06-17",
+			"tag": "improvement",
+			"summary": "finished reply chat, some improvements and fixes",
+			"highlights": [
+				"implemented an anti spam system for both chats",
+				"finished reply chat mostly",
+				"moved emojis to json for easy updates."
+			]
+		},
+		{
 			"version": "35.",
 			"date": "2026-06-16",
 			"tag": "improvement",

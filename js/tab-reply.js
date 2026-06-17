@@ -7,6 +7,7 @@ function initReplyTab() {
     const emojiWrap = document.getElementById('replyEmojiWrap')
     const emojiToggle = document.getElementById('replyEmojiToggle')
     const emojiMenu = document.getElementById('replyEmojiMenu')
+    var replyHint = document.querySelector('#replyForm .reply-hint')
 
     if (!replyTab || !replyMessages || !replyForm || !replyInput || !replySendBtn) return
 
@@ -352,10 +353,12 @@ function initReplyTab() {
             if (remaining <= 0) {
                 replySendBtn.disabled = false
                 replySendBtn.textContent = 'send'
+                if (replyHint) replyHint.textContent = 'send me a message'
                 return
             }
             replySendBtn.textContent = remaining + 's'
             replySendBtn.disabled = true
+            if (replyHint) replyHint.textContent = 'slow down — ' + remaining + 's'
             window.setTimeout(tick, 1000)
         }
         tick()
@@ -363,7 +366,10 @@ function initReplyTab() {
 
     async function sendMessage(text) {
         if (!text || !userTag) return
-        if (!window.canSendMessage()) return
+        if (!window.canSendMessage()) {
+            if (replyHint) replyHint.textContent = 'slow down — ' + Math.ceil(window.msUntilCanSend() / 1000) + 's'
+            return
+        }
 
         replySendBtn.disabled = true
         replySendBtn.textContent = 'sending...'

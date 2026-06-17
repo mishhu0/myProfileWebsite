@@ -243,6 +243,7 @@
     max-height: calc(360px - 12px);
     overflow-y: auto;
     scrollbar-gutter: stable;
+    align-content: start;
 }
 
 .chat-emoji-title {
