@@ -183,7 +183,9 @@ function initReplyTab() {
             fragment.appendChild(createMessageElement(conversation[i]))
         }
         replyMessages.appendChild(fragment)
-        replyMessages.scrollTop = replyMessages.scrollHeight
+        requestAnimationFrame(function() {
+            replyMessages.scrollTop = replyMessages.scrollHeight
+        })
     }
 
     async function fetchConversation() {

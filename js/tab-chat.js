@@ -258,7 +258,9 @@ function initChatTab() {
     }
 
     function scrollToLatest() {
-        messagesRoot.scrollTop = messagesRoot.scrollHeight
+        requestAnimationFrame(function() {
+            messagesRoot.scrollTop = messagesRoot.scrollHeight
+        })
     }
 
     function setStatus(message) {
