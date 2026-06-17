@@ -3829,7 +3829,14 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 0 10px;
+}
+
+.reply-messages::after {
+  content: "";
+  display: block;
+  height: 12px;
+  flex-shrink: 0;
 }
 
 .reply-loading,
