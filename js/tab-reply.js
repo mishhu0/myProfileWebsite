@@ -57,7 +57,7 @@ function initReplyTab() {
 
     function setEmojiMenuOpen(isOpen) {
         if (!emojiWrap || !emojiToggle || !emojiMenu) return
-        emojiWrap.classList.toggle('is-open', isOpen)
+        replyTab.classList.toggle('is-emoji-open', isOpen)
         emojiMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true')
         emojiToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
     }
@@ -80,7 +80,7 @@ function initReplyTab() {
 
     if (emojiToggle && emojiWrap) {
         emojiToggle.addEventListener('click', function() {
-            setEmojiMenuOpen(!emojiWrap.classList.contains('is-open'))
+            setEmojiMenuOpen(!replyTab.classList.contains('is-emoji-open'))
         })
     }
 

@@ -157,7 +157,7 @@ window.getPersistentUserTag = getPersistentUserTag
 var messageSpamState = { lastSendTime: 0 }
 
 window.canSendMessage = function() {
-    return Date.now() - messageSpamState.lastSendTime >= 3000
+    return Date.now() - messageSpamState.lastSendTime >= 5000
 }
 
 window.markMessageSent = function() {
@@ -165,7 +165,7 @@ window.markMessageSent = function() {
 }
 
 window.msUntilCanSend = function() {
-    return Math.max(0, 3000 - (Date.now() - messageSpamState.lastSendTime))
+    return Math.max(0, 5000 - (Date.now() - messageSpamState.lastSendTime))
 }
 
 function toRoman(value) {

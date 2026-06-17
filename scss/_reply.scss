@@ -59,7 +59,7 @@
 }
 
 .reply-messages-spacer {
-    height: 6px;
+    height: 2px;
     display: block;
     flex-shrink: 0;
 }
@@ -226,7 +226,7 @@
     z-index: 20;
 }
 
-.reply-emoji.is-open .reply-emoji-menu {
+.reply-tab.is-emoji-open .reply-emoji-menu {
     display: block;
 }
 
