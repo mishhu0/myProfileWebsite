@@ -3829,7 +3829,7 @@ body.pictures-expanded .entity-chat {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 10px 10px 0 10px;
+  padding: 10px 10px 10px 10px;
 }
 
 .reply-loading,
@@ -3849,10 +3849,6 @@ body.pictures-expanded .entity-chat {
   padding: 6px 6px;
   margin-bottom: 8px;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
-}
-
-.reply-message:last-child {
-  margin-bottom: 10px;
 }
 
 .reply-message--admin {
