@@ -3828,8 +3828,13 @@ body.pictures-expanded .entity-chat {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 10px 10px 10px 10px;
+  gap: 8px;
+  padding: 8px 10px 0 10px;
+}
+
+.reply-messages-spacer {
+  height: 0;
+  flex-shrink: 0;
 }
 
 .reply-loading,
@@ -3847,7 +3852,6 @@ body.pictures-expanded .entity-chat {
   gap: 2px;
   max-width: calc(100% - 10px);
   padding: 6px 6px;
-  margin-bottom: 8px;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
 }
 
