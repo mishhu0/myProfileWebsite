@@ -424,6 +424,15 @@ function initReplyTab() {
         if (emojiToggle) emojiToggle.disabled = true
     }
 
+    var replyObserver = new MutationObserver(function() {
+        if (getComputedStyle(replyTab).display !== 'none') {
+            requestAnimationFrame(function() {
+                replyMessages.scrollTop = replyMessages.scrollHeight
+            })
+        }
+    })
+    replyObserver.observe(replyTab, { attributes: true, attributeFilter: ['style'] })
+
     window.addEventListener('beforeunload', function() {
         if (replySocket) replySocket.close()
     })

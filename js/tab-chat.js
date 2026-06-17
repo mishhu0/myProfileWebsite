@@ -692,6 +692,13 @@ function initChatTab() {
     syncIdentity()
     fetchMessages()
     connectSocket()
+
+    var chatObserver = new MutationObserver(function() {
+        if (getComputedStyle(chatRoot).display !== 'none') {
+            scrollToLatest()
+        }
+    })
+    chatObserver.observe(chatTab, { attributes: true, attributeFilter: ['style'] })
 }
 
 window.initChatTab = initChatTab
