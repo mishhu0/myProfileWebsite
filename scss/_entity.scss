@@ -117,3 +117,25 @@ body.pictures-expanded {
     flex: 1;
     min-width: 0;
 }
+
+.entity-chat__fullscreen-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    padding: 2px 6px;
+    min-width: 46px;
+    line-height: 1;
+    border: none;
+    cursor: pointer;
+    color: p.$window-shadow-light;
+    text-decoration: none;
+    text-align: center;
+    background-color: p.$color6;
+    @include mixins.win95-raised;
+    margin-top: 6px;
+
+    &:active {
+        @include mixins.win95-pressed;
+    }
+}

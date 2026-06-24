@@ -179,7 +179,7 @@ async function initEntityTab() {
 					}
 				}
 
-				if (!message || typeof message !== 'object') return null
+            if (!message || typeof message !== 'object') return null
 				const text = typeof message.text === 'string' ? message.text.trim() : ''
 				const author = typeof message.author === 'string' && message.author.trim()
 					? message.author.trim()
@@ -187,7 +187,8 @@ async function initEntityTab() {
 				return text
 					? {
 						author,
-						text
+						text,
+						button: Boolean(message.button)
 					}
 					: null
 			})
@@ -241,6 +242,20 @@ async function initEntityTab() {
 
 			line.appendChild(author)
 			line.appendChild(text)
+
+			if (message.button) {
+				const fsBtn = document.createElement('button')
+				fsBtn.type = 'button'
+				fsBtn.className = 'entity-chat__fullscreen-btn'
+				fsBtn.textContent = 'go fullscreen'
+				fsBtn.addEventListener('click', function() {
+					if (document.documentElement.requestFullscreen) {
+						document.documentElement.requestFullscreen()
+					}
+				})
+				text.appendChild(document.createElement('br'))
+				text.appendChild(fsBtn)
+			}
 			entityChat.messages.appendChild(line)
 		})
 	}
@@ -642,7 +657,8 @@ async function initEntityTab() {
 			offsetY: -30,
 			messages: [
 				'Welcome!',
-            	'As you can see this website is inspired by Windows 95/98 and it is meant as my profile/blog/portfolio. Please feel free to explore it!',
+            	'As you can see this website is inspired by Windows 95/98 and it is meant as my profile/blog/portfolio. Feel free to explore it!',
+				{ text: 'Full screen is recommended for the best experience.', button: true }
 			]
 		}
 	})
