@@ -694,8 +694,10 @@ function initChatTab() {
     fetchMessages()
     connectSocket()
 
+    var initialChatScrollDone = false
     var chatObserver = new MutationObserver(function() {
-        if (getComputedStyle(chatRoot).display !== 'none') {
+        if (getComputedStyle(chatRoot).display !== 'none' && !initialChatScrollDone) {
+            initialChatScrollDone = true
             scrollToLatest()
         }
     })
