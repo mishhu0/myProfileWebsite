@@ -251,7 +251,13 @@ async function initEntityTab() {
 				fsBtn.addEventListener('click', function(e) {
 					e.stopPropagation()
 					if (document.documentElement.requestFullscreen) {
-						document.documentElement.requestFullscreen()
+						document.documentElement.requestFullscreen().then(function() {
+							setTimeout(function() {
+								if (entityChat && entityChat.root) {
+									entityChat.root.classList.remove('entity-chat--hidden')
+								}
+							}, 100)
+						}).catch(function() {})
 					}
 				})
 				text.appendChild(fsBtn)

@@ -51,7 +51,7 @@
     position: fixed;
     top: 12px;
     left: 12px;
-    width: min(280px, calc(100vw - 24px));
+    width: min(300px, calc(100vw - 24px));
     max-height: min(220px, calc(100vh - 24px));
     display: flex;
     flex-direction: column;
@@ -133,7 +133,7 @@ body.pictures-expanded {
     text-align: center;
     background-color: p.$color6;
     @include mixins.win95-raised;
-    margin-top: 6px;
+    margin-top: 2px;
 
     &:active {
         @include mixins.win95-pressed;

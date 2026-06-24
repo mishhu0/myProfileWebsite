@@ -3717,7 +3717,7 @@ body.pictures-expanded .volume-popup {
   position: fixed;
   top: 12px;
   left: 12px;
-  width: min(280px, 100vw - 24px);
+  width: min(300px, 100vw - 24px);
   max-height: min(220px, 100vh - 24px);
   display: flex;
   flex-direction: column;
@@ -3797,7 +3797,7 @@ body.pictures-expanded .entity-chat {
   text-align: center;
   background-color: var(--color6, #016565);
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
-  margin-top: 6px;
+  margin-top: 2px;
 }
 .entity-chat__fullscreen-btn:active {
   box-shadow: inset 1px 1px #0a0a0a, inset -1px -1px #ffffff, inset 2px 2px #808080, inset -2px -2px #dfdfdf;
