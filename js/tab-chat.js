@@ -258,6 +258,7 @@ function initChatTab() {
     }
 
     function scrollToLatest() {
+        if (isDraggingScroll) return
         requestAnimationFrame(function() {
             messagesRoot.scrollTop = messagesRoot.scrollHeight
         })
@@ -699,6 +700,30 @@ function initChatTab() {
         }
     })
     chatObserver.observe(chatTab, { attributes: true, attributeFilter: ['style'] })
+
+    var isDraggingScroll = false
+    var dragStartY = 0
+    var dragStartScrollTop = 0
+
+    messagesRoot.addEventListener('mousedown', function(e) {
+        if (e.button !== 0) return
+        isDraggingScroll = true
+        dragStartY = e.clientY
+        dragStartScrollTop = messagesRoot.scrollTop
+        messagesRoot.classList.add('is-grabbing')
+    })
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDraggingScroll) return
+        var deltaY = e.clientY - dragStartY
+        messagesRoot.scrollTop = dragStartScrollTop - deltaY
+    })
+
+    document.addEventListener('mouseup', function() {
+        if (!isDraggingScroll) return
+        isDraggingScroll = false
+        messagesRoot.classList.remove('is-grabbing')
+    })
 }
 
 window.initChatTab = initChatTab

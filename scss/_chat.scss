@@ -40,6 +40,12 @@
     min-height: 0;
     overflow-y: auto;
     padding-right: 0px;
+    cursor: grab;
+}
+
+.chat-messages.is-grabbing {
+    cursor: grabbing;
+    user-select: none;
 }
 
 .chat-loading,

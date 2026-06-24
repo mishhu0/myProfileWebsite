@@ -7,6 +7,7 @@
 			"tag": "improvement",
 			"summary": "finished reply chat, some improvements and fixes",
 			"highlights": [
+				"added stats widget in my homepage so i can easily see when someone msgs/emails me",
 				"implemented an anti spam system for both chats",
 				"finished reply chat mostly",
 				"moved emojis to json for easy updates."
