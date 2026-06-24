@@ -7,6 +7,7 @@
 			"tag": "improvement",
 			"summary": "fixed bugs and images are now server sided",
 			"highlights": [
+				"implemented fullscreen recommendation.",
 				"images are now .webp and server sided",
 				"fixed some bugs in the admin panel",
 				"fixed scroll in chatbox"

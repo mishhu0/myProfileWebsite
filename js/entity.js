@@ -248,12 +248,12 @@ async function initEntityTab() {
 				fsBtn.type = 'button'
 				fsBtn.className = 'entity-chat__fullscreen-btn'
 				fsBtn.textContent = 'go fullscreen'
-				fsBtn.addEventListener('click', function() {
+				fsBtn.addEventListener('click', function(e) {
+					e.stopPropagation()
 					if (document.documentElement.requestFullscreen) {
 						document.documentElement.requestFullscreen()
 					}
 				})
-				text.appendChild(document.createElement('br'))
 				text.appendChild(fsBtn)
 			}
 			entityChat.messages.appendChild(line)
