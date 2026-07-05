@@ -102,15 +102,15 @@ body.pictures-expanded {
 
 @media (max-width: 900px) and (orientation: portrait) {
     .entity-tab {
-        --entity-render-width: 128px;
-        --entity-render-height: 96px;
-        width: 92px;
-        height: 92px;
+        --entity-render-width: 104px;
+        --entity-render-height: 78px;
+        width: 74px;
+        height: 74px;
     }
 
     .entity-chat {
-        width: min(212px, calc(100% - 18px));
-        max-height: min(156px, calc(100% - 18px));
+        width: min(176px, calc(100% - 18px));
+        max-height: min(132px, calc(100% - 18px));
         font-size: 10px;
     }
 
@@ -131,15 +131,15 @@ body.pictures-expanded {
 
 @media (max-width: 640px) and (orientation: portrait) {
     .entity-tab {
-        --entity-render-width: 112px;
-        --entity-render-height: 84px;
-        width: 80px;
-        height: 80px;
+        --entity-render-width: 88px;
+        --entity-render-height: 66px;
+        width: 62px;
+        height: 62px;
     }
 
     .entity-chat {
-        width: min(192px, calc(100% - 14px));
-        max-height: min(142px, calc(100% - 14px));
+        width: min(152px, calc(100% - 14px));
+        max-height: min(118px, calc(100% - 14px));
         font-size: 9px;
     }
 

@@ -17,7 +17,8 @@
 :root {
   --cursor-default: auto;
   --cursor-pointer: pointer;
-  --portrait-desktop-scale: 0.8;
+  --portrait-desktop-scale: 1;
+  --portrait-window-scale: 0.84;
 }
 
 h1 {
@@ -106,7 +107,8 @@ body {
 }
 @media (orientation: portrait) and (max-width: 640px) {
   :root {
-    --portrait-desktop-scale: 0.7;
+    --portrait-desktop-scale: 1;
+    --portrait-window-scale: 0.76;
   }
 }
 button,
@@ -676,7 +678,7 @@ html[data-skip-boot=true] .boot-screen {
   height: auto;
   align-self: flex-end;
   margin-top: auto;
-  margin-bottom: 1px;
+  margin-bottom: 3px;
 }
 
 .desktop-icons {
@@ -695,48 +697,64 @@ html[data-skip-boot=true] .boot-screen {
 
 @media (max-width: 900px) and (orientation: portrait) {
   .desktop-icons {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(4, minmax(0, auto));
-    grid-auto-columns: 36px;
-    align-content: start;
-    justify-content: start;
-    justify-items: center;
-    width: max-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    width: fit-content;
     max-width: calc(100% - 8px);
-    max-height: calc(100% - 54px);
+    max-height: calc(100% - 40px);
     padding-top: 6px;
     padding-left: 6px;
     padding-right: 6px;
-    padding-bottom: 6px;
+    padding-bottom: 2px;
     gap: 4px;
-    row-gap: 5px;
+    row-gap: 4px;
     column-gap: 8px;
     box-sizing: border-box;
     overflow: hidden;
   }
-  .dsk-icon {
-    width: 36px;
-    gap: 1px;
+  .desktop-icons .dsk-icon {
+    width: 54px;
+    min-height: 52px;
+    gap: 2px;
     padding: 2px 0;
     font-size: 8px;
-    line-height: 1.1;
+    line-height: 1.05;
     position: relative;
     z-index: 1;
     flex: 0 0 auto;
     align-items: center;
     justify-content: flex-start;
+    text-align: center;
   }
-  .dsk-icon img {
+  .desktop-icons .dsk-icon img {
     width: 16px;
     height: 16px;
     object-fit: contain;
   }
-  .dsk-icon span {
+  .desktop-icons .dsk-icon span {
     display: block;
     width: 100%;
+    min-height: 16px;
     text-align: center;
     overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  #desktop-root .about-tab,
+  #desktop-root .projects-tab,
+  #desktop-root .music-tab,
+  #desktop-root .contact-tab,
+  #desktop-root .visitors-tab,
+  #desktop-root .blog-tab,
+  #desktop-root .chat-tab,
+  #desktop-root .reply-tab,
+  #desktop-root .mini-player-tab,
+  #desktop-root .changelog-tab,
+  #desktop-root .todo-tab {
+    transform: translate(-50%, -50%) scale(var(--portrait-window-scale));
+    transform-origin: center center;
   }
 }
 .dsk-icon {
@@ -4086,14 +4104,14 @@ body.pictures-expanded .entity-chat {
 
 @media (max-width: 900px) and (orientation: portrait) {
   .entity-tab {
-    --entity-render-width: 128px;
-    --entity-render-height: 96px;
-    width: 92px;
-    height: 92px;
+    --entity-render-width: 104px;
+    --entity-render-height: 78px;
+    width: 74px;
+    height: 74px;
   }
   .entity-chat {
-    width: min(212px, 100% - 18px);
-    max-height: min(156px, 100% - 18px);
+    width: min(176px, 100% - 18px);
+    max-height: min(132px, 100% - 18px);
     font-size: 10px;
   }
   .entity-chat__body {
@@ -4110,14 +4128,14 @@ body.pictures-expanded .entity-chat {
 }
 @media (max-width: 640px) and (orientation: portrait) {
   .entity-tab {
-    --entity-render-width: 112px;
-    --entity-render-height: 84px;
-    width: 80px;
-    height: 80px;
+    --entity-render-width: 88px;
+    --entity-render-height: 66px;
+    width: 62px;
+    height: 62px;
   }
   .entity-chat {
-    width: min(192px, 100% - 14px);
-    max-height: min(142px, 100% - 14px);
+    width: min(152px, 100% - 14px);
+    max-height: min(118px, 100% - 14px);
     font-size: 9px;
   }
   .entity-chat__line {
