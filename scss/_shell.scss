@@ -14,9 +14,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 18px;
+        min-width: 20px;
         height: 18px;
-        padding: 2px 3px;
+        padding: 2px 4px;
         box-sizing: border-box;
         line-height: 0;
         margin-right: 2px;
@@ -25,6 +25,20 @@
         img {
             display: block;
             width: 10px;
+        }
+    }
+
+    button[id^='minbtn'] {
+        align-items: flex-end;
+        padding-top: 1px;
+        padding-bottom: 0;
+
+        img {
+            width: 10px;
+            height: 2px;
+            align-self: flex-end;
+            margin-top: auto;
+            margin-bottom: 2px;
         }
     }
 }
@@ -45,63 +59,56 @@
 
 @media (max-width: 900px) and (orientation: portrait) {
     .desktop-icons {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
         align-content: start;
-        justify-items: center;
-        width: calc(100% - 12px);
+        justify-content: flex-start;
+        width: fit-content;
         max-width: calc(100% - 12px);
+        max-height: calc(100% - 44px);
         padding-top: 8px;
-        padding-left: 6px;
-        padding-right: 6px;
+        padding-left: 8px;
+        padding-right: 2px;
         padding-bottom: 8px;
         gap: 4px;
         row-gap: 4px;
-        column-gap: 4px;
-        max-width: calc(100% - 20px);
-        max-height: calc(100% - 20px);
+        column-gap: 6px;
         box-sizing: border-box;
-        justify-content: stretch;
-        flex-wrap: nowrap;
         overflow: hidden;
     }
 
     .dsk-icon {
-        width: 100%;
-        max-width: 42px;
+        width: 40px;
         gap: 2px;
-        padding: 2px 1px;
+        padding: 2px 0;
         font-size: 9px;
         line-height: 1.05;
         position: relative;
         z-index: 1;
         flex: 0 0 auto;
+        align-items: center;
+        justify-content: flex-start;
 
         img {
             width: 18px;
             height: 18px;
             object-fit: contain;
         }
-    }
 
-    .tab-right button[id^='minbtn'] img {
-        width: 10px;
-        height: 2px;
-        align-self: flex-end;
-        margin-top: auto;
-        margin-bottom: 2px;
-    }
-
-    .tab-right button[id^='minbtn'] {
-        align-items: flex-end;
-        padding-top: 1px;
-        padding-bottom: 0;
+        span {
+            display: block;
+            width: 100%;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
     }
 }
 
 .dsk-icon {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 62px;
     text-align: center;
     font-size: 12px;

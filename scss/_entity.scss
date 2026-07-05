@@ -101,10 +101,50 @@ body.pictures-expanded {
 }
 
 @media (max-width: 900px) and (orientation: portrait) {
+    .entity-tab {
+        --entity-render-width: 144px;
+        --entity-render-height: 108px;
+        width: 104px;
+        height: 104px;
+    }
+
     .entity-chat {
-        width: min(260px, calc(100% - 18px));
-        max-height: min(200px, calc(100% - 18px));
-        font-size: 12px;
+        width: min(236px, calc(100% - 18px));
+        max-height: min(180px, calc(100% - 18px));
+        font-size: 11px;
+    }
+
+    .entity-chat__body {
+        padding: 5px;
+    }
+
+    .entity-chat__messages {
+        gap: 4px;
+        padding-right: 22px;
+    }
+
+    .entity-chat__line {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .entity-tab {
+        --entity-render-width: 132px;
+        --entity-render-height: 100px;
+        width: 96px;
+        height: 96px;
+    }
+
+    .entity-chat {
+        width: min(220px, calc(100% - 16px));
+        max-height: min(168px, calc(100% - 16px));
+        font-size: 10px;
+    }
+
+    .entity-chat__line {
+        font-size: 10px;
+        line-height: 1.25;
     }
 }
 
