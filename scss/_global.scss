@@ -10,7 +10,7 @@
 :root {
     --cursor-default: auto;
     --cursor-pointer: pointer;
-    --portrait-desktop-scale: 0.96;
+    --portrait-desktop-scale: 0.93;
 }
 
 h1 {
@@ -87,7 +87,7 @@ body {
 
 @media (orientation: portrait) and (max-width: 640px) {
     :root {
-        --portrait-desktop-scale: 0.94;
+        --portrait-desktop-scale: 0.89;
     }
 }
 

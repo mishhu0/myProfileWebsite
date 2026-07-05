@@ -45,31 +45,57 @@
 
 @media (max-width: 900px) and (orientation: portrait) {
     .desktop-icons {
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-bottom: 10px;
-        gap: 6px;
-        row-gap: 6px;
-        column-gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-content: start;
+        justify-items: center;
+        width: calc(100% - 12px);
+        max-width: calc(100% - 12px);
+        padding-top: 8px;
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-bottom: 8px;
+        gap: 4px;
+        row-gap: 4px;
+        column-gap: 4px;
         max-width: calc(100% - 20px);
         max-height: calc(100% - 20px);
         box-sizing: border-box;
-        align-content: flex-start;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        justify-content: stretch;
+        flex-wrap: nowrap;
         overflow: hidden;
     }
 
     .dsk-icon {
-        width: 50px;
-        gap: 3px;
-        padding: 3px;
-        font-size: 10px;
-        line-height: 1.1;
+        width: 100%;
+        max-width: 42px;
+        gap: 2px;
+        padding: 2px 1px;
+        font-size: 9px;
+        line-height: 1.05;
         position: relative;
         z-index: 1;
         flex: 0 0 auto;
+
+        img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+    }
+
+    .tab-right button[id^='minbtn'] img {
+        width: 10px;
+        height: 2px;
+        align-self: flex-end;
+        margin-top: auto;
+        margin-bottom: 2px;
+    }
+
+    .tab-right button[id^='minbtn'] {
+        align-items: flex-end;
+        padding-top: 1px;
+        padding-bottom: 0;
     }
 }
 

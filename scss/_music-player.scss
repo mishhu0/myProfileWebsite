@@ -835,6 +835,19 @@
         .viz-setting-group--volume {
             margin-left: auto;
         }
+
+        .viz-volume-value {
+            width: auto;
+            min-width: 5ch;
+            flex: 0 0 auto;
+        }
+    }
+
+    @media (max-width: 640px) and (orientation: portrait) {
+        .viz-setting-group--volume,
+        .viz-setting-group--volume * {
+            cursor: default !important;
+        }
     }
 }
 

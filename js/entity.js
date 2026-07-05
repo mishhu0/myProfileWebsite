@@ -185,6 +185,10 @@ async function initEntityTab() {
 		return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
 	}
 
+	function isPhonePortraitLayout() {
+		return window.matchMedia('(orientation: portrait) and (max-width: 640px)').matches
+	}
+
 	function getLocalElementSize(element, fallbackRect) {
 		const fallback = fallbackRect || { width: 0, height: 0 }
 		if (!element || !isRotatedPortraitDesktop()) {
@@ -327,23 +331,36 @@ async function initEntityTab() {
 
 	function renderEntityChat(config) {
 		entityChat.messages.textContent = ''
+		const isPhonePortrait = isPhonePortraitLayout()
 
 		config.messages.forEach(function(message) {
+			const effectiveMessage = isPhonePortrait
+				&& message
+				&& message.button
+				&& typeof message.text === 'string'
+				&& /full screen is recommended/i.test(message.text)
+				? {
+					...message,
+					text: 'This website is best viewed on a laptop/pc',
+					button: false
+				}
+				: message
+
 			const line = document.createElement('div')
 			line.className = 'entity-chat__line'
 
 			const author = document.createElement('span')
 			author.className = 'entity-chat__author'
-			author.textContent = message.author + ':'
+			author.textContent = effectiveMessage.author + ':'
 
 			const text = document.createElement('span')
 			text.className = 'entity-chat__text'
-			text.textContent = message.text
+			text.textContent = effectiveMessage.text
 
 			line.appendChild(author)
 			line.appendChild(text)
 
-			if (message.button) {
+			if (effectiveMessage.button) {
 				const fsBtn = document.createElement('button')
 				fsBtn.type = 'button'
 				fsBtn.className = 'entity-chat__fullscreen-btn'

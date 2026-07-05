@@ -15,6 +15,10 @@ function globalVolumeControl() {
         return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
     }
 
+    function isPhonePortraitLayout() {
+        return window.matchMedia('(orientation: portrait) and (max-width: 640px)').matches
+    }
+
     function getDesktopLocalBounds() {
         const desktopRoot = document.getElementById('desktop-root')
         if (!desktopRoot) {
@@ -56,6 +60,11 @@ function globalVolumeControl() {
 
     function setVizVolumeLabel(value) {
         if (!vizVolumeInfo) return
+        if (isPhonePortraitLayout()) {
+            vizVolumeInfo.textContent = 'phone'
+            return
+        }
+
         vizVolumeInfo.textContent = Math.round(value * 100) + '%'
     }
 
@@ -140,6 +149,7 @@ function globalVolumeControl() {
     }
 
     function openPopup(anchorElement) {
+        if (isPhonePortraitLayout()) return
         positionPopup(anchorElement)
         popup.style.zIndex = String(2147483647) // max safe z-index for volume popup
         popup.classList.add('is-open')
@@ -153,6 +163,11 @@ function globalVolumeControl() {
     }
 
     function togglePopup(anchorElement) {
+        if (isPhonePortraitLayout()) {
+            closePopup()
+            return
+        }
+
         if (popup.classList.contains('is-open')) closePopup()
         else openPopup(anchorElement)
     }
@@ -190,7 +205,12 @@ function globalVolumeControl() {
     })
 
     window.addEventListener('resize', function() {
+        setVizVolumeLabel(clamp01(Number(slider.value) / 100))
         if (!popup.classList.contains('is-open')) return
+        if (isPhonePortraitLayout()) {
+            closePopup()
+            return
+        }
         positionPopup(activePopupAnchor)
     })
 }

@@ -612,6 +612,9 @@ async function initMusicPlayer() {
         vizVolumeControl.addEventListener('click', function(event) {
             event.preventDefault()
             event.stopPropagation()
+            if (window.matchMedia('(orientation: portrait) and (max-width: 640px)').matches) {
+                return
+            }
             window.openGlobalVolumePopup(vizVolumeControl)
         })
     }
