@@ -10,7 +10,7 @@
 :root {
     --cursor-default: auto;
     --cursor-pointer: pointer;
-    --portrait-desktop-scale: 0.9;
+    --portrait-desktop-scale: 0.8;
 }
 
 h1 {
@@ -83,11 +83,27 @@ body {
     #desktop-root .todo-tab {
         position: absolute;
     }
+
+    #desktop-root .about-tab,
+    #desktop-root .projects-tab,
+    #desktop-root .music-tab,
+    #desktop-root .contact-tab,
+    #desktop-root .visitors-tab,
+    #desktop-root .pictures-tab,
+    #desktop-root .blog-tab,
+    #desktop-root .chat-tab,
+    #desktop-root .reply-tab,
+    #desktop-root .mini-player-tab,
+    #desktop-root .changelog-tab,
+    #desktop-root .todo-tab {
+        max-width: calc(100% - 20px);
+        max-height: calc(100% - 54px);
+    }
 }
 
 @media (orientation: portrait) and (max-width: 640px) {
     :root {
-        --portrait-desktop-scale: 0.85;
+        --portrait-desktop-scale: 0.7;
     }
 }
 

@@ -17,7 +17,7 @@
 :root {
   --cursor-default: auto;
   --cursor-pointer: pointer;
-  --portrait-desktop-scale: 0.9;
+  --portrait-desktop-scale: 0.8;
 }
 
 h1 {
@@ -88,10 +88,25 @@ body {
   #desktop-root .todo-tab {
     position: absolute;
   }
+  #desktop-root .about-tab,
+  #desktop-root .projects-tab,
+  #desktop-root .music-tab,
+  #desktop-root .contact-tab,
+  #desktop-root .visitors-tab,
+  #desktop-root .pictures-tab,
+  #desktop-root .blog-tab,
+  #desktop-root .chat-tab,
+  #desktop-root .reply-tab,
+  #desktop-root .mini-player-tab,
+  #desktop-root .changelog-tab,
+  #desktop-root .todo-tab {
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 54px);
+  }
 }
 @media (orientation: portrait) and (max-width: 640px) {
   :root {
-    --portrait-desktop-scale: 0.85;
+    --portrait-desktop-scale: 0.7;
   }
 }
 button,
@@ -639,9 +654,9 @@ html[data-skip-boot=true] .boot-screen {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
+  min-width: 30px;
   height: 18px;
-  padding: 2px 4px;
+  padding: 2px 6px;
   box-sizing: border-box;
   line-height: 0;
   margin-right: 2px;
@@ -653,15 +668,15 @@ html[data-skip-boot=true] .boot-screen {
 }
 .tab-right button[id^=minbtn] {
   align-items: flex-end;
-  padding-top: 1px;
-  padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 2px;
 }
 .tab-right button[id^=minbtn] img {
   width: 10px;
-  height: 2px;
+  height: auto;
   align-self: flex-end;
   margin-top: auto;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .desktop-icons {
@@ -680,30 +695,32 @@ html[data-skip-boot=true] .boot-screen {
 
 @media (max-width: 900px) and (orientation: portrait) {
   .desktop-icons {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, minmax(0, auto));
+    grid-auto-columns: 36px;
     align-content: start;
-    justify-content: flex-start;
-    width: fit-content;
-    max-width: calc(100% - 12px);
-    max-height: calc(100% - 44px);
-    padding-top: 8px;
-    padding-left: 8px;
-    padding-right: 2px;
-    padding-bottom: 8px;
+    justify-content: start;
+    justify-items: center;
+    width: max-content;
+    max-width: calc(100% - 8px);
+    max-height: calc(100% - 54px);
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
     gap: 4px;
-    row-gap: 4px;
-    column-gap: 6px;
+    row-gap: 5px;
+    column-gap: 8px;
     box-sizing: border-box;
     overflow: hidden;
   }
   .dsk-icon {
-    width: 40px;
-    gap: 2px;
+    width: 36px;
+    gap: 1px;
     padding: 2px 0;
-    font-size: 9px;
-    line-height: 1.05;
+    font-size: 8px;
+    line-height: 1.1;
     position: relative;
     z-index: 1;
     flex: 0 0 auto;
@@ -711,8 +728,8 @@ html[data-skip-boot=true] .boot-screen {
     justify-content: flex-start;
   }
   .dsk-icon img {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     object-fit: contain;
   }
   .dsk-icon span {
@@ -4069,42 +4086,43 @@ body.pictures-expanded .entity-chat {
 
 @media (max-width: 900px) and (orientation: portrait) {
   .entity-tab {
-    --entity-render-width: 144px;
-    --entity-render-height: 108px;
-    width: 104px;
-    height: 104px;
+    --entity-render-width: 128px;
+    --entity-render-height: 96px;
+    width: 92px;
+    height: 92px;
   }
   .entity-chat {
-    width: min(236px, 100% - 18px);
-    max-height: min(180px, 100% - 18px);
-    font-size: 11px;
+    width: min(212px, 100% - 18px);
+    max-height: min(156px, 100% - 18px);
+    font-size: 10px;
   }
   .entity-chat__body {
-    padding: 5px;
+    padding: 4px;
   }
   .entity-chat__messages {
-    gap: 4px;
-    padding-right: 22px;
-  }
-  .entity-chat__line {
-    font-size: 11px;
-  }
-}
-@media (max-width: 640px) and (orientation: portrait) {
-  .entity-tab {
-    --entity-render-width: 132px;
-    --entity-render-height: 100px;
-    width: 96px;
-    height: 96px;
-  }
-  .entity-chat {
-    width: min(220px, 100% - 16px);
-    max-height: min(168px, 100% - 16px);
-    font-size: 10px;
+    gap: 3px;
+    padding-right: 20px;
   }
   .entity-chat__line {
     font-size: 10px;
     line-height: 1.25;
+  }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .entity-tab {
+    --entity-render-width: 112px;
+    --entity-render-height: 84px;
+    width: 80px;
+    height: 80px;
+  }
+  .entity-chat {
+    width: min(192px, 100% - 14px);
+    max-height: min(142px, 100% - 14px);
+    font-size: 9px;
+  }
+  .entity-chat__line {
+    font-size: 9px;
+    line-height: 1.2;
   }
 }
 .entity-chat__line {

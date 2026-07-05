@@ -14,9 +14,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 20px;
+        min-width: 30px;
         height: 18px;
-        padding: 2px 4px;
+        padding: 2px 6px;
         box-sizing: border-box;
         line-height: 0;
         margin-right: 2px;
@@ -30,15 +30,15 @@
 
     button[id^='minbtn'] {
         align-items: flex-end;
-        padding-top: 1px;
-        padding-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 2px;
 
         img {
             width: 10px;
-            height: 2px;
+            height: auto;
             align-self: flex-end;
             margin-top: auto;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
     }
 }
@@ -59,31 +59,33 @@
 
 @media (max-width: 900px) and (orientation: portrait) {
     .desktop-icons {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, minmax(0, auto));
+        grid-auto-columns: 36px;
         align-content: start;
-        justify-content: flex-start;
-        width: fit-content;
-        max-width: calc(100% - 12px);
-        max-height: calc(100% - 44px);
-        padding-top: 8px;
-        padding-left: 8px;
-        padding-right: 2px;
-        padding-bottom: 8px;
+        justify-content: start;
+        justify-items: center;
+        width: max-content;
+        max-width: calc(100% - 8px);
+        max-height: calc(100% - 54px);
+        padding-top: 6px;
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-bottom: 6px;
         gap: 4px;
-        row-gap: 4px;
-        column-gap: 6px;
+        row-gap: 5px;
+        column-gap: 8px;
         box-sizing: border-box;
         overflow: hidden;
     }
 
     .dsk-icon {
-        width: 40px;
-        gap: 2px;
+        width: 36px;
+        gap: 1px;
         padding: 2px 0;
-        font-size: 9px;
-        line-height: 1.05;
+        font-size: 8px;
+        line-height: 1.1;
         position: relative;
         z-index: 1;
         flex: 0 0 auto;
@@ -91,8 +93,8 @@
         justify-content: flex-start;
 
         img {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             object-fit: contain;
         }
 
