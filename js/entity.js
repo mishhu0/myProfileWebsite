@@ -330,6 +330,7 @@ async function initEntityTab() {
 	}
 
 	function renderEntityChat(config) {
+		entityChat.root.classList.toggle('entity-chat--intro', Boolean(config && config.id === 'intro'))
 		entityChat.messages.textContent = ''
 		const isPhonePortrait = isPhonePortraitLayout()
 

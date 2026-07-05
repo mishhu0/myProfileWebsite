@@ -84,3 +84,17 @@
         }
     }
 }
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .todo-tab {
+        top: auto;
+        left: auto;
+        bottom: 42px;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .todo-tab {
+        bottom: 38px;
+    }
+}

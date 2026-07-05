@@ -118,6 +118,10 @@
         color: p.$window-shadow-light;
         border: 2px solid p.$color5;
         border-radius: 4px;
+        padding: 0 6px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         line-height: 30px;
     }
 
@@ -813,7 +817,7 @@
         .viz-settings-row--top {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
             max-width: none;
             align-self: stretch;
@@ -822,18 +826,37 @@
         }
 
         .viz-setting-group--colors {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             min-width: 0;
         }
 
         .viz-color-row {
-            width: 100%;
+            width: auto;
             justify-content: flex-start;
             flex-wrap: nowrap;
+            gap: 3px;
+        }
+
+        .viz-setting-group--rainbow {
+            flex: 0 0 auto;
+            min-width: 0;
+            margin-left: 1px;
         }
 
         .viz-setting-group--volume {
             margin-left: auto;
+        }
+
+        .viz-check {
+            gap: 3px;
+        }
+
+        .viz-check span {
+            font-size: 11px;
+        }
+
+        .viz-setting-group--rainbow .viz-check span {
+            transform: none;
         }
 
         .viz-volume-value {
@@ -844,10 +867,70 @@
     }
 
     @media (max-width: 640px) and (orientation: portrait) {
+        .viz-settings-row--top {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto auto;
+            grid-template-areas:
+                'colors colors colors colors'
+                'rainbow random type volume';
+            gap: 4px 6px;
+            align-items: center;
+        }
+
+        .viz-setting-group--colors {
+            grid-area: colors;
+            flex: 1 1 auto;
+        }
+
+        .viz-color-row {
+            justify-content: flex-start;
+            gap: 3px;
+        }
+
+        .viz-setting-group--rainbow {
+            grid-area: rainbow;
+            justify-self: start;
+            margin-left: 0;
+        }
+
+        .viz-setting-group--random {
+            grid-area: random;
+            justify-self: end;
+        }
+
+        .viz-setting-group--type {
+            grid-area: type;
+            justify-self: end;
+        }
+
+        .viz-setting-group--volume {
+            grid-area: volume;
+            justify-self: end;
+            margin-left: 0;
+        }
+
+        .viz-check span {
+            font-size: 10px;
+        }
+
         .viz-setting-group--volume,
         .viz-setting-group--volume * {
             cursor: default !important;
         }
+    }
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .songs-lib h2 {
+        font-size: 20px;
+        line-height: 26px;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .songs-lib h2 {
+        font-size: 18px;
+        line-height: 24px;
     }
 }
 

@@ -546,16 +546,45 @@ html[data-skip-boot=true] .boot-screen {
     bottom: 0;
     top: auto;
     width: auto;
-    height: 36px;
+    height: 32px;
+    padding: 0 2px 1px 1px;
+    font-size: 13px;
+  }
+  .taskbar button {
     padding: 1px 2px;
-    font-size: 14px;
+    margin-right: 2px;
+    font-size: 13px;
+  }
+  .left-tabs,
+  .right-tabs,
+  .taskbar-utils,
+  .taskbar-tab,
+  .taskbar-window-btn {
+    height: 100%;
+  }
+  .left-tabs,
+  .right-tabs,
+  .taskbar-utils {
+    align-items: center;
   }
   .taskbar-window-btn {
-    min-width: 92px !important;
-    max-width: 140px;
+    min-width: 88px !important;
+    max-width: 132px;
+    padding: 1px 3px !important;
   }
   .taskbar-tabs {
     min-width: 0;
+  }
+  #optionsBtn {
+    padding: 1px 3px !important;
+  }
+  .time {
+    margin-right: 2px;
+    padding: 1px 3px;
+  }
+  .utils-welcome {
+    width: 14px !important;
+    height: 14px;
   }
   #utilsVolume {
     display: none;
@@ -701,27 +730,29 @@ html[data-skip-boot=true] .boot-screen {
     flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
+    align-items: flex-start;
     justify-content: flex-start;
-    width: fit-content;
-    max-width: calc(100% - 8px);
-    max-height: calc(100% - 40px);
-    padding-top: 6px;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-bottom: 2px;
-    gap: 4px;
-    row-gap: 4px;
-    column-gap: 8px;
+    width: max-content;
+    max-width: calc(100% - 6px);
+    height: calc(100% - 34px);
+    max-height: calc(100% - 34px);
+    padding-top: 4px;
+    padding-left: 4px;
+    padding-right: 2px;
+    padding-bottom: 0;
+    gap: 2px;
+    row-gap: 2px;
+    column-gap: 4px;
     box-sizing: border-box;
     overflow: hidden;
   }
   .desktop-icons .dsk-icon {
-    width: 54px;
-    min-height: 52px;
-    gap: 2px;
-    padding: 2px 0;
-    font-size: 8px;
-    line-height: 1.05;
+    width: 60px;
+    min-height: 48px;
+    gap: 1px;
+    padding: 1px 0;
+    font-size: 8.5px;
+    line-height: 1.02;
     position: relative;
     z-index: 1;
     flex: 0 0 auto;
@@ -730,14 +761,14 @@ html[data-skip-boot=true] .boot-screen {
     text-align: center;
   }
   .desktop-icons .dsk-icon img {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
   }
   .desktop-icons .dsk-icon span {
     display: block;
     width: 100%;
-    min-height: 16px;
+    min-height: 17px;
     text-align: center;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -747,12 +778,7 @@ html[data-skip-boot=true] .boot-screen {
   #desktop-root .music-tab,
   #desktop-root .contact-tab,
   #desktop-root .visitors-tab,
-  #desktop-root .blog-tab,
-  #desktop-root .chat-tab,
-  #desktop-root .reply-tab,
-  #desktop-root .mini-player-tab,
-  #desktop-root .changelog-tab,
-  #desktop-root .todo-tab {
+  #desktop-root .blog-tab {
     transform: translate(-50%, -50%) scale(var(--portrait-window-scale));
     transform-origin: center center;
   }
@@ -1416,6 +1442,10 @@ select.custom-select-input {
   color: #ffffff;
   border: 2px solid var(--color5, #018180);
   border-radius: 4px;
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 30px;
 }
 .songs-lib h2.is-first-visible-heading {
@@ -2042,7 +2072,7 @@ select.custom-select-input {
   .viz-settings .viz-settings-row--top {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     max-width: none;
     align-self: stretch;
@@ -2050,16 +2080,31 @@ select.custom-select-input {
     flex-wrap: nowrap;
   }
   .viz-settings .viz-setting-group--colors {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-width: 0;
   }
   .viz-settings .viz-color-row {
-    width: 100%;
+    width: auto;
     justify-content: flex-start;
     flex-wrap: nowrap;
+    gap: 3px;
+  }
+  .viz-settings .viz-setting-group--rainbow {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-left: 1px;
   }
   .viz-settings .viz-setting-group--volume {
     margin-left: auto;
+  }
+  .viz-settings .viz-check {
+    gap: 3px;
+  }
+  .viz-settings .viz-check span {
+    font-size: 11px;
+  }
+  .viz-settings .viz-setting-group--rainbow .viz-check span {
+    transform: none;
   }
   .viz-settings .viz-volume-value {
     width: auto;
@@ -2068,12 +2113,60 @@ select.custom-select-input {
   }
 }
 @media (max-width: 640px) and (orientation: portrait) {
+  .viz-settings .viz-settings-row--top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-areas: "colors colors colors colors" "rainbow random type volume";
+    gap: 4px 6px;
+    align-items: center;
+  }
+  .viz-settings .viz-setting-group--colors {
+    grid-area: colors;
+    flex: 1 1 auto;
+  }
+  .viz-settings .viz-color-row {
+    justify-content: flex-start;
+    gap: 3px;
+  }
+  .viz-settings .viz-setting-group--rainbow {
+    grid-area: rainbow;
+    justify-self: start;
+    margin-left: 0;
+  }
+  .viz-settings .viz-setting-group--random {
+    grid-area: random;
+    justify-self: end;
+  }
+  .viz-settings .viz-setting-group--type {
+    grid-area: type;
+    justify-self: end;
+  }
+  .viz-settings .viz-setting-group--volume {
+    grid-area: volume;
+    justify-self: end;
+    margin-left: 0;
+  }
+  .viz-settings .viz-check span {
+    font-size: 10px;
+  }
   .viz-settings .viz-setting-group--volume,
   .viz-settings .viz-setting-group--volume * {
     cursor: default !important;
   }
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+  .songs-lib h2 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .songs-lib h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
 .mini-player-tab {
   display: none;
   position: fixed !important;
@@ -2453,6 +2546,24 @@ select.custom-select-input {
   opacity: 0.7;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+  .chat-tab {
+    top: auto;
+    left: auto;
+    right: 14px;
+    bottom: 42px;
+    width: min(320px, 100% - 16px) !important;
+    height: min(320px, 100% - 48px) !important;
+  }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .chat-tab {
+    right: 10px;
+    bottom: 38px;
+    width: min(320px, 100% - 12px) !important;
+    height: min(308px, 100% - 44px) !important;
+  }
+}
 .contact-tab {
   width: 260px !important;
   height: 312px !important;
@@ -4110,20 +4221,32 @@ body.pictures-expanded .entity-chat {
     height: 74px;
   }
   .entity-chat {
-    width: min(176px, 100% - 18px);
-    max-height: min(132px, 100% - 18px);
-    font-size: 10px;
+    width: min(208px, 100% - 16px);
+    max-height: min(138px, 100% - 16px);
+    font-size: 9.5px;
+  }
+  .entity-chat--intro {
+    width: min(230px, 100% - 16px);
+    max-height: min(146px, 100% - 16px);
+  }
+  .entity-chat--intro .entity-chat__body {
+    overflow: hidden;
   }
   .entity-chat__body {
     padding: 4px;
   }
+  .entity-chat__actions {
+    top: 4px;
+    right: 4px;
+  }
   .entity-chat__messages {
     gap: 3px;
-    padding-right: 20px;
+    padding-right: 18px;
   }
   .entity-chat__line {
-    font-size: 10px;
-    line-height: 1.25;
+    gap: 3px;
+    font-size: 9.5px;
+    line-height: 1.22;
   }
 }
 @media (max-width: 640px) and (orientation: portrait) {
@@ -4134,13 +4257,25 @@ body.pictures-expanded .entity-chat {
     height: 62px;
   }
   .entity-chat {
-    width: min(152px, 100% - 14px);
-    max-height: min(118px, 100% - 14px);
-    font-size: 9px;
+    width: min(196px, 100% - 12px);
+    max-height: min(130px, 100% - 12px);
+    font-size: 8.75px;
+  }
+  .entity-chat--intro {
+    width: min(216px, 100% - 12px);
+    max-height: min(138px, 100% - 12px);
+  }
+  .entity-chat__body {
+    padding: 3px 4px;
+  }
+  .entity-chat__messages {
+    gap: 2px;
+    padding-right: 16px;
   }
   .entity-chat__line {
-    font-size: 9px;
-    line-height: 1.2;
+    gap: 2px;
+    font-size: 8.75px;
+    line-height: 1.18;
   }
 }
 .entity-chat__line {
@@ -4537,6 +4672,18 @@ body.pictures-expanded .entity-chat {
   font-size: 14px;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+  .changelog-tab {
+    top: auto;
+    left: auto;
+    bottom: 42px;
+  }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .changelog-tab {
+    bottom: 38px;
+  }
+}
 .todo-tab {
   position: fixed;
   display: none;
@@ -4609,4 +4756,17 @@ body.pictures-expanded .entity-chat {
 }
 .todo-tab .todo-note + .todo-note {
   margin-top: 4px;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .todo-tab {
+    top: auto;
+    left: auto;
+    bottom: 42px;
+  }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .todo-tab {
+    bottom: 38px;
+  }
 }

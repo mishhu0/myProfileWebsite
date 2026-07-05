@@ -109,23 +109,38 @@ body.pictures-expanded {
     }
 
     .entity-chat {
-        width: min(176px, calc(100% - 18px));
-        max-height: min(132px, calc(100% - 18px));
-        font-size: 10px;
+        width: min(208px, calc(100% - 16px));
+        max-height: min(138px, calc(100% - 16px));
+        font-size: 9.5px;
+    }
+
+    .entity-chat--intro {
+        width: min(230px, calc(100% - 16px));
+        max-height: min(146px, calc(100% - 16px));
+    }
+
+    .entity-chat--intro .entity-chat__body {
+        overflow: hidden;
     }
 
     .entity-chat__body {
         padding: 4px;
     }
 
+    .entity-chat__actions {
+        top: 4px;
+        right: 4px;
+    }
+
     .entity-chat__messages {
         gap: 3px;
-        padding-right: 20px;
+        padding-right: 18px;
     }
 
     .entity-chat__line {
-        font-size: 10px;
-        line-height: 1.25;
+        gap: 3px;
+        font-size: 9.5px;
+        line-height: 1.22;
     }
 }
 
@@ -138,14 +153,29 @@ body.pictures-expanded {
     }
 
     .entity-chat {
-        width: min(152px, calc(100% - 14px));
-        max-height: min(118px, calc(100% - 14px));
-        font-size: 9px;
+        width: min(196px, calc(100% - 12px));
+        max-height: min(130px, calc(100% - 12px));
+        font-size: 8.75px;
+    }
+
+    .entity-chat--intro {
+        width: min(216px, calc(100% - 12px));
+        max-height: min(138px, calc(100% - 12px));
+    }
+
+    .entity-chat__body {
+        padding: 3px 4px;
+    }
+
+    .entity-chat__messages {
+        gap: 2px;
+        padding-right: 16px;
     }
 
     .entity-chat__line {
-        font-size: 9px;
-        line-height: 1.2;
+        gap: 2px;
+        font-size: 8.75px;
+        line-height: 1.18;
     }
 }
 

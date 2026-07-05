@@ -144,18 +144,53 @@
         bottom: 0;
         top: auto;
         width: auto;
-        height: 36px;
+        height: 32px;
+        padding: 0 2px 1px 1px;
+        font-size: 13px;
+    }
+
+    .taskbar button {
         padding: 1px 2px;
-        font-size: 14px;
+        margin-right: 2px;
+        font-size: 13px;
+    }
+
+    .left-tabs,
+    .right-tabs,
+    .taskbar-utils,
+    .taskbar-tab,
+    .taskbar-window-btn {
+        height: 100%;
+    }
+
+    .left-tabs,
+    .right-tabs,
+    .taskbar-utils {
+        align-items: center;
     }
 
     .taskbar-window-btn {
-        min-width: 92px !important;
-        max-width: 140px;
+        min-width: 88px !important;
+        max-width: 132px;
+        padding: 1px 3px !important;
     }
 
     .taskbar-tabs {
         min-width: 0;
+    }
+
+    #optionsBtn {
+        padding: 1px 3px !important;
+    }
+
+    .time {
+        margin-right: 2px;
+        padding: 1px 3px;
+    }
+
+    .utils-welcome {
+        width: 14px !important;
+        height: 14px;
     }
 
     #utilsVolume {

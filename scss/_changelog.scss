@@ -124,3 +124,17 @@
         font-size: 14px;
     }
 }
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .changelog-tab {
+        top: auto;
+        left: auto;
+        bottom: 42px;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .changelog-tab {
+        bottom: 38px;
+    }
+}
