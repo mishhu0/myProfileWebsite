@@ -17,6 +17,7 @@
 :root {
   --cursor-default: auto;
   --cursor-pointer: pointer;
+  --portrait-desktop-scale: 0.96;
 }
 
 h1 {
@@ -52,10 +53,14 @@ body {
 @media (orientation: portrait) and (max-width: 900px) {
   #desktop-root {
     width: 100vh;
+    width: 100svh;
+    width: 100dvh;
     height: 100vw;
+    height: 100svw;
+    height: 100dvw;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg) scale(var(--portrait-desktop-scale));
   }
   #desktop-root .taskbar {
     position: absolute;
@@ -82,6 +87,11 @@ body {
   #desktop-root .changelog-tab,
   #desktop-root .todo-tab {
     position: absolute;
+  }
+}
+@media (orientation: portrait) and (max-width: 640px) {
+  :root {
+    --portrait-desktop-scale: 0.94;
   }
 }
 button,
@@ -530,6 +540,9 @@ html[data-skip-boot=true] .boot-screen {
   .taskbar-tabs {
     min-width: 0;
   }
+  #utilsVolume {
+    display: none;
+  }
 }
 .utils-welcome {
   width: 16px !important;
@@ -623,10 +636,19 @@ html[data-skip-boot=true] .boot-screen {
   border: none;
   background-color: #c1c1c0;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 2px 3px;
+  box-sizing: border-box;
+  line-height: 0;
   margin-right: 2px;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
 }
 .tab-right button img {
+  display: block;
   width: 10px;
 }
 
@@ -768,6 +790,7 @@ html[data-skip-boot=true] .boot-screen {
   z-index: 99999;
   background-color: #c1c1c0;
   width: 201px;
+  height: fit-content;
   box-sizing: border-box;
   align-items: stretch;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
@@ -955,6 +978,14 @@ html[data-skip-boot=true] .boot-screen {
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+  .options-panel__content {
+    flex: 0 0 auto;
+  }
+  .options-cursor-section {
+    display: none;
+  }
+}
 input[type=color].custom-color-input {
   position: absolute;
   width: 1px;

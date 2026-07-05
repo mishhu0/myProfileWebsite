@@ -9,6 +9,42 @@ function globalVolumeControl() {
 
     const STORAGE_KEY = 'globalVolume'
     const defaultVolume = 0.25
+    let activePopupAnchor = volumeBtn
+
+    function isRotatedPortraitDesktop() {
+        return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
+    }
+
+    function getDesktopLocalBounds() {
+        const desktopRoot = document.getElementById('desktop-root')
+        if (!desktopRoot) {
+            return {
+                width: window.innerWidth || document.documentElement.clientWidth || 0,
+                height: window.innerHeight || document.documentElement.clientHeight || 0
+            }
+        }
+
+        return {
+            width: desktopRoot.clientWidth || 0,
+            height: desktopRoot.clientHeight || 0
+        }
+    }
+
+    function getDesktopLocalPointFromViewport(x, y) {
+        const desktopRoot = document.getElementById('desktop-root')
+        if (!desktopRoot) return { x, y }
+
+        const rect = desktopRoot.getBoundingClientRect()
+        if (!isRotatedPortraitDesktop()) {
+            return { x: x - rect.left, y: y - rect.top }
+        }
+
+        const bounds = getDesktopLocalBounds()
+        return {
+            x: y - rect.top,
+            y: bounds.height - (x - rect.left)
+        }
+    }
 
     function clamp01(value) {
         return Math.max(0, Math.min(1, value))
@@ -38,8 +74,36 @@ function globalVolumeControl() {
         setVizVolumeLabel(safeValue)
     }
 
-    function positionPopup() {
-        const rect = volumeBtn.getBoundingClientRect()
+    function getVisibleAnchor(anchorElement) {
+        const anchors = [
+            anchorElement,
+            activePopupAnchor,
+            volumeBtn,
+            document.querySelector('.viz-setting-group--volume')
+        ]
+
+        for (const anchor of anchors) {
+            if (!(anchor instanceof Element)) continue
+            const rect = anchor.getBoundingClientRect()
+            if (rect.width > 0 || rect.height > 0) {
+                activePopupAnchor = anchor
+                return {
+                    element: anchor,
+                    rect: rect
+                }
+            }
+        }
+
+        return {
+            element: volumeBtn,
+            rect: volumeBtn.getBoundingClientRect()
+        }
+    }
+
+    function positionPopup(anchorElement) {
+        const visibleAnchor = getVisibleAnchor(anchorElement)
+        const rect = visibleAnchor.rect
+        const anchor = visibleAnchor.element
         const wasOpen = popup.classList.contains('is-open')
 
         if (!wasOpen) {
@@ -51,12 +115,20 @@ function globalVolumeControl() {
         const popupHeight = popup.offsetHeight
         const gap = 6
 
-        let left = rect.left + (rect.width / 2) - (popupWidth / 2)
-        if (left < 0) left = 0
-        if (left + popupWidth > window.innerWidth) left = window.innerWidth - popupWidth
+        const anchorLocalWidth = anchor && anchor instanceof HTMLElement ? (anchor.offsetWidth || rect.width) : rect.width
+        const anchorLocalHeight = anchor && anchor instanceof HTMLElement ? (anchor.offsetHeight || rect.height) : rect.height
+        const anchorPoint = isRotatedPortraitDesktop()
+            ? getDesktopLocalPointFromViewport(rect.right, rect.top)
+            : getDesktopLocalPointFromViewport(rect.left, rect.top)
+        const desktopBounds = getDesktopLocalBounds()
 
-        let top = rect.top - popupHeight - gap
-        if (top < 0) top = rect.bottom + gap
+        let left = anchorPoint.x + (anchorLocalWidth / 2) - (popupWidth / 2)
+        if (left < 0) left = 0
+        if (left + popupWidth > desktopBounds.width) left = Math.max(0, desktopBounds.width - popupWidth)
+
+        let top = anchorPoint.y - popupHeight - gap
+        if (top < 0) top = anchorPoint.y + anchorLocalHeight + gap
+        if (top + popupHeight > desktopBounds.height) top = Math.max(0, desktopBounds.height - popupHeight)
 
         popup.style.left = left + 'px'
         popup.style.top = top + 'px'
@@ -67,8 +139,8 @@ function globalVolumeControl() {
         }
     }
 
-    function openPopup() {
-        positionPopup()
+    function openPopup(anchorElement) {
+        positionPopup(anchorElement)
         popup.style.zIndex = String(2147483647) // max safe z-index for volume popup
         popup.classList.add('is-open')
         popup.setAttribute('aria-hidden', 'false')
@@ -80,9 +152,9 @@ function globalVolumeControl() {
         popup.setAttribute('aria-hidden', 'true')
     }
 
-    function togglePopup() {
+    function togglePopup(anchorElement) {
         if (popup.classList.contains('is-open')) closePopup()
-        else openPopup()
+        else openPopup(anchorElement)
     }
 
     window.openGlobalVolumePopup = openPopup
@@ -98,7 +170,7 @@ function globalVolumeControl() {
     volumeBtn.addEventListener('click', function(e) {
         e.preventDefault()
         e.stopPropagation()
-        togglePopup()
+        togglePopup(volumeBtn)
     })
 
     slider.addEventListener('input', function() {
@@ -119,6 +191,6 @@ function globalVolumeControl() {
 
     window.addEventListener('resize', function() {
         if (!popup.classList.contains('is-open')) return
-        positionPopup()
+        positionPopup(activePopupAnchor)
     })
 }

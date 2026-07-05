@@ -7,6 +7,7 @@
     z-index: 99999;
     background-color: p.$window-surface;
     width: 201px;
+    height: fit-content;
     box-sizing: border-box;
     align-items: stretch;
     @include mixins.win95-raised;
@@ -198,4 +199,14 @@
     color: p.$window-shadow-dark;
     background-color: p.$color2;
     @include mixins.win95-raised;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .options-panel__content {
+        flex: 0 0 auto;
+    }
+
+    .options-cursor-section {
+        display: none;
+    }
 }

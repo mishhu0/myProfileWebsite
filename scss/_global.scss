@@ -10,6 +10,7 @@
 :root {
     --cursor-default: auto;
     --cursor-pointer: pointer;
+    --portrait-desktop-scale: 0.96;
 }
 
 h1 {
@@ -45,10 +46,14 @@ body {
 @media (orientation: portrait) and (max-width: 900px) {
     #desktop-root {
         width: 100vh;
+        width: 100svh;
+        width: 100dvh;
         height: 100vw;
+        height: 100svw;
+        height: 100dvw;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg) scale(var(--portrait-desktop-scale));
     }
 
     #desktop-root .taskbar {
@@ -77,6 +82,12 @@ body {
     #desktop-root .changelog-tab,
     #desktop-root .todo-tab {
         position: absolute;
+    }
+}
+
+@media (orientation: portrait) and (max-width: 640px) {
+    :root {
+        --portrait-desktop-scale: 0.94;
     }
 }
 

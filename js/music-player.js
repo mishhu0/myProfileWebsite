@@ -612,7 +612,7 @@ async function initMusicPlayer() {
         vizVolumeControl.addEventListener('click', function(event) {
             event.preventDefault()
             event.stopPropagation()
-            window.openGlobalVolumePopup()
+            window.openGlobalVolumePopup(vizVolumeControl)
         })
     }
 

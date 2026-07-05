@@ -11,10 +11,19 @@
         border: none;
         background-color: p.$window-surface;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        padding: 2px 3px;
+        box-sizing: border-box;
+        line-height: 0;
         margin-right: 2px;
         @include mixins.win95-raised;
 
         img {
+            display: block;
             width: 10px;
         }
     }
