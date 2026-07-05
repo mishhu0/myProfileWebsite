@@ -60,12 +60,27 @@ async function initEntityTab() {
 		}
 	}
 
+		function getDesktopBounds() {
+		const desktopRoot = document.getElementById('desktop-root')
+		if (!desktopRoot) {
+			return {
+				width: document.documentElement.clientWidth || window.innerWidth || 0,
+				height: document.documentElement.clientHeight || window.innerHeight || 0
+			}
+		}
+
+		return {
+			width: desktopRoot.clientWidth || 0,
+			height: desktopRoot.clientHeight || 0
+		}
+	}
+
 	function getInitialHomeRect() {
 		const initialRect = tab.getBoundingClientRect()
-		const viewportWidth = document.documentElement.clientWidth || window.innerWidth || 0
+		const desktopBounds = getDesktopBounds()
 		const renderMetrics = getEntityRenderOffsets(initialRect)
 		const margin = 20
-		const left = Math.max(margin, viewportWidth - renderMetrics.width - margin) + renderMetrics.offsetX
+		const left = Math.max(margin, desktopBounds.width - renderMetrics.width - margin) + renderMetrics.offsetX
 		return {
 			left,
 			top: margin + renderMetrics.offsetY,
@@ -128,7 +143,8 @@ async function initEntityTab() {
 		body.appendChild(closeActions)
 		body.appendChild(messages)
 		root.appendChild(body)
-		document.body.appendChild(root)
+		const desktopRoot = document.getElementById('desktop-root') || document.body
+		desktopRoot.appendChild(root)
 
 		return {
 			root,
@@ -141,6 +157,90 @@ async function initEntityTab() {
 	function clamp(value, min, max) {
 		if (max < min) return min
 		return Math.min(Math.max(value, min), max)
+	}
+
+	function getDesktopRootRect() {
+		const desktopRoot = document.getElementById('desktop-root')
+		if (!desktopRoot) {
+			return { left: 0, top: 0, width: window.innerWidth || 0, height: window.innerHeight || 0 }
+		}
+		const rect = desktopRoot.getBoundingClientRect()
+		return {
+			left: rect.left,
+			top: rect.top,
+			width: rect.width,
+			height: rect.height
+		}
+	}
+
+	function getDesktopRootTransform() {
+		const desktopRoot = document.getElementById('desktop-root')
+		if (!desktopRoot) return null
+		const transform = window.getComputedStyle(desktopRoot).transform
+		if (!transform || transform === 'none' || typeof DOMMatrixReadOnly === 'undefined') return null
+		return new DOMMatrixReadOnly(transform)
+	}
+
+	function isRotatedPortraitDesktop() {
+		return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
+	}
+
+	function getLocalElementSize(element, fallbackRect) {
+		const fallback = fallbackRect || { width: 0, height: 0 }
+		if (!element || !isRotatedPortraitDesktop()) {
+			return {
+				width: fallback.width,
+				height: fallback.height
+			}
+		}
+
+		return {
+			width: element.offsetWidth || fallback.width,
+			height: element.offsetHeight || fallback.height
+		}
+	}
+
+	function toDesktopCoordinates(rect, desktopRect) {
+		const containerRect = desktopRect || getDesktopRootRect()
+		const desktopBounds = getDesktopBounds()
+		if (isRotatedPortraitDesktop()) {
+			const localLeft = rect.top - containerRect.top
+			const localTop = desktopBounds.height - (rect.right - containerRect.left)
+			const localWidth = rect.height
+			const localHeight = rect.width
+			return {
+				left: localLeft,
+				top: localTop,
+				width: localWidth,
+				height: localHeight,
+				right: localLeft + localWidth,
+				bottom: localTop + localHeight
+			}
+		}
+
+		const transform = getDesktopRootTransform()
+		if (!transform) {
+			return {
+				left: rect.left - containerRect.left,
+				top: rect.top - containerRect.top,
+				width: rect.width,
+				height: rect.height,
+				right: rect.right - containerRect.left,
+				bottom: rect.bottom - containerRect.top
+			}
+		}
+
+		const inverseTransform = transform.inverse()
+		const topLeft = inverseTransform.transformPoint(new DOMPoint(rect.left - containerRect.left, rect.top - containerRect.top))
+		const bottomRight = inverseTransform.transformPoint(new DOMPoint(rect.right - containerRect.left, rect.bottom - containerRect.top))
+		return {
+			left: topLeft.x,
+			top: topLeft.y,
+			width: bottomRight.x - topLeft.x,
+			height: bottomRight.y - topLeft.y,
+			right: bottomRight.x,
+			bottom: bottomRight.y
+		}
 	}
 
 	function getMessageList(config) {
@@ -278,19 +378,20 @@ async function initEntityTab() {
 		entityChat.root.classList.remove('entity-chat--hidden')
 		entityChat.root.style.visibility = 'hidden'
 
-		const viewportWidth = document.documentElement.clientWidth || window.innerWidth || 0
-		const viewportHeight = document.documentElement.clientHeight || window.innerHeight || 0
-		const entityRect = getEntityRenderRect()
+		const desktopBounds = getDesktopBounds()
+		const desktopRect = getDesktopRootRect()
+		const entityRect = toDesktopCoordinates(getEntityRenderRect(), desktopRect)
 		const chatRect = entityChat.root.getBoundingClientRect()
+		const chatSize = getLocalElementSize(entityChat.root, chatRect)
 		const margin = 12
 		const gap = activeChat.gap
-		const maxLeft = Math.max(margin, viewportWidth - chatRect.width - margin)
-		const maxTop = Math.max(margin, viewportHeight - chatRect.height - margin)
+		const maxLeft = Math.max(margin, desktopBounds.width - chatSize.width - margin)
+		const maxTop = Math.max(margin, desktopBounds.height - chatSize.height - margin)
 		const placementCandidates = [
 			{
 				name: 'right-up',
 				left: entityRect.right + gap,
-				top: entityRect.top - chatRect.height - gap * 2
+				top: entityRect.top - chatSize.height - gap * 2
 			},
 			{
 				name: 'right-down',
@@ -300,42 +401,42 @@ async function initEntityTab() {
 			{
 				name: 'right',
 				left: entityRect.right + gap,
-				top: entityRect.top + (entityRect.height - chatRect.height) / 2
+				top: entityRect.top + (entityRect.height - chatSize.height) / 2
 			},
 			{
 				name: 'left-up',
-				left: entityRect.left - chatRect.width - gap,
-				top: entityRect.top - chatRect.height - gap * 2
+				left: entityRect.left - chatSize.width - gap,
+				top: entityRect.top - chatSize.height - gap * 2
 			},
 			{
 				name: 'left-down',
-				left: entityRect.left - chatRect.width - gap,
+				left: entityRect.left - chatSize.width - gap,
 				top: entityRect.bottom + gap
 			},
 			{
 				name: 'left',
-				left: entityRect.left - chatRect.width - gap,
-				top: entityRect.top + (entityRect.height - chatRect.height) / 2
+				left: entityRect.left - chatSize.width - gap,
+				top: entityRect.top + (entityRect.height - chatSize.height) / 2
 			},
 			{
 				name: 'top-right-corner',
-				left: entityRect.right - chatRect.width / 2,
-				top: entityRect.top - chatRect.height / 2
+				left: entityRect.right - chatSize.width / 2,
+				top: entityRect.top - chatSize.height / 2
 			},
 			{
 				name: 'bottom-right-corner',
-				left: entityRect.right - chatRect.width / 2,
-				top: entityRect.bottom - chatRect.height / 2
+				left: entityRect.right - chatSize.width / 2,
+				top: entityRect.bottom - chatSize.height / 2
 			},
 			{
 				name: 'top-left-corner',
-				left: entityRect.left - chatRect.width / 2,
-				top: entityRect.top - chatRect.height / 2
+				left: entityRect.left - chatSize.width / 2,
+				top: entityRect.top - chatSize.height / 2
 			},
 			{
 				name: 'bottom-left-corner',
-				left: entityRect.left - chatRect.width / 2,
-				top: entityRect.bottom - chatRect.height / 2
+				left: entityRect.left - chatSize.width / 2,
+				top: entityRect.bottom - chatSize.height / 2
 			}
 		]
 
@@ -367,8 +468,8 @@ async function initEntityTab() {
 		entityChat.root.dataset.corner = bestPlacement ? bestPlacement.candidate.name : ''
 		const resolvedLeft = bestPlacement ? bestPlacement.left : entityRect.right
 		const resolvedTop = bestPlacement ? bestPlacement.top : entityRect.top
-		entityChat.root.style.left = clamp(resolvedLeft, margin, maxLeft) + 'px'
-		entityChat.root.style.top = clamp(resolvedTop, margin, maxTop) + 'px'
+		entityChat.root.style.left = clamp(resolvedLeft, margin, Math.max(margin, desktopBounds.width - chatSize.width - margin)) + 'px'
+		entityChat.root.style.top = clamp(resolvedTop, margin, Math.max(margin, desktopBounds.height - chatSize.height - margin)) + 'px'
 		entityChat.root.style.visibility = ''
 	}
 
@@ -483,9 +584,8 @@ async function initEntityTab() {
 		const host = canvas
 		if (!host) return
 
-		const rect = host.getBoundingClientRect()
-		const width = Math.max(1, Math.floor(rect.width))
-		const height = Math.max(1, Math.floor(rect.height))
+		const width = Math.max(1, Math.floor(host.clientWidth || 0))
+		const height = Math.max(1, Math.floor(host.clientHeight || 0))
 
 		if (width === lastRenderWidth && height === lastRenderHeight) return
 		lastRenderWidth = width
@@ -550,14 +650,13 @@ async function initEntityTab() {
 	function moveEntityNextToElement(element, options) {
 		if (!element || typeof element.getBoundingClientRect !== 'function') return Promise.resolve(false)
 
-		const targetRect = element.getBoundingClientRect()
+		const targetRect = toDesktopCoordinates(element.getBoundingClientRect())
 		if (targetRect.width < 8 || targetRect.height < 8) return Promise.resolve(false)
 
-		const viewportWidth = document.documentElement.clientWidth || window.innerWidth || 0
-		const viewportHeight = document.documentElement.clientHeight || window.innerHeight || 0
+		const desktopBounds = getDesktopBounds()
 		const margin = Number.isFinite(options && options.margin) ? options.margin : 20
 		const gap = Number.isFinite(options && options.gap) ? options.gap : 12
-		const currentRect = tab.getBoundingClientRect()
+		const currentRect = toDesktopCoordinates(tab.getBoundingClientRect())
 		const shellRect = {
 			left: currentRect.width > 0 ? currentRect.left : homeRect.left,
 			top: currentRect.height > 0 ? currentRect.top : homeRect.top,
@@ -567,8 +666,8 @@ async function initEntityTab() {
 		const currentRenderRect = getEntityRenderRect(shellRect)
 		const width = Math.max(1, currentRenderRect.width)
 		const height = Math.max(1, currentRenderRect.height)
-		const maxLeft = Math.max(margin, viewportWidth - width - margin)
-		const maxTop = Math.max(margin, viewportHeight - height - margin)
+		const maxLeft = Math.max(margin, desktopBounds.width - width - margin)
+		const maxTop = Math.max(margin, desktopBounds.height - height - margin)
 
 		const candidates = [
 			{
@@ -715,7 +814,7 @@ async function initEntityTab() {
 		}
 
 		hideEntityChat()
-		snapEntityToRect(rect)
+		snapEntityToRect(toDesktopCoordinates(rect))
 	}
 
 	// Save home position when the user drags the entity (only when About is closed).

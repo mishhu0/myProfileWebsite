@@ -2,10 +2,11 @@
 @use "mixins";
 
 .taskbar {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    width: auto;
     background-color: p.$window-surface;
     padding: 2px;
     padding-left: 3px;
@@ -136,6 +137,28 @@
     gap: 3px;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+    .taskbar {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        width: auto;
+        height: 36px;
+        padding: 1px 2px;
+        font-size: 14px;
+    }
+
+    .taskbar-window-btn {
+        min-width: 92px !important;
+        max-width: 140px;
+    }
+
+    .taskbar-tabs {
+        min-width: 0;
+    }
+}
+
 .utils-welcome {
     width: 16px !important;
     height: 16px;
@@ -147,7 +170,7 @@
 
 .volume-popup {
     display: none;
-    position: fixed;
+    position: absolute;
     width: 190px;
     height: 25px;
     background-color: p.$window-surface;

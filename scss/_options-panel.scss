@@ -3,7 +3,7 @@
 
 .options-panel {
     display: none;
-    position: fixed;
+    position: absolute;
     z-index: 99999;
     background-color: p.$window-surface;
     width: 201px;

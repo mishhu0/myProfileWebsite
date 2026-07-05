@@ -48,11 +48,11 @@
 }
 
 .entity-chat {
-    position: fixed;
+    position: absolute;
     top: 12px;
     left: 12px;
-    width: min(300px, calc(100vw - 24px));
-    max-height: min(220px, calc(100vh - 24px));
+    width: min(300px, calc(100% - 24px));
+    max-height: min(220px, calc(100% - 24px));
     display: flex;
     flex-direction: column;
     background-color: p.$window-surface;
@@ -97,6 +97,14 @@ body.pictures-expanded {
     .entity-tab,
     .entity-chat {
         z-index: 8997 !important;
+    }
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .entity-chat {
+        width: min(260px, calc(100% - 18px));
+        max-height: min(200px, calc(100% - 18px));
+        font-size: 12px;
     }
 }
 

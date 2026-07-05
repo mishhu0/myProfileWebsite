@@ -2,8 +2,112 @@
     const ENHANCED_CLASS = 'custom-color-input'
     const CONTROL_CLASS = 'custom-color-control'
     const TRIGGER_CLASS = 'custom-color-trigger'
+    const SELECT_ENHANCED_CLASS = 'custom-select-input'
+    const SELECT_CONTROL_CLASS = 'custom-select-control'
+    const SELECT_TRIGGER_CLASS = 'custom-select-trigger'
+    const SELECT_TRIGGER_LABEL_CLASS = 'custom-select-trigger-label'
+    const SELECT_TRIGGER_CARET_CLASS = 'custom-select-trigger-caret'
+    const SELECT_MENU_CLASS = 'custom-select-menu'
+    const SELECT_OPTION_CLASS = 'custom-select-option'
     const OPEN_CLASS = 'is-open'
     const SYNC_INTERVAL = 150
+
+    function getOverlayHost() {
+        return document.getElementById('desktop-root') || document.body
+    }
+
+    function isRotatedPortraitDesktop(host) {
+        return host && host.id === 'desktop-root' && window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
+    }
+
+    function getOverlayBounds(host) {
+        const overlayHost = host || getOverlayHost()
+        if (!overlayHost || overlayHost === document.body) {
+            return {
+                width: window.innerWidth || document.documentElement.clientWidth || 0,
+                height: window.innerHeight || document.documentElement.clientHeight || 0
+            }
+        }
+
+        return {
+            width: overlayHost.clientWidth || window.innerWidth || 0,
+            height: overlayHost.clientHeight || window.innerHeight || 0
+        }
+    }
+
+    function toOverlayCoordinates(viewportRect, host) {
+        const overlayHost = host || getOverlayHost()
+        if (!overlayHost || overlayHost === document.body) {
+            return {
+                left: viewportRect.left,
+                top: viewportRect.top,
+                width: viewportRect.width,
+                height: viewportRect.height,
+                right: viewportRect.right,
+                bottom: viewportRect.bottom
+            }
+        }
+
+        const hostRect = overlayHost.getBoundingClientRect()
+        if (!isRotatedPortraitDesktop(overlayHost)) {
+            return {
+                left: viewportRect.left - hostRect.left,
+                top: viewportRect.top - hostRect.top,
+                width: viewportRect.width,
+                height: viewportRect.height,
+                right: viewportRect.right - hostRect.left,
+                bottom: viewportRect.bottom - hostRect.top
+            }
+        }
+
+        const bounds = getOverlayBounds(overlayHost)
+        const left = viewportRect.top - hostRect.top
+        const top = bounds.height - (viewportRect.right - hostRect.left)
+        const width = viewportRect.height
+        const height = viewportRect.width
+
+        return {
+            left: left,
+            top: top,
+            width: width,
+            height: height,
+            right: left + width,
+            bottom: top + height
+        }
+    }
+
+    function positionOverlayNearTrigger(overlay, trigger, options) {
+        if (!overlay || !trigger) return
+
+        const config = options && typeof options === 'object' ? options : {}
+        const gap = Number.isFinite(config.gap) ? config.gap : 6
+        const margin = Number.isFinite(config.margin) ? config.margin : 8
+        const overlayHost = getOverlayHost()
+        const triggerRect = toOverlayCoordinates(trigger.getBoundingClientRect(), overlayHost)
+
+        overlay.classList.add(OPEN_CLASS)
+        overlay.setAttribute('aria-hidden', 'false')
+
+        const overlayWidth = overlay.offsetWidth
+        const overlayHeight = overlay.offsetHeight
+        const bounds = getOverlayBounds(overlayHost)
+        let left = triggerRect.left
+        let top = triggerRect.bottom + gap
+
+        if (left + overlayWidth > bounds.width - margin) {
+            left = Math.max(margin, bounds.width - overlayWidth - margin)
+        }
+
+        if (top + overlayHeight > bounds.height - margin) {
+            top = Math.max(margin, triggerRect.top - overlayHeight - gap)
+        }
+
+        if (left < margin) left = margin
+        if (top < margin) top = margin
+
+        overlay.style.left = left + 'px'
+        overlay.style.top = top + 'px'
+    }
 
     function clamp(value, min, max) {
         return Math.max(min, Math.min(max, value))
@@ -132,11 +236,20 @@
             '</div>'
         ].join('')
 
-        document.body.appendChild(dialog)
+        getOverlayHost().appendChild(dialog)
         return dialog
     }
 
+    function createSelectMenu() {
+        const menu = document.createElement('div')
+        menu.className = SELECT_MENU_CLASS
+        menu.setAttribute('aria-hidden', 'true')
+        getOverlayHost().appendChild(menu)
+        return menu
+    }
+
     const dialog = createDialog()
+    const selectMenu = createSelectMenu()
     const preview = dialog.querySelector('#customColorPreview')
     const hexInput = dialog.querySelector('#customColorHex')
     const hueInput = dialog.querySelector('#customColorHue')
@@ -149,6 +262,8 @@
 
     let activeInput = null
     let activeTrigger = null
+    let activeSelect = null
+    let activeSelectTrigger = null
 
     function dispatchColorUpdate(input, nextValue) {
         const normalized = normalizeHex(nextValue, input.value || '#000000')
@@ -159,9 +274,12 @@
 
     function updateTrigger(trigger, value) {
         const normalized = normalizeHex(value, '#000000')
-        trigger.style.backgroundColor = normalized
-        trigger.setAttribute('aria-label', 'Selected color ' + normalized)
-        trigger.title = normalized
+        if (trigger.dataset.currentColor !== normalized) {
+            trigger.style.backgroundColor = normalized
+            trigger.setAttribute('aria-label', 'Selected color ' + normalized)
+            trigger.title = normalized
+            trigger.dataset.currentColor = normalized
+        }
     }
 
     function formatSliderValue(kind, value) {
@@ -201,29 +319,91 @@
     }
 
     function positionDialog(trigger) {
-        const rect = trigger.getBoundingClientRect()
-        dialog.classList.add(OPEN_CLASS)
-        dialog.setAttribute('aria-hidden', 'false')
-
-        const width = dialog.offsetWidth
-        const height = dialog.offsetHeight
-        let left = rect.left
-        let top = rect.bottom + 6
-
-        if (left + width > window.innerWidth) left = Math.max(8, window.innerWidth - width - 8)
-        if (top + height > window.innerHeight) top = Math.max(8, rect.top - height - 6)
-
-        dialog.style.left = left + 'px'
-        dialog.style.top = top + 'px'
+        positionOverlayNearTrigger(dialog, trigger, { gap: 6, margin: 8 })
     }
 
     function openDialog(input, trigger) {
+        closeSelectMenu()
         activeInput = input
         activeTrigger = trigger
         syncDialogFromHex(input.value || '#000000')
         positionDialog(trigger)
         hexInput.focus()
         hexInput.select()
+    }
+
+    function updateSelectTrigger(trigger, select) {
+        if (!trigger || !select) return
+
+        const labelNode = trigger.querySelector('.' + SELECT_TRIGGER_LABEL_CLASS)
+        const selectedOption = select.options[select.selectedIndex] || select.options[0] || null
+        const label = selectedOption ? String(selectedOption.textContent || '').trim() : ''
+        const ariaLabel = label ? 'Selected option ' + label : 'Select option'
+
+        if (labelNode && labelNode.textContent !== label) {
+            labelNode.textContent = label
+        }
+
+        if (trigger.title !== label) {
+            trigger.title = label
+        }
+
+        if (trigger.getAttribute('aria-label') !== ariaLabel) {
+            trigger.setAttribute('aria-label', ariaLabel)
+        }
+    }
+
+    function closeSelectMenu() {
+        if (activeSelectTrigger) {
+            activeSelectTrigger.setAttribute('aria-expanded', 'false')
+        }
+
+        selectMenu.classList.remove(OPEN_CLASS)
+        selectMenu.setAttribute('aria-hidden', 'true')
+        selectMenu.innerHTML = ''
+        activeSelect = null
+        activeSelectTrigger = null
+    }
+
+    function renderSelectMenu(select) {
+        selectMenu.innerHTML = ''
+
+        Array.from(select.options).forEach(function(option, index) {
+            const button = document.createElement('button')
+            button.type = 'button'
+            button.className = SELECT_OPTION_CLASS + (option.selected ? ' is-active' : '')
+            button.textContent = String(option.textContent || '').trim()
+            button.disabled = Boolean(option.disabled)
+            button.setAttribute('aria-pressed', option.selected ? 'true' : 'false')
+
+            button.addEventListener('click', function(event) {
+                event.preventDefault()
+                if (option.disabled) return
+
+                select.selectedIndex = index
+                select.value = option.value
+                updateSelectTrigger(activeSelectTrigger, select)
+                select.dispatchEvent(new Event('input', { bubbles: true }))
+                select.dispatchEvent(new Event('change', { bubbles: true }))
+                closeSelectMenu()
+            })
+
+            selectMenu.appendChild(button)
+        })
+    }
+
+    function positionSelectMenu(trigger) {
+        selectMenu.style.minWidth = Math.max(trigger.offsetWidth || 0, 56) + 'px'
+        positionOverlayNearTrigger(selectMenu, trigger, { gap: 6, margin: 8 })
+    }
+
+    function openSelectMenu(select, trigger) {
+        closeDialog()
+        activeSelect = select
+        activeSelectTrigger = trigger
+        renderSelectMenu(select)
+        trigger.setAttribute('aria-expanded', 'true')
+        positionSelectMenu(trigger)
     }
 
     function getAssociatedLabels(input) {
@@ -283,8 +463,66 @@
         })
     }
 
+    function enhanceSelect(select) {
+        if (!(select instanceof HTMLSelectElement)) return
+        if (select.classList.contains(SELECT_ENHANCED_CLASS)) return
+
+        select.classList.add(SELECT_ENHANCED_CLASS)
+
+        const control = document.createElement('span')
+        control.className = SELECT_CONTROL_CLASS
+
+        const trigger = document.createElement('button')
+        trigger.type = 'button'
+        trigger.className = SELECT_TRIGGER_CLASS
+        trigger.setAttribute('aria-expanded', 'false')
+
+        const label = document.createElement('span')
+        label.className = SELECT_TRIGGER_LABEL_CLASS
+
+        const caret = document.createElement('span')
+        caret.className = SELECT_TRIGGER_CARET_CLASS
+        caret.setAttribute('aria-hidden', 'true')
+        caret.textContent = '▼'
+
+        trigger.appendChild(label)
+        trigger.appendChild(caret)
+        control.appendChild(trigger)
+
+        trigger.addEventListener('click', function(event) {
+            event.preventDefault()
+
+            if (activeSelect === select && selectMenu.classList.contains(OPEN_CLASS)) {
+                closeSelectMenu()
+                return
+            }
+
+            openSelectMenu(select, trigger)
+        })
+
+        select.insertAdjacentElement('afterend', control)
+        updateSelectTrigger(trigger, select)
+
+        select.addEventListener('input', function() {
+            updateSelectTrigger(trigger, select)
+            if (activeSelect === select && activeSelectTrigger === trigger) {
+                renderSelectMenu(select)
+                positionSelectMenu(trigger)
+            }
+        })
+
+        select.addEventListener('change', function() {
+            updateSelectTrigger(trigger, select)
+            if (activeSelect === select && activeSelectTrigger === trigger) {
+                renderSelectMenu(select)
+                positionSelectMenu(trigger)
+            }
+        })
+    }
+
     function enhanceAll() {
         document.querySelectorAll('input[type="color"]').forEach(enhanceInput)
+        document.querySelectorAll('select').forEach(enhanceSelect)
     }
 
     hueInput.addEventListener('input', function() {
@@ -311,18 +549,28 @@
     closeButton.addEventListener('click', closeDialog)
 
     document.addEventListener('mousedown', function(event) {
-        if (!dialog.classList.contains(OPEN_CLASS)) return
-        if (dialog.contains(event.target)) return
-        if (activeTrigger && activeTrigger.contains(event.target)) return
-        closeDialog()
+        if (dialog.classList.contains(OPEN_CLASS)) {
+            if (!dialog.contains(event.target) && !(activeTrigger && activeTrigger.contains(event.target))) {
+                closeDialog()
+            }
+        }
+
+        if (selectMenu.classList.contains(OPEN_CLASS)) {
+            if (!selectMenu.contains(event.target) && !(activeSelectTrigger && activeSelectTrigger.contains(event.target))) {
+                closeSelectMenu()
+            }
+        }
     })
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') closeDialog()
+        if (event.key !== 'Escape') return
+        closeDialog()
+        closeSelectMenu()
     })
 
     window.addEventListener('resize', function() {
         if (activeTrigger && dialog.classList.contains(OPEN_CLASS)) positionDialog(activeTrigger)
+        if (activeSelectTrigger && selectMenu.classList.contains(OPEN_CLASS)) positionSelectMenu(activeSelectTrigger)
     })
 
     enhanceAll()
@@ -333,5 +581,6 @@
                 : null
             if (trigger) updateTrigger(trigger, input.value)
         })
+
     }, SYNC_INTERVAL)
 })()

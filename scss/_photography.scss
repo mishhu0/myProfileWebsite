@@ -349,6 +349,21 @@
     object-fit: contain;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+    .pictures-stage.is-expanded img.is-landscape-rotated {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100vh;
+        height: 100vw;
+        max-width: none;
+        max-height: none;
+        object-fit: contain;
+        transform: translate(-50%, -50%) rotate(90deg);
+        transform-origin: center center;
+    }
+}
+
 .pictures-stage.is-expanded .pictures-counter {
     display: inline-flex;
     bottom: 46px;
@@ -405,4 +420,16 @@ body.pictures-expanded {
     margin: 0;
     padding: 8px;
     color: p.$text-dark;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .pictures-tab {
+        width: calc(100% - 16px) !important;
+        height: calc(100% - 52px) !important;
+        top: 8px;
+        left: 8px;
+        right: auto;
+        bottom: auto;
+        transform: none;
+    }
 }

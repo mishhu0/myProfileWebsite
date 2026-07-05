@@ -808,6 +808,34 @@
             justify-self: start;
         }
     }
+
+    @media (max-width: 900px) and (orientation: portrait) {
+        .viz-settings-row--top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: none;
+            align-self: stretch;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+        }
+
+        .viz-setting-group--colors {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .viz-color-row {
+            width: 100%;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+        }
+
+        .viz-setting-group--volume {
+            margin-left: auto;
+        }
+    }
 }
 
 .mini-player-tab {

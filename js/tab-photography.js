@@ -223,6 +223,7 @@ async function initPicturesTab() {
         const imageSource = album.images[activeImageIndex] || album.cover
         detailImage.src = imageSource
         detailImage.alt = album.alt + ' ' + (activeImageIndex + 1)
+        detailImage.classList.remove('is-landscape-rotated')
         if (detailTitle) detailTitle.textContent = album.title
         if (detailDescription) detailDescription.textContent = album.description || ''
         counter.textContent = (activeImageIndex + 1) + ' / ' + album.images.length
@@ -237,6 +238,11 @@ async function initPicturesTab() {
             hoverNoteText.textContent = buildHoverNoteText(album)
         }
     }
+
+    detailImage.addEventListener('load', function() {
+        const isLandscape = detailImage.naturalWidth > detailImage.naturalHeight
+        detailImage.classList.toggle('is-landscape-rotated', Boolean(isLandscape))
+    })
 
     function openAlbum(albumIndex, imageIndex) {
         const album = albums[albumIndex]

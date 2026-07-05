@@ -722,11 +722,7 @@ async function initMusicPlayer() {
         const playlistInfoContainer = nowPlaying.querySelector('.playlist-info-container')
         if (!playlistInfoContainer) return nowPlaying.clientWidth
 
-        const nowRect = nowPlaying.getBoundingClientRect()
-        const playlistRect = playlistInfoContainer.getBoundingClientRect()
-
-        // The user-visible cutoff is the *start* (left edge) of the playlist info container.
-        const width = Math.floor(playlistRect.left - nowRect.left)
+        const width = Math.floor(nowPlaying.clientWidth - playlistInfoContainer.offsetWidth)
         return Math.max(0, Math.min(width, nowPlaying.clientWidth))
     }
 
@@ -822,7 +818,7 @@ async function initMusicPlayer() {
             textElement._overflowMarqueeFrameId = 0
             if (!isOverflowTitleTokenCurrent(textElement, token)) return
 
-            const segWidth = Math.ceil(seg1.getBoundingClientRect().width)
+            const segWidth = Math.ceil(seg1.scrollWidth || seg1.offsetWidth || seg1.getBoundingClientRect().width)
             const shift = Math.max(0, segWidth + marqueeGap)
             const duration = Math.min(25, Math.max(8, shift / pixelsPerSecond))
 
@@ -902,6 +898,9 @@ async function initMusicPlayer() {
             if (isVisible && !wasVisible) {
                 const title = nowPlayingText.dataset.fullTitle || nowPlayingText.textContent || 'nothing is playing'
                 setNowPlayingTitle(title)
+                if (window.threeVisualizer && typeof window.threeVisualizer.resize === 'function') {
+                    window.threeVisualizer.resize()
+                }
             }
             wasVisible = isVisible
         })

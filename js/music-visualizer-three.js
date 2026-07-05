@@ -1417,8 +1417,8 @@ function resize() {
     if (!refs.renderer || !refs.camera || !refs.canvas) return;
 
     const rect = refs.canvas.getBoundingClientRect();
-    const width = Math.max(1, Math.round(rect.width || refs.canvas.clientWidth || 1));
-    const height = Math.max(1, Math.round(rect.height || refs.canvas.clientHeight || 1));
+    const width = Math.max(1, Math.round(refs.canvas.clientWidth || refs.canvas.offsetWidth || rect.width || 1));
+    const height = Math.max(1, Math.round(refs.canvas.clientHeight || refs.canvas.offsetHeight || rect.height || 1));
     if (refs.size.width === width && refs.size.height === height) return;
 
     refs.size.width = width;

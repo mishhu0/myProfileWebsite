@@ -241,21 +241,30 @@ function TabsTaskbar() {
 function openTab(tabsTaskbar) {
     const icons = document.querySelectorAll('.dsk-icon')
     let selectedIcon = null
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
 
     icons.forEach(icon => {
-        // select
         icon.addEventListener('click', function(e) {
-            // deselect previous
+            const label = this.querySelector('span').textContent
+            const tabId = APP_CONFIG.desktopIconMap[label]
+
+            if (isTouchDevice && tabId) {
+                tabsTaskbar.openWindow(tabId)
+                if (selectedIcon) selectedIcon.classList.remove('selected')
+                this.classList.add('selected')
+                selectedIcon = this
+                e.preventDefault()
+                e.stopPropagation()
+                return
+            }
+
             if (selectedIcon) selectedIcon.classList.remove('selected')
-            
-            // select current
             this.classList.add('selected')
             selectedIcon = this
             e.preventDefault()
             e.stopPropagation()
         })
 
-        // open tab
         icon.addEventListener('dblclick', function(e) {
             const label = this.querySelector('span').textContent
             const tabId = APP_CONFIG.desktopIconMap[label]
@@ -264,7 +273,6 @@ function openTab(tabsTaskbar) {
         })
     })
 
-    // deselect on background
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.dsk-icon')) {
             if (selectedIcon) selectedIcon.classList.remove('selected')
@@ -273,42 +281,68 @@ function openTab(tabsTaskbar) {
     })
 }
 
+function getDesktopPointFromEvent(event) {
+    const desktopRoot = document.getElementById('desktop-root') || document.body
+    if (!desktopRoot) {
+        return { x: event.clientX, y: event.clientY }
+    }
+
+    const rect = desktopRoot.getBoundingClientRect()
+    const point = { x: event.clientX - rect.left, y: event.clientY - rect.top }
+    const transform = window.getComputedStyle(desktopRoot).transform
+
+    if (!transform || transform === 'none' || typeof DOMMatrixReadOnly === 'undefined') {
+        return point
+    }
+
+    const matrix = new DOMMatrixReadOnly(transform)
+    const localPoint = matrix.inverse().transformPoint(new DOMPoint(point.x, point.y))
+    return { x: localPoint.x, y: localPoint.y }
+}
+
 function makeMovable(tab, zTracker, handleSelector = '.popup-title, .tab-title') {
     let isDragging = false
     let startX = 0, startY = 0
     let origX = 0, origY = 0
+    let activePointerId = null
 
-    function onMouseMove(e) {
-        if (!isDragging) return
-        const dx = e.clientX - startX
-        const dy = e.clientY - startY
+    function onPointerMove(e) {
+        if (!isDragging || e.pointerId !== activePointerId) return
+        const point = getDesktopPointFromEvent(e)
+        const dx = point.x - startX
+        const dy = point.y - startY
         tab.style.left = (origX + dx) + 'px'
         tab.style.top = (origY + dy) + 'px'
     }
 
-    function onMouseUp() {
-        if (!isDragging) return
+    function onPointerUp(e) {
+        if (!isDragging || e.pointerId !== activePointerId) return
         isDragging = false
+        activePointerId = null
         tab.classList.remove('no-select')
-        document.removeEventListener('mousemove', onMouseMove)
-        document.removeEventListener('mouseup', onMouseUp)
+        window.removeEventListener('pointermove', onPointerMove)
+        window.removeEventListener('pointerup', onPointerUp)
+        window.removeEventListener('pointercancel', onPointerUp)
     }
 
     const handle = tab.querySelector(handleSelector) || tab
 
-    handle.addEventListener('mousedown', function(e) {
-        if (e.button !== 0) return // only left mouse
+    handle.addEventListener('pointerdown', function(e) {
+        if (e.button !== 0 && e.pointerType === 'mouse') return
         if (tab.dataset.moveLocked === 'true') return
         e.preventDefault()
+        const point = getDesktopPointFromEvent(e)
         isDragging = true
+        activePointerId = e.pointerId
         tab.classList.add('no-select')
-        startX = e.clientX
-        startY = e.clientY
+        startX = point.x
+        startY = point.y
         origX = tab.offsetLeft
         origY = tab.offsetTop
         tab.style.zIndex = ++zTracker.value
-        document.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseup', onMouseUp)
+        window.addEventListener('pointermove', onPointerMove)
+        window.addEventListener('pointerup', onPointerUp)
+        window.addEventListener('pointercancel', onPointerUp)
     })
 }
 

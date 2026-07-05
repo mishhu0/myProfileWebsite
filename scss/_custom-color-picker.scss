@@ -13,7 +13,26 @@ input[type='color'].custom-color-input {
     border: 0;
 }
 
+select.custom-select-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .custom-color-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.custom-select-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +53,7 @@ input[type='color'].custom-color-input {
 }
 
 .custom-color-dialog {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 244px;
     padding: 6px;
@@ -47,6 +66,78 @@ input[type='color'].custom-color-input {
         display: flex;
         flex-direction: column;
         gap: 6px;
+    }
+}
+
+.custom-select-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    width: 39px;
+    min-width: 39px;
+    height: 20px;
+    padding: 1px 4px;
+    border: none;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    cursor: pointer;
+    @include mixins.win95-raised;
+
+    &:active,
+    &[aria-expanded='true'] {
+        @include mixins.win95-pressed;
+    }
+}
+
+.custom-select-trigger-label {
+    display: block;
+    white-space: nowrap;
+}
+
+.custom-select-trigger-caret {
+    display: block;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.custom-select-menu {
+    position: absolute;
+    z-index: 2147483647;
+    display: none;
+    min-width: 56px;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: p.$window-surface;
+    @include mixins.win95-raised;
+
+    &.is-open {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+.custom-select-option {
+    border: none;
+    padding: 3px 8px;
+    min-height: 22px;
+    color: p.$window-shadow-light;
+    background-color: p.$color6;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    @include mixins.win95-raised;
+
+    &:active,
+    &.is-active {
+        @include mixins.win95-pressed;
+        background-color: p.$color8;
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.6;
     }
 }
 

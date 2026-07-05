@@ -282,8 +282,45 @@ function initOptionsTab() {
         })
     }
 
+    function isRotatedPortraitDesktop() {
+        return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
+    }
+
+    function getDesktopLocalBounds() {
+        const desktopRoot = document.getElementById('desktop-root')
+        if (!desktopRoot) {
+            return {
+                width: window.innerWidth || document.documentElement.clientWidth || 0,
+                height: window.innerHeight || document.documentElement.clientHeight || 0
+            }
+        }
+
+        return {
+            width: desktopRoot.clientWidth || 0,
+            height: desktopRoot.clientHeight || 0
+        }
+    }
+
+    function getDesktopLocalPointFromViewport(x, y) {
+        const desktopRoot = document.getElementById('desktop-root')
+        if (!desktopRoot) return { x, y }
+
+        const rect = desktopRoot.getBoundingClientRect()
+        if (!isRotatedPortraitDesktop()) {
+            return { x: x - rect.left, y: y - rect.top }
+        }
+
+        const bounds = getDesktopLocalBounds()
+        return {
+            x: y - rect.top,
+            y: bounds.height - (x - rect.left)
+        }
+    }
+
     function positionPanel() {
         const rect = button.getBoundingClientRect()
+        const buttonLocalWidth = button.offsetWidth || rect.width
+        const buttonLocalHeight = button.offsetHeight || rect.height
         const computed = getComputedStyle(panel)
         const wasHidden = computed.display === 'none' || panel.offsetHeight === 0
         const prevDisplay = panel.style.display
@@ -296,13 +333,21 @@ function initOptionsTab() {
 
         const panelHeight = panel.offsetHeight
         const panelWidth = panel.offsetWidth
+        const anchorPoint = isRotatedPortraitDesktop()
+            ? getDesktopLocalPointFromViewport(rect.right, rect.top)
+            : getDesktopLocalPointFromViewport(rect.left, rect.top)
+    const desktopBounds = getDesktopLocalBounds()
+    const desktopWidth = desktopBounds.width
+    const desktopHeight = desktopBounds.height
 
-        let top = rect.top - panelHeight
-        if (top < 0) top = rect.bottom
+        let top = anchorPoint.y - panelHeight
+    if (top < 0) top = anchorPoint.y + buttonLocalHeight
 
-        let left = rect.left
-        if (left + panelWidth > window.innerWidth) left = Math.max(0, window.innerWidth - panelWidth)
+        let left = anchorPoint.x
+        if (left + panelWidth > desktopWidth) left = Math.max(0, desktopWidth - panelWidth)
         if (left < 0) left = 0
+
+        if (top + panelHeight > desktopHeight) top = Math.max(0, desktopHeight - panelHeight)
 
         panel.style.top = top + 'px'
         panel.style.left = left + 'px'
