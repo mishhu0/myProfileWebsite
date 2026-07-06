@@ -389,3 +389,22 @@
     color: p.$window-shadow-light;
     text-align: right;
 }
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .about-desc-section--centered .about-desc-label {
+        display: inline-block;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        font-size: 9px;
+        line-height: 1;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .about-desc-section--centered .about-desc-label {
+        font-size: 8px;
+        letter-spacing: -0.1px;
+    }
+}

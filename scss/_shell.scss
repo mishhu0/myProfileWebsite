@@ -121,6 +121,27 @@
     }
 }
 
+@media (max-width: 640px) and (orientation: portrait) {
+    .desktop-icons {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, auto);
+        grid-auto-columns: 60px;
+        width: fit-content;
+        height: auto;
+        max-height: none;
+        row-gap: 2px;
+        column-gap: 4px;
+        padding-right: 4px;
+        align-content: start;
+        justify-content: start;
+    }
+
+    .desktop-icons .dsk-icon {
+        min-height: 44px;
+    }
+}
+
 .dsk-icon {
     display: flex;
     flex-direction: column;

@@ -112,6 +112,9 @@
 
     h2 {
         margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         text-shadow: 0 1px 0 p.$overlay-black-35;
         background-color: p.$color7;
@@ -122,7 +125,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 30px;
+        min-height: 28px;
+        line-height: 1;
     }
 
     h2.is-first-visible-heading {
@@ -817,12 +821,17 @@
         .viz-settings-row--top {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             width: 100%;
             max-width: none;
             align-self: stretch;
             justify-content: flex-start;
             flex-wrap: nowrap;
+        }
+
+        .viz-setting-group {
+            gap: 4px;
+            min-height: 18px;
         }
 
         .viz-setting-group--colors {
@@ -859,6 +868,10 @@
             transform: none;
         }
 
+        .viz-volume-label {
+            font-size: 11px;
+        }
+
         .viz-volume-value {
             width: auto;
             min-width: 5ch;
@@ -868,49 +881,103 @@
 
     @media (max-width: 640px) and (orientation: portrait) {
         .viz-settings-row--top {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto auto auto;
-            grid-template-areas:
-                'colors colors colors colors'
-                'rainbow random type volume';
-            gap: 4px 6px;
+            display: flex;
+            width: 100%;
+            max-width: none;
+            align-self: stretch;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 3px;
             align-items: center;
         }
 
+        .viz-setting-group {
+            gap: 3px;
+            min-height: 18px;
+        }
+
         .viz-setting-group--colors {
-            grid-area: colors;
-            flex: 1 1 auto;
+            flex: 0 1 auto;
+            min-width: 0;
         }
 
         .viz-color-row {
+            width: auto;
             justify-content: flex-start;
+            flex-wrap: nowrap;
+            width: auto;
             gap: 3px;
         }
 
         .viz-setting-group--rainbow {
-            grid-area: rainbow;
-            justify-self: start;
+            flex: 0 0 auto;
             margin-left: 0;
         }
 
         .viz-setting-group--random {
-            grid-area: random;
-            justify-self: end;
+            flex: 0 0 auto;
+            justify-self: auto;
         }
 
         .viz-setting-group--type {
-            grid-area: type;
-            justify-self: end;
+            flex: 0 0 auto;
+            justify-self: auto;
         }
 
         .viz-setting-group--volume {
-            grid-area: volume;
-            justify-self: end;
+            flex: 0 0 auto;
             margin-left: 0;
         }
 
+        input[type='color'] {
+            width: 18px;
+            height: 14px;
+        }
+
+        .viz-check {
+            gap: 2px;
+        }
+
+        .viz-check input[type='checkbox'] {
+            width: 11px;
+            height: 11px;
+        }
+
+        .viz-check input[type='checkbox']::after {
+            width: 7px;
+            height: 7px;
+        }
+
         .viz-check span {
+            font-size: 9px;
+        }
+
+        .viz-volume-label,
+        .viz-volume-value,
+        select,
+        #randomVizBtn {
             font-size: 10px;
+        }
+
+        .viz-volume-label {
+            letter-spacing: -0.1px;
+        }
+
+        .viz-volume-value {
+            min-width: 4ch;
+        }
+
+        select {
+            width: 32px;
+            min-width: 32px;
+            height: 18px;
+            padding: 0 3px;
+        }
+
+        #randomVizBtn {
+            min-width: 38px;
+            height: 18px;
+            padding: 0 4px;
         }
 
         .viz-setting-group--volume,
@@ -922,15 +989,17 @@
 
 @media (max-width: 900px) and (orientation: portrait) {
     .songs-lib h2 {
-        font-size: 20px;
-        line-height: 26px;
+        font-size: 17px;
+        min-height: 22px;
+        padding: 1px 5px 0;
     }
 }
 
 @media (max-width: 640px) and (orientation: portrait) {
     .songs-lib h2 {
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 16px;
+        min-height: 20px;
+        padding: 1px 4px 0;
     }
 }
 
