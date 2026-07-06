@@ -602,9 +602,14 @@ html[data-skip-boot=true] .boot-screen {
     align-self: center;
   }
   .utils-welcome {
-    width: 14px !important;
+    width: 15px !important;
     height: 14px;
     min-height: 14px;
+  }
+  #utilsToDo,
+  #utilsChangeLog {
+    width: 17px !important;
+    min-width: 17px;
   }
   #utilsVolume {
     display: none;
@@ -658,9 +663,16 @@ html[data-skip-boot=true] .boot-screen {
 }
 
 #desktop-root.is-phone-portrait-runtime .utils-welcome {
-  width: 13px !important;
+  width: 14px !important;
   height: 13px;
   min-height: 13px;
+}
+
+#desktop-root.is-phone-portrait-runtime #utilsToDo,
+#desktop-root.is-phone-portrait-runtime #utilsChangeLog {
+  width: 17px !important;
+  min-width: 17px;
+  padding: 0 2px;
 }
 
 #desktop-root.is-phone-portrait-runtime #utilsVolume {
@@ -848,41 +860,6 @@ html[data-skip-boot=true] .boot-screen {
     min-height: 17px;
     text-align: center;
     overflow-wrap: anywhere;
-  }
-  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(4, auto);
-    grid-auto-columns: 60px;
-    width: fit-content;
-    height: auto;
-    max-width: calc(100% - 8px);
-    max-height: none;
-    padding-top: 4px;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-bottom: 0;
-    row-gap: 2px;
-    column-gap: 4px;
-    align-content: start;
-    justify-content: start;
-  }
-  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon {
-    width: 60px;
-    min-height: 44px;
-    gap: 1px;
-    padding: 1px 0;
-    font-size: 8px;
-    line-height: 1;
-  }
-  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon img {
-    width: 18px;
-    height: 18px;
-  }
-  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon span {
-    min-height: 15px;
-  }
-  .desktop-icons .dsk-icon span {
     word-break: break-word;
   }
   #desktop-root .about-tab,
@@ -900,7 +877,7 @@ html[data-skip-boot=true] .boot-screen {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(4, auto);
-    grid-auto-columns: 60px;
+    grid-auto-columns: 64px;
     width: fit-content;
     height: auto;
     max-height: none;
@@ -911,9 +888,49 @@ html[data-skip-boot=true] .boot-screen {
     justify-content: start;
   }
   .desktop-icons .dsk-icon {
-    min-height: 44px;
+    width: 64px;
+    min-height: 48px;
+    font-size: 8.75px;
   }
 }
+#desktop-root.is-phone-portrait-runtime .desktop-icons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
+  grid-auto-columns: 64px;
+  width: fit-content;
+  height: auto;
+  max-width: calc(100% - 8px);
+  max-height: none;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 0;
+  row-gap: 2px;
+  column-gap: 4px;
+  align-content: start;
+  justify-content: start;
+}
+
+#desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon {
+  width: 64px;
+  min-height: 48px;
+  gap: 1px;
+  padding: 1px 0;
+  font-size: 8.75px;
+  line-height: 1;
+}
+
+#desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+#desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon span {
+  min-height: 17px;
+  word-break: break-word;
+}
+
 .dsk-icon {
   display: flex;
   flex-direction: column;
@@ -3946,13 +3963,14 @@ select.custom-select-input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 30px;
   min-width: 30px;
-  height: 20px;
-  padding: 0 6px;
-  padding-bottom: 2px;
+  height: 22px;
+  padding: 0;
+  box-sizing: border-box;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.55);

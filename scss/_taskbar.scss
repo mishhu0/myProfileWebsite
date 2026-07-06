@@ -209,9 +209,15 @@
     }
 
     .utils-welcome {
-        width: 14px !important;
+        width: 15px !important;
         height: 14px;
         min-height: 14px;
+    }
+
+    #utilsToDo,
+    #utilsChangeLog {
+        width: 17px !important;
+        min-width: 17px;
     }
 
     #utilsVolume {
@@ -267,9 +273,16 @@
 }
 
 #desktop-root.is-phone-portrait-runtime .utils-welcome {
-    width: 13px !important;
+    width: 14px !important;
     height: 13px;
     min-height: 13px;
+}
+
+#desktop-root.is-phone-portrait-runtime #utilsToDo,
+#desktop-root.is-phone-portrait-runtime #utilsChangeLog {
+    width: 17px !important;
+    min-width: 17px;
+    padding: 0 2px;
 }
 
 #desktop-root.is-phone-portrait-runtime #utilsVolume {
