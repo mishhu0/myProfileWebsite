@@ -408,3 +408,22 @@
         letter-spacing: -0.1px;
     }
 }
+
+#desktop-root.is-phone-portrait-runtime .about-desc-section--centered {
+    gap: 1px;
+}
+
+#desktop-root.is-phone-portrait-runtime .about-desc-section--centered .about-desc-label {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: -0.1px;
+}
+
+#desktop-root.is-phone-portrait-runtime .about-desc-mood-row {
+    gap: 4px;
+}

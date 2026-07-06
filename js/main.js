@@ -23,6 +23,60 @@ function isLocalServerFeaturesEnabled() {
     return isEnabledQueryFlag(searchParams.get('server')) || isEnabledQueryFlag(searchParams.get('chat'))
 }
 
+const PHONE_PORTRAIT_SHORT_SIDE_MAX = 430
+const PHONE_PORTRAIT_LONG_SIDE_MAX = 950
+let runtimeLayoutFlagsBound = false
+
+function getViewportMetrics() {
+    const visualViewport = window.visualViewport
+    const width = visualViewport ? visualViewport.width : window.innerWidth
+    const height = visualViewport ? visualViewport.height : window.innerHeight
+
+    return {
+        width: Number(width) || window.innerWidth,
+        height: Number(height) || window.innerHeight
+    }
+}
+
+function isPhonePortraitRuntime() {
+    const viewport = getViewportMetrics()
+    const shortestSide = Math.min(viewport.width, viewport.height)
+    const longestSide = Math.max(viewport.width, viewport.height)
+    const isPortrait = viewport.height >= viewport.width
+
+    return isPortrait
+        && window.matchMedia('(pointer: coarse)').matches
+        && shortestSide <= PHONE_PORTRAIT_SHORT_SIDE_MAX
+        && longestSide <= PHONE_PORTRAIT_LONG_SIDE_MAX
+}
+
+function applyRuntimeLayoutFlags() {
+    const desktopRoot = document.getElementById('desktop-root')
+    if (!desktopRoot) return
+
+    const viewport = getViewportMetrics()
+    const shortestSide = Math.round(Math.min(viewport.width, viewport.height))
+    const longestSide = Math.round(Math.max(viewport.width, viewport.height))
+
+    desktopRoot.classList.toggle('is-phone-portrait-runtime', isPhonePortraitRuntime())
+    desktopRoot.style.setProperty('--viewport-short-side', shortestSide + 'px')
+    desktopRoot.style.setProperty('--viewport-long-side', longestSide + 'px')
+}
+
+function initRuntimeLayoutFlags() {
+    if (runtimeLayoutFlagsBound) return
+    runtimeLayoutFlagsBound = true
+
+    applyRuntimeLayoutFlags()
+    window.addEventListener('resize', applyRuntimeLayoutFlags)
+    window.addEventListener('orientationchange', applyRuntimeLayoutFlags)
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', applyRuntimeLayoutFlags)
+        window.visualViewport.addEventListener('scroll', applyRuntimeLayoutFlags)
+    }
+}
+
 function createPersistentUserTag() {
     if (window.crypto && typeof window.crypto.randomUUID === 'function') {
         return window.crypto.randomUUID().slice(0, 6).toLowerCase()
@@ -153,6 +207,7 @@ const APP_CONFIG = {
 window.highestZ = highestZ
 window.APP_CONFIG = APP_CONFIG
 window.getPersistentUserTag = getPersistentUserTag
+window.isPhonePortraitRuntime = isPhonePortraitRuntime
 
 var messageSpamState = { lastSendTime: 0 }
 
@@ -367,6 +422,7 @@ async function initTodoTab() {
 }
 
 function initApp() {
+    initRuntimeLayoutFlags()
     const tabsTaskbar = TabsTaskbar()
     window.tabsTaskbar = tabsTaskbar
     getUserTime()

@@ -30,6 +30,8 @@ body {
   width: 100%;
   height: 100%;
   cursor: var(--cursor-default);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -608,6 +610,63 @@ html[data-skip-boot=true] .boot-screen {
     display: none;
   }
 }
+#desktop-root.is-phone-portrait-runtime .taskbar {
+  height: 28px;
+  padding: 0 1px;
+  font-size: 12px;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar button {
+  height: 20px;
+  min-height: 20px;
+  padding: 0 2px;
+  margin-right: 2px;
+  font-size: 12px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+#desktop-root.is-phone-portrait-runtime .left-tabs,
+#desktop-root.is-phone-portrait-runtime .right-tabs,
+#desktop-root.is-phone-portrait-runtime .taskbar-utils,
+#desktop-root.is-phone-portrait-runtime .taskbar-tab,
+#desktop-root.is-phone-portrait-runtime .taskbar-window-btn,
+#desktop-root.is-phone-portrait-runtime .time {
+  height: 20px;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar-window-btn {
+  min-width: 84px !important;
+  max-width: 126px;
+  padding: 0 3px !important;
+}
+
+#desktop-root.is-phone-portrait-runtime #optionsBtn {
+  padding: 0 3px !important;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar-divider {
+  height: 16px;
+  margin-right: 2px;
+  align-self: center;
+}
+
+#desktop-root.is-phone-portrait-runtime .time {
+  margin-right: 1px;
+  padding: 0 3px;
+  box-sizing: border-box;
+}
+
+#desktop-root.is-phone-portrait-runtime .utils-welcome {
+  width: 13px !important;
+  height: 13px;
+  min-height: 13px;
+}
+
+#desktop-root.is-phone-portrait-runtime #utilsVolume {
+  display: none;
+}
+
 .utils-welcome {
   width: 16px !important;
   height: 16px;
@@ -789,6 +848,41 @@ html[data-skip-boot=true] .boot-screen {
     min-height: 17px;
     text-align: center;
     overflow-wrap: anywhere;
+  }
+  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    grid-auto-columns: 60px;
+    width: fit-content;
+    height: auto;
+    max-width: calc(100% - 8px);
+    max-height: none;
+    padding-top: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 0;
+    row-gap: 2px;
+    column-gap: 4px;
+    align-content: start;
+    justify-content: start;
+  }
+  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon {
+    width: 60px;
+    min-height: 44px;
+    gap: 1px;
+    padding: 1px 0;
+    font-size: 8px;
+    line-height: 1;
+  }
+  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon img {
+    width: 18px;
+    height: 18px;
+  }
+  .desktop-icons .dsk-icon span #desktop-root.is-phone-portrait-runtime .desktop-icons .dsk-icon span {
+    min-height: 15px;
+  }
+  .desktop-icons .dsk-icon span {
     word-break: break-word;
   }
   #desktop-root .about-tab,
@@ -2263,6 +2357,101 @@ select.custom-select-input {
     padding: 1px 4px 0;
   }
 }
+#desktop-root.is-phone-portrait-runtime .songs-lib h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  padding: 1px 4px 0;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-settings-row--top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: none;
+  gap: 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group {
+  gap: 3px;
+  min-height: 18px;
+  flex: 0 0 auto;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--colors {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-color-row {
+  width: auto;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--rainbow,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--random,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--type,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--volume {
+  margin-left: 0;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check {
+  gap: 2px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check input[type=checkbox] {
+  width: 11px;
+  height: 11px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check input[type=checkbox]::after {
+  width: 7px;
+  height: 7px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check span {
+  font-size: 9px;
+}
+
+#desktop-root.is-phone-portrait-runtime input[type=color] {
+  width: 18px;
+  height: 14px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-volume-label,
+#desktop-root.is-phone-portrait-runtime .viz-volume-value,
+#desktop-root.is-phone-portrait-runtime select,
+#desktop-root.is-phone-portrait-runtime #randomVizBtn {
+  font-size: 10px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-volume-value {
+  min-width: 4ch;
+}
+
+#desktop-root.is-phone-portrait-runtime select {
+  width: 32px;
+  min-width: 32px;
+  height: 18px;
+  padding: 0 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime #randomVizBtn {
+  min-width: 38px;
+  height: 18px;
+  padding: 0 4px;
+}
+
 .mini-player-tab {
   display: none;
   position: fixed !important;
@@ -3446,6 +3635,25 @@ select.custom-select-input {
     letter-spacing: -0.1px;
   }
 }
+#desktop-root.is-phone-portrait-runtime .about-desc-section--centered {
+  gap: 1px;
+}
+
+#desktop-root.is-phone-portrait-runtime .about-desc-section--centered .about-desc-label {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  font-size: 8px;
+  line-height: 1;
+  letter-spacing: -0.1px;
+}
+
+#desktop-root.is-phone-portrait-runtime .about-desc-mood-row {
+  gap: 4px;
+}
+
 .projects-tab {
   width: 420px !important;
   height: 202px !important;

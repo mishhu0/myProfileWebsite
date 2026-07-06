@@ -219,6 +219,63 @@
     }
 }
 
+#desktop-root.is-phone-portrait-runtime .taskbar {
+    height: 28px;
+    padding: 0 1px;
+    font-size: 12px;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar button {
+    height: 20px;
+    min-height: 20px;
+    padding: 0 2px;
+    margin-right: 2px;
+    font-size: 12px;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+#desktop-root.is-phone-portrait-runtime .left-tabs,
+#desktop-root.is-phone-portrait-runtime .right-tabs,
+#desktop-root.is-phone-portrait-runtime .taskbar-utils,
+#desktop-root.is-phone-portrait-runtime .taskbar-tab,
+#desktop-root.is-phone-portrait-runtime .taskbar-window-btn,
+#desktop-root.is-phone-portrait-runtime .time {
+    height: 20px;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar-window-btn {
+    min-width: 84px !important;
+    max-width: 126px;
+    padding: 0 3px !important;
+}
+
+#desktop-root.is-phone-portrait-runtime #optionsBtn {
+    padding: 0 3px !important;
+}
+
+#desktop-root.is-phone-portrait-runtime .taskbar-divider {
+    height: 16px;
+    margin-right: 2px;
+    align-self: center;
+}
+
+#desktop-root.is-phone-portrait-runtime .time {
+    margin-right: 1px;
+    padding: 0 3px;
+    box-sizing: border-box;
+}
+
+#desktop-root.is-phone-portrait-runtime .utils-welcome {
+    width: 13px !important;
+    height: 13px;
+    min-height: 13px;
+}
+
+#desktop-root.is-phone-portrait-runtime #utilsVolume {
+    display: none;
+}
+
 .utils-welcome {
     width: 16px !important;
     height: 16px;

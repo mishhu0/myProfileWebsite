@@ -1003,6 +1003,101 @@
     }
 }
 
+#desktop-root.is-phone-portrait-runtime .songs-lib h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20px;
+    padding: 1px 4px 0;
+    font-size: 16px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-settings-row--top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: none;
+    gap: 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group {
+    gap: 3px;
+    min-height: 18px;
+    flex: 0 0 auto;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--colors {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-color-row {
+    width: auto;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--rainbow,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--random,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--type,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--volume {
+    margin-left: 0;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check {
+    gap: 2px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check input[type='checkbox'] {
+    width: 11px;
+    height: 11px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check input[type='checkbox']::after {
+    width: 7px;
+    height: 7px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-check span {
+    font-size: 9px;
+}
+
+#desktop-root.is-phone-portrait-runtime input[type='color'] {
+    width: 18px;
+    height: 14px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-volume-label,
+#desktop-root.is-phone-portrait-runtime .viz-volume-value,
+#desktop-root.is-phone-portrait-runtime select,
+#desktop-root.is-phone-portrait-runtime #randomVizBtn {
+    font-size: 10px;
+}
+
+#desktop-root.is-phone-portrait-runtime .viz-volume-value {
+    min-width: 4ch;
+}
+
+#desktop-root.is-phone-portrait-runtime select {
+    width: 32px;
+    min-width: 32px;
+    height: 18px;
+    padding: 0 3px;
+}
+
+#desktop-root.is-phone-portrait-runtime #randomVizBtn {
+    min-width: 38px;
+    height: 18px;
+    padding: 0 4px;
+}
+
 .mini-player-tab {
     display: none;
     position: fixed !important;
