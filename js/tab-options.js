@@ -35,6 +35,7 @@ function initOptionsTab() {
 
     const nameInput = document.getElementById('optionsNameInput')
     const resetButton = document.getElementById('optionsResetBtn')
+    const randomButton = document.getElementById('optionsRandomBtn')
     const cursorMenu = document.getElementById('optionsCursorMenu')
     const colorInputs = Array.from(panel.querySelectorAll('input[type="color"][data-palette-key]'))
     let cursorThemes = CURSOR_THEME_FALLBACK_IDS.map(function(themeId, index) {
@@ -47,6 +48,69 @@ function initOptionsTab() {
         const safeFallback = String(fallback || '#000000').toLowerCase()
         const normalized = String(value || '').trim().toLowerCase()
         return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
+    }
+
+    function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value))
+    }
+
+    function hslToHex(hue, saturation, lightness) {
+        const safeHue = ((Number(hue) % 360) + 360) % 360
+        const safeSaturation = clamp(Number(saturation), 0, 100) / 100
+        const safeLightness = clamp(Number(lightness), 0, 100) / 100
+        const chroma = (1 - Math.abs(2 * safeLightness - 1)) * safeSaturation
+        const huePrime = safeHue / 60
+        const x = chroma * (1 - Math.abs((huePrime % 2) - 1))
+
+        let red = 0
+        let green = 0
+        let blue = 0
+
+        if (huePrime < 1) {
+            red = chroma
+            green = x
+        } else if (huePrime < 2) {
+            red = x
+            green = chroma
+        } else if (huePrime < 3) {
+            green = chroma
+            blue = x
+        } else if (huePrime < 4) {
+            green = x
+            blue = chroma
+        } else if (huePrime < 5) {
+            red = x
+            blue = chroma
+        } else {
+            red = chroma
+            blue = x
+        }
+
+        const match = safeLightness - chroma / 2
+        return '#' + [red, green, blue].map(function(channel) {
+            return clamp(Math.round((channel + match) * 255), 0, 255).toString(16).padStart(2, '0')
+        }).join('')
+    }
+
+    function createRandomPalette() {
+        const baseHue = Math.floor(Math.random() * 360)
+        const hueDrift = (Math.random() * 16) - 8
+        const saturationStops = [12, 14, 18, 28, 62, 58, 50, 40, 24, 18]
+        const lightnessStops = [82, 76, 69, 57, 43, 35, 28, 20, 12, 24]
+
+        return Object.keys(DEFAULT_SITE_PALETTE).reduce(function(accumulator, key, index) {
+            const isDeepTone = index >= 4 && index <= 8
+            const hueOffset = hueDrift * index + (isDeepTone ? (Math.random() * 12) - 6 : 0)
+            const nextSaturation = saturationStops[index] + ((Math.random() * 10) - 5)
+            const nextLightness = lightnessStops[index] + ((Math.random() * 6) - 3)
+
+            accumulator[key] = hslToHex(
+                baseHue + hueOffset,
+                clamp(nextSaturation, 8, 78),
+                clamp(nextLightness, 8, 88)
+            )
+            return accumulator
+        }, {})
     }
 
     function loadStoredPalette() {
@@ -79,6 +143,12 @@ function initOptionsTab() {
 
     function persistPalette(palette) {
         localStorage.setItem('sitePalette', JSON.stringify(palette))
+    }
+
+    function applyAndStorePalette(palette) {
+        applyPalette(palette)
+        syncColorInputs(palette)
+        persistPalette(palette)
     }
 
     function loadStoredName() {
@@ -410,6 +480,12 @@ function initOptionsTab() {
             localStorage.removeItem('sitePalette')
             applyPalette(DEFAULT_SITE_PALETTE)
             syncColorInputs(DEFAULT_SITE_PALETTE)
+        })
+    }
+
+    if (randomButton) {
+        randomButton.addEventListener('click', function() {
+            applyAndStorePalette(createRandomPalette())
         })
     }
 

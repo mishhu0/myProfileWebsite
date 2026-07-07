@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <title>Mihai</title>
-    <link rel="stylesheet" href="style.css?v=viz-phone-row-gap-1" />
+    <link rel="stylesheet" href="style.css?v=genre-all-color4-1" />
     <link rel="icon" href="images/start_logo.png" />
 </head>
 
@@ -130,7 +130,10 @@
                     </label>
                 </div>
 
-                <button type="button" class="options-reset" id="optionsResetBtn">Reset colors</button>
+                <div class="options-palette-actions">
+                    <button type="button" class="options-reset" id="optionsResetBtn">Reset colors</button>
+                    <button type="button" class="options-reset" id="optionsRandomBtn">random</button>
+                </div>
             </section>
 
             <section class="options-setting-section options-cursor-section" aria-labelledby="optionsCursorTitle">
@@ -315,7 +318,7 @@
                     </div>
                 </div>
                 <div class="genre-filter-row no-select" id="genreFilterRow">
-                    <button class="genre-btn active-genre" data-genre="all">All</button>
+                    <button class="genre-btn genre-btn--all active-genre" data-genre="all">All</button>
                 </div>
                 <div class="songs-lib no-select" id="songsLibrary">
                     <h2>Loading library...</h2>
@@ -684,7 +687,7 @@
     <script src="js/music-volume.js?v=volume-popup-root-1"></script>
     <script src="js/custom-color-picker.js"></script>
     <script src="js/tab-about.js"></script>
-    <script src="js/tab-options.js"></script>
+    <script src="js/tab-options.js?v=options-random-palette-1"></script>
     <script src="js/tab-projects.js"></script>
     <script src="js/tab-photography.js"></script>
     <script src="js/tab-blog.js"></script>
