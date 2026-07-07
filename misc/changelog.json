@@ -2,6 +2,16 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "38.",
+			"date": "2026-07-07",
+			"tag": "improvement",
+			"summary": "users fix and phone responsiveness finished?",
+			"highlights": [
+				"users now get registered after an interaction so bots aren't registered.",
+				"finished? phone responsiveness for the website"
+			]
+		},
+		{
 			"version": "37.",
 			"date": "2026-06-24",
 			"tag": "improvement",

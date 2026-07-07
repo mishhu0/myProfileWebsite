@@ -4,8 +4,12 @@ function globalVolumeControl() {
     const slider = document.getElementById('globalVolumeSlider')
     const label = document.getElementById('globalVolumeLabel')
     const vizVolumeInfo = document.getElementById('vizVolumeInfo')
+    const desktopRoot = document.getElementById('desktop-root')
 
     if (!volumeBtn || !popup || !slider || !label) return
+    if (desktopRoot && popup.parentElement !== desktopRoot) {
+        desktopRoot.appendChild(popup)
+    }
 
     const STORAGE_KEY = 'globalVolume'
     const defaultVolume = 0.25
