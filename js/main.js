@@ -57,10 +57,19 @@ function applyRuntimeLayoutFlags() {
     const viewport = getViewportMetrics()
     const shortestSide = Math.round(Math.min(viewport.width, viewport.height))
     const longestSide = Math.round(Math.max(viewport.width, viewport.height))
+    const isPhonePortrait = isPhonePortraitRuntime()
 
-    desktopRoot.classList.toggle('is-phone-portrait-runtime', isPhonePortraitRuntime())
+    desktopRoot.classList.toggle('is-phone-portrait-runtime', isPhonePortrait)
     desktopRoot.style.setProperty('--viewport-short-side', shortestSide + 'px')
     desktopRoot.style.setProperty('--viewport-long-side', longestSide + 'px')
+
+    window.dispatchEvent(new CustomEvent('app:layout-flags-change', {
+        detail: {
+            isPhonePortraitRuntime: isPhonePortrait,
+            shortestSide,
+            longestSide
+        }
+    }))
 }
 
 function initRuntimeLayoutFlags() {

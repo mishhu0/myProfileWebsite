@@ -2341,7 +2341,7 @@ select.custom-select-input {
     letter-spacing: -0.1px;
   }
   .viz-settings .viz-volume-value {
-    min-width: 4ch;
+    min-width: 5ch;
   }
   .viz-settings select {
     width: 32px;
@@ -2453,7 +2453,7 @@ select.custom-select-input {
 }
 
 #desktop-root.is-phone-portrait-runtime .viz-volume-value {
-  min-width: 4ch;
+  min-width: 5ch;
 }
 
 #desktop-root.is-phone-portrait-runtime select {

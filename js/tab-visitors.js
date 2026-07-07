@@ -11,6 +11,7 @@ function initVisitorsTab() {
     const visitorsDebug = Boolean(visitorsConfig.debug)
     const disabledMessage = String(visitorsConfig.disabledMessage || 'Visitor counter is disabled right now.')
     const offlineMessage = String(visitorsConfig.offlineMessage || 'Visitor counter is unavailable right now.')
+    const pendingRegistrationMessage = String(visitorsConfig.pendingRegistrationMessage || 'interact with the page to get your visitor number')
     const visitorsApiBase = String(visitorsConfig.apiBase || (window.location.protocol === 'file:' ? 'http://127.0.0.1:8787/chat' : '/chat')).replace(/\/+$/, '')
     const visitorsWsUrl = resolveWebSocketUrl(visitorsConfig.wsUrl, visitorsApiBase)
 
@@ -19,6 +20,18 @@ function initVisitorsTab() {
     let currentUserTag = ''
     let currentTotalVisitors = 0
     let healthPollTimer = 0
+    let hasInteractionTrigger = false
+    let hasRegisteredVisitor = false
+    let isRegisteringVisitor = false
+
+    const passiveListenerOptions = { passive: true }
+    const activationListeners = [
+        ['pointerdown', passiveListenerOptions],
+        ['touchstart', passiveListenerOptions],
+        ['wheel', passiveListenerOptions],
+        ['keydown', undefined],
+        ['focusin', undefined]
+    ]
 
     function joinUrl(base, suffix) {
         return String(base || '').replace(/\/+$/, '') + '/' + String(suffix || '').replace(/^\/+/, '')
@@ -76,6 +89,22 @@ function initVisitorsTab() {
         identityTag.textContent = safeValue ? 'saved tag #' + safeValue : 'saved tag unavailable'
     }
 
+    function bindInteractionRegistration() {
+        activationListeners.forEach(function(listenerConfig) {
+            const eventName = listenerConfig[0]
+            const eventOptions = listenerConfig[1]
+            window.addEventListener(eventName, handleFirstInteraction, eventOptions)
+        })
+    }
+
+    function unbindInteractionRegistration() {
+        activationListeners.forEach(function(listenerConfig) {
+            const eventName = listenerConfig[0]
+            const eventOptions = listenerConfig[1]
+            window.removeEventListener(eventName, handleFirstInteraction, eventOptions)
+        })
+    }
+
     function applyRegistration(result) {
         const visitor = result && result.visitor ? result.visitor : null
         const visitorNumber = Math.max(0, Number(visitor && visitor.visitorNumber) || 0)
@@ -97,9 +126,39 @@ function initVisitorsTab() {
         setMessage('you are visitor #' + visitorNumber)
     }
 
+    async function syncVisitorHealth() {
+        try {
+            const response = await fetch(joinUrl(visitorsApiBase, 'health'), {
+                headers: {
+                    Accept: 'application/json'
+                }
+            })
+
+            const payload = await response.json().catch(function() {
+                return {}
+            })
+
+            if (!response.ok) {
+                throw new Error(payload && payload.error ? payload.error : 'Could not load visitor count.')
+            }
+
+            if (payload && payload.visitorCount !== undefined) {
+                setTotalVisitors(payload.visitorCount)
+            }
+        } catch (error) {
+            if (visitorsDebug) {
+                console.warn('Could not load visitor count:', error)
+            }
+        }
+    }
+
     async function registerVisitor() {
+        if (!hasInteractionTrigger || hasRegisteredVisitor || isRegisteringVisitor) return
+
         currentUserTag = getUserTag()
         setTag(currentUserTag)
+        isRegisteringVisitor = true
+        setMessage('checking your visitor number...')
 
         try {
             const response = await fetch(joinUrl(visitorsApiBase, 'visitors'), {
@@ -120,6 +179,8 @@ function initVisitorsTab() {
             }
 
             applyRegistration(payload)
+            hasRegisteredVisitor = true
+            unbindInteractionRegistration()
         } catch (error) {
             if (visitorsDebug) {
                 console.warn('Could not register visitor:', error)
@@ -127,7 +188,16 @@ function initVisitorsTab() {
 
             setTotalVisitors(currentTotalVisitors)
             setMessage(offlineMessage)
+        } finally {
+            isRegisteringVisitor = false
         }
+    }
+
+    function handleFirstInteraction() {
+        if (hasInteractionTrigger) return
+
+        hasInteractionTrigger = true
+        registerVisitor()
     }
 
     function scheduleReconnect() {
@@ -192,9 +262,18 @@ function initVisitorsTab() {
         }
     }
 
+    function pollVisitorState() {
+        if (hasInteractionTrigger && !hasRegisteredVisitor) {
+            registerVisitor()
+            return
+        }
+
+        syncVisitorHealth()
+    }
+
     function startHealthPolling() {
         healthPollTimer = window.setInterval(function() {
-            registerVisitor()
+            pollVisitorState()
         }, 30000)
     }
 
@@ -208,16 +287,18 @@ function initVisitorsTab() {
     })
 
     setTotalVisitors(0)
-    setTag('')
+    currentUserTag = getUserTag()
+    setTag(currentUserTag)
 
     if (!visitorsEnabled) {
         setMessage(disabledMessage)
         return
     }
 
-    setMessage('checking your visitor number...')
-    registerVisitor()
+    setMessage(pendingRegistrationMessage)
+    bindInteractionRegistration()
     connectSocket()
+    syncVisitorHealth()
     startHealthPolling()
 }
 

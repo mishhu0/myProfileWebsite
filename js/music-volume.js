@@ -11,11 +11,18 @@ function globalVolumeControl() {
     const defaultVolume = 0.25
     let activePopupAnchor = volumeBtn
 
+    function isRuntimePhonePortraitClassActive() {
+        const desktopRoot = document.getElementById('desktop-root')
+        return Boolean(desktopRoot && desktopRoot.classList.contains('is-phone-portrait-runtime'))
+    }
+
     function isRotatedPortraitDesktop() {
         return window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches
     }
 
     function isPhonePortraitLayout() {
+        if (isRuntimePhonePortraitClassActive()) return true
+        if (typeof window.isPhonePortraitRuntime === 'function' && window.isPhonePortraitRuntime()) return true
         return window.matchMedia('(orientation: portrait) and (max-width: 640px)').matches
     }
 
@@ -162,6 +169,19 @@ function globalVolumeControl() {
         popup.setAttribute('aria-hidden', 'true')
     }
 
+    function syncVolumeUi() {
+        const currentValue = clamp01(Number(slider.value) / 100)
+        setVizVolumeLabel(currentValue)
+
+        if (!popup.classList.contains('is-open')) return
+        if (isPhonePortraitLayout()) {
+            closePopup()
+            return
+        }
+
+        positionPopup(activePopupAnchor)
+    }
+
     function togglePopup(anchorElement) {
         if (isPhonePortraitLayout()) {
             closePopup()
@@ -205,12 +225,14 @@ function globalVolumeControl() {
     })
 
     window.addEventListener('resize', function() {
-        setVizVolumeLabel(clamp01(Number(slider.value) / 100))
-        if (!popup.classList.contains('is-open')) return
-        if (isPhonePortraitLayout()) {
-            closePopup()
-            return
-        }
-        positionPopup(activePopupAnchor)
+        syncVolumeUi()
+    })
+
+    window.addEventListener('orientationchange', function() {
+        syncVolumeUi()
+    })
+
+    window.addEventListener('app:layout-flags-change', function() {
+        syncVolumeUi()
     })
 }
