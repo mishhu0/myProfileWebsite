@@ -1044,7 +1044,10 @@
     gap: 3px;
 }
 
-#desktop-root.is-phone-portrait-runtime .viz-setting-group--rainbow,
+#desktop-root.is-phone-portrait-runtime .viz-setting-group--rainbow {
+    margin-left: auto;
+}
+
 #desktop-root.is-phone-portrait-runtime .viz-setting-group--random,
 #desktop-root.is-phone-portrait-runtime .viz-setting-group--type,
 #desktop-root.is-phone-portrait-runtime .viz-setting-group--volume {
