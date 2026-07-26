@@ -305,6 +305,19 @@ function makeMovable(tab, zTracker, handleSelector = '.popup-title, .tab-title')
     let startX = 0, startY = 0
     let origX = 0, origY = 0
     let activePointerId = null
+    let handleObserver = null
+
+    const handle = tab.querySelector(handleSelector) || tab
+    handle.style.touchAction = 'none'
+
+    function isInteractiveDragTarget(target) {
+        if (!target || !target.closest) return false
+        return Boolean(target.closest('button, a, input, select, textarea, label, summary, [role="button"]'))
+    }
+
+    function updateHandleCursor() {
+        handle.style.cursor = tab.dataset.moveLocked === 'true' ? '' : (isDragging ? 'grabbing' : 'grab')
+    }
 
     function onPointerMove(e) {
         if (!isDragging || e.pointerId !== activePointerId) return
@@ -317,32 +330,50 @@ function makeMovable(tab, zTracker, handleSelector = '.popup-title, .tab-title')
 
     function onPointerUp(e) {
         if (!isDragging || e.pointerId !== activePointerId) return
+        if (typeof handle.releasePointerCapture === 'function' && handle.hasPointerCapture && handle.hasPointerCapture(e.pointerId)) {
+            handle.releasePointerCapture(e.pointerId)
+        }
         isDragging = false
         activePointerId = null
         tab.classList.remove('no-select')
+        updateHandleCursor()
         window.removeEventListener('pointermove', onPointerMove)
         window.removeEventListener('pointerup', onPointerUp)
         window.removeEventListener('pointercancel', onPointerUp)
     }
 
-    const handle = tab.querySelector(handleSelector) || tab
+    updateHandleCursor()
+
+    if (typeof MutationObserver !== 'undefined') {
+        handleObserver = new MutationObserver(updateHandleCursor)
+        handleObserver.observe(tab, { attributes: true, attributeFilter: ['data-move-locked'] })
+    }
 
     handle.addEventListener('pointerdown', function(e) {
         if (e.button !== 0 && e.pointerType === 'mouse') return
         if (tab.dataset.moveLocked === 'true') return
+        if (isInteractiveDragTarget(e.target)) return
         e.preventDefault()
         const point = getDesktopPointFromEvent(e)
         isDragging = true
         activePointerId = e.pointerId
+        if (typeof handle.setPointerCapture === 'function') {
+            handle.setPointerCapture(e.pointerId)
+        }
         tab.classList.add('no-select')
         startX = point.x
         startY = point.y
         origX = tab.offsetLeft
         origY = tab.offsetTop
         tab.style.zIndex = ++zTracker.value
+        updateHandleCursor()
         window.addEventListener('pointermove', onPointerMove)
         window.addEventListener('pointerup', onPointerUp)
         window.addEventListener('pointercancel', onPointerUp)
+    })
+
+    tab.addEventListener('remove', function() {
+        if (handleObserver) handleObserver.disconnect()
     })
 }
 

@@ -591,6 +591,37 @@ async function initMusicPlayer() {
         return Boolean(musicTab) && getComputedStyle(musicTab).display !== 'none'
     }
 
+    function isMiniPlayerVisible() {
+        return Boolean(miniPlayerTab) && getComputedStyle(miniPlayerTab).display !== 'none'
+    }
+
+    function togglePlayback() {
+        if (!audio.src) {
+            if (playlist.length) loadTrack(0, true)
+            return
+        }
+
+        if (audio.paused) {
+            if (audioCtx.state === 'suspended') audioCtx.resume()
+            audio.play()
+            return
+        }
+
+        audio.pause()
+    }
+
+    function shouldIgnorePlaybackShortcut(event) {
+        if (!event) return true
+        if (event.defaultPrevented || event.repeat || event.altKey || event.ctrlKey || event.metaKey) return true
+
+        const target = event.target instanceof Element ? event.target : document.activeElement
+        if (!target) return false
+
+        if (target instanceof HTMLElement && target.isContentEditable) return true
+
+        return Boolean(target.closest('input, textarea, select, button, a[href], [role="button"]'))
+    }
+
     function isAudioPlaying() {
         return Boolean(audio.src) && !audio.paused && !audio.ended
     }
@@ -1126,18 +1157,7 @@ async function initMusicPlayer() {
 
     if (youtubeBtn) youtubeBtn.addEventListener('click', openCurrentTrackYoutube)
 
-    playPauseBtn.addEventListener('click', function() {
-        if (!audio.src) {
-            if (playlist.length) loadTrack(0, true)
-            return
-        }
-        if (audio.paused) {
-            if (audioCtx.state === 'suspended') audioCtx.resume()
-            audio.play()
-        } else {
-            audio.pause()
-        }
-    })
+    playPauseBtn.addEventListener('click', togglePlayback)
 
     if (miniBackBtn) miniBackBtn.addEventListener('click', playPreviousTrack)
     if (miniNextBtn) miniNextBtn.addEventListener('click', playNextTrack)
@@ -1148,18 +1168,7 @@ async function initMusicPlayer() {
         })
     }
     if (miniPlayPauseBtn) {
-        miniPlayPauseBtn.addEventListener('click', function() {
-            if (!audio.src) {
-                if (playlist.length) loadTrack(0, true)
-                return
-            }
-            if (audio.paused) {
-                if (audioCtx.state === 'suspended') audioCtx.resume()
-                audio.play()
-            } else {
-                audio.pause()
-            }
-        })
+        miniPlayPauseBtn.addEventListener('click', togglePlayback)
     }
     if (miniSeekBar) {
         miniSeekBar.addEventListener('input', function() {
@@ -1222,6 +1231,15 @@ async function initMusicPlayer() {
         updateTimelineUI()
         syncVisualizerAnimation()
         playNextTrack()
+    })
+
+    document.addEventListener('keydown', function(event) {
+        if (event.code !== 'Space' && event.key !== ' ' && event.key !== 'Spacebar') return
+        if (shouldIgnorePlaybackShortcut(event)) return
+        if (!isMusicTabVisible() && !isMiniPlayerVisible()) return
+
+        event.preventDefault()
+        togglePlayback()
     })
 
     window.addEventListener('resize', function() {

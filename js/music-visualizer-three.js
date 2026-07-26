@@ -14,6 +14,7 @@ const DEFAULT_THEME = {
     highlight: '#9ad8ff',
     background: '#05070d'
 };
+const USER_PITCH_LIMIT = 0.92;
 
 function createDefaultAudioState() {
     return {
@@ -82,7 +83,16 @@ const refs = {
         zoomMotion: 0,
         zoomDrift: 0,
         swayX: 0,
-        swayY: 0
+        swayY: 0,
+        userOrbitOffset: 0,
+        userPitchOffset: 0
+    },
+    interaction: {
+        cleanup: null,
+        pointerId: null,
+        isDragging: false,
+        lastX: 0,
+        lastY: 0
     },
     size: {
         width: 0,
@@ -215,6 +225,16 @@ function getDirectionalSeed(x, y, z, offset) {
     return seed - Math.floor(seed);
 }
 
+function setRandomSpherePoint(target, offset) {
+    const z = clampSigned((Math.random() * 2) - 1, 1);
+    const theta = Math.random() * Math.PI * 2;
+    const radius = Math.sqrt(Math.max(0, 1 - (z * z)));
+
+    target[offset] = Math.cos(theta) * radius;
+    target[offset + 1] = z;
+    target[offset + 2] = Math.sin(theta) * radius;
+}
+
 function getMinimumFramingDistance(radius, fovDegrees, aspect, padding) {
     const safeRadius = Math.max(0.01, Number(radius) || 0.01);
     const safeAspect = Math.max(0.1, Number(aspect) || 1);
@@ -250,18 +270,102 @@ function createParticleTexture() {
     context.arc(48, 48, 34, 0, Math.PI * 2);
     context.fill();
 
-    context.font = '72px serif';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.lineWidth = 2;
-    context.strokeStyle = 'rgba(255,255,255,0.34)';
-    context.fillStyle = 'rgba(255,255,255,0.98)';
-    context.strokeText('꩜', 48, 50);
-    context.fillText('꩜', 48, 50);
+    context.lineCap = 'round';
+    context.lineJoin = 'round';
+    context.strokeStyle = 'rgba(255,255,255,0.96)';
+    context.lineWidth = 10;
+    context.beginPath();
+    context.moveTo(26, 26);
+    context.lineTo(70, 70);
+    context.moveTo(70, 26);
+    context.lineTo(26, 70);
+    context.stroke();
+
+    context.strokeStyle = 'rgba(255,255,255,0.28)';
+    context.lineWidth = 14;
+    context.beginPath();
+    context.moveTo(22, 22);
+    context.lineTo(74, 74);
+    context.moveTo(74, 22);
+    context.lineTo(22, 74);
+    context.stroke();
 
     particleTexture = new THREE.CanvasTexture(canvas);
     particleTexture.needsUpdate = true;
     return particleTexture;
+}
+
+function attachCanvasInteraction(canvas) {
+    if (!canvas) return;
+
+    if (typeof refs.interaction.cleanup === 'function') {
+        refs.interaction.cleanup();
+    }
+
+    canvas.style.touchAction = 'none';
+    canvas.style.cursor = 'grab';
+
+    function onPointerDown(event) {
+        refs.interaction.pointerId = event.pointerId;
+        refs.interaction.isDragging = true;
+        refs.interaction.lastX = event.clientX;
+        refs.interaction.lastY = event.clientY;
+        canvas.style.cursor = 'grabbing';
+        if (typeof canvas.setPointerCapture === 'function') {
+            canvas.setPointerCapture(event.pointerId);
+        }
+    }
+
+    function onPointerMove(event) {
+        if (!refs.interaction.isDragging || refs.interaction.pointerId !== event.pointerId) return;
+
+        const deltaX = event.clientX - refs.interaction.lastX;
+        const deltaY = event.clientY - refs.interaction.lastY;
+        const width = Math.max(1, refs.size.width || canvas.clientWidth || canvas.width || 1);
+        const height = Math.max(1, refs.size.height || canvas.clientHeight || canvas.height || 1);
+
+        refs.interaction.lastX = event.clientX;
+        refs.interaction.lastY = event.clientY;
+        refs.runtime.userOrbitOffset += (deltaX / width) * Math.PI * 1.9;
+        refs.runtime.userPitchOffset = clampRange(
+            refs.runtime.userPitchOffset + ((deltaY / height) * Math.PI * 1.1),
+            -USER_PITCH_LIMIT,
+            USER_PITCH_LIMIT
+        );
+    }
+
+    function endPointerDrag(event) {
+        if (refs.interaction.pointerId !== null && event.pointerId !== undefined && refs.interaction.pointerId !== event.pointerId) return;
+
+        if (refs.interaction.pointerId !== null && typeof canvas.releasePointerCapture === 'function') {
+            try {
+                canvas.releasePointerCapture(refs.interaction.pointerId);
+            } catch (_error) {
+                // Ignore release failures when the pointer is already gone.
+            }
+        }
+
+        refs.interaction.pointerId = null;
+        refs.interaction.isDragging = false;
+        canvas.style.cursor = 'grab';
+    }
+
+    canvas.addEventListener('pointerdown', onPointerDown);
+    canvas.addEventListener('pointermove', onPointerMove);
+    canvas.addEventListener('pointerup', endPointerDrag);
+    canvas.addEventListener('pointercancel', endPointerDrag);
+    canvas.addEventListener('pointerleave', endPointerDrag);
+
+    refs.interaction.cleanup = function() {
+        canvas.removeEventListener('pointerdown', onPointerDown);
+        canvas.removeEventListener('pointermove', onPointerMove);
+        canvas.removeEventListener('pointerup', endPointerDrag);
+        canvas.removeEventListener('pointercancel', endPointerDrag);
+        canvas.removeEventListener('pointerleave', endPointerDrag);
+        refs.interaction.pointerId = null;
+        refs.interaction.isDragging = false;
+        canvas.style.cursor = '';
+    };
 }
 
 function createParticleField(count, innerRadius, outerRadius, baseSize) {
@@ -495,7 +599,11 @@ function createLiquidSphereMode(profile) {
 
     const patchCount = Math.max(1, Math.round(profile.waveCount));
     const patchCenters = new Float32Array(patchCount * 3);
+    const patchTargets = new Float32Array(patchCount * 3);
     const patchPhases = new Float32Array(patchCount);
+    const patchTargetPhases = new Float32Array(patchCount);
+    const patchActivity = new Float32Array(patchCount);
+    const patchActivityTargets = new Float32Array(patchCount);
 
     for (let patchIndex = 0; patchIndex < patchCount; patchIndex += 1) {
         const patchT = patchCount === 1 ? 0.5 : ((patchIndex + 0.5) / patchCount);
@@ -510,7 +618,13 @@ function createLiquidSphereMode(profile) {
         patchCenters[patchOffset] = patchX;
         patchCenters[patchOffset + 1] = patchY;
         patchCenters[patchOffset + 2] = patchZ;
+        patchTargets[patchOffset] = patchX;
+        patchTargets[patchOffset + 1] = patchY;
+        patchTargets[patchOffset + 2] = patchZ;
         patchPhases[patchIndex] = getDirectionalSeed(patchX, patchY, patchZ, 4) * Math.PI * 2;
+        patchTargetPhases[patchIndex] = patchPhases[patchIndex];
+        patchActivity[patchIndex] = patchIndex < Math.min(6, patchCount) ? 0.42 : 0.08;
+        patchActivityTargets[patchIndex] = patchActivity[patchIndex];
     }
 
     const shellMaterial = new THREE.MeshLambertMaterial({
@@ -568,13 +682,89 @@ function createLiquidSphereMode(profile) {
     const rotationState = {
         x: 0,
         y: 0,
-        z: 0
+        z: 0,
+        spinDirection: 1,
+        spinTargetDirection: 1,
+        previousBeatPulse: 0,
+        previousBarPhase: 0,
+        flipCooldown: 0
+    };
+    const patchSpawnState = {
+        previousBeatPulse: 0,
+        cursor: 0,
+        lastSpawnX: 0,
+        lastSpawnY: 0,
+        lastSpawnZ: 1
     };
     const framing = {
         radius: profile.radius,
         padding: profile.framingPadding,
         surfaceGap: profile.cameraSurfaceGap
     };
+
+    function retargetPatch(index) {
+        const patchOffset = index * 3;
+        let candidateX = patchSpawnState.lastSpawnX;
+        let candidateY = patchSpawnState.lastSpawnY;
+        let candidateZ = patchSpawnState.lastSpawnZ;
+        let bestX = candidateX;
+        let bestY = candidateY;
+        let bestZ = candidateZ;
+        let bestSpacingScore = -Infinity;
+        const preferredDotLimit = clampRange(0.58 - (Math.min(48, patchCount) / 220), 0.3, 0.58);
+
+        for (let attempt = 0; attempt < 18; attempt += 1) {
+            setRandomSpherePoint(patchTargets, patchOffset);
+            candidateX = patchTargets[patchOffset];
+            candidateY = patchTargets[patchOffset + 1];
+            candidateZ = patchTargets[patchOffset + 2];
+
+            let nearestDot = -1;
+
+            for (let otherIndex = 0; otherIndex < patchCount; otherIndex += 1) {
+                if (otherIndex === index) continue;
+
+                const otherOffset = otherIndex * 3;
+                const otherDot = (candidateX * patchTargets[otherOffset])
+                    + (candidateY * patchTargets[otherOffset + 1])
+                    + (candidateZ * patchTargets[otherOffset + 2]);
+
+                if (otherDot > nearestDot) {
+                    nearestDot = otherDot;
+                }
+            }
+
+            const lastSpawnDot = (candidateX * patchSpawnState.lastSpawnX)
+                + (candidateY * patchSpawnState.lastSpawnY)
+                + (candidateZ * patchSpawnState.lastSpawnZ);
+            const spacingScore = Math.max(nearestDot, lastSpawnDot);
+
+            if (spacingScore < bestSpacingScore || bestSpacingScore === -Infinity) {
+                bestSpacingScore = spacingScore;
+                bestX = candidateX;
+                bestY = candidateY;
+                bestZ = candidateZ;
+            }
+
+            if (nearestDot <= preferredDotLimit && lastSpawnDot <= 0.64) {
+                bestX = candidateX;
+                bestY = candidateY;
+                bestZ = candidateZ;
+                break;
+            }
+        }
+
+        patchTargets[patchOffset] = bestX;
+        patchTargets[patchOffset + 1] = bestY;
+        patchTargets[patchOffset + 2] = bestZ;
+
+        patchSpawnState.lastSpawnX = bestX;
+        patchSpawnState.lastSpawnY = bestY;
+        patchSpawnState.lastSpawnZ = bestZ;
+        patchTargetPhases[index] = Math.random() * Math.PI * 2;
+        patchActivity[index] = 1;
+        patchActivityTargets[index] = 1;
+    }
 
     group.add(shell);
     group.add(shellOcclusion);
@@ -614,7 +804,7 @@ function createLiquidSphereMode(profile) {
         const stereoMotion = clampPositive(audio.stereoMotion, 1.5) / 1.5;
         const responseDrive = clamp01(audio.responseDrive);
         const surfaceDrive = clampPositive(audio.surfaceDrive, 2.4);
-        const cameraDrive = clampPositive(audio.cameraDrive, 2.4);
+        const cameraDrive = clampPositive(audio.cameraDrive, 6.8);
         const intimacyDrive = clampPositive(audio.intimacyDrive, 2.2);
 
         const directSurge = clampPositive(
@@ -693,6 +883,93 @@ function createLiquidSphereMode(profile) {
 
         const phraseBreath = Math.sin((barPhase * Math.PI * 2) - (Math.PI * 0.5));
         const songPhase = barPhase * Math.PI * 2;
+        const manualSpin = clampSigned(state.rotationSpeed, ROTATION_SPEED_LIMIT) / ROTATION_SPEED_LIMIT;
+        const spinMagnitude = Math.abs(manualSpin);
+        const beatTriggerThreshold = 0.18 + ((1 - beatConfidence) * 0.04);
+        const beatDirectionTrigger = beatPulse >= beatTriggerThreshold && rotationState.previousBeatPulse < beatTriggerThreshold;
+        const wrappedBar = barPhase < rotationState.previousBarPhase;
+
+        rotationState.flipCooldown = Math.max(0, rotationState.flipCooldown - delta);
+
+        if (spinMagnitude > 0.001) {
+            rotationState.spinTargetDirection = Math.sign(manualSpin);
+            rotationState.spinDirection = rotationState.spinTargetDirection;
+        } else {
+            const switchChance = clampRange(
+                0.34
+                + (downbeatPulse * 0.4)
+                + (beatPulse * 0.24)
+                + (stereoMotion * 0.16)
+                + (responseDrive * 0.14),
+                0.34,
+                0.96
+            );
+            const canFlip = rotationState.flipCooldown <= 0;
+
+            if (canFlip && beatDirectionTrigger && Math.random() < switchChance) {
+                rotationState.spinTargetDirection = rotationState.spinTargetDirection > 0 ? -1 : 1;
+                rotationState.spinDirection = rotationState.spinTargetDirection;
+                rotationState.flipCooldown = 0.18 + (Math.random() * 0.22);
+            } else if (canFlip && wrappedBar && Math.random() < 0.56 + (responseDrive * 0.22)) {
+                rotationState.spinTargetDirection = Math.random() < 0.5 ? -1 : 1;
+                rotationState.spinDirection = rotationState.spinTargetDirection;
+                rotationState.flipCooldown = 0.22 + (Math.random() * 0.28);
+            } else {
+                rotationState.spinDirection = rotationState.spinTargetDirection;
+            }
+        }
+
+        rotationState.previousBeatPulse = beatPulse;
+        rotationState.previousBarPhase = barPhase;
+        const spinDirection = spinMagnitude > 0.001 ? Math.sign(manualSpin) : rotationState.spinDirection;
+        const spinDrive = 0.58 + (spinMagnitude * 1.22);
+        const spinVelocityY = (profile.spinY + (mids * 0.08) + (surface.drift * 0.05)) * spinDrive * spinDirection;
+        const spinVelocityX = ((profile.spinY * 0.34) + (surface.flow * 0.04) + (surface.pulse * 0.026) + 0.014) * (0.58 + (spinMagnitude * 0.94)) * spinDirection;
+        const spinVelocityZ = ((profile.spinY * 0.28) + (highs * 0.05) + (surface.ripple * 0.024) + 0.012) * (0.52 + (spinMagnitude * 0.88)) * spinDirection;
+        const inverseWaveDirXRaw = -((spinVelocityY * 0.92) + (spinVelocityZ * 0.64));
+        const inverseWaveDirZRaw = (spinVelocityY * 0.92) + (spinVelocityX * 0.64);
+        const inverseWaveDirLength = Math.hypot(inverseWaveDirXRaw, inverseWaveDirZRaw) || 1;
+        const inverseWaveDirX = inverseWaveDirXRaw / inverseWaveDirLength;
+        const inverseWaveDirZ = inverseWaveDirZRaw / inverseWaveDirLength;
+        const inverseCrossDirX = -inverseWaveDirZ;
+        const inverseCrossDirZ = inverseWaveDirX;
+        const counterSpinPhase = -spinDirection;
+        const counterRotationDrive = 1.18 + (spinMagnitude * 1.36) + (surface.drift * 0.42) + (stereoMotion * 0.18);
+        const beatRetargetActive = beatPulse >= beatTriggerThreshold && patchSpawnState.previousBeatPulse < beatTriggerThreshold;
+        const safeMaxRetract = Math.min(profile.maxRetract, Math.max(0.12, profile.radius * 0.56));
+
+        if (beatRetargetActive) {
+            const spawnBurstCount = downbeatPulse > 0.18 ? 3 : 2;
+
+            for (let spawnIndex = 0; spawnIndex < spawnBurstCount; spawnIndex += 1) {
+                retargetPatch(patchSpawnState.cursor % patchCount);
+                patchSpawnState.cursor += 1;
+            }
+        }
+
+        patchSpawnState.previousBeatPulse = beatPulse;
+
+        for (let patchIndex = 0; patchIndex < patchCount; patchIndex += 1) {
+            const patchOffset = patchIndex * 3;
+            const idleActivity = patchIndex === (patchSpawnState.cursor % patchCount) ? 0.18 : 0.08;
+
+            if (patchActivityTargets[patchIndex] < 0.99) {
+                patchActivityTargets[patchIndex] = idleActivity;
+            }
+
+            patchCenters[patchOffset] = patchTargets[patchOffset];
+            patchCenters[patchOffset + 1] = patchTargets[patchOffset + 1];
+            patchCenters[patchOffset + 2] = patchTargets[patchOffset + 2];
+            patchPhases[patchIndex] = patchTargetPhases[patchIndex];
+            patchActivity[patchIndex] = dampDirectional(
+                patchActivity[patchIndex],
+                patchActivityTargets[patchIndex],
+                18 + (responseDrive * 8) + (downbeatPulse * 10),
+                4.2 + (responseDrive * 2.4),
+                delta
+            );
+        }
+
         const deformationActivity = smoothstep(
             0.08,
             0.58,
@@ -735,10 +1012,15 @@ function createLiquidSphereMode(profile) {
             const spectrumValue = getSpectrumValue(audio.spectrum, spectrumOffsets[index]);
             const primarySweep = (normalX * profile.primaryWaveDirX) + (normalZ * profile.primaryWaveDirZ);
             const crossSweep = (normalX * profile.crossWaveDirX) + (normalZ * profile.crossWaveDirZ);
+            const inverseDiagonalSweep = (normalX * inverseWaveDirX) + (normalZ * inverseWaveDirZ);
+            const inverseCrossSweep = (normalX * inverseCrossDirX) + (normalZ * inverseCrossDirZ);
             const latitudeAngle = Math.asin(Math.max(-1, Math.min(1, normalY)));
+            const wavePulsePhase = songPhase + (phase * 0.08);
             const breathWave = Math.sin(songPhase + (latitudeAngle * 0.8) + (phase * 0.12));
             const songPulseWave = Math.sin(songPhase + (primarySweep * 0.84) + (latitudeAngle * 0.46) + (phase * 0.12));
             const songMoldWave = Math.cos((songPhase * 0.92) - 0.46 + (crossSweep * 0.42) - (latitudeAngle * 0.36) + (phase * 0.08));
+            const travelWave = Math.sin(wavePulsePhase) * Math.cos((inverseDiagonalSweep * 4.2) + (inverseCrossSweep * 1.56) + (latitudeAngle * 1.08) + (phase * 0.18));
+            const travelCrossWave = Math.cos((wavePulsePhase * 1.08) - 0.32) * Math.cos(-(inverseDiagonalSweep * 1.42) + (inverseCrossSweep * 3.12) - (latitudeAngle * 0.92) + (phase * 0.14));
             let patchWeightSum = 0;
             let patchWeightedPulse = 0;
             let patchWeightedMold = 0;
@@ -748,9 +1030,10 @@ function createLiquidSphereMode(profile) {
             for (let patchIndex = 0; patchIndex < patchCount; patchIndex += 1) {
                 const patchOffset = patchIndex * 3;
                 const patchDot = (normalX * patchCenters[patchOffset]) + (normalY * patchCenters[patchOffset + 1]) + (normalZ * patchCenters[patchOffset + 2]);
+                const patchPresence = 0.04 + (patchActivity[patchIndex] * 1.18);
 
                 const patchKernel = smoothstep(0.44, 0.96, patchDot);
-                const patchWeight = Math.pow(patchKernel, 1.75);
+                const patchWeight = Math.pow(patchKernel, 1.75) * patchPresence;
 
                 if (patchWeight > patchMaxWeight) {
                     patchMaxWeight = patchWeight;
@@ -758,19 +1041,23 @@ function createLiquidSphereMode(profile) {
 
                 patchWeightSum += patchWeight;
                 patchWeightedDot += patchWeight * patchDot;
-                patchWeightedPulse += patchWeight * Math.sin(songPhase + patchPhases[patchIndex] + (patchDot * 0.32) + (phase * 0.08));
-                patchWeightedMold += patchWeight * Math.cos((songPhase * 0.92) - 0.42 + (patchPhases[patchIndex] * 0.62) - (latitudeAngle * 0.14) + (phase * 0.06));
+                patchWeightedPulse += patchWeight * (Math.sin(songPhase + patchPhases[patchIndex] + (phase * 0.08)) * patchDot);
+                patchWeightedMold += patchWeight * (Math.cos((songPhase * 0.92) - 0.42 + (patchPhases[patchIndex] * 0.62) + (phase * 0.06)) * patchDot);
             }
 
             const patchWeightTotal = Math.max(0.0001, patchWeightSum);
             const patchAverageDot = patchWeightedDot / patchWeightTotal;
             const patchFocus = smoothstep(0.08, 0.46, patchMaxWeight / patchWeightTotal);
             const patchPeakBase = smoothstep(0.54, 0.88, patchAverageDot);
-            const patchPeakShape = clamp01((patchPeakBase * 0.94) + (patchFocus * 0.06));
+            const patchPeakShape = clamp01((patchPeakBase * 0.9) + (patchFocus * 0.1));
             const patchPeakMask = Math.sqrt(Math.max(0, 1 - Math.pow(1 - patchPeakShape, 2)));
             const patchShoulderMask = patchPeakShape * patchPeakShape * (3 - (2 * patchPeakShape));
-            const patchLiftMask = clamp01((patchPeakMask * 0.72) + (patchShoulderMask * 0.28));
-            const patchArchBase = clamp01(((1 - patchFocus) * 0.38) + ((1 - patchShoulderMask) * 0.24) + ((1 - patchPeakMask) * 0.38));
+            const patchCrestPlateauMask = smoothstep(0.18, 0.92, patchPeakShape);
+            const patchApexPlateauMask = smoothstep(0.58, 0.995, patchPeakShape);
+            const patchCrestSoftMask = clamp01((patchPeakMask * 0.01) + (patchShoulderMask * 0.47) + (patchCrestPlateauMask * 0.52));
+            const patchLiftMask = clamp01((patchPeakMask * 0.01) + (patchShoulderMask * 0.36) + (patchCrestPlateauMask * 0.63));
+            const patchApexFlattening = 1 - (patchApexPlateauMask * 0.78);
+            const patchArchBase = clamp01(((1 - patchFocus) * 0.18) + ((1 - patchShoulderMask) * 0.38) + ((1 - patchCrestSoftMask) * 0.52) + (patchApexPlateauMask * 0.08));
             const patchConnectionShape = patchArchBase * patchArchBase * (3 - (2 * patchArchBase));
             const patchConnectionMask = clamp01((patchConnectionShape * 0.92) + ((1 - patchShoulderMask) * 0.34));
             const patchEdgeMask = smoothstep(0.02, 0.97, patchArchBase);
@@ -793,8 +1080,8 @@ function createLiquidSphereMode(profile) {
                 + (presence * 0.16),
                 3.6
             ) / 2.4;
-            const blobPulseWave = (songPulseWave * 0.34) + (patchPulseWave * 0.66);
-            const blobMoldWave = (songMoldWave * 0.3) + (patchMoldWave * 0.7);
+            const blobPulseWave = (songPulseWave * 0.14) + (travelWave * 0.46) + (patchPulseWave * 0.4);
+            const blobMoldWave = (songMoldWave * 0.1) + (travelCrossWave * 0.34) + (patchMoldWave * 0.56);
             const waveShellWeight = clamp01(0.86 + (equatorWeight * 0.08) + (sideWeight * 0.04));
             const patchTravel = clamp01((surface.corePulse * 0.32) + (surface.outwardPulse * 0.86) + (deformationActivity * 0.18));
             const waveResponse = smoothstep(
@@ -811,12 +1098,30 @@ function createLiquidSphereMode(profile) {
             );
             const localWaveDrive = smoothstep(0.04, 0.82, clamp01((spectrumValue * 0.72) + (waveResponse * 0.28)));
             const waveDynamic = 0.12 + (waveResponse * 0.88);
-            const patchBodyMask = 0.05 + (patchLiftMask * 0.95);
-            const patchLiftAmount = profile.waveAmount * (0.1 + (bodyDrive * 0.2) + (patchTravel * 0.24) + (localWaveDrive * 4.28));
+            const crestSoftening = 0.34 + (patchCrestSoftMask * 0.08);
+            const patchBodyMask = 0.18 + (patchCrestSoftMask * 0.82);
+            const waveStretchDrive = clampPositive(
+                (surface.spread * 0.44)
+                + (surface.flow * 0.38)
+                + (surface.tide * 0.28)
+                + (midsImpact * 0.26)
+                + (presence * 0.16)
+                + (localWaveDrive * 0.62),
+                3.2
+            ) / 1.58;
+            const hitStretchDrive = clampPositive(
+                (kickImpact * 0.46)
+                + (snareImpact * 0.34)
+                + (beatPulse * 0.28)
+                + (downbeatPulse * 0.24)
+                + (levelImpact * 0.18),
+                2.8
+            ) / 1.48;
+            const patchLiftAmount = profile.waveAmount * (0.32 + (bodyDrive * 0.44) + (patchTravel * 0.56) + (localWaveDrive * 8.2));
             const patchRetractAmount = profile.waveAmount * (0.07 + (surface.retract * 0.38) + (patchTravel * 0.18) + (localWaveDrive * 1.62));
             const patchTroughAmount = profile.waveConnectionAmount * (0.52 + (shapeDrive * 0.62) + (patchTravel * 0.52) + (localWaveDrive * 3.96));
-            const patchWaveLift = patchLiftMask * patchLiftAmount * waveShellWeight * (1.34 + (localWaveDrive * 4.06));
-            const patchWaveSwing = patchLiftMask * blobPulseWave * patchRetractAmount * waveShellWeight * (0.84 + (localWaveDrive * 0.96));
+            const patchWaveLift = patchLiftMask * patchLiftAmount * waveShellWeight * (0.92 + (localWaveDrive * 1.82)) * crestSoftening * patchApexFlattening;
+            const patchWaveSwing = patchLiftMask * blobPulseWave * patchRetractAmount * waveShellWeight * (0.22 + (localWaveDrive * 0.24)) * crestSoftening * (0.7 + (patchApexFlattening * 0.3));
             const patchWaveDepth = patchCavityMask * patchTroughAmount * waveShellWeight * (2.92 + (patchEdgeMask * 2.48) + (localWaveDrive * 1.62));
             const patchPulseAmount = (blobPulseWave * (profile.clayBodyAmount * (0.02 + (bodyDrive * 0.06) + (localWaveDrive * 0.82)) * waveShellWeight * patchBodyMask * waveDynamic))
                 + (spectrumValue * profile.spectrumAmount * waveShellWeight * (0.08 + (patchBodyMask * 0.18)) * (0.18 + (localWaveDrive * 0.82)))
@@ -824,16 +1129,9 @@ function createLiquidSphereMode(profile) {
             const patchContourAmount = blobMoldWave * (profile.clayContourAmount * (0.01 + (shapeDrive * 0.06) + (localWaveDrive * 0.44)) * waveShellWeight * (0.12 + (patchBodyMask * 0.72)) * (0.18 + (waveDynamic * 0.82)));
             const radialBody = patchPulseAmount + patchContourAmount + patchWaveLift + patchWaveSwing - patchWaveDepth;
             const targetRadialRaw = profile.baseSwell + radialBody;
-            const targetRadial = clampRange(softLimit(targetRadialRaw, profile.radialSoftLimit + (surface.softness * 0.06)), -profile.maxRetract, profile.maxLift);
-            const flowShellWeight = clamp01(0.14 + (equatorWeight * 0.86));
-            const crestRoundness = 1 - (patchLiftMask * (0.28 + (localWaveDrive * 0.2)));
-            const tangentFlowRaw = (((surface.lateral * stereoSigns[index] * profile.lateralAmount * sideWeight * 0.18)
-                + (blobPulseWave * surface.spread * profile.pulseFlow * equatorWeight * 0.24)
-                + (blobMoldWave * surface.flow * profile.sideWaveFlow * sideWeight * 0.18)) * flowShellWeight) * crestRoundness;
-            const bitangentFlowRaw = (((blobMoldWave * surface.tide * profile.tideLiftAmount * (0.12 + (equatorWeight * 0.18)))
-                + (((topWeight - bottomWeight) * surface.outwardPulse * profile.verticalStretch) * 0.06)) * flowShellWeight) * crestRoundness;
-            const tangentFlow = softLimit(tangentFlowRaw * 0.16, profile.flowSoftLimit + (surface.softness * 0.03));
-            const bitangentFlow = softLimit(bitangentFlowRaw * 0.14, profile.verticalSoftLimit + (surface.softness * 0.03));
+            const targetRadial = clampRange(softLimit(targetRadialRaw, profile.radialSoftLimit + (surface.softness * 0.06)), -safeMaxRetract, profile.maxLift);
+            const tangentFlow = 0;
+            const bitangentFlow = 0;
 
             radialOffsets[index] = dampDirectional(radialOffsets[index], targetRadial, profile.radialAttack + (directSurge * 10.4) + (responseDrive * 6.2) + (surface.pulse * 5.2) + (surface.outwardPulse * 6.2) + (bodyDrive * 3.2), profile.radialRelease + (surface.cohesion * 2.6) + (surface.pulse * 1.6), delta);
             tangentOffsets[index] = dampDirectional(tangentOffsets[index], tangentFlow, profile.flowAttack + (surface.flow * 5.2) + (directSpread * 2.6) + (surface.pulse * 1.4), profile.flowRelease + (surface.cohesion * 1.6), delta);
@@ -841,8 +1139,8 @@ function createLiquidSphereMode(profile) {
         }
 
         if (vertexNeighbors.length) {
-            const peakSmoothingMax = Math.max(0.08, profile.maxLift * 0.32);
-            const troughSmoothingMax = Math.max(0.08, profile.maxRetract * 0.24);
+            const peakSmoothingMax = Math.max(0.16, profile.maxLift * 0.56);
+            const troughSmoothingMax = Math.max(0.08, safeMaxRetract * 0.24);
 
             for (let index = 0; index < positionAttribute.count; index += 1) {
                 const neighbors = vertexNeighbors[index];
@@ -863,16 +1161,19 @@ function createLiquidSphereMode(profile) {
                 const peakBlend = smoothstep(0.01, peakSmoothingMax, Math.max(0, currentRadial));
                 const troughBlend = smoothstep(0.01, troughSmoothingMax, Math.max(0, -currentRadial));
                 const smoothingTarget = currentRadial >= 0 ? neighborAverage : Math.min(currentRadial, neighborAverage);
+                const crestClamp = neighborAverage + (peakSmoothingMax * (0.12 + ((1 - peakBlend) * 0.1)));
                 const smoothingStrength = currentRadial >= 0
-                    ? 0.18 + (peakBlend * 0.72)
+                    ? 0.48 + (peakBlend * 0.92)
                     : 0.036 + (troughBlend * 0.09);
                 let nextRadial = currentRadial + ((smoothingTarget - currentRadial) * smoothingStrength);
 
                 if (currentRadial < 0) {
                     nextRadial = Math.min(nextRadial, currentRadial * (1.26 + (troughBlend * 0.48)));
+                } else {
+                    nextRadial = Math.min((nextRadial * 0.74) + (neighborAverage * 0.26), crestClamp);
                 }
 
-                smoothedRadialOffsets[index] = clampRange(nextRadial, -profile.maxRetract, profile.maxLift);
+                smoothedRadialOffsets[index] = clampRange(nextRadial, -safeMaxRetract, profile.maxLift);
             }
 
             for (let index = 0; index < positionAttribute.count; index += 1) {
@@ -894,16 +1195,19 @@ function createLiquidSphereMode(profile) {
                 const peakBlend = smoothstep(0.01, peakSmoothingMax, Math.max(0, currentRadial));
                 const troughBlend = smoothstep(0.01, troughSmoothingMax, Math.max(0, -currentRadial));
                 const smoothingTarget = currentRadial >= 0 ? neighborAverage : Math.min(currentRadial, neighborAverage);
+                const crestClamp = neighborAverage + (peakSmoothingMax * (0.08 + ((1 - peakBlend) * 0.08)));
                 const smoothingStrength = currentRadial >= 0
-                    ? 0.14 + (peakBlend * 0.58)
+                    ? 0.42 + (peakBlend * 0.86)
                     : 0.024 + (troughBlend * 0.06);
                 let nextRadial = currentRadial + ((smoothingTarget - currentRadial) * smoothingStrength);
 
                 if (currentRadial < 0) {
                     nextRadial = Math.min(nextRadial, currentRadial * (1.18 + (troughBlend * 0.36)));
+                } else {
+                    nextRadial = Math.min((nextRadial * 0.78) + (neighborAverage * 0.22), crestClamp);
                 }
 
-                roundedRadialOffsets[index] = clampRange(nextRadial, -profile.maxRetract, profile.maxLift);
+                roundedRadialOffsets[index] = clampRange(nextRadial, -safeMaxRetract, profile.maxLift);
             }
 
             radialOffsets.set(roundedRadialOffsets);
@@ -1003,25 +1307,13 @@ function createLiquidSphereMode(profile) {
 
         const glowLift = clamp01((surface.pulse * 0.24) + (surface.swell * 0.14) + (directSurge * 0.1));
         const shellScale = 1;
-        const stormRock = Math.sin((elapsed * profile.stormRockSpeed) + stormDrift) * surface.storm * profile.stormRockAmount;
-        const stormRoll = Math.cos((elapsed * (profile.stormRockSpeed * 0.86)) - stormDrift) * surface.storm * profile.stormRollAmount;
-        const manualSpin = clampSigned(state.rotationSpeed, ROTATION_SPEED_LIMIT) / ROTATION_SPEED_LIMIT;
-        const spinDirection = Math.abs(manualSpin) > 0.001 ? Math.sign(manualSpin) : 1;
-        const spinMagnitude = Math.abs(manualSpin);
-        const spinDrive = 0.58 + (spinMagnitude * 1.22);
-        const spinVelocityY = (profile.spinY + (mids * 0.08) + (surface.drift * 0.05)) * spinDrive * spinDirection;
-        const spinVelocityX = ((profile.spinY * 0.34) + (surface.flow * 0.04) + (surface.pulse * 0.026) + 0.014) * (0.58 + (spinMagnitude * 0.94)) * spinDirection;
-        const spinVelocityZ = ((profile.spinY * 0.28) + (highs * 0.05) + (surface.ripple * 0.024) + 0.012) * (0.52 + (spinMagnitude * 0.88)) * spinDirection;
-        const wobbleX = (Math.sin(elapsed * profile.tiltSpeed) * (profile.tiltAmount + (surface.buoyancy * 0.04))) + (surface.lateral * 0.08) + stormRock;
-        const wobbleZ = (surface.lateral * 0.11) + (Math.sin((elapsed * profile.tiltSpeed * 0.72) + 1.1) * (profile.rollAmount + (surface.ripple * 0.02))) + stormRoll;
+        rotationState.x = 0;
+        rotationState.y = 0;
+        rotationState.z = 0;
 
-        rotationState.x += delta * spinVelocityX;
-        rotationState.y += delta * spinVelocityY;
-        rotationState.z += delta * spinVelocityZ;
-
-        group.rotation.x = rotationState.x + wobbleX;
-        group.rotation.y = rotationState.y;
-        group.rotation.z = rotationState.z + wobbleZ;
+        group.rotation.x = 0;
+        group.rotation.y = 0;
+        group.rotation.z = 0;
 
         shell.scale.setScalar(shellScale);
         shellOcclusion.scale.setScalar(shellScale * 1.035);
@@ -1086,10 +1378,10 @@ function getModeProfiles() {
             equatorPulse: 0.12,
             spectrumAmount: 0.032,
             breathAmount: 0.048,
-            retractAmount: 0.05,
+            retractAmount: 100.02,
             equatorRetract: 0.028,
             bottomRetract: 0.02,
-            retractSharpness: 0.04,
+            retractSharpness: 0.02,
             topStretch: 0.18,
             bottomDraw: 0.08,
             breathStretch: 0.08,
@@ -1105,9 +1397,9 @@ function getModeProfiles() {
             stormTroughAmount: 0.18,
             crossStormTroughAmount: 0.064,
             valleyAmount: 0.164,
-            waveCount: 25,
+            waveCount: 48,
             waveLatitudeFrequency: 2,
-            waveAmount: 1.02,
+            waveAmount: 2.5,
             waveConnectionAmount: 2.18,
             clayBodyAmount: 0.198,
             clayContourAmount: 0.088,
@@ -1115,9 +1407,9 @@ function getModeProfiles() {
             lobeAmount: 0.028,
             rippleAmount: 0.0048,
             crestAmount: 0.006,
-            maxLift: 3.9,
+            maxLift: 8.4,
             maxRetract: 3.84,
-            radialSoftLimit: 3.72,
+            radialSoftLimit: 7.4,
             surfaceSignalRange: 0.24,
             baseWaveContrast: 0.62,
             stormWaveContrastBoost: 0.22,
@@ -1152,8 +1444,8 @@ function getModeProfiles() {
             wrapLift: 0.16,
             framingPadding: 1.12,
             cameraSurfaceGap: 1.28,
-            radialAttack: 26,
-            radialRelease: 10.6,
+            radialAttack: 25,
+            radialRelease: 100,
             flowAttack: 14.2,
             flowRelease: 6.2,
             primaryWaveDirX: Math.cos(0.42),
@@ -1286,7 +1578,7 @@ function getModeProfiles() {
             hitStretchScale: 0.16,
             wrapLift: 0.18,
             framingPadding: 1.12,
-            cameraSurfaceGap: 1.18,
+            cameraSurfaceGap: 2.18, 
             radialAttack: 27,
             radialRelease: 11,
             flowAttack: 15,
@@ -1342,6 +1634,7 @@ function ensureScene(canvas) {
     if (refs.renderer && refs.canvas === canvas) return;
 
     refs.canvas = canvas;
+    attachCanvasInteraction(canvas);
     refs.renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: true,
@@ -1507,55 +1800,84 @@ function updateCamera(delta, elapsed, activeMode) {
     const subjectRadius = Math.max(1.35, framingState && Number.isFinite(framingState.radius) ? framingState.radius : 1.8);
     const framingPadding = framingState && Number.isFinite(framingState.padding) ? framingState.padding : 1.12;
     const surfaceGap = framingState && Number.isFinite(framingState.surfaceGap) ? framingState.surfaceGap : 1.2;
+    const orbitSongPhase = barPhase * Math.PI * 2;
     const phraseBreath = Math.sin((barPhase * Math.PI * 2) - (Math.PI * 0.5));
     const zoomPulseTarget = clampRange((kickImpact * 1.46) + (downbeatPulse * 0.92) + (levelImpact * 0.42) + (kick * 0.38), 0, 2.2);
     const zoomBreathTarget = clampRange((bass * 0.08) + (presence * 0.04) + (beatPulse * 0.04), 0, 0.22);
     const zoomMotionTarget = clampRange(
-        (kickImpact * 1.12)
-        + (snareImpact * 0.52)
-        + (highsImpact * 0.22)
-        + (downbeatPulse * 0.34)
-        + (beatPulse * 0.18)
-        + (levelImpact * 0.16),
+        (kickImpact * 0.82)
+        + (snareImpact * 0.28)
+        + (highsImpact * 0.12)
+        + (downbeatPulse * 0.22)
+        + (beatPulse * 0.1)
+        + (levelImpact * 0.08),
+        0,
+        1.5
+    );
+    const orbitEnergy = clampRange(
+        (mids * 0.34)
+        + (highs * 0.22)
+        + (stereoMotion * 0.28)
+        + (beatPulse * 0.36)
+        + (downbeatPulse * 0.44)
+        + (responseDrive * 0.18),
         0,
         2.4
     );
     const zoomDriftTarget = 0;
-    const swayXTarget = clampSigned((stereoPan * (0.18 + (stereoWidth * 0.18))) + (barDrift * 0.12) + (stereoMotion * 0.05 * Math.sin(elapsed * 1.2)), 0.55);
-    const swayYTarget = clampRange((snareImpact * 0.12) + (presence * 0.06) + (Math.max(0, phraseBreath) * zoomBreathTarget * 0.08), -0.2, 0.28);
+    const swayXTarget = 0;
+    const swayYTarget = clampRange(
+        (snareImpact * 0.1)
+        + (presence * 0.05)
+        + (Math.max(0, phraseBreath) * zoomBreathTarget * 0.08)
+        + (downbeatPulse * 0.04)
+        + (highsImpact * 0.015 * Math.sin(elapsed * 1.3)),
+        -0.08,
+        0.16
+    );
 
-    refs.runtime.zoomPulse = dampDirectional(refs.runtime.zoomPulse, zoomPulseTarget, 36 + (cameraDrive * 14), 15 + (cameraDrive * 5.4), delta);
-    refs.runtime.zoomBreath = dampDirectional(refs.runtime.zoomBreath, zoomBreathTarget, 10 + (cameraDrive * 4), 7.2 + (cameraDrive * 2.4), delta);
-    refs.runtime.zoomMotion = dampDirectional(refs.runtime.zoomMotion, zoomMotionTarget, 26 + (cameraDrive * 10.8), 12.4 + (cameraDrive * 4.8), delta);
+    refs.runtime.zoomPulse = dampDirectional(refs.runtime.zoomPulse, zoomPulseTarget, 22 + (cameraDrive * 8), 12 + (cameraDrive * 4.2), delta);
+    refs.runtime.zoomBreath = dampDirectional(refs.runtime.zoomBreath, zoomBreathTarget, 8 + (cameraDrive * 3), 6.8 + (cameraDrive * 2.2), delta);
+    refs.runtime.zoomMotion = dampDirectional(refs.runtime.zoomMotion, zoomMotionTarget, 14 + (cameraDrive * 5.6), 9 + (cameraDrive * 3.4), delta);
     refs.runtime.zoomDrift = dampDirectional(refs.runtime.zoomDrift, zoomDriftTarget, 12, 10, delta);
-    refs.runtime.swayX = dampDirectional(refs.runtime.swayX, swayXTarget, 6 + (cameraDrive * 3.4), 4.4 + (cameraDrive * 1.6), delta);
-    refs.runtime.swayY = dampDirectional(refs.runtime.swayY, swayYTarget, 5.4 + (cameraDrive * 3), 4 + (cameraDrive * 1.4), delta);
+    refs.runtime.swayX = dampDirectional(refs.runtime.swayX, swayXTarget, 4.8 + (cameraDrive * 2.2), 4 + (cameraDrive * 1.4), delta);
+    refs.runtime.swayY = dampDirectional(refs.runtime.swayY, swayYTarget, 4.2 + (cameraDrive * 1.8), 3.8 + (cameraDrive * 1.2), delta);
 
-    refs.runtime.orbitAngle += delta * (0.22 + (mids * 0.24) + (highs * 0.08) + (manualOrbit * 0.95));
+    if (Math.abs(manualOrbit) > 0.001) {
+        refs.runtime.orbitAngle += delta * (0.62 + (mids * 0.56) + (highs * 0.34) + (beatPulse * 0.42) + (downbeatPulse * 0.56) + (stereoMotion * 0.28) + (manualOrbit * 1.4));
+    } else {
+        refs.runtime.orbitAngle = dampDirectional(
+            refs.runtime.orbitAngle,
+            0,
+            4.8 + (cameraDrive * 2.4),
+            4.4 + (cameraDrive * 2),
+            delta
+        );
+    }
 
     const impactMix = (levelImpact * 0.55) + (kickImpact * 0.45) + (downbeatPulse * 0.25);
-    const zoomPunch = (refs.runtime.zoomPulse * (1.48 + (cameraDrive * 0.18)))
-        + (refs.runtime.zoomMotion * (0.92 + (cameraDrive * 0.12)));
-    const zoomRelax = refs.runtime.zoomBreath * (0.26 + (beatConfidence * 0.04));
-    let distanceTarget = clampRange(16 - (zoomPunch * 1.42) + (zoomRelax * 0.22) - (impactMix * 0.08 * cameraDrive) + (stereoWidth * 0.08), 2.9, 7.8);
+    const zoomPunch = (refs.runtime.zoomPulse * (1.08 + (cameraDrive * 0.08)))
+        + (refs.runtime.zoomMotion * (0.56 + (cameraDrive * 0.06)));
+    const zoomRelax = refs.runtime.zoomBreath * (0.18 + (beatConfidence * 0.02));
+    let distanceTarget = clampRange(16 - (zoomPunch * 0.82) + (zoomRelax * 0.14) - (impactMix * 0.03 * cameraDrive), 2.9, 7.8);
     const fovTarget = clampRange(
         50.5
-        - (zoomPunch * 6.8)
-        + (zoomRelax * 1.2),
-        39,
+        - (zoomPunch * 3.2)
+        + (zoomRelax * 0.48),
+        42,
         55
     );
     const heightTarget = clampRange(0.24 + (bass * 0.62 * surfaceDrive) + (presence * 0.34 * intimacyDrive) + (downbeatPulse * 0.16), 0.12, 1.85);
     const lookYTarget = clampRange(0.08 + (level * 0.18) + (presence * 0.28 * intimacyDrive) + (kickImpact * 0.12) + (responseDrive * 0.06), 0.04, 0.96);
-    const recoilTarget = (impactMix * 0.44 * cameraDrive) + (kickImpact * 0.18) + (refs.runtime.zoomPulse * 0.26) + (Math.max(0, refs.runtime.zoomMotion) * 0.12);
+    const recoilTarget = (impactMix * 0.18 * cameraDrive) + (kickImpact * 0.08) + (refs.runtime.zoomPulse * 0.1) + (Math.max(0, refs.runtime.zoomMotion) * 0.05);
     const minFramingDistance = getMinimumFramingDistance(subjectRadius, fovTarget, refs.camera.aspect || 1, framingPadding);
     const minSurfaceDistance = subjectRadius + surfaceGap;
     const minimumCenterDistance = Math.max(minFramingDistance, minSurfaceDistance) + (recoilTarget * 0.45);
 
     distanceTarget = Math.max(distanceTarget, minimumCenterDistance);
 
-    refs.runtime.distance = dampDirectional(refs.runtime.distance, distanceTarget, 38 + (cameraDrive * 12), 18 + (cameraDrive * 6.8), delta);
-    refs.runtime.fov = dampDirectional(refs.runtime.fov, fovTarget, 34 + (cameraDrive * 12), 20 + (cameraDrive * 7.6), delta);
+    refs.runtime.distance = dampDirectional(refs.runtime.distance, distanceTarget, 18 + (cameraDrive * 7.2), 12 + (cameraDrive * 4.8), delta);
+    refs.runtime.fov = dampDirectional(refs.runtime.fov, fovTarget, 16 + (cameraDrive * 6.8), 12 + (cameraDrive * 5.2), delta);
     refs.runtime.height = damp(refs.runtime.height, heightTarget, 4.8 + (surfaceDrive * 1.4), delta);
     refs.runtime.lookY = damp(refs.runtime.lookY, lookYTarget, 5.4 + (intimacyDrive * 1.8), delta);
     refs.runtime.recoil = damp(refs.runtime.recoil, recoilTarget, recoilTarget > refs.runtime.recoil ? 12 : 6, delta);
@@ -1564,11 +1886,21 @@ function updateCamera(delta, elapsed, activeMode) {
     refs.camera.updateProjectionMatrix();
 
     const orbitRadius = Math.max(Math.max(minFramingDistance, minSurfaceDistance), refs.runtime.distance - (refs.runtime.recoil * 0.45));
-    refs.camera.position.x = (Math.cos(refs.runtime.orbitAngle) * orbitRadius) + (stereoPan * 0.42) + refs.runtime.swayX;
-    refs.camera.position.y = refs.runtime.height + (Math.sin((refs.runtime.orbitAngle * 0.65) + (elapsed * 0.24)) * (0.22 + (level * 0.12))) + refs.runtime.swayY;
-    refs.camera.position.z = Math.sin(refs.runtime.orbitAngle) * orbitRadius;
-    const lookTargetX = (stereoPan * 0.08) + (refs.runtime.swayX * 0.12);
-    const lookTargetY = refs.runtime.lookY + (refs.runtime.swayY * 0.24);
+    const orbitAngle = refs.runtime.orbitAngle + refs.runtime.userOrbitOffset;
+    const orbitPitch = refs.runtime.userPitchOffset;
+    const orbitPitchCos = Math.max(0.18, Math.cos(orbitPitch));
+    const orbitPitchSin = Math.sin(orbitPitch);
+    const orbitEllipticalX = orbitRadius * orbitPitchCos;
+    const orbitEllipticalZ = orbitRadius * orbitPitchCos;
+    const orbitBob = Math.sin((refs.runtime.orbitAngle * 0.72) + (elapsed * (0.18 + (orbitEnergy * 0.1))))
+        * (0.1 + (level * 0.04) + (downbeatPulse * 0.04));
+    const orbitDriftX = 0;
+    const orbitDriftZ = 0;
+    refs.camera.position.x = (Math.cos(orbitAngle) * orbitEllipticalX) + refs.runtime.swayX + orbitDriftX;
+    refs.camera.position.y = refs.runtime.height + orbitBob + refs.runtime.swayY + (orbitPitchSin * orbitRadius);
+    refs.camera.position.z = (Math.sin(orbitAngle) * orbitEllipticalZ) + orbitDriftZ;
+    const lookTargetX = refs.runtime.swayX * 0.14;
+    const lookTargetY = refs.runtime.lookY + (refs.runtime.swayY * 0.18) + (Math.cos(elapsed * (0.52 + (responseDrive * 0.14))) * (0.012 + (downbeatPulse * 0.02)));
     refs.camera.lookAt(lookTargetX, lookTargetY, 0);
     refs.camera.updateMatrixWorld();
 
@@ -1611,8 +1943,15 @@ function renderFrame(timestamp) {
     refs.animationFrameId = requestAnimationFrame(renderFrame);
 }
 
+function ensureInteraction() {
+    if (refs.canvas && typeof refs.interaction.cleanup !== 'function') {
+        attachCanvasInteraction(refs.canvas);
+    }
+}
+
 function start(canvas) {
     ensureScene(canvas);
+    ensureInteraction();
     updateModeVisibility();
     if (refs.animationFrameId) return;
     refs.lastTimestamp = 0;
@@ -1624,11 +1963,16 @@ function stop() {
         cancelAnimationFrame(refs.animationFrameId);
         refs.animationFrameId = 0;
     }
+    if (typeof refs.interaction.cleanup === 'function') {
+        refs.interaction.cleanup();
+        refs.interaction.cleanup = null;
+    }
     refs.lastTimestamp = 0;
 }
 
 async function prime(canvas) {
     ensureScene(canvas);
+    ensureInteraction();
     updateModeVisibility();
     resize();
     const activeMode = refs.modes[state.mode] || refs.modes[DEFAULT_MODE];

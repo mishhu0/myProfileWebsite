@@ -2,6 +2,27 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "40.",
+			"date": "2026-07-26",
+			"tag": "improvement",
+			"summary": "bug fixes, minor visual imrpovements",
+			"highlights": [
+				"some small visual changes overall",
+				"fixed tabs not being able to move on tablet"
+			]
+		},
+		{
+			"version": "39.",
+			"date": "2026-07-23",
+			"tag": "improvement",
+			"summary": "updated the music viz a bit and extra qof improvements",
+			"highlights": [
+				"when pressing space now music will play/pause",
+				"added drag mouse icon for everything that can be dragged",
+				"changed v1 music visualiser a bit"
+			]
+		},
+		{
 			"version": "38.",
 			"date": "2026-07-07",
 			"tag": "improvement",
