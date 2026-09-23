@@ -1,5 +1,6 @@
 function initChatTab() {
     const CHAT_USER_TAG_KEY = 'chatUserTag'
+    const MAX_PROFILE_NAME_LENGTH = 14
     const DEFAULT_MESSAGE_COLORS = {
         nameColor: '#0a3333',
         textColor: '#233131'
@@ -95,11 +96,15 @@ function initChatTab() {
     }
 
     function getProfileName() {
-        if (typeof window.getStoredProfileName === 'function') {
-            return String(window.getStoredProfileName() || '').trim()
+        function normalizeProfileName(value) {
+            return String(value || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
         }
 
-        return String(localStorage.getItem('profileName') || '').trim()
+        if (typeof window.getStoredProfileName === 'function') {
+            return normalizeProfileName(window.getStoredProfileName())
+        }
+
+        return normalizeProfileName(localStorage.getItem('profileName'))
     }
 
     function createUserTag() {
@@ -150,7 +155,7 @@ function initChatTab() {
     function appendIdentityParts(target, name, userTag, prefixText, nameColor) {
         if (!target) return
 
-        const safeName = String(name || '').trim()
+        const safeName = String(name || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
         const safeTag = String(userTag || '').trim().toLowerCase()
         target.innerHTML = ''
 
@@ -211,7 +216,7 @@ function initChatTab() {
 
         return {
             id,
-            name: String(entry.name || '').trim().slice(0, 40),
+            name: String(entry.name || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH),
             userTag: String(entry.userTag || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8),
             nameColor: normalizeHex(entry.nameColor, DEFAULT_MESSAGE_COLORS.nameColor),
             textColor: normalizeHex(entry.textColor, DEFAULT_MESSAGE_COLORS.textColor),

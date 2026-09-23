@@ -1,4 +1,5 @@
 const DEFAULT_OPTIONS_NAME = ''
+const MAX_PROFILE_NAME_LENGTH = 14
 const CURSOR_IMAGE_INDEX_PATH = 'images/pointers/index.json'
 const CURSOR_THEME_FALLBACK_IDS = ['p1', 'p2', 'p3']
 const CURSOR_CANVAS_SIZE = 32
@@ -48,6 +49,10 @@ function initOptionsTab() {
         const safeFallback = String(fallback || '#000000').toLowerCase()
         const normalized = String(value || '').trim().toLowerCase()
         return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
+    }
+
+    function normalizeProfileName(value) {
+        return String(value || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
     }
 
     function clamp(value, min, max) {
@@ -152,11 +157,11 @@ function initOptionsTab() {
     }
 
     function loadStoredName() {
-        return localStorage.getItem('profileName') || DEFAULT_OPTIONS_NAME
+        return normalizeProfileName(localStorage.getItem('profileName') || DEFAULT_OPTIONS_NAME)
     }
 
     function getStoredProfileName() {
-        return String(loadStoredName()).trim()
+        return normalizeProfileName(loadStoredName())
     }
 
     function getCursorTheme(themeId) {
@@ -455,12 +460,18 @@ function initOptionsTab() {
     window.closeOptionsPanel = closeOptionsPanel
 
     if (nameInput) {
+        nameInput.maxLength = MAX_PROFILE_NAME_LENGTH
         nameInput.value = loadStoredName()
         nameInput.addEventListener('input', function() {
-            localStorage.setItem('profileName', nameInput.value)
+            const normalizedName = normalizeProfileName(nameInput.value)
+            if (nameInput.value !== normalizedName) {
+                nameInput.value = normalizedName
+            }
+
+            localStorage.setItem('profileName', normalizedName)
             window.dispatchEvent(new CustomEvent('profile-name-updated', {
                 detail: {
-                    name: String(nameInput.value || '')
+                    name: normalizedName
                 }
             }))
         })

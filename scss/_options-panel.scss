@@ -147,6 +147,13 @@
     background-color: p.$color6;
 }
 
+@supports (-moz-appearance: none) {
+    .options-cursor-row {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color6, #016565) var(--color2, #a9b9b8);
+    }
+}
+
 .options-cursor-option {
     display: flex;
     flex: 0 0 auto;

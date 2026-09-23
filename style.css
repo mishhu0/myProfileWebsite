@@ -499,6 +499,15 @@ html[data-skip-boot=true] .boot-screen {
   background: transparent;
 }
 
+@supports (-moz-appearance: none) {
+  .taskbar-tabs {
+    scrollbar-width: none;
+  }
+}
+.taskbar-tabs {
+  -ms-overflow-style: none;
+}
+
 .taskbar-tab {
   display: flex;
   flex-shrink: 0;
@@ -1164,6 +1173,12 @@ html[data-skip-boot=true] .boot-screen {
   background-color: var(--color6, #016565);
 }
 
+@supports (-moz-appearance: none) {
+  .options-cursor-row {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color6, #016565) var(--color2, #a9b9b8);
+  }
+}
 .options-cursor-option {
   display: flex;
   flex: 0 0 auto;
@@ -1648,6 +1663,18 @@ select.custom-select-input {
   border-radius: 0 !important;
 }
 
+/* Firefox scrollbar support */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color6, #016565) var(--color4, #61a1a0);
+  }
+  ::-moz-scrollbar-button {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+}
 .song-btn {
   width: 99%;
   display: flex;
@@ -1957,6 +1984,9 @@ select.custom-select-input {
 
 .seek-bar {
   flex: 1;
+  height: 10px;
+  margin: 0;
+  padding: 0;
   accent-color: var(--color6, #016565);
   cursor: pointer;
   appearance: none;
@@ -1964,6 +1994,7 @@ select.custom-select-input {
   background: var(--color4, #61a1a0);
   border-radius: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .seek-bar::-webkit-slider-runnable-track {
@@ -1995,6 +2026,13 @@ select.custom-select-input {
   border: none;
   background-color: var(--color6, #016565);
   box-shadow: -1000px 0 0 1000px var(--color6, #016565);
+  border-radius: 0;
+}
+
+.seek-bar::-moz-range-progress {
+  height: 10px;
+  background-color: var(--color6, #016565);
+  border: none;
   border-radius: 0;
 }
 
@@ -2613,6 +2651,7 @@ select.custom-select-input {
 
 .chat-message-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
@@ -2620,6 +2659,9 @@ select.custom-select-input {
 
 .chat-message-author {
   display: inline-flex;
+  min-width: 0;
+  flex: 1 1 180px;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 4px;
   font-size: 15px;
@@ -2636,18 +2678,22 @@ select.custom-select-input {
 .chat-identity-name {
   font-size: inherit;
   color: var(--chat-compose-name-color, var(--color8, #0a3333));
+  overflow-wrap: anywhere;
 }
 
 .chat-identity-tag {
   font-size: 0.9em;
   color: #303030;
   letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
 }
 
 .chat-message-time {
   font-size: 12px;
   color: #303030;
   text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .chat-message-body {

@@ -172,6 +172,20 @@
     border-radius: 0 !important;
 }
 
+/* Firefox scrollbar support */
+@supports (-moz-appearance: none) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color6, #016565) var(--color4, #61a1a0);
+    }
+
+    ::-moz-scrollbar-button {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
+}
+
 .song-btn {
     width: 99%;
     display: flex;
@@ -507,13 +521,17 @@
 
 .seek-bar {
     flex: 1;
+    height: 10px;
+    margin: 0;
+    padding: 0;
     accent-color: p.$color6;
     cursor: pointer;
     appearance: none;
-    -webkit-appearance: none;   
+    -webkit-appearance: none;
     background: p.$color4;
     border-radius: 0;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .seek-bar::-webkit-slider-runnable-track {
@@ -544,6 +562,13 @@
     border: none;
     background-color: p.$color6;
     box-shadow: -1000px 0 0 1000px p.$color6;
+    border-radius: 0;
+}
+
+.seek-bar::-moz-range-progress {
+    height: 10px;
+    background-color: p.$color6;
+    border: none;
     border-radius: 0;
 }
 

@@ -1,4 +1,5 @@
 function initReplyTab() {
+    const MAX_PROFILE_NAME_LENGTH = 14
     const replyTab = document.getElementById('replyTab')
     const replyMessages = document.getElementById('replyMessages')
     const replyForm = document.getElementById('replyForm')
@@ -37,10 +38,14 @@ function initReplyTab() {
     }
 
     function getProfileName() {
-        if (typeof window.getStoredProfileName === 'function') {
-            return String(window.getStoredProfileName() || '').trim()
+        function normalizeProfileName(value) {
+            return String(value || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
         }
-        return String(localStorage.getItem('profileName') || '').trim()
+
+        if (typeof window.getStoredProfileName === 'function') {
+            return normalizeProfileName(window.getStoredProfileName())
+        }
+        return normalizeProfileName(localStorage.getItem('profileName'))
     }
 
     function joinUrl(base, suffix) {

@@ -305,8 +305,10 @@ function getUserDirectMessages(userTag) {
     return selectDirectMessagesByUserTagStatement.all(normalizedTag).map(serializeDirectMessage)
 }
 
+const MAX_NAME_LENGTH = 14
+
 function normalizeName(value) {
-    return String(value || '').trim().slice(0, 40)
+    return String(value || '').trim().slice(0, MAX_NAME_LENGTH)
 }
 
 function normalizeUserTag(value) {

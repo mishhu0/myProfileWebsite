@@ -91,6 +91,13 @@
     background: transparent;
 }
 
+.taskbar-tabs {
+    @supports (-moz-appearance: none) {
+        scrollbar-width: none;
+    }
+    -ms-overflow-style: none;
+}
+
 .taskbar-tab {
     display: flex;
     flex-shrink: 0;

@@ -1,4 +1,5 @@
 function initContactTab() {
+	const MAX_PROFILE_NAME_LENGTH = 14
 	const contactTab = document.getElementById('contactTab')
 	const emailLink = document.getElementById('contactEmailLink')
 	const copyBtn = document.getElementById('contactCopyBtn')
@@ -43,11 +44,15 @@ function initContactTab() {
 	}
 
 	function getProfileName() {
-		if (typeof window.getStoredProfileName === 'function') {
-			return String(window.getStoredProfileName() || '').trim()
+		function normalizeProfileName(value) {
+			return String(value || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
 		}
 
-		return String(localStorage.getItem('profileName') || '').trim()
+		if (typeof window.getStoredProfileName === 'function') {
+			return normalizeProfileName(window.getStoredProfileName())
+		}
+
+		return normalizeProfileName(localStorage.getItem('profileName'))
 	}
 
 	function getUserTag() {
