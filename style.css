@@ -1483,7 +1483,8 @@ select.custom-select-input {
 
 .custom-color-actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   gap: 6px;
   padding-top: 2px;
 }
@@ -3398,6 +3399,8 @@ select.custom-select-input {
 }
 
 .visitors-saved-tag-value {
+  font-size: 12px;
+  color: var(--color6, #016565);
   font-weight: 700;
 }
 

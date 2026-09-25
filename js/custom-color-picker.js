@@ -233,6 +233,7 @@
             '</div>',
             '<div class="custom-color-actions">',
             '  <button type="button" class="custom-color-btn" id="customColorClose">close</button>',
+            '  <button type="button" class="custom-color-btn" id="customColorReset">reset</button>',
             '</div>'
         ].join('')
 
@@ -259,6 +260,7 @@
     const saturationValue = dialog.querySelector('#customColorSaturationValue')
     const lightnessValue = dialog.querySelector('#customColorLightnessValue')
     const closeButton = dialog.querySelector('#customColorClose')
+    const resetButton = dialog.querySelector('#customColorReset')
 
     let activeInput = null
     let activeTrigger = null
@@ -270,6 +272,17 @@
         input.value = normalized
         input.dispatchEvent(new Event('input', { bubbles: true }))
         input.dispatchEvent(new Event('change', { bubbles: true }))
+    }
+
+    function getDefaultColor(input) {
+        if (!input) return '#000000'
+
+        const storedDefault = String(input.dataset.defaultColor || '').trim()
+        if (/^#[0-9a-f]{6}$/i.test(storedDefault)) {
+            return storedDefault.toLowerCase()
+        }
+
+        return normalizeHex(input.getAttribute('value') || input.defaultValue || input.value, '#000000')
     }
 
     function updateTrigger(trigger, value) {
@@ -417,6 +430,7 @@
         if (input.classList.contains(ENHANCED_CLASS)) return
 
         input.classList.add(ENHANCED_CLASS)
+        input.dataset.defaultColor = getDefaultColor(input)
         const control = document.createElement('span')
         control.className = CONTROL_CLASS
         const associatedLabels = getAssociatedLabels(input)
@@ -547,6 +561,11 @@
     })
 
     closeButton.addEventListener('click', closeDialog)
+
+    resetButton.addEventListener('click', function() {
+        if (!activeInput) return
+        syncActiveInput(getDefaultColor(activeInput))
+    })
 
     document.addEventListener('mousedown', function(event) {
         if (dialog.classList.contains(OPEN_CLASS)) {
