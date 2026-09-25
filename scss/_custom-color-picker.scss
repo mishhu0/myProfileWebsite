@@ -55,10 +55,11 @@ select.custom-select-input {
 .custom-color-dialog {
     position: absolute;
     display: none;
-    width: 244px;
+    width: 252px;
     padding: 6px;
     box-sizing: border-box;
-    background-color: p.$window-surface;
+    background: linear-gradient(180deg, p.$window-surface, p.$color2);
+    border: 1px solid p.$window-shadow-mid;
     z-index: 2147483647;
     @include mixins.win95-raised;
 
@@ -67,6 +68,13 @@ select.custom-select-input {
         flex-direction: column;
         gap: 6px;
     }
+}
+
+.custom-color-topline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 84px;
+    gap: 6px;
+    align-items: center;
 }
 
 .custom-select-trigger {
@@ -145,7 +153,7 @@ select.custom-select-input {
     display: block;
     width: 100%;
     min-width: 0;
-    height: 28px;
+    height: 42px;
     margin: 0;
     box-sizing: border-box;
     border: 1px solid p.$window-shadow-mid;
@@ -154,32 +162,71 @@ select.custom-select-input {
 
 .custom-color-hex {
     display: block;
-    width: 100%;
+    width: 84px;
+    max-width: 100%;
     min-width: 0;
     margin: 0;
     box-sizing: border-box;
-    padding: 6px;
+    padding: 7px 8px;
     border: 1px solid p.$window-shadow-mid;
     background-color: p.$window-shadow-light;
     color: p.$window-shadow-dark;
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.custom-color-surface {
+    position: relative;
+    width: 100%;
+    height: 136px;
+    border: 1px solid p.$window-shadow-mid;
+    cursor: crosshair;
+    overflow: hidden;
+    touch-action: none;
+    @include mixins.win95-pressed;
+
+    &:focus-visible {
+        outline: 1px dotted p.$window-shadow-dark;
+        outline-offset: 2px;
+    }
+}
+
+.custom-color-surface-thumb {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border: 1px solid p.$window-shadow-light;
+    box-shadow: 0 0 0 1px p.$window-shadow-dark;
+    background: transparent;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 .custom-color-sliders {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 2px 0 0;
+    gap: 4px;
+    padding: 0;
 }
 
 .custom-color-slider-row {
     display: grid;
-    grid-template-columns: 56px minmax(0, 1fr) 56px;
-    gap: 8px;
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+    gap: 4px;
     align-items: center;
     margin: 0;
     color: p.$window-shadow-dark;
     font-size: 14px;
+}
+
+.custom-color-slider-row--hue {
+    padding: 3px 4px;
+    background: linear-gradient(180deg, p.$overlay-white-12, p.$overlay-black-08);
+    @include mixins.win95-raised;
 }
 
 .custom-color-slider-label,
@@ -248,12 +295,13 @@ select.custom-select-input {
     justify-content: space-between;
     align-items: center;
     gap: 6px;
-    padding-top: 2px;
+    padding-top: 0;
 }
 
 .custom-color-btn {
     border: none;
-    padding: 3px 10px;
+    min-width: 68px;
+    padding: 4px 12px;
     background-color: p.$color6;
     color: p.$window-shadow-light;
     cursor: pointer;

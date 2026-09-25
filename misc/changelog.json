@@ -5,11 +5,12 @@
 			"version": "41.",
 			"date": "2026-09-25",
 			"tag": "improvement",
-			"summary": "bug fixes, minor visual improvements",
+			"summary": "bug fixes, minor visual changes, color picker improvements",
 			"highlights": [
 				"fixed some visual issues with chatbox",
 				"fixed a bug with username display and save functionality",
-				"small visual changes overall"
+				"small visual changes overall",
+				"improved color picker functionality"
 			]
 		},
 		{

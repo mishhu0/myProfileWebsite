@@ -134,6 +134,77 @@
         }).join('')
     }
 
+    function rgbToHsv(hexValue) {
+        const rgb = hexToRgb(hexValue)
+        const red = rgb.red / 255
+        const green = rgb.green / 255
+        const blue = rgb.blue / 255
+        const max = Math.max(red, green, blue)
+        const min = Math.min(red, green, blue)
+        const delta = max - min
+        let hue = 0
+
+        if (delta !== 0) {
+            switch (max) {
+                case red:
+                    hue = ((green - blue) / delta) % 6
+                    break
+                case green:
+                    hue = ((blue - red) / delta) + 2
+                    break
+                default:
+                    hue = ((red - green) / delta) + 4
+                    break
+            }
+            hue *= 60
+            if (hue < 0) hue += 360
+        }
+
+        const saturation = max === 0 ? 0 : delta / max
+
+        return {
+            hue: Math.round(hue),
+            saturation: Math.round(saturation * 100),
+            value: Math.round(max * 100)
+        }
+    }
+
+    function hsvToHex(hue, saturation, value) {
+        const safeHue = ((Number(hue) % 360) + 360) % 360
+        const safeSaturation = clamp(Number(saturation), 0, 100) / 100
+        const safeValue = clamp(Number(value), 0, 100) / 100
+        const chroma = safeValue * safeSaturation
+        const huePrime = safeHue / 60
+        const x = chroma * (1 - Math.abs((huePrime % 2) - 1))
+        const match = safeValue - chroma
+
+        let red = 0
+        let green = 0
+        let blue = 0
+
+        if (huePrime < 1) {
+            red = chroma
+            green = x
+        } else if (huePrime < 2) {
+            red = x
+            green = chroma
+        } else if (huePrime < 3) {
+            green = chroma
+            blue = x
+        } else if (huePrime < 4) {
+            green = x
+            blue = chroma
+        } else if (huePrime < 5) {
+            red = x
+            blue = chroma
+        } else {
+            red = chroma
+            blue = x
+        }
+
+        return rgbToHex((red + match) * 255, (green + match) * 255, (blue + match) * 255)
+    }
+
     function rgbToHsl(hexValue) {
         const rgb = hexToRgb(hexValue)
         const red = rgb.red / 255
@@ -212,23 +283,18 @@
         dialog.setAttribute('aria-hidden', 'true')
 
         dialog.innerHTML = [
-            '<div class="custom-color-preview" id="customColorPreview"></div>',
-            '<input class="custom-color-hex" id="customColorHex" type="text" maxlength="7" spellcheck="false" />',
+            '<div class="custom-color-topline">',
+            '  <div class="custom-color-preview" id="customColorPreview"></div>',
+            '  <input class="custom-color-hex" id="customColorHex" type="text" maxlength="7" spellcheck="false" />',
+            '</div>',
+            '<div class="custom-color-surface" id="customColorSurface" tabindex="0" aria-label="Pick saturation and brightness">',
+            '  <span class="custom-color-surface-thumb" id="customColorSurfaceThumb"></span>',
+            '</div>',
             '<div class="custom-color-sliders">',
-            '  <label class="custom-color-slider-row">',
+            '  <label class="custom-color-slider-row custom-color-slider-row--hue">',
             '    <span class="custom-color-slider-label">Hue</span>',
             '    <input id="customColorHue" type="range" min="0" max="360" value="0" />',
             '    <span class="custom-color-value" id="customColorHueValue">0</span>',
-            '  </label>',
-            '  <label class="custom-color-slider-row">',
-            '    <span class="custom-color-slider-label">Sat</span>',
-            '    <input id="customColorSaturation" type="range" min="0" max="100" value="100" />',
-            '    <span class="custom-color-value" id="customColorSaturationValue">100%</span>',
-            '  </label>',
-            '  <label class="custom-color-slider-row">',
-            '    <span class="custom-color-slider-label">Light</span>',
-            '    <input id="customColorLightness" type="range" min="0" max="100" value="50" />',
-            '    <span class="custom-color-value" id="customColorLightnessValue">50%</span>',
             '  </label>',
             '</div>',
             '<div class="custom-color-actions">',
@@ -253,12 +319,10 @@
     const selectMenu = createSelectMenu()
     const preview = dialog.querySelector('#customColorPreview')
     const hexInput = dialog.querySelector('#customColorHex')
+    const surface = dialog.querySelector('#customColorSurface')
+    const surfaceThumb = dialog.querySelector('#customColorSurfaceThumb')
     const hueInput = dialog.querySelector('#customColorHue')
-    const saturationInput = dialog.querySelector('#customColorSaturation')
-    const lightnessInput = dialog.querySelector('#customColorLightness')
     const hueValue = dialog.querySelector('#customColorHueValue')
-    const saturationValue = dialog.querySelector('#customColorSaturationValue')
-    const lightnessValue = dialog.querySelector('#customColorLightnessValue')
     const closeButton = dialog.querySelector('#customColorClose')
     const resetButton = dialog.querySelector('#customColorReset')
 
@@ -297,24 +361,41 @@
 
     function formatSliderValue(kind, value) {
         const normalized = String(value || '0')
-        if (kind === 'saturation' || kind === 'lightness') {
+        if (kind === 'saturation' || kind === 'value') {
             return normalized + '%'
         }
 
         return normalized
     }
 
+    function getDialogSaturation() {
+        return clamp(Number(dialog.dataset.currentSaturation || 100), 0, 100)
+    }
+
+    function getDialogValue() {
+        return clamp(Number(dialog.dataset.currentValue || 100), 0, 100)
+    }
+
+    function updateSurfaceVisuals(hue, saturation, value) {
+        const accent = hsvToHex(hue, 100, 100)
+        surface.style.backgroundImage = [
+            'linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+            'linear-gradient(to right, rgba(255, 255, 255, 1), ' + accent + ')'
+        ].join(', ')
+        surfaceThumb.style.left = saturation + '%'
+        surfaceThumb.style.top = (100 - value) + '%'
+    }
+
     function syncDialogFromHex(value) {
         const normalized = normalizeHex(value, '#000000')
-        const hsl = rgbToHsl(normalized)
+        const hsv = rgbToHsv(normalized)
         hexInput.value = normalized
-        hueInput.value = String(hsl.hue)
-        saturationInput.value = String(hsl.saturation)
-        lightnessInput.value = String(hsl.lightness)
-        hueValue.textContent = formatSliderValue('hue', hsl.hue)
-        saturationValue.textContent = formatSliderValue('saturation', hsl.saturation)
-        lightnessValue.textContent = formatSliderValue('lightness', hsl.lightness)
+        hueInput.value = String(hsv.hue)
+        hueValue.textContent = formatSliderValue('hue', hsv.hue)
+        dialog.dataset.currentSaturation = String(hsv.saturation)
+        dialog.dataset.currentValue = String(hsv.value)
         preview.style.backgroundColor = normalized
+        updateSurfaceVisuals(hsv.hue, hsv.saturation, hsv.value)
     }
 
     function syncActiveInput(nextValue) {
@@ -343,6 +424,17 @@
         positionDialog(trigger)
         hexInput.focus()
         hexInput.select()
+    }
+
+    function updateFromSurfaceEvent(event) {
+        if (!activeInput) return
+
+        const bounds = surface.getBoundingClientRect()
+        if (!bounds.width || !bounds.height) return
+
+        const saturation = clamp(((event.clientX - bounds.left) / bounds.width) * 100, 0, 100)
+        const value = clamp((1 - ((event.clientY - bounds.top) / bounds.height)) * 100, 0, 100)
+        syncActiveInput(hsvToHex(hueInput.value, saturation, value))
     }
 
     function updateSelectTrigger(trigger, select) {
@@ -541,23 +633,57 @@
 
     hueInput.addEventListener('input', function() {
         hueValue.textContent = formatSliderValue('hue', hueInput.value)
-        syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
-    })
-
-    saturationInput.addEventListener('input', function() {
-        saturationValue.textContent = formatSliderValue('saturation', saturationInput.value)
-        syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
-    })
-
-    lightnessInput.addEventListener('input', function() {
-        lightnessValue.textContent = formatSliderValue('lightness', lightnessInput.value)
-        syncActiveInput(hslToHex(hueInput.value, saturationInput.value, lightnessInput.value))
+        syncActiveInput(hsvToHex(hueInput.value, getDialogSaturation(), getDialogValue()))
     })
 
     hexInput.addEventListener('input', function() {
         const normalized = normalizeHex(hexInput.value, '')
         if (!normalized) return
         syncActiveInput(normalized)
+    })
+
+    surface.addEventListener('pointerdown', function(event) {
+        if (!activeInput) return
+        event.preventDefault()
+        surface.setPointerCapture(event.pointerId)
+        updateFromSurfaceEvent(event)
+    })
+
+    surface.addEventListener('pointermove', function(event) {
+        if (!activeInput) return
+        if ((event.buttons & 1) !== 1 && !surface.hasPointerCapture(event.pointerId)) return
+        updateFromSurfaceEvent(event)
+    })
+
+    surface.addEventListener('keydown', function(event) {
+        if (!activeInput) return
+
+        const step = event.shiftKey ? 5 : 1
+        let saturation = getDialogSaturation()
+        let value = getDialogValue()
+        let handled = true
+
+        switch (event.key) {
+            case 'ArrowLeft':
+                saturation -= step
+                break
+            case 'ArrowRight':
+                saturation += step
+                break
+            case 'ArrowUp':
+                value += step
+                break
+            case 'ArrowDown':
+                value -= step
+                break
+            default:
+                handled = false
+                break
+        }
+
+        if (!handled) return
+        event.preventDefault()
+        syncActiveInput(hsvToHex(hueInput.value, saturation, value))
     })
 
     closeButton.addEventListener('click', closeDialog)
