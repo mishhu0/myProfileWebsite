@@ -2651,11 +2651,10 @@ select.custom-select-input {
 
 .chat-message-header {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: flex-start;
   justify-content: space-between;
   column-gap: 8px;
-  row-gap: 2px;
 }
 
 .chat-message-author {
@@ -2663,9 +2662,10 @@ select.custom-select-input {
   min-width: 0;
   flex: 1 1 180px;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 4px;
   font-size: 15px;
+  line-height: 1.1;
   color: var(--color8, #0a3333);
   text-transform: lowercase;
 }
@@ -2683,15 +2683,16 @@ select.custom-select-input {
 }
 
 .chat-identity-tag {
-  font-size: 0.9em;
+  font-size: 13px;
+  line-height: 1.1;
   color: #303030;
   letter-spacing: 0.04em;
   overflow-wrap: anywhere;
 }
 
 .chat-message-time {
-  font-size: 11px;
-  line-height: 1;
+  font-size: 13px;
+  line-height: 1.1;
   color: #303030;
   text-align: right;
   white-space: nowrap;
@@ -5174,5 +5175,3 @@ body.pictures-expanded .entity-chat {
     bottom: 38px;
   }
 }
-
-/*# sourceMappingURL=style.css.map */
