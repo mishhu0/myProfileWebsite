@@ -79,6 +79,7 @@
     min-width: 0;
     flex: 1 1 180px;
     flex-wrap: nowrap;
+    overflow: hidden;
     align-items: baseline;
     gap: 4px;
     font-size: 15px;
@@ -101,7 +102,8 @@
 
 .chat-identity-name {
     min-width: 0;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
+    max-width: 100%;
     font-size: inherit;
     color: var(--chat-compose-name-color, #{p.$color8});
     overflow: hidden;
@@ -317,8 +319,8 @@
 }
 
 .chat-color-control .custom-color-trigger {
-    width: 28px;
-    min-width: 28px;
+    width: 24px;
+    min-width: 24px;
     height: 14px;
     background-color: p.$window-surface;
     box-shadow: none;
