@@ -2652,7 +2652,7 @@ select.custom-select-input {
 .chat-message-header {
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   column-gap: 8px;
 }
@@ -2662,10 +2662,10 @@ select.custom-select-input {
   min-width: 0;
   flex: 1 1 180px;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   gap: 4px;
   font-size: 15px;
-  line-height: 1;
+  line-height: 1.1;
   color: var(--color8, #0a3333);
   text-transform: lowercase;
 }
@@ -2678,14 +2678,13 @@ select.custom-select-input {
 
 .chat-identity-name {
   font-size: inherit;
-  line-height: 1;
   color: var(--chat-compose-name-color, var(--color8, #0a3333));
   overflow-wrap: anywhere;
 }
 
 .chat-identity-tag {
   font-size: 10px;
-  line-height: 1;
+  line-height: 1.1;
   color: #303030;
   letter-spacing: 0.04em;
   overflow-wrap: anywhere;
@@ -2693,11 +2692,10 @@ select.custom-select-input {
 
 .chat-message-time {
   font-size: 10px;
-  line-height: 1;
+  line-height: 1.1;
   color: #303030;
   text-align: right;
   white-space: nowrap;
-  align-self: center;
   flex-shrink: 0;
 }
 
@@ -2712,6 +2710,7 @@ select.custom-select-input {
 .chat-status-row {
   display: flex;
   align-items: baseline;
+  flex-wrap: nowrap;
   justify-content: space-between;
   gap: 6px;
   margin-top: -2px;
@@ -2719,7 +2718,10 @@ select.custom-select-input {
 
 .chat-status {
   display: inline-flex;
+  flex: 1 1 auto;
+  min-width: 0;
   align-items: baseline;
+  flex-wrap: nowrap;
   gap: 4px;
   margin: 0;
   padding: 2px 1px 4px;
@@ -2727,13 +2729,21 @@ select.custom-select-input {
   font-size: 12px;
   line-height: 1;
   text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chat-color-controls {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 4px;
   margin-left: auto;
+}
+
+.chat-edit-btn {
+  flex-shrink: 0;
 }
 
 .chat-color-control {

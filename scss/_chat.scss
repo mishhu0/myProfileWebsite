@@ -127,6 +127,7 @@
 .chat-status-row {
     display: flex;
     align-items: baseline;
+    flex-wrap: nowrap;
     justify-content: space-between;
     gap: 6px;
     margin-top: -2px;
@@ -134,7 +135,10 @@
 
 .chat-status {
     display: inline-flex;
+    flex: 1 1 auto;
+    min-width: 0;
     align-items: baseline;
+    flex-wrap: nowrap;
     gap: 4px;
     margin: 0;
     padding: 2px 1px 4px;
@@ -142,13 +146,21 @@
     font-size: 12px;
     line-height: 1;
     text-transform: lowercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-color-controls {
     display: inline-flex;
     align-items: center;
+    flex-shrink: 0;
     gap: 4px;
     margin-left: auto;
+}
+
+.chat-edit-btn {
+    flex-shrink: 0;
 }
 
 .chat-color-control {
