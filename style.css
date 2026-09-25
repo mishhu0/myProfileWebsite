@@ -2652,7 +2652,7 @@ select.custom-select-input {
 .chat-message-header {
   display: flex;
   flex-wrap: nowrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   column-gap: 8px;
 }
@@ -2662,10 +2662,10 @@ select.custom-select-input {
   min-width: 0;
   flex: 1 1 180px;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
   font-size: 15px;
-  line-height: 1.1;
+  line-height: 1;
   color: var(--color8, #0a3333);
   text-transform: lowercase;
 }
@@ -2678,24 +2678,26 @@ select.custom-select-input {
 
 .chat-identity-name {
   font-size: inherit;
+  line-height: 1;
   color: var(--chat-compose-name-color, var(--color8, #0a3333));
   overflow-wrap: anywhere;
 }
 
 .chat-identity-tag {
-  font-size: 13px;
-  line-height: 1.1;
+  font-size: 10px;
+  line-height: 1;
   color: #303030;
   letter-spacing: 0.04em;
   overflow-wrap: anywhere;
 }
 
 .chat-message-time {
-  font-size: 13px;
-  line-height: 1.1;
+  font-size: 10px;
+  line-height: 1;
   color: #303030;
   text-align: right;
   white-space: nowrap;
+  align-self: center;
   flex-shrink: 0;
 }
 
