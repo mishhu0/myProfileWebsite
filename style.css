@@ -3385,12 +3385,20 @@ select.custom-select-input {
   color: #1f1f1f;
 }
 
+.visitors-identity-number {
+  color: var(--color6, #016565);
+}
+
 .visitors-identity-tag {
   font-size: 11px;
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: lowercase;
   color: #303030;
+}
+
+.visitors-saved-tag-value {
+  font-weight: 700;
 }
 
 .about-tab {
@@ -5250,3 +5258,5 @@ body.pictures-expanded .entity-chat {
     bottom: 38px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */

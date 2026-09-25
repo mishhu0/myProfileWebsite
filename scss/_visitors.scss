@@ -147,10 +147,18 @@
     color: p.$text-dark;
 }
 
+.visitors-identity-number {
+    color: p.$color6;
+}
+
 .visitors-identity-tag {
     font-size: 11px;
     line-height: 1;
     letter-spacing: 0.08em;
     text-transform: lowercase;
     color: p.$text-muted;
+}
+
+.visitors-saved-tag-value {
+    font-weight: 700;
 }

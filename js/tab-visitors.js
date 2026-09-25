@@ -81,12 +81,38 @@ function initVisitorsTab() {
     }
 
     function setMessage(value) {
-        identityMessage.textContent = String(value || 'you are visitor #0')
+        const safeValue = String(value || 'you are visitor #0')
+        const match = safeValue.match(/^(.*?#)(\d+)$/)
+
+        identityMessage.innerHTML = ''
+        if (!match) {
+            identityMessage.textContent = safeValue
+            return
+        }
+
+        identityMessage.appendChild(document.createTextNode(match[1]))
+
+        const numberPart = document.createElement('span')
+        numberPart.className = 'visitors-identity-number'
+        numberPart.textContent = match[2]
+        identityMessage.appendChild(numberPart)
     }
 
     function setTag(value) {
         const safeValue = String(value || '').trim().toLowerCase()
-        identityTag.textContent = safeValue ? 'saved tag #' + safeValue : 'saved tag unavailable'
+        identityTag.innerHTML = ''
+
+        if (!safeValue) {
+            identityTag.textContent = 'saved tag unavailable'
+            return
+        }
+
+        identityTag.appendChild(document.createTextNode('saved tag '))
+
+        const tagPart = document.createElement('span')
+        tagPart.className = 'visitors-saved-tag-value'
+        tagPart.textContent = '#' + safeValue
+        identityTag.appendChild(tagPart)
     }
 
     function bindInteractionRegistration() {
