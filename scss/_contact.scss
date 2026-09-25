@@ -115,6 +115,14 @@
     gap: 3px;
 }
 
+.contact-dm-status-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+}
+
 .contact-dm-title {
     font-size: 18px;
     font-weight: 600;
@@ -124,9 +132,34 @@
 }
 
 .contact-dm-status {
+    display: inline-flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    align-items: baseline;
+    gap: 4px;
     margin: 0;
     font-size: 11px;
     line-height: 1.2;
+    color: p.$color8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contact-dm-status .chat-identity-prefix,
+.contact-dm-status .chat-identity-tag,
+.contact-dm-status .chat-identity-suffix {
+    flex-shrink: 0;
+}
+
+.contact-dm-status .chat-identity-name {
+    min-width: 0;
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contact-dm-status .chat-identity-suffix {
     color: p.$color8;
 }
 
@@ -136,6 +169,19 @@
 
 .contact-dm-status.is-success {
     color: p.$color6;
+}
+
+.contact-dm-edit-btn {
+    border: none;
+    padding: 2px 1px 4px;
+    background: transparent;
+    color: p.$text-muted;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .contact-dm-form {

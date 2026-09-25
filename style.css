@@ -3071,6 +3071,14 @@ select.custom-select-input {
   gap: 3px;
 }
 
+.contact-dm-status-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
 .contact-dm-title {
   font-size: 18px;
   font-weight: 600;
@@ -3080,9 +3088,34 @@ select.custom-select-input {
 }
 
 .contact-dm-status {
+  display: inline-flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: baseline;
+  gap: 4px;
   margin: 0;
   font-size: 11px;
   line-height: 1.2;
+  color: var(--color8, #0a3333);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-dm-status .chat-identity-prefix,
+.contact-dm-status .chat-identity-tag,
+.contact-dm-status .chat-identity-suffix {
+  flex-shrink: 0;
+}
+
+.contact-dm-status .chat-identity-name {
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-dm-status .chat-identity-suffix {
   color: var(--color8, #0a3333);
 }
 
@@ -3092,6 +3125,19 @@ select.custom-select-input {
 
 .contact-dm-status.is-success {
   color: var(--color6, #016565);
+}
+
+.contact-dm-edit-btn {
+  border: none;
+  padding: 2px 1px 4px;
+  background: transparent;
+  color: #303030;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: lowercase;
+  text-decoration: underline;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .contact-dm-form {

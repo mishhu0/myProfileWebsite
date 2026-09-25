@@ -1,6 +1,16 @@
 {
 	"title": "Changelog",
-	"entries": [	
+	"entries": [
+		{
+			"version": "41.",
+			"date": "2026-09-25",
+			"tag": "improvement",
+			"summary": "bug fixes",
+			"highlights": [
+				"fixed some visual issues with chatbox",
+				"fixed a bug with username display and save functionality"
+			]
+		},
 		{
 			"version": "40.",
 			"date": "2026-07-26",

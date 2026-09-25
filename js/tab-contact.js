@@ -9,6 +9,7 @@ function initContactTab() {
 	const dmInput = document.getElementById('contactDmInput')
 	const dmSendBtn = document.getElementById('contactDmSendBtn')
 	const dmStatus = document.getElementById('contactDmStatus')
+	const dmEditNameBtn = document.getElementById('contactDmEditNameBtn')
 	const baseServerConfig = (window.APP_CONFIG && window.APP_CONFIG.chat) || {}
 	const contactConfig = (window.APP_CONFIG && window.APP_CONFIG.contact) || {}
 	const dmEnabled = contactConfig.enabled !== undefined ? contactConfig.enabled !== false : baseServerConfig.enabled !== false
@@ -18,6 +19,7 @@ function initContactTab() {
 			|| (window.location.protocol === 'file:' ? 'http://127.0.0.1:8787/chat' : '/chat')
 	).replace(/\/+$/, '')
 	const dmDisabledMessage = String(contactConfig.disabledMessage || 'direct messages are unavailable right now')
+	const DEFAULT_CHAT_NAME_COLOR = '#0a3333'
 
 	if (!contactTab || !emailLink || !copyBtn || !note) return
 
@@ -65,6 +67,66 @@ function initContactTab() {
 
 	function normalizeDirectMessageText(value) {
 		return String(value || '').replace(/\r\n/g, '\n').trim().slice(0, 600)
+	}
+
+	function normalizeHex(value, fallback) {
+		const safeFallback = String(fallback || '#000000').trim().toLowerCase()
+		const normalized = String(value || '').trim().toLowerCase()
+		return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
+	}
+
+	function getCurrentNameColor() {
+		const chatNameColorInput = document.getElementById('chatNameColorInput')
+		if (!chatNameColorInput) return DEFAULT_CHAT_NAME_COLOR
+		return normalizeHex(chatNameColorInput.value, DEFAULT_CHAT_NAME_COLOR)
+	}
+
+	function openOptionsForName() {
+		if (typeof window.openOptionsPanel === 'function') {
+			window.openOptionsPanel()
+		}
+	}
+
+	function appendIdentityParts(target, name, userTag, prefixText, nameColor, suffixText) {
+		if (!target) return
+
+		const safeName = String(name || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
+		const safeTag = String(userTag || '').trim().toLowerCase()
+		const safeSuffix = String(suffixText || '')
+		target.innerHTML = ''
+
+		if (prefixText) {
+			const prefix = document.createElement('span')
+			prefix.className = 'chat-identity-prefix'
+			prefix.textContent = String(prefixText)
+			target.appendChild(prefix)
+		}
+
+		if (!safeName) {
+			target.textContent = 'set your name in options first'
+			return
+		}
+
+		const namePart = document.createElement('span')
+		namePart.className = 'chat-identity-name'
+		namePart.textContent = safeName
+		namePart.title = safeName
+		namePart.style.color = normalizeHex(nameColor, DEFAULT_CHAT_NAME_COLOR)
+		target.appendChild(namePart)
+
+		if (safeTag) {
+			const tagPart = document.createElement('span')
+			tagPart.className = 'chat-identity-tag'
+			tagPart.textContent = '#' + safeTag
+			target.appendChild(tagPart)
+		}
+
+		if (safeSuffix) {
+			const suffixPart = document.createElement('span')
+			suffixPart.className = 'chat-identity-suffix'
+			suffixPart.textContent = safeSuffix
+			target.appendChild(suffixPart)
+		}
 	}
 
 	function setDmStatus(message, tone) {
@@ -142,11 +204,13 @@ function initContactTab() {
 		}
 
 		if (isSending) {
-			setDmStatus('sending as ' + profileName + ' #' + userTag + '...', '')
+			dmStatus.classList.remove('is-error', 'is-success')
+			appendIdentityParts(dmStatus, profileName, userTag, 'sending as ', getCurrentNameColor(), '...')
 			return
 		}
 
-		setDmStatus('sending as ' + profileName + ' #' + userTag, '')
+		dmStatus.classList.remove('is-error', 'is-success')
+		appendIdentityParts(dmStatus, profileName, userTag, 'sending as ', getCurrentNameColor(), '')
 	}
 
 	function positionNote(targetBtn) {
@@ -220,6 +284,12 @@ function initContactTab() {
 
 	if (!dmForm || !dmInput || !dmSendBtn || !dmStatus) return
 
+	if (dmEditNameBtn) {
+		dmEditNameBtn.addEventListener('click', function() {
+			openOptionsForName()
+		})
+	}
+
 	dmInput.addEventListener('input', function() {
 		syncDmComposer()
 	})
@@ -282,6 +352,13 @@ function initContactTab() {
 	window.addEventListener('profile-name-updated', function() {
 		syncDmComposer()
 	})
+
+	const chatNameColorInput = document.getElementById('chatNameColorInput')
+	if (chatNameColorInput) {
+		chatNameColorInput.addEventListener('input', function() {
+			syncDmComposer()
+		})
+	}
 
 	syncDmComposer()
 }
