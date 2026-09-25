@@ -78,7 +78,7 @@
     display: inline-flex;
     min-width: 0;
     flex: 1 1 180px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: baseline;
     gap: 4px;
     font-size: 15px;
@@ -91,12 +91,21 @@
 .chat-identity-name,
 .chat-identity-tag {
     display: inline-block;
+    white-space: nowrap;
+}
+
+.chat-identity-prefix,
+.chat-identity-tag {
+    flex-shrink: 0;
 }
 
 .chat-identity-name {
+    min-width: 0;
+    flex: 1 1 auto;
     font-size: inherit;
     color: var(--chat-compose-name-color, #{p.$color8});
-    overflow-wrap: anywhere;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-identity-tag {
@@ -104,7 +113,6 @@
     line-height: 1.1;
     color: p.$text-muted;
     letter-spacing: 0.04em;
-    overflow-wrap: anywhere;
 }
 
 .chat-message-time {

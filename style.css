@@ -2661,7 +2661,7 @@ select.custom-select-input {
   display: inline-flex;
   min-width: 0;
   flex: 1 1 180px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
   gap: 4px;
   font-size: 15px;
@@ -2674,12 +2674,21 @@ select.custom-select-input {
 .chat-identity-name,
 .chat-identity-tag {
   display: inline-block;
+  white-space: nowrap;
+}
+
+.chat-identity-prefix,
+.chat-identity-tag {
+  flex-shrink: 0;
 }
 
 .chat-identity-name {
+  min-width: 0;
+  flex: 1 1 auto;
   font-size: inherit;
   color: var(--chat-compose-name-color, var(--color8, #0a3333));
-  overflow-wrap: anywhere;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chat-identity-tag {
@@ -2687,7 +2696,6 @@ select.custom-select-input {
   line-height: 1.1;
   color: #303030;
   letter-spacing: 0.04em;
-  overflow-wrap: anywhere;
 }
 
 .chat-message-time {
