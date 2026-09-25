@@ -1,6 +1,6 @@
 function initChatTab() {
     const CHAT_USER_TAG_KEY = 'chatUserTag'
-    const MAX_PROFILE_NAME_LENGTH = 14
+    const MAX_PROFILE_NAME_LENGTH = 20
     const DEFAULT_MESSAGE_COLORS = {
         nameColor: '#0a3333',
         textColor: '#233131'

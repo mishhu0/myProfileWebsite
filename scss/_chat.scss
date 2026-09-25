@@ -69,9 +69,10 @@
 .chat-message-header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    column-gap: 8px;
+    row-gap: 2px;
 }
 
 .chat-message-author {
@@ -106,7 +107,8 @@
 }
 
 .chat-message-time {
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1;
     color: p.$text-muted;
     text-align: right;
     white-space: nowrap;

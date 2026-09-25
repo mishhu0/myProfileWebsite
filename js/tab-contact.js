@@ -1,5 +1,5 @@
 function initContactTab() {
-	const MAX_PROFILE_NAME_LENGTH = 14
+	const MAX_PROFILE_NAME_LENGTH = 20
 	const contactTab = document.getElementById('contactTab')
 	const emailLink = document.getElementById('contactEmailLink')
 	const copyBtn = document.getElementById('contactCopyBtn')
@@ -276,6 +276,10 @@ function initContactTab() {
 	})
 
 	window.addEventListener('focus', function() {
+		syncDmComposer()
+	})
+
+	window.addEventListener('profile-name-updated', function() {
 		syncDmComposer()
 	})
 

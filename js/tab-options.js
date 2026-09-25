@@ -1,5 +1,5 @@
 const DEFAULT_OPTIONS_NAME = ''
-const MAX_PROFILE_NAME_LENGTH = 14
+const MAX_PROFILE_NAME_LENGTH = 20
 const CURSOR_IMAGE_INDEX_PATH = 'images/pointers/index.json'
 const CURSOR_THEME_FALLBACK_IDS = ['p1', 'p2', 'p3']
 const CURSOR_CANVAS_SIZE = 32

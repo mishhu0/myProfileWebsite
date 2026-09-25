@@ -1,5 +1,5 @@
 function initReplyTab() {
-    const MAX_PROFILE_NAME_LENGTH = 14
+    const MAX_PROFILE_NAME_LENGTH = 20
     const replyTab = document.getElementById('replyTab')
     const replyMessages = document.getElementById('replyMessages')
     const replyForm = document.getElementById('replyForm')
@@ -415,6 +415,10 @@ function initReplyTab() {
 
     replyInput.addEventListener('input', function() {
         if (!chatEnabled) return
+        profileName = getProfileName()
+    })
+
+    window.addEventListener('profile-name-updated', function() {
         profileName = getProfileName()
     })
 

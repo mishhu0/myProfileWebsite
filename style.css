@@ -2652,9 +2652,10 @@ select.custom-select-input {
 .chat-message-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  column-gap: 8px;
+  row-gap: 2px;
 }
 
 .chat-message-author {
@@ -2689,7 +2690,8 @@ select.custom-select-input {
 }
 
 .chat-message-time {
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1;
   color: #303030;
   text-align: right;
   white-space: nowrap;
@@ -5172,3 +5174,5 @@ body.pictures-expanded .entity-chat {
     bottom: 38px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
