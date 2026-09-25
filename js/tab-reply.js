@@ -137,11 +137,17 @@ function initReplyTab() {
         replyMessages.innerHTML = '<p class="reply-error">' + (msg || 'could not load conversation') + '</p>'
     }
 
-    function formatTime(isoString) {
+    function formatTimestamp(isoString) {
         if (!isoString) return ''
         try {
             const date = new Date(isoString)
-            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            return date.toLocaleString([], {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
         } catch {
             return ''
         }
@@ -160,7 +166,7 @@ function initReplyTab() {
 
         const timeEl = document.createElement('span')
         timeEl.className = 'reply-message__meta-time'
-        timeEl.textContent = formatTime(item.createdAt)
+        timeEl.textContent = formatTimestamp(item.createdAt)
 
         meta.appendChild(nameEl)
         meta.appendChild(timeEl)
