@@ -158,6 +158,7 @@ function initChatTab() {
         const safeName = String(name || '').trim().slice(0, MAX_PROFILE_NAME_LENGTH)
         const safeTag = String(userTag || '').trim().toLowerCase()
         target.innerHTML = ''
+        target.removeAttribute('title')
 
         if (prefixText) {
             const prefix = document.createElement('span')
@@ -177,6 +178,7 @@ function initChatTab() {
         const namePart = document.createElement('span')
         namePart.className = 'chat-identity-name'
         namePart.textContent = safeName
+        namePart.title = safeName
         if (nameColor) {
             namePart.style.color = normalizeHex(nameColor, DEFAULT_MESSAGE_COLORS.nameColor)
         }
@@ -188,6 +190,7 @@ function initChatTab() {
         tagPart.className = 'chat-identity-tag'
         tagPart.textContent = '#' + safeTag
         target.appendChild(tagPart)
+        target.title = safeName + ' #' + safeTag
     }
 
     function formatMessageTime(value) {
