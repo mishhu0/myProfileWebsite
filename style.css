@@ -2588,7 +2588,7 @@ select.custom-select-input {
 .chat-tab {
   position: fixed;
   display: none;
-  width: 300px !important;
+  width: 340px !important;
   height: 400px !important;
   right: 220px;
   bottom: 95px;
