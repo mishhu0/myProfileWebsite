@@ -3094,9 +3094,9 @@ select.custom-select-input {
   align-items: baseline;
   gap: 4px;
   margin: 0;
-  font-size: 11px;
-  line-height: 1.2;
-  color: var(--color8, #0a3333);
+  font-size: 13px;
+  line-height: 1;
+  color: #303030;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3116,7 +3116,7 @@ select.custom-select-input {
 }
 
 .contact-dm-status .chat-identity-suffix {
-  color: var(--color8, #0a3333);
+  color: inherit;
 }
 
 .contact-dm-status.is-error {
@@ -5250,3 +5250,5 @@ body.pictures-expanded .entity-chat {
     bottom: 38px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */

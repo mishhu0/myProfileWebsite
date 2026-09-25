@@ -138,9 +138,9 @@
     align-items: baseline;
     gap: 4px;
     margin: 0;
-    font-size: 11px;
-    line-height: 1.2;
-    color: p.$color8;
+    font-size: 13px;
+    line-height: 1;
+    color: p.$text-muted;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -160,7 +160,7 @@
 }
 
 .contact-dm-status .chat-identity-suffix {
-    color: p.$color8;
+    color: inherit;
 }
 
 .contact-dm-status.is-error {
