@@ -2674,7 +2674,6 @@ select.custom-select-input {
   font-size: 15px;
   line-height: 1.1;
   color: var(--color8, #0a3333);
-  text-transform: lowercase;
 }
 
 .chat-identity-prefix,
@@ -2748,7 +2747,6 @@ select.custom-select-input {
   color: #303030;
   font-size: 12px;
   line-height: 1;
-  text-transform: lowercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3086,7 +3084,6 @@ select.custom-select-input {
   font-size: 11px;
   line-height: 1.2;
   color: var(--color8, #0a3333);
-  text-transform: lowercase;
 }
 
 .contact-dm-status.is-error {
