@@ -54,7 +54,16 @@ db.exec(`
         user_tag TEXT PRIMARY KEY,
         visitor_number INTEGER NOT NULL UNIQUE,
         first_seen_at TEXT NOT NULL,
-        first_seen_at_ms INTEGER NOT NULL
+        first_seen_at_ms INTEGER NOT NULL,
+        last_seen_at TEXT NOT NULL DEFAULT '',
+        last_seen_at_ms INTEGER NOT NULL DEFAULT 0,
+        last_ip TEXT NOT NULL DEFAULT '',
+        country_code TEXT NOT NULL DEFAULT '',
+        browser_name TEXT NOT NULL DEFAULT '',
+        os_name TEXT NOT NULL DEFAULT '',
+        device_type TEXT NOT NULL DEFAULT '',
+        language TEXT NOT NULL DEFAULT '',
+        user_agent TEXT NOT NULL DEFAULT ''
     );
 
     CREATE INDEX IF NOT EXISTS idx_visitors_visitor_number
@@ -79,6 +88,29 @@ db.exec(`
 `)
 
 db.exec(`DELETE FROM online_users`)
+
+function ensureTableColumn(tableName, columnName, definition) {
+    const columnRows = db.prepare('PRAGMA table_info(' + tableName + ')').all()
+    const existingColumns = new Set(columnRows.map(function(column) {
+        return column.name
+    }))
+
+    if (existingColumns.has(columnName)) {
+        return
+    }
+
+    db.exec('ALTER TABLE ' + tableName + ' ADD COLUMN ' + columnName + ' ' + definition)
+}
+
+ensureTableColumn('visitors', 'last_seen_at', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'last_seen_at_ms', 'INTEGER NOT NULL DEFAULT 0')
+ensureTableColumn('visitors', 'last_ip', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'country_code', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'browser_name', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'os_name', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'device_type', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'language', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'user_agent', "TEXT NOT NULL DEFAULT ''")
 
 const insertMessageStatement = db.prepare(`
     INSERT INTO messages (
@@ -156,7 +188,16 @@ const selectVisitorByTagStatement = db.prepare(`
         user_tag,
         visitor_number,
         first_seen_at,
-        first_seen_at_ms
+        first_seen_at_ms,
+        last_seen_at,
+        last_seen_at_ms,
+        last_ip,
+        country_code,
+        browser_name,
+        os_name,
+        device_type,
+        language,
+        user_agent
     FROM visitors
     WHERE user_tag = ?
 `)
@@ -166,13 +207,45 @@ const insertVisitorStatement = db.prepare(`
         user_tag,
         visitor_number,
         first_seen_at,
-        first_seen_at_ms
+        first_seen_at_ms,
+        last_seen_at,
+        last_seen_at_ms,
+        last_ip,
+        country_code,
+        browser_name,
+        os_name,
+        device_type,
+        language,
+        user_agent
     ) VALUES (
         @user_tag,
         @visitor_number,
         @first_seen_at,
-        @first_seen_at_ms
+        @first_seen_at_ms,
+        @last_seen_at,
+        @last_seen_at_ms,
+        @last_ip,
+        @country_code,
+        @browser_name,
+        @os_name,
+        @device_type,
+        @language,
+        @user_agent
     )
+`)
+
+const updateVisitorMetadataStatement = db.prepare(`
+    UPDATE visitors SET
+        last_seen_at = @last_seen_at,
+        last_seen_at_ms = @last_seen_at_ms,
+        last_ip = @last_ip,
+        country_code = @country_code,
+        browser_name = @browser_name,
+        os_name = @os_name,
+        device_type = @device_type,
+        language = @language,
+        user_agent = @user_agent
+    WHERE user_tag = @user_tag
 `)
 
 const selectMaxVisitorNumberStatement = db.prepare(`
@@ -273,6 +346,111 @@ function normalizeHex(value, fallback) {
     return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
 }
 
+function normalizeMetadataText(value, maxLength) {
+    return String(value || '').trim().slice(0, maxLength || 255)
+}
+
+function normalizeCountryCode(value) {
+    const normalized = String(value || '').trim().toUpperCase()
+    return /^[A-Z]{2}$/.test(normalized) ? normalized : ''
+}
+
+function parseUserAgentMetadata(userAgentValue) {
+    const userAgent = normalizeMetadataText(userAgentValue, 600)
+    const source = userAgent.toLowerCase()
+    let browserName = ''
+    let osName = ''
+    let deviceType = ''
+
+    if (/bot|crawler|spider|slurp/.test(source)) {
+        deviceType = 'Bot'
+    } else if (/ipad|tablet/.test(source)) {
+        deviceType = 'Tablet'
+    } else if (/mobi|iphone|android/.test(source)) {
+        deviceType = 'Phone'
+    } else if (userAgent) {
+        deviceType = 'PC'
+    }
+
+    if (/edg\//.test(source)) {
+        browserName = 'Edge'
+    } else if (/opr\//.test(source) || /opera/.test(source)) {
+        browserName = 'Opera'
+    } else if (/samsungbrowser\//.test(source)) {
+        browserName = 'Samsung Internet'
+    } else if (/chrome\//.test(source) && !/edg\//.test(source) && !/opr\//.test(source)) {
+        browserName = 'Chrome'
+    } else if (/firefox\//.test(source)) {
+        browserName = 'Firefox'
+    } else if (/safari\//.test(source) && !/chrome\//.test(source)) {
+        browserName = 'Safari'
+    } else if (/trident|msie/.test(source)) {
+        browserName = 'Internet Explorer'
+    }
+
+    if (/windows nt/.test(source)) {
+        osName = 'Windows'
+    } else if (/iphone|ipad|ipod/.test(source)) {
+        osName = 'iOS'
+    } else if (/android/.test(source)) {
+        osName = 'Android'
+    } else if (/cros/.test(source)) {
+        osName = 'ChromeOS'
+    } else if (/mac os x|macintosh/.test(source)) {
+        osName = 'macOS'
+    } else if (/linux/.test(source)) {
+        osName = 'Linux'
+    }
+
+    return {
+        userAgent,
+        browserName,
+        osName,
+        deviceType
+    }
+}
+
+function getClientIp(request) {
+    const forwarded = normalizeMetadataText(request && request.headers ? request.headers['x-forwarded-for'] : '', 255)
+    if (forwarded) {
+        return normalizeMetadataText(forwarded.split(',')[0], 120)
+    }
+
+    return normalizeMetadataText(request && request.socket ? request.socket.remoteAddress : '', 120)
+}
+
+function getCountryCode(request) {
+    if (!request || !request.headers) {
+        return ''
+    }
+
+    return normalizeCountryCode(
+        request.headers['cf-ipcountry'] ||
+        request.headers['x-vercel-ip-country'] ||
+        request.headers['cloudfront-viewer-country'] ||
+        request.headers['x-country-code']
+    )
+}
+
+function getPreferredLanguage(request) {
+    const headerValue = normalizeMetadataText(request && request.headers ? request.headers['accept-language'] : '', 120)
+    return normalizeMetadataText(headerValue.split(',')[0], 32)
+}
+
+function getVisitorMetadataFromRequest(request) {
+    const parsedAgent = parseUserAgentMetadata(request && request.headers ? request.headers['user-agent'] : '')
+
+    return {
+        last_ip: getClientIp(request),
+        country_code: getCountryCode(request),
+        browser_name: parsedAgent.browserName,
+        os_name: parsedAgent.osName,
+        device_type: parsedAgent.deviceType,
+        language: getPreferredLanguage(request),
+        user_agent: parsedAgent.userAgent
+    }
+}
+
 function serializeAdminReply(row) {
     return {
         id: row.id,
@@ -350,7 +528,15 @@ function serializeVisitor(row) {
     return {
         userTag: row.user_tag,
         visitorNumber: row.visitor_number,
-        firstSeenAt: row.first_seen_at
+        firstSeenAt: row.first_seen_at,
+        lastSeenAt: row.last_seen_at || row.first_seen_at,
+        lastIp: row.last_ip || '',
+        countryCode: row.country_code || '',
+        browser: row.browser_name || '',
+        operatingSystem: row.os_name || '',
+        deviceType: row.device_type || '',
+        language: row.language || '',
+        userAgent: row.user_agent || ''
     }
 }
 
@@ -430,23 +616,57 @@ function createDirectMessage(payload) {
     return serializeDirectMessage(record)
 }
 
-const registerVisitorTransaction = db.transaction(function(userTag) {
+const registerVisitorTransaction = db.transaction(function(userTag, metadata, allowCreate) {
     const existing = selectVisitorByTagStatement.get(userTag)
+    const createdAtMs = Date.now()
+    const lastSeenAt = new Date(createdAtMs).toISOString()
+    const safeMetadata = metadata || {}
+
     if (existing) {
+        const updatedRecord = {
+            user_tag: existing.user_tag,
+            last_seen_at: lastSeenAt,
+            last_seen_at_ms: createdAtMs,
+            last_ip: safeMetadata.last_ip || existing.last_ip || '',
+            country_code: safeMetadata.country_code || existing.country_code || '',
+            browser_name: safeMetadata.browser_name || existing.browser_name || '',
+            os_name: safeMetadata.os_name || existing.os_name || '',
+            device_type: safeMetadata.device_type || existing.device_type || '',
+            language: safeMetadata.language || existing.language || '',
+            user_agent: safeMetadata.user_agent || existing.user_agent || ''
+        }
+
+        updateVisitorMetadataStatement.run(updatedRecord)
+
         return {
-            visitor: serializeVisitor(existing),
+            visitor: serializeVisitor({
+                ...existing,
+                ...updatedRecord
+            }),
             isNew: false,
             totalVisitors: selectVisitorCountStatement.get().count
         }
     }
 
-    const createdAtMs = Date.now()
+    if (allowCreate === false) {
+        return null
+    }
+
     const nextVisitorNumber = Number(selectMaxVisitorNumberStatement.get().max_number || 0) + 1
     const record = {
         user_tag: userTag,
         visitor_number: nextVisitorNumber,
-        first_seen_at: new Date(createdAtMs).toISOString(),
-        first_seen_at_ms: createdAtMs
+        first_seen_at: lastSeenAt,
+        first_seen_at_ms: createdAtMs,
+        last_seen_at: lastSeenAt,
+        last_seen_at_ms: createdAtMs,
+        last_ip: safeMetadata.last_ip || '',
+        country_code: safeMetadata.country_code || '',
+        browser_name: safeMetadata.browser_name || '',
+        os_name: safeMetadata.os_name || '',
+        device_type: safeMetadata.device_type || '',
+        language: safeMetadata.language || '',
+        user_agent: safeMetadata.user_agent || ''
     }
 
     insertVisitorStatement.run(record)
@@ -458,14 +678,23 @@ const registerVisitorTransaction = db.transaction(function(userTag) {
     }
 })
 
-function registerVisitor(payload) {
+function registerVisitor(payload, request) {
     const userTag = normalizeUserTag(payload && payload.userTag)
 
     if (!userTag || userTag.length < 4) {
         throw createHttpError(400, 'A valid visitor tag is required.')
     }
 
-    return registerVisitorTransaction(userTag)
+    return registerVisitorTransaction(userTag, getVisitorMetadataFromRequest(request), true)
+}
+
+function touchVisitorMetadata(userTag, metadata, allowCreate) {
+    const normalizedUserTag = normalizeUserTag(userTag)
+    if (!normalizedUserTag || normalizedUserTag.length < 4) {
+        return null
+    }
+
+    return registerVisitorTransaction(normalizedUserTag, metadata, allowCreate !== false)
 }
 
 function createHttpError(statusCode, message) {
@@ -575,6 +804,7 @@ const server = http.createServer(async function(request, response) {
         if (request.method === 'POST' && pathname === messagesPath) {
             const payload = await readJsonBody(request)
             const message = createMessage(payload)
+            touchVisitorMetadata(payload && payload.userTag, getVisitorMetadataFromRequest(request), true)
 
             broadcast({
                 type: 'message.created',
@@ -588,6 +818,7 @@ const server = http.createServer(async function(request, response) {
         if (request.method === 'POST' && pathname === directMessagesPath) {
             const payload = await readJsonBody(request)
             const directMessage = createDirectMessage(payload)
+            touchVisitorMetadata(payload && payload.userTag, getVisitorMetadataFromRequest(request), true)
 
             writeJson(response, 201, { directMessage })
             return
@@ -595,7 +826,7 @@ const server = http.createServer(async function(request, response) {
 
         if (request.method === 'POST' && pathname === visitorsPath) {
             const payload = await readJsonBody(request)
-            const result = registerVisitor(payload)
+            const result = registerVisitor(payload, request)
 
             if (result.isNew) {
                 broadcast({
@@ -747,7 +978,9 @@ server.on('upgrade', function(request, socket, head) {
     }
 })
 
-webSocketServer.on('connection', function(client) {
+webSocketServer.on('connection', function(client, request) {
+    client.requestMetadata = getVisitorMetadataFromRequest(request)
+
     client.send(JSON.stringify({
         type: 'chat.ready',
         historyLimit: CHAT_HISTORY_LIMIT
@@ -767,6 +1000,8 @@ webSocketServer.on('connection', function(client) {
                         user_tag: userTag,
                         last_seen_at_ms: Date.now()
                     })
+
+                    touchVisitorMetadata(userTag, client.requestMetadata, false)
 
                     if (prevCount === 0) {
                         broadcast({ type: 'user.online', userTag })
