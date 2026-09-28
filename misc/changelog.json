@@ -2,6 +2,15 @@
 	"title": "Changelog",
 	"entries": [
 		{
+			"version": "42.",
+			"date": "2026-09-28",
+			"tag": "improvement",
+			"summary": "admin page improvements",
+			"highlights": [
+				"improved the admin page layout and implemented some new usefull/fun stuff for me"
+			]
+		},
+		{
 			"version": "41.",
 			"date": "2026-09-25",
 			"tag": "improvement",

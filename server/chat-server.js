@@ -355,6 +355,52 @@ function normalizeCountryCode(value) {
     return /^[A-Z]{2}$/.test(normalized) ? normalized : ''
 }
 
+function inferCountryCodeFromLanguage(languageTag) {
+    const normalizedTag = normalizeMetadataText(languageTag, 32)
+    if (!normalizedTag) {
+        return ''
+    }
+
+    const parts = normalizedTag.replace(/_/g, '-').split('-').filter(Boolean)
+    const explicitRegion = parts.find(function(part) {
+        return /^[A-Za-z]{2}$/.test(part) && part.length === 2 && part.toLowerCase() !== parts[0].toLowerCase()
+    })
+
+    if (explicitRegion) {
+        return normalizeCountryCode(explicitRegion)
+    }
+
+    const primaryLanguage = String(parts[0] || '').toLowerCase()
+    const languageFallbackMap = {
+        bg: 'BG',
+        cs: 'CZ',
+        da: 'DK',
+        el: 'GR',
+        et: 'EE',
+        fi: 'FI',
+        hr: 'HR',
+        hu: 'HU',
+        ja: 'JP',
+        ko: 'KR',
+        lt: 'LT',
+        lv: 'LV',
+        nb: 'NO',
+        nn: 'NO',
+        pl: 'PL',
+        pt: 'PT',
+        ro: 'RO',
+        sk: 'SK',
+        sl: 'SI',
+        sq: 'AL',
+        sr: 'RS',
+        sv: 'SE',
+        tr: 'TR',
+        uk: 'UA'
+    }
+
+    return languageFallbackMap[primaryLanguage] || ''
+}
+
 function parseUserAgentMetadata(userAgentValue) {
     const userAgent = normalizeMetadataText(userAgentValue, 600)
     const source = userAgent.toLowerCase()
@@ -424,12 +470,14 @@ function getCountryCode(request) {
         return ''
     }
 
+    const preferredLanguage = getPreferredLanguage(request)
+
     return normalizeCountryCode(
         request.headers['cf-ipcountry'] ||
         request.headers['x-vercel-ip-country'] ||
         request.headers['cloudfront-viewer-country'] ||
         request.headers['x-country-code']
-    )
+    ) || inferCountryCodeFromLanguage(preferredLanguage)
 }
 
 function getPreferredLanguage(request) {
