@@ -5,6 +5,8 @@ function initChatTab() {
         nameColor: '#0a3333',
         textColor: '#233131'
     }
+    const CHAT_NAME_COLOR_KEY = 'chatNameColor'
+    const CHAT_TEXT_COLOR_KEY = 'chatTextColor'
     const RECONNECT_DELAY_MS = 2000
     const chatConfig = (window.APP_CONFIG && window.APP_CONFIG.chat) || {}
     const chatEnabled = chatConfig.enabled !== false
@@ -96,11 +98,14 @@ function initChatTab() {
         var tag = getChatUserTag()
         if (!tag) return
 
+        var colors = getCurrentMessageColors()
         heartbeatSocket.send(JSON.stringify({
             type: 'user.heartbeat',
             userTag: tag,
             timezone: getClientTimezone(),
-            seconds: seconds
+            seconds: seconds,
+            nameColor: colors.nameColor,
+            textColor: colors.textColor
         }))
     }
 
@@ -115,7 +120,9 @@ function initChatTab() {
     function startHeartbeat(socket) {
         stopHeartbeat()
         heartbeatSocket = socket
-        lastHeartbeatAt = Date.now()
+        if (!lastHeartbeatAt || (Date.now() - lastHeartbeatAt) > 90000) {
+            lastHeartbeatAt = Date.now()
+        }
         if (!document.hidden) startHeartbeatTimer()
     }
 
@@ -211,6 +218,33 @@ function initChatTab() {
         const safeFallback = String(fallback || '#000000').toLowerCase()
         const normalized = String(value || '').trim().toLowerCase()
         return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : safeFallback
+    }
+
+    function getStoredMessageColors() {
+        var stored = {}
+
+        try {
+            stored.nameColor = localStorage.getItem(CHAT_NAME_COLOR_KEY)
+            stored.textColor = localStorage.getItem(CHAT_TEXT_COLOR_KEY)
+        } catch (error) {
+            stored = {}
+        }
+
+        return {
+            nameColor: normalizeHex(stored.nameColor, DEFAULT_MESSAGE_COLORS.nameColor),
+            textColor: normalizeHex(stored.textColor, DEFAULT_MESSAGE_COLORS.textColor)
+        }
+    }
+
+    function persistMessageColors() {
+        var colors = getCurrentMessageColors()
+
+        try {
+            localStorage.setItem(CHAT_NAME_COLOR_KEY, colors.nameColor)
+            localStorage.setItem(CHAT_TEXT_COLOR_KEY, colors.textColor)
+        } catch (error) {
+            // storage unavailable
+        }
     }
 
     function getCurrentMessageColors() {
@@ -533,7 +567,8 @@ function initChatTab() {
                 fetchMessages()
                 var tag = getChatUserTag()
                 if (tag) {
-                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag, timezone: getClientTimezone() }))
+                    var identifyColors = getCurrentMessageColors()
+                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag, timezone: getClientTimezone(), nameColor: identifyColors.nameColor, textColor: identifyColors.textColor }))
                 }
                 startHeartbeat(socket)
             })
@@ -677,10 +712,12 @@ function initChatTab() {
     nameColorInput.addEventListener('input', function() {
         applyComposerColors()
         syncIdentity()
+        persistMessageColors()
     })
 
     textColorInput.addEventListener('input', function() {
         applyComposerColors()
+        persistMessageColors()
     })
 
     emojiToggleButton.addEventListener('click', function() {
@@ -759,8 +796,9 @@ function initChatTab() {
         }
     })
 
-    nameColorInput.value = DEFAULT_MESSAGE_COLORS.nameColor
-    textColorInput.value = DEFAULT_MESSAGE_COLORS.textColor
+    var storedMessageColors = getStoredMessageColors()
+    nameColorInput.value = storedMessageColors.nameColor
+    textColorInput.value = storedMessageColors.textColor
     applyComposerColors()
 
     if (!chatEnabled) {

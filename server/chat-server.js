@@ -124,6 +124,8 @@ ensureTableColumn('visitors', 'device_type', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'language', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'user_agent', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'timezone', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'chat_name_color', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'chat_text_color', "TEXT NOT NULL DEFAULT ''")
 
 const insertMessageStatement = db.prepare(`
     INSERT INTO messages (
@@ -337,8 +339,12 @@ const upsertVisitorActivityStatement = db.prepare(`
         last_seen_ms = MAX(last_seen_ms, excluded.last_seen_ms)
 `)
 
-const updateVisitorTimezoneStatement = db.prepare(`
-    UPDATE visitors SET timezone = @timezone WHERE user_tag = @user_tag
+const updateVisitorPresenceStatement = db.prepare(`
+    UPDATE visitors SET
+        timezone = CASE WHEN @timezone <> '' THEN @timezone ELSE timezone END,
+        chat_name_color = CASE WHEN @chat_name_color <> '' THEN @chat_name_color ELSE chat_name_color END,
+        chat_text_color = CASE WHEN @chat_text_color <> '' THEN @chat_text_color ELSE chat_text_color END
+    WHERE user_tag = @user_tag
 `)
 
 const onlineCounts = new Map()
@@ -772,8 +778,28 @@ function touchVisitorMetadata(userTag, metadata, allowCreate) {
     return registerVisitorTransaction(normalizedUserTag, metadata, allowCreate !== false)
 }
 
-function getActivityDayKey(ms) {
+function getActivityDayKey(ms, timezone) {
+    const safeTimezone = normalizeTimezone(timezone)
+
+    if (safeTimezone) {
+        try {
+            return new Intl.DateTimeFormat('en-CA', {
+                timeZone: safeTimezone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).format(new Date(ms))
+        } catch (error) {
+            // fall through to UTC
+        }
+    }
+
     return new Date(ms).toISOString().slice(0, 10)
+}
+
+function normalizeOptionalHex(value) {
+    const normalized = String(value || '').trim().toLowerCase()
+    return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : ''
 }
 
 function normalizeTimezone(value) {
@@ -789,30 +815,35 @@ function normalizeActiveSeconds(value) {
     return Math.min(120, Math.floor(parsed))
 }
 
-function recordActivity(userTag, timezone, seconds) {
+function recordActivity(userTag, presence, seconds) {
     const normalizedTag = normalizeUserTag(userTag)
     if (!normalizedTag || normalizedTag.length < 4) {
         return
     }
 
+    const safePresence = presence && typeof presence === 'object' ? presence : {}
     const safeSeconds = normalizeActiveSeconds(seconds)
-    const safeTimezone = normalizeTimezone(timezone)
+    const safeTimezone = normalizeTimezone(safePresence.timezone)
+    const safeNameColor = normalizeOptionalHex(safePresence.nameColor)
+    const safeTextColor = normalizeOptionalHex(safePresence.textColor)
     const now = Date.now()
 
     if (safeSeconds > 0) {
         upsertVisitorActivityStatement.run({
             user_tag: normalizedTag,
-            day: getActivityDayKey(now),
+            day: getActivityDayKey(now, safeTimezone),
             seconds: safeSeconds,
             first_seen_ms: now,
             last_seen_ms: now
         })
     }
 
-    if (safeTimezone) {
-        updateVisitorTimezoneStatement.run({
+    if (safeTimezone || safeNameColor || safeTextColor) {
+        updateVisitorPresenceStatement.run({
             user_tag: normalizedTag,
-            timezone: safeTimezone
+            timezone: safeTimezone,
+            chat_name_color: safeNameColor,
+            chat_text_color: safeTextColor
         })
     }
 }
@@ -1122,7 +1153,7 @@ webSocketServer.on('connection', function(client, request) {
                     })
 
                     touchVisitorMetadata(userTag, client.requestMetadata, false)
-                    recordActivity(userTag, message.timezone, 0)
+                    recordActivity(userTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor }, 0)
 
                     if (prevCount === 0) {
                         broadcast({ type: 'user.online', userTag })
@@ -1132,7 +1163,7 @@ webSocketServer.on('connection', function(client, request) {
                 const heartbeatTag = normalizeUserTag(message.userTag)
                 if (heartbeatTag && heartbeatTag.length >= 4) {
                     client.userTag = client.userTag || heartbeatTag
-                    recordActivity(heartbeatTag, message.timezone, message.seconds)
+                    recordActivity(heartbeatTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor }, message.seconds)
                 }
             }
         } catch {
