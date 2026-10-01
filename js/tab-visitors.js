@@ -75,6 +75,18 @@ function initVisitorsTab() {
         return storedTag
     }
 
+    function getProfileName() {
+        try {
+            if (typeof window.getStoredProfileName === 'function') {
+                return String(window.getStoredProfileName() || '').trim().slice(0, 20)
+            }
+
+            return String(localStorage.getItem('profileName') || '').trim().slice(0, 20)
+        } catch (error) {
+            return ''
+        }
+    }
+
     function setTotalVisitors(value) {
         currentTotalVisitors = Math.max(0, Number(value) || 0)
         totalCount.textContent = String(currentTotalVisitors)
@@ -193,7 +205,7 @@ function initVisitorsTab() {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ userTag: currentUserTag })
+                body: JSON.stringify({ userTag: currentUserTag, name: getProfileName() })
             })
 
             const payload = await response.json().catch(function() {

@@ -126,6 +126,10 @@ ensureTableColumn('visitors', 'user_agent', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'timezone', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'chat_name_color', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'chat_text_color', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'display_name', "TEXT NOT NULL DEFAULT ''")
+
+// Privacy: visitor IPs are no longer collected; clear any previously stored values.
+db.prepare("UPDATE visitors SET last_ip = '' WHERE last_ip <> ''").run()
 
 const insertMessageStatement = db.prepare(`
     INSERT INTO messages (
@@ -213,7 +217,8 @@ const selectVisitorByTagStatement = db.prepare(`
         device_type,
         language,
         user_agent,
-        timezone
+        timezone,
+        display_name
     FROM visitors
     WHERE user_tag = ?
 `)
@@ -343,7 +348,8 @@ const updateVisitorPresenceStatement = db.prepare(`
     UPDATE visitors SET
         timezone = CASE WHEN @timezone <> '' THEN @timezone ELSE timezone END,
         chat_name_color = CASE WHEN @chat_name_color <> '' THEN @chat_name_color ELSE chat_name_color END,
-        chat_text_color = CASE WHEN @chat_text_color <> '' THEN @chat_text_color ELSE chat_text_color END
+        chat_text_color = CASE WHEN @chat_text_color <> '' THEN @chat_text_color ELSE chat_text_color END,
+        display_name = CASE WHEN @display_name <> '' THEN @display_name ELSE display_name END
     WHERE user_tag = @user_tag
 `)
 
@@ -488,81 +494,6 @@ function parseUserAgentMetadata(userAgentValue) {
     }
 }
 
-function normalizeIpAddress(value) {
-    let address = normalizeMetadataText(value, 120)
-    if (!address) {
-        return ''
-    }
-
-    address = address.replace(/^\[/, '').replace(/\]$/, '')
-
-    const mappedMatch = address.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i)
-    if (mappedMatch) {
-        address = mappedMatch[1]
-    }
-
-    if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(address)) {
-        address = address.split(':')[0]
-    }
-
-    return address
-}
-
-function isPrivateIpAddress(value) {
-    const address = normalizeIpAddress(value)
-    if (!address) return true
-    if (address === '::1' || address === 'localhost') return true
-    if (/^127\./.test(address)) return true
-    if (/^10\./.test(address)) return true
-    if (/^192\.168\./.test(address)) return true
-    if (/^169\.254\./.test(address)) return true
-    if (/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(address)) return true
-    if (/^f[cd][0-9a-f]{2}:/i.test(address)) return true
-    if (/^fe80:/i.test(address)) return true
-    return false
-}
-
-function getClientIp(request) {
-    const forwarded = normalizeMetadataText(request && request.headers ? request.headers['x-forwarded-for'] : '', 255)
-    if (forwarded) {
-        const chain = forwarded.split(',')
-        for (let index = 0; index < chain.length; index += 1) {
-            const candidate = normalizeIpAddress(chain[index])
-            if (candidate && !isPrivateIpAddress(candidate)) {
-                return candidate
-            }
-        }
-    }
-
-    const realIp = normalizeMetadataText(request && request.headers ? request.headers['x-real-ip'] : '', 120)
-    if (realIp && !isPrivateIpAddress(realIp)) {
-        return normalizeIpAddress(realIp)
-    }
-
-    const socketIp = normalizeMetadataText(request && request.socket ? request.socket.remoteAddress : '', 120)
-    if (socketIp && !isPrivateIpAddress(socketIp)) {
-        return normalizeIpAddress(socketIp)
-    }
-
-    // TEMP DIAGNOSTIC: no public client IP found. Remove after diagnosing.
-    try {
-        const headers = (request && request.headers) || {}
-        console.warn('[ip-diag] no public client ip ' + JSON.stringify({
-            method: String(request && request.method || ''),
-            url: String(request && request.url || ''),
-            xff: String(headers['x-forwarded-for'] || ''),
-            xri: String(headers['x-real-ip'] || ''),
-            xfp: String(headers['x-forwarded-proto'] || ''),
-            xfh: String(headers['x-forwarded-host'] || ''),
-            socket: socketIp || String(request && request.socket ? request.socket.remoteAddress : '')
-        }))
-    } catch (error) {
-        console.warn('[ip-diag] logging failed:', error && error.message ? error.message : error)
-    }
-
-    return ''
-}
-
 function getCountryCode(request) {
     if (!request || !request.headers) {
         return ''
@@ -587,7 +518,6 @@ function getVisitorMetadataFromRequest(request) {
     const parsedAgent = parseUserAgentMetadata(request && request.headers ? request.headers['user-agent'] : '')
 
     return {
-        last_ip: getClientIp(request),
         country_code: getCountryCode(request),
         browser_name: parsedAgent.browserName,
         os_name: parsedAgent.osName,
@@ -683,7 +613,8 @@ function serializeVisitor(row) {
         deviceType: row.device_type || '',
         language: row.language || '',
         userAgent: row.user_agent || '',
-        timezone: row.timezone || ''
+        timezone: row.timezone || '',
+        displayName: row.display_name || ''
     }
 }
 
@@ -774,7 +705,7 @@ const registerVisitorTransaction = db.transaction(function(userTag, metadata, al
             user_tag: existing.user_tag,
             last_seen_at: lastSeenAt,
             last_seen_at_ms: createdAtMs,
-            last_ip: safeMetadata.last_ip || existing.last_ip || '',
+            last_ip: '',
             country_code: safeMetadata.country_code || existing.country_code || '',
             browser_name: safeMetadata.browser_name || existing.browser_name || '',
             os_name: safeMetadata.os_name || existing.os_name || '',
@@ -807,7 +738,7 @@ const registerVisitorTransaction = db.transaction(function(userTag, metadata, al
         first_seen_at_ms: createdAtMs,
         last_seen_at: lastSeenAt,
         last_seen_at_ms: createdAtMs,
-        last_ip: safeMetadata.last_ip || '',
+        last_ip: '',
         country_code: safeMetadata.country_code || '',
         browser_name: safeMetadata.browser_name || '',
         os_name: safeMetadata.os_name || '',
@@ -892,6 +823,7 @@ function recordActivity(userTag, presence, seconds) {
     const safeTimezone = normalizeTimezone(safePresence.timezone)
     const safeNameColor = normalizeOptionalHex(safePresence.nameColor)
     const safeTextColor = normalizeOptionalHex(safePresence.textColor)
+    const safeName = normalizeName(safePresence.name)
     const now = Date.now()
 
     if (safeSeconds > 0) {
@@ -904,12 +836,13 @@ function recordActivity(userTag, presence, seconds) {
         })
     }
 
-    if (safeTimezone || safeNameColor || safeTextColor) {
+    if (safeTimezone || safeNameColor || safeTextColor || safeName) {
         updateVisitorPresenceStatement.run({
             user_tag: normalizedTag,
             timezone: safeTimezone,
             chat_name_color: safeNameColor,
-            chat_text_color: safeTextColor
+            chat_text_color: safeTextColor,
+            display_name: safeName
         })
     }
 }
@@ -1044,6 +977,10 @@ const server = http.createServer(async function(request, response) {
         if (request.method === 'POST' && pathname === visitorsPath) {
             const payload = await readJsonBody(request)
             const result = registerVisitor(payload, request)
+
+            if (result && result.visitor) {
+                recordActivity(result.visitor.userTag, { name: payload && payload.name }, 0)
+            }
 
             if (result.isNew) {
                 broadcast({
@@ -1219,7 +1156,7 @@ webSocketServer.on('connection', function(client, request) {
                     })
 
                     touchVisitorMetadata(userTag, client.requestMetadata, false)
-                    recordActivity(userTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor }, 0)
+                    recordActivity(userTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor, name: message.name }, 0)
 
                     if (prevCount === 0) {
                         broadcast({ type: 'user.online', userTag })
@@ -1229,7 +1166,7 @@ webSocketServer.on('connection', function(client, request) {
                 const heartbeatTag = normalizeUserTag(message.userTag)
                 if (heartbeatTag && heartbeatTag.length >= 4) {
                     client.userTag = client.userTag || heartbeatTag
-                    recordActivity(heartbeatTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor }, message.seconds)
+                    recordActivity(heartbeatTag, { timezone: message.timezone, nameColor: message.nameColor, textColor: message.textColor, name: message.name }, message.seconds)
                 }
             }
         } catch {

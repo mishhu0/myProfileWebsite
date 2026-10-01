@@ -105,7 +105,8 @@ function initChatTab() {
             timezone: getClientTimezone(),
             seconds: seconds,
             nameColor: colors.nameColor,
-            textColor: colors.textColor
+            textColor: colors.textColor,
+            name: getProfileName()
         }))
     }
 
@@ -568,7 +569,7 @@ function initChatTab() {
                 var tag = getChatUserTag()
                 if (tag) {
                     var identifyColors = getCurrentMessageColors()
-                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag, timezone: getClientTimezone(), nameColor: identifyColors.nameColor, textColor: identifyColors.textColor }))
+                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag, timezone: getClientTimezone(), nameColor: identifyColors.nameColor, textColor: identifyColors.textColor, name: getProfileName() }))
                 }
                 startHeartbeat(socket)
             })
@@ -784,6 +785,7 @@ function initChatTab() {
 
     window.addEventListener('profile-name-updated', function() {
         syncIdentity()
+        sendHeartbeat(true)
     })
 
     window.addEventListener('beforeunload', function() {
