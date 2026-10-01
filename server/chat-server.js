@@ -488,13 +488,63 @@ function parseUserAgentMetadata(userAgentValue) {
     }
 }
 
+function normalizeIpAddress(value) {
+    let address = normalizeMetadataText(value, 120)
+    if (!address) {
+        return ''
+    }
+
+    address = address.replace(/^\[/, '').replace(/\]$/, '')
+
+    const mappedMatch = address.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i)
+    if (mappedMatch) {
+        address = mappedMatch[1]
+    }
+
+    if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(address)) {
+        address = address.split(':')[0]
+    }
+
+    return address
+}
+
+function isPrivateIpAddress(value) {
+    const address = normalizeIpAddress(value)
+    if (!address) return true
+    if (address === '::1' || address === 'localhost') return true
+    if (/^127\./.test(address)) return true
+    if (/^10\./.test(address)) return true
+    if (/^192\.168\./.test(address)) return true
+    if (/^169\.254\./.test(address)) return true
+    if (/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(address)) return true
+    if (/^f[cd][0-9a-f]{2}:/i.test(address)) return true
+    if (/^fe80:/i.test(address)) return true
+    return false
+}
+
 function getClientIp(request) {
     const forwarded = normalizeMetadataText(request && request.headers ? request.headers['x-forwarded-for'] : '', 255)
     if (forwarded) {
-        return normalizeMetadataText(forwarded.split(',')[0], 120)
+        const chain = forwarded.split(',')
+        for (let index = 0; index < chain.length; index += 1) {
+            const candidate = normalizeIpAddress(chain[index])
+            if (candidate && !isPrivateIpAddress(candidate)) {
+                return candidate
+            }
+        }
     }
 
-    return normalizeMetadataText(request && request.socket ? request.socket.remoteAddress : '', 120)
+    const realIp = normalizeMetadataText(request && request.headers ? request.headers['x-real-ip'] : '', 120)
+    if (realIp && !isPrivateIpAddress(realIp)) {
+        return normalizeIpAddress(realIp)
+    }
+
+    const socketIp = normalizeMetadataText(request && request.socket ? request.socket.remoteAddress : '', 120)
+    if (socketIp && !isPrivateIpAddress(socketIp)) {
+        return normalizeIpAddress(socketIp)
+    }
+
+    return ''
 }
 
 function getCountryCode(request) {
