@@ -69,6 +69,80 @@ function initChatTab() {
     let statusResetTimer = 0
     let isSending = false
 
+    var HEARTBEAT_INTERVAL_MS = 30000
+    var HEARTBEAT_MAX_SECONDS = 35
+    var heartbeatTimer = 0
+    var lastHeartbeatAt = 0
+    var heartbeatSocket = null
+
+    function getClientTimezone() {
+        try {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+        } catch (error) {
+            return ''
+        }
+    }
+
+    function sendHeartbeat(forceZero) {
+        if (!heartbeatSocket || heartbeatSocket.readyState !== WebSocket.OPEN) return
+
+        var now = Date.now()
+        var seconds = 0
+        if (!forceZero && lastHeartbeatAt) {
+            seconds = Math.min(HEARTBEAT_MAX_SECONDS, Math.max(0, Math.round((now - lastHeartbeatAt) / 1000)))
+        }
+        lastHeartbeatAt = now
+
+        var tag = getChatUserTag()
+        if (!tag) return
+
+        heartbeatSocket.send(JSON.stringify({
+            type: 'user.heartbeat',
+            userTag: tag,
+            timezone: getClientTimezone(),
+            seconds: seconds
+        }))
+    }
+
+    function startHeartbeatTimer() {
+        if (heartbeatTimer) return
+        heartbeatTimer = window.setInterval(function() {
+            if (document.hidden) return
+            sendHeartbeat(false)
+        }, HEARTBEAT_INTERVAL_MS)
+    }
+
+    function startHeartbeat(socket) {
+        stopHeartbeat()
+        heartbeatSocket = socket
+        lastHeartbeatAt = Date.now()
+        if (!document.hidden) startHeartbeatTimer()
+    }
+
+    function stopHeartbeat() {
+        if (heartbeatTimer) {
+            window.clearInterval(heartbeatTimer)
+            heartbeatTimer = 0
+        }
+        heartbeatSocket = null
+    }
+
+    document.addEventListener('visibilitychange', function() {
+        if (!heartbeatSocket || heartbeatSocket.readyState !== WebSocket.OPEN) return
+
+        if (document.hidden) {
+            if (heartbeatTimer) {
+                window.clearInterval(heartbeatTimer)
+                heartbeatTimer = 0
+            }
+            sendHeartbeat(false)
+        } else {
+            lastHeartbeatAt = Date.now()
+            sendHeartbeat(true)
+            startHeartbeatTimer()
+        }
+    })
+
     function normalizeHistoryLimit(value) {
         const parsed = Number.parseInt(String(value || ''), 10)
         if (!Number.isInteger(parsed)) return 100
@@ -459,8 +533,9 @@ function initChatTab() {
                 fetchMessages()
                 var tag = getChatUserTag()
                 if (tag) {
-                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag }))
+                    socket.send(JSON.stringify({ type: 'user.identify', userTag: tag, timezone: getClientTimezone() }))
                 }
+                startHeartbeat(socket)
             })
 
             socket.addEventListener('message', function(event) {
@@ -485,6 +560,7 @@ function initChatTab() {
                 if (activeSocket === socket) {
                     activeSocket = null
                 }
+                stopHeartbeat()
                 scheduleReconnect()
             })
 
@@ -676,6 +752,7 @@ function initChatTab() {
     window.addEventListener('beforeunload', function() {
         window.clearTimeout(reconnectTimer)
         window.clearTimeout(statusResetTimer)
+        stopHeartbeat()
         if (activeSocket) {
             activeSocket.close()
             activeSocket = null

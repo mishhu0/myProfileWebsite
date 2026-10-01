@@ -85,6 +85,18 @@ db.exec(`
         user_tag TEXT PRIMARY KEY,
         last_seen_at_ms INTEGER NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS visitor_activity (
+        user_tag TEXT NOT NULL,
+        day TEXT NOT NULL,
+        seconds INTEGER NOT NULL DEFAULT 0,
+        first_seen_ms INTEGER NOT NULL,
+        last_seen_ms INTEGER NOT NULL,
+        PRIMARY KEY (user_tag, day)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_visitor_activity_user
+    ON visitor_activity (user_tag, day);
 `)
 
 db.exec(`DELETE FROM online_users`)
@@ -111,6 +123,7 @@ ensureTableColumn('visitors', 'os_name', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'device_type', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'language', "TEXT NOT NULL DEFAULT ''")
 ensureTableColumn('visitors', 'user_agent', "TEXT NOT NULL DEFAULT ''")
+ensureTableColumn('visitors', 'timezone', "TEXT NOT NULL DEFAULT ''")
 
 const insertMessageStatement = db.prepare(`
     INSERT INTO messages (
@@ -197,7 +210,8 @@ const selectVisitorByTagStatement = db.prepare(`
         os_name,
         device_type,
         language,
-        user_agent
+        user_agent,
+        timezone
     FROM visitors
     WHERE user_tag = ?
 `)
@@ -313,6 +327,18 @@ const deleteOnlineUserStatement = db.prepare(`
 
 const selectAllOnlineUsersStatement = db.prepare(`
     SELECT user_tag FROM online_users
+`)
+
+const upsertVisitorActivityStatement = db.prepare(`
+    INSERT INTO visitor_activity (user_tag, day, seconds, first_seen_ms, last_seen_ms)
+    VALUES (@user_tag, @day, @seconds, @first_seen_ms, @last_seen_ms)
+    ON CONFLICT(user_tag, day) DO UPDATE SET
+        seconds = seconds + excluded.seconds,
+        last_seen_ms = MAX(last_seen_ms, excluded.last_seen_ms)
+`)
+
+const updateVisitorTimezoneStatement = db.prepare(`
+    UPDATE visitors SET timezone = @timezone WHERE user_tag = @user_tag
 `)
 
 const onlineCounts = new Map()
@@ -584,7 +610,8 @@ function serializeVisitor(row) {
         operatingSystem: row.os_name || '',
         deviceType: row.device_type || '',
         language: row.language || '',
-        userAgent: row.user_agent || ''
+        userAgent: row.user_agent || '',
+        timezone: row.timezone || ''
     }
 }
 
@@ -743,6 +770,51 @@ function touchVisitorMetadata(userTag, metadata, allowCreate) {
     }
 
     return registerVisitorTransaction(normalizedUserTag, metadata, allowCreate !== false)
+}
+
+function getActivityDayKey(ms) {
+    return new Date(ms).toISOString().slice(0, 10)
+}
+
+function normalizeTimezone(value) {
+    return normalizeMetadataText(value, 64)
+}
+
+function normalizeActiveSeconds(value) {
+    const parsed = Number(value)
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+        return 0
+    }
+
+    return Math.min(120, Math.floor(parsed))
+}
+
+function recordActivity(userTag, timezone, seconds) {
+    const normalizedTag = normalizeUserTag(userTag)
+    if (!normalizedTag || normalizedTag.length < 4) {
+        return
+    }
+
+    const safeSeconds = normalizeActiveSeconds(seconds)
+    const safeTimezone = normalizeTimezone(timezone)
+    const now = Date.now()
+
+    if (safeSeconds > 0) {
+        upsertVisitorActivityStatement.run({
+            user_tag: normalizedTag,
+            day: getActivityDayKey(now),
+            seconds: safeSeconds,
+            first_seen_ms: now,
+            last_seen_ms: now
+        })
+    }
+
+    if (safeTimezone) {
+        updateVisitorTimezoneStatement.run({
+            user_tag: normalizedTag,
+            timezone: safeTimezone
+        })
+    }
 }
 
 function createHttpError(statusCode, message) {
@@ -1050,10 +1122,17 @@ webSocketServer.on('connection', function(client, request) {
                     })
 
                     touchVisitorMetadata(userTag, client.requestMetadata, false)
+                    recordActivity(userTag, message.timezone, 0)
 
                     if (prevCount === 0) {
                         broadcast({ type: 'user.online', userTag })
                     }
+                }
+            } else if (message && message.type === 'user.heartbeat') {
+                const heartbeatTag = normalizeUserTag(message.userTag)
+                if (heartbeatTag && heartbeatTag.length >= 4) {
+                    client.userTag = client.userTag || heartbeatTag
+                    recordActivity(heartbeatTag, message.timezone, message.seconds)
                 }
             }
         } catch {
