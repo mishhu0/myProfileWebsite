@@ -544,6 +544,22 @@ function getClientIp(request) {
         return normalizeIpAddress(socketIp)
     }
 
+    // TEMP DIAGNOSTIC: no public client IP found. Remove after diagnosing.
+    try {
+        const headers = (request && request.headers) || {}
+        console.warn('[ip-diag] no public client ip ' + JSON.stringify({
+            method: String(request && request.method || ''),
+            url: String(request && request.url || ''),
+            xff: String(headers['x-forwarded-for'] || ''),
+            xri: String(headers['x-real-ip'] || ''),
+            xfp: String(headers['x-forwarded-proto'] || ''),
+            xfh: String(headers['x-forwarded-host'] || ''),
+            socket: socketIp || String(request && request.socket ? request.socket.remoteAddress : '')
+        }))
+    } catch (error) {
+        console.warn('[ip-diag] logging failed:', error && error.message ? error.message : error)
+    }
+
     return ''
 }
 
