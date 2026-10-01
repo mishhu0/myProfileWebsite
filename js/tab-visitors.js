@@ -156,11 +156,6 @@ function initVisitorsTab() {
             return
         }
 
-        if (result && result.isNew) {
-            setMessage('you are the number ' + visitorNumber + ' visitor')
-            return
-        }
-
         setMessage('you are visitor #' + visitorNumber)
     }
 
